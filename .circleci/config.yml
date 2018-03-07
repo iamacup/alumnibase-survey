@@ -53,8 +53,10 @@ jobs:
       - run: "[ \"$CIRCLE_BRANCH\" == \"master\" ] && echo \"Do nothing\" || sed -i \"s/survey-prod/survey-dev/g\" ./app.yaml"
       
       # rewrite the package.json to start prod or dev as needed
-      - run: "[ \"$CIRCLE_BRANCH\" == \"master\" ] && sed -i \"s/google-app-angine-start-command/yarn install --production=false && yarn start:prod/g\" ./package.json || sed -i \"s/google-app-angine-start-command/yarn install --production=false && yarn start:dev/g\" ./package.json"
-      - run: cat ./package.json
+      # note that there is a wierd thing here because of the escaping - & is replaced with the search string in the first instance  
+      - run: "[ \"$CIRCLE_BRANCH\" == \"master\" ] && sed -i \"s/google-app-angine-start-command/yarn install --production=false & yarn start:prod/g\" ./package.json || sed -i \"s/google-app-angine-start-command/yarn install --production=false && yarn start:dev/g\" ./package.json"
+      # then we replace the search string with the ampersand      
+      - run: sed -i "s/google-app-angine-start-command/\&/g" ./package.json
 
       # deploy the project
       - run: sudo ./google-cloud-sdk/bin/gcloud app deploy
