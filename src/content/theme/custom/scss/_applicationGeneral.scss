@@ -1,0 +1,628 @@
+
+/**********************
+  GENERAL CLASSES
+**********************/
+
+$base-color: #383e49;
+$grey-background-color: #f4f6f8;
+$border-and-shadow-color: #dfe4eb;
+$accent-color: #6e9cec;
+$green-color: #68d36e;
+$orange-color: #ff9800;
+$alt-button-color: #a7b0be;
+$red-color: #d02a02;
+
+.new-content {
+  .top-bottom-rectangle {
+    height: 56px;
+    width: 100%;
+    background-color: #fff;
+  }
+
+  .center-rectangle {
+    max-width: 900px;
+    flex-basis: 900px;
+    background-color: #fff;
+  }
+
+  .section-padding {
+    padding: 30px 39px;
+  }
+
+  .overall-progress-corner-modifier {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+
+  .main-content-padding {
+    padding: 36px 0;
+  }
+}
+
+.new-nav {
+  .title-text {
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 27px;
+  }
+
+  .list-group-item {
+    border: 0;
+    color: $base-color;
+    opacity: 0.6;
+    font-size: 14px;
+    line-height: 19px;
+  }
+
+  .button {
+    height: 49px;
+    padding-left: 38px;
+    font-weight: 600;
+  }
+
+  .button-active {
+    background-color: $accent-color;
+    opacity: 1;
+    color: #fff;
+    border: 0;
+  }
+
+  .line {
+    box-sizing: border-box;
+    height: 1px;
+    width: 300px;
+    border-bottom: 1px solid $border-and-shadow-color;
+  }
+}
+
+.border-corners {
+  border: 1px solid $border-and-shadow-color;
+  border-radius: 5px;
+}
+
+.left {
+  flex: 0 0 300px;
+  box-shadow: 1px 0 5px 0 $border-and-shadow-color;
+  order: 0;
+  z-index: 2;
+  min-height: 900px;
+}
+
+.right {
+  flex: 1;
+  background-color: $grey-background-color;
+}
+
+.question-spacer {
+  flex: 1;
+  flex-basis: 78px;
+  max-width: 78px;
+}
+
+.center-question {
+  flex: 1;
+  flex-basis: 330px;
+  max-width: 330px;
+  padding-bottom: 44px;
+}
+
+.large-question-area {
+  .center-question {
+    flex: 1;
+    flex-basis: 600px;
+    max-width: 600px;
+    padding-bottom: 44px;
+  }
+
+  /* .padded-buttons {
+    button {
+      margin: 20px;
+    }
+  } */
+}
+
+/* .question-ball {
+  content: '';
+  background-color: $green-color;
+  width: 15px;
+  height: 15px;
+  z-index: 1000000;
+  position: relative;
+  display: block;
+  border-radius: 100%;
+} */
+
+.progress-bar {
+  background: $accent-color;
+}
+
+.input-rectangle {
+  height: 44px;
+  width: 330px;
+  border-radius: 5px;
+}
+
+.general-question-container {
+  padding: 0 70px;
+}
+
+/* this is the thing displayed when an answer is selected */
+.select2-selection__rendered {
+  color: #fff;
+  font-size: 14px;
+  line-height: 17px;
+  margin-left: 12px;
+  text-align: center;
+
+  /* background-color: $green-color; */
+}
+
+/* how the thing looks like on the page */
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+  line-height: 44px;
+}
+
+/* how the thing looks like on the page */
+.select2-container .select2-selection--single {
+  height: 44px;
+  border: 0;
+  background-color: $grey-background-color;
+}
+
+/* this adds shadow and border to the input when dropped down */
+.select2-container .select2-selection--single[aria-expanded=true] {
+  box-shadow: 1px 0 5px 0 $border-and-shadow-color;
+  border-top: 1px solid $border-and-shadow-color;
+  border-left: 1px solid $border-and-shadow-color;
+  border-right: 1px solid $border-and-shadow-color;
+  border-top-right-radius: 5px;
+  border-top-left-radius: 5px;
+}
+
+/* We comment this out because its a bit hacky and complexx - and in fact we need to do even more hacks to make this work when an option is selected (i.e. the drop down thing is green) */
+
+/* this adds a thing to hide the shadow on the bottom */
+
+/* .select2-container .select2-selection--single[aria-expanded=true]::after {
+  content: '';
+  background-color: $grey-background-color;
+  height: 6px;
+  position: absolute;
+  bottom: 0;
+  left: 1px;
+  right: 1px;
+  z-index: 10000;
+  border-bottom: 1px solid $border-and-shadow-color;
+  border-radius: 5px;
+} */
+
+/* this adds a thing to hide the shadow on the top */
+
+/* .select2-container .select2-selection--single[aria-expanded=true]::before {
+  content: '';
+  background-color: $grey-background-color;
+  height: 6px;
+  position: absolute;
+  top: 1px;
+  left: 1px;
+  right: 1px;
+  z-index: 10000;
+  border-radius: 5px;
+} */
+
+.question-answer-line {
+  content: '';
+  background-color: $border-and-shadow-color;
+  width: 3px;
+  height: 98%;
+  z-index: 1000000;
+  position: relative;
+  display: block;
+  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+
+.question-answer-line::after {
+  content: '';
+  background-color: $border-and-shadow-color;
+  width: 15px;
+  height: 15px;
+  z-index: 1000000;
+  position: relative;
+  display: block;
+  border-radius: 100%;
+  margin-left: -6px;
+}
+
+.question-answer-line-button {
+  content: '';
+  background-color: $border-and-shadow-color;
+  width: 3px;
+  height: 10px;
+  z-index: 1000000;
+  position: relative;
+  display: block;
+  border-top-right-radius: 5px;
+  border-top-left-radius: 5px;
+}
+
+.question-answer-line-button::after {
+  content: '';
+  background-color: $border-and-shadow-color;
+  width: 23px;
+  height: 23px;
+  z-index: 1000000;
+  position: relative;
+  display: block;
+  border-radius: 100%;
+  margin-left: -10px;
+  margin-top: 6px;
+}
+
+.success-button-container {
+  .question-answer-line-button {
+    background-color: $green-color;
+  }
+
+  .question-answer-line-button::after {
+    background-color: $green-color;
+  }
+}
+
+.question-success {
+  /* make the font nice on the answered question area */
+  .select2-container--default .select2-selection--single .select2-selection__rendered {
+    color: #fff;
+    font-weight: 400;
+  }
+
+  /* the text inside the box as seen on page when the question is answered */
+  .select2-container .select2-selection--single {
+    background-color: $green-color;
+  }
+
+  /* the color of the down arrow when succesfully selected */
+  .select2-container--default .select2-selection--single .select2-selection__arrow b {
+    border-top-color: #fff;
+  }
+
+  /* the color of the up arrow when sucesfully selected */
+  .select2-container--default.select2-container--open .select2-selection--single .select2-selection__arrow b {
+    border-bottom-color: #fff;
+  }
+
+  .question-answer-line {
+    background-color: $green-color;
+  }
+
+  .question-answer-line::after {
+    background-color: $green-color;
+  }
+}
+
+.question-error {
+  .question-answer-line {
+    background-color: $orange-color;
+  }
+
+  .question-answer-line::after {
+    background-color: $orange-color;
+  }
+}
+
+/* we give the arrow are asome styles */
+.select2-container--default .select2-selection--single .select2-selection__arrow {
+  height: 44px;
+  width: 40px;
+}
+
+/* this is an option in the drop down */
+.select2-results__option {
+  color: $base-color;
+  font-size: 14px;
+  line-height: 17px;
+  font-weight: 400;
+  padding: 14px 0 13px 20px;
+  border-bottom: 1px solid $border-and-shadow-color;
+}
+
+/* placeholder styling */
+.select2-selection__placeholder {
+  color: rgba($base-color, 0.5);
+  font-size: 14px;
+  line-height: 17px;
+  //margin-left: 12px;
+  font-weight: 400;
+}
+
+/* the hilighted option in the drop down */
+.select2-container--default .select2-results__option--highlighted[aria-selected] {
+  background-color: $accent-color;
+}
+
+/* the search box */
+.select2-search__field {
+  border-radius: 5px;
+  height: 44px;
+  width: 40px;
+}
+
+/* the search box */
+.select2-container--default .select2-search--dropdown .select2-search__field {
+  border: 1px solid $border-and-shadow-color;
+}
+
+/* style the dropdown */
+.select2-dropdown {
+  border-color: $border-and-shadow-color;
+  box-shadow: 1px 0 5px 0 $border-and-shadow-color;
+}
+
+/* this is the answered thing in the drop when the drop down is open */
+.select2-container--default .select2-results__option[aria-selected='true'] {
+  background-color: $green-color;
+  color: #fff;
+}
+
+.btn-next-step {
+  min-height: 44px;
+  border-radius: 5px;
+  background-color: $alt-button-color;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 19px;
+  text-align: center;
+}
+
+.btn-next-step.answered {
+  background-color: $accent-color;
+}
+
+.btn-next-step.error {
+  background-color: $orange-color;
+}
+
+.btn-option {
+  min-height: 44px;
+  border-radius: 5px;
+  background-color: $grey-background-color;
+  color: $base-color;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 19px;
+  text-align: center;
+}
+
+input,
+.form-control, {
+  height: 44px;
+  border-radius: 5px;
+  outline: none;
+  border: 0;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 19px;
+  background-color: $grey-background-color;
+  box-shadow: none;
+}
+
+textarea {
+  border-radius: 5px;
+  outline: none;
+  border: 0;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 19px;
+  background-color: $grey-background-color;
+  box-shadow: none;
+  width: 100%;
+  padding: 4px;
+}
+
+textarea:focus,
+input:focus,
+.form-control:focus {
+  outline: none;
+}
+
+.btn-option:hover,
+.select2-container .select2-selection--single:hover,
+.btn-next-step:hover,
+textarea:focus,
+input:focus,
+.form-control:focus {
+  box-shadow: 1px 0 5px 0 $border-and-shadow-color;
+  border: 1px solid $border-and-shadow-color;
+}
+
+.question-success input {
+  background-color: $green-color;
+  color: #fff;
+  text-align: center;
+}
+
+.question-success textarea {
+  background-color: $green-color;
+  color: #fff;
+}
+
+.question-success input:focus {
+  text-align: left;
+  background-color: #fff;
+  color: #000;
+}
+
+.question-success textarea:focus {
+  background-color: #fff;
+  color: #000;
+}
+
+.btn-option.answered {
+  background-color: $green-color;
+  color: #fff;
+}
+
+.question-error-message {
+  color: rgba($base-color, 0.4);
+  margin-top: 14px;
+}
+
+::-webkit-input-placeholder {
+  text-align: center;
+}
+
+::-moz-placeholder {
+  text-align: center;
+}
+
+:-moz-placeholder {
+  text-align: center;
+}
+
+:-ms-input-placeholder {
+  text-align: center;
+}
+
+.btn-multiline {
+  white-space: normal;
+}
+
+.floating-button-left {
+  width: 100%;
+  margin-top: 8px;
+}
+
+.btn-hint {
+  color: rgba($base-color, 0.4);
+  font-size: 24px;
+}
+
+.popover-body {
+  color: rgba($base-color, 0.5);
+  font-weight: 600;
+}
+
+//we remove the stuff from bootstrap that makes buttons have stacked margins but not the 'top' one
+.btn-block {
+  + .btn-block {
+    margin-top: 0;
+  }
+}
+
+.btn-margin {
+  margin-top: 8px !important;
+}
+
+.answered-option-progress {
+  height: 44px;
+  margin-top: 8px;
+  font-weight: 600;
+  line-height: 19px;
+  color: $base-color;
+
+  .progress {
+    border-radius: 5px;
+    font-size: 14px;
+    background-color: $grey-background-color;
+  }
+
+  .progress-bar {
+    background-color: $border-and-shadow-color;
+  }
+}
+
+.truncate {
+  width: 260px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.answered-option-progress.answered {
+  //color: #fff;
+
+  .progress-bar {
+    background-color: $green-color;
+  }
+
+  /* .progress {
+    background-color: $alt-button-color;
+  } */
+}
+
+.light-grey-text {
+  color: rgba($base-color, 0.3);
+}
+
+.medium-grey-text {
+  color: rgba($base-color, 0.4);
+}
+
+.grey-text {
+  color: rgba($base-color, 0.5);
+}
+
+.dark-grey-text {
+  color: rgba($base-color, 0.6);
+}
+
+.red-text {
+  color: $red-color;
+}
+
+.green-text {
+  color: $green-color;
+}
+
+.dark-text {
+  color: $base-color;
+}
+
+.accent-text {
+  color: $accent-color;
+}
+
+.lots-of-text,
+.lots-of-text p {
+  color: #555867;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+}
+
+.privacy-line {
+  border-bottom: 1px solid $border-and-shadow-color;
+  margin-bottom: 8px;
+  margin-right: 16px;
+  margin-top: 4px;
+}
+
+.my-checkbox {
+  background-color: red;
+  margin-top: 0;
+  width: 20px;
+  height: 20px;
+}
+
+.my-checkbox:checked {
+  background-color: red;
+}
+
+.education-seperator {
+  border-bottom: 1px solid $border-and-shadow-color;
+  margin: 15px 0;
+}
+
+.education-seperator-wizzard {
+  border-bottom: 1px solid $border-and-shadow-color;
+  margin: 36px 0;
+}
+
+.explainer-text {
+  margin-top: 12px;
+}
+
+.btn-emphasis {
+  color: rgba($base-color, 0.6);
+}

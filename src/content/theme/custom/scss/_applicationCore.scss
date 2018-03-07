@@ -1,0 +1,105 @@
+
+/**********************
+  CORE HTML STUFF
+**********************/
+
+body {
+  font-family: $font;
+  font-weight: 600;
+  font-size: 16px;
+}
+
+h6,
+.h6 {
+  font-size: 14px;
+  line-height: 20px;
+}
+
+h5,
+.h5 {
+  font-size: 16px;
+  line-height: 22px;
+}
+
+h4,
+.h4 {
+  font-size: 18px;
+  line-height: 24px;
+}
+
+h3,
+.h3 {
+  font-size: 22px;
+  line-height: 30px;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6 {
+  font-family: $font;
+  font-weight: 600;
+
+  /* margin-bottom: 10px;
+  margin-top: 10px; */
+}
+
+/* @media (max-width: $screen-xs-max) {
+  h1 {
+    font-size: 29px;
+  }
+
+  h2 {
+    font-size: 24px;
+  }
+
+  h3 {
+    font-size: 20px;
+  }
+
+  h4 {
+    font-size: 16px;
+  }
+} */
+
+p {
+  margin-bottom: 20px;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+iframe {
+  border: 0 none;
+}
+
+/* a,
+button {
+  color: $purple;
+  transition: all 0.35s;
+  font-weight: 700;
+} */
+
+button,
+input[type='submit'],
+input[type='reset'] {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+/* a:hover,
+a:focus,
+button:hover,
+button:focus {
+  color: $light-purple;
+  text-decoration: underline;
+} */

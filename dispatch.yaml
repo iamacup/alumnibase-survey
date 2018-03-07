@@ -1,0 +1,5 @@
+dispatch:
+  - url: "survey.alumnibaseapp.com/*"
+    service: survey-prod
+  - url: "beta-survey.alumnibaseapp.com/*"
+    service: survey-dev
