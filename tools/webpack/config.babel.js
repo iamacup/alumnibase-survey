@@ -10,6 +10,9 @@ const MinifyPlugin = require('babel-minify-webpack-plugin');
 const nodeEnv = process.env.NODE_ENV || 'development';
 const isDev = nodeEnv !== 'production';
 
+console.log(isDev);
+console.log(nodeEnv);
+
 const WebpackIsomorphicToolsPlugin = require('webpack-isomorphic-tools/plugin');
 const webpackIsomorphicToolsPlugin = new WebpackIsomorphicToolsPlugin(require('./WIT.config')).development(isDev);
 

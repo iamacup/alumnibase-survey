@@ -51,9 +51,11 @@ jobs:
 
       # rewrite the app.yaml to start prod or dev as needed
       - run: "[ \"$CIRCLE_BRANCH\" == \"master\" ] && echo \"Do nothing\" || sed -i \"s/survey-prod/survey-dev/g\" ./app.yaml"
-      
+      - run: cat ./app.yaml
+
       # rewrite the package.json to start prod or dev as needed  
       - run: "[ \"$CIRCLE_BRANCH\" == \"master\" ] && sed -i \"s/google-app-angine-start-command/yarn start-gce-prod/g\" ./package.json || sed -i \"s/google-app-angine-start-command/yarn start-gce-dev/g\" ./package.json"
+      - run: cat ./package.json
 
       # deploy the project
       - run: sudo ./google-cloud-sdk/bin/gcloud app deploy
