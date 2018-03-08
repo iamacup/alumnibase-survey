@@ -67,23 +67,6 @@ if (__DEV__) {
 
 console.info(chalk.green('The API endpoint is setup to: ' + getEnvironment()));
 
-// SSL Server
-if (getEnvironment() === 'live') {
-  const key = process.env.SSL_KEY_FILE_LOCATION;
-  const cert = process.env.SSL_CERT_FILE_LOCATION;
-
-  if (fs.existsSync(key) && fs.existsSync(cert)) {
-    https.createServer({
-      key: fs.readFileSync(key),
-      cert: fs.readFileSync(cert),
-    }, app).listen(443);
-
-    console.info(chalk.green(`==> 🌎  Listening at https://${host}:443`));
-  } else {
-    console.info(chalk.red('Could not start the server on SSL because could not find the certificates'));
-  }
-}
-
 // Register server-side rendering middleware
 app.get('*', (req, res) => {
   if (__DEV__) webpackIsomorphicTools.refresh();
