@@ -1,5 +1,18 @@
+
+# this file has to be the same for all alumnibase-x projects OR we could move it to the default service (which right now is not google project specific)
+
 dispatch:
+  - url: "beta-web.alumnibaseapp.com/*"
+    service: web-dev
+  - url: "alumnibaseapp.com/*"
+    service: web-prod
+  - url: "www.alumnibaseapp.com/*"
+    service: web-prod
   - url: "survey.alumnibaseapp.com/*"
     service: survey-prod
   - url: "beta-survey.alumnibaseapp.com/*"
     service: survey-dev
+  - url: "data.alumnibaseapp.com/*"
+    service: data-prod
+  - url: "beta-data.alumnibaseapp.com/*"
+    service: data-dev

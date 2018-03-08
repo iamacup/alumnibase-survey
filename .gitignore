@@ -8,4 +8,4 @@ public/assets
 webpack-assets.json
 webpack-stats.json
 
-sliips-ui.sublime-workspace
+*.sublime-workspace

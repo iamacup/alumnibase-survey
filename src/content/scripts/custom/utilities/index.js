@@ -13,9 +13,9 @@ export function getAPIUrl() {
   const env = getEnvironment();
 
   if (env === 'live') {
-    return 'https://api.sliips.com/';
+    return 'https://api.alumnibaseapp.com/';
   } else if (env === 'dev') {
-    return 'https://beta.sliips.com:5544/';
+    return 'https://beta-api.alumnibaseapp.com/';
   } else if (env === 'local') {
     return 'https://local.sliips.com:8080/';
   }
