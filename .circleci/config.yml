@@ -4,14 +4,14 @@
 version: 2
 jobs:
   build:
+    branches:
+      only:
+        - master
+        - dev
+
     docker:
       # specify the version you desire here
       - image: circleci/node:9.7
-      
-      # Specify service dependencies here if necessary
-      # CircleCI maintains a library of pre-built images
-      # documented at https://circleci.com/docs/2.0/circleci-images/
-      # - image: circleci/mongo:3.4.4
 
     working_directory: ~/repo
 
@@ -51,12 +51,11 @@ jobs:
 
       # rewrite the app.yaml to start prod or dev as needed
       - run: "[ \"$CIRCLE_BRANCH\" == \"master\" ] && echo \"Do nothing\" || sed -i \"s/survey-prod/survey-dev/g\" ./app.yaml"
-      
-      # rewrite the package.json to start prod or dev as needed
-      # note that there is a wierd thing here because of the escaping - & is replaced with the search string in the first instance  
-      - run: "[ \"$CIRCLE_BRANCH\" == \"master\" ] && sed -i \"s/google-app-angine-start-command/yarn install --production=false & yarn start:prod/g\" ./package.json || sed -i \"s/google-app-angine-start-command/yarn install --production=false && yarn start:dev/g\" ./package.json"
-      # then we replace the search string with the ampersand      
-      - run: sed -i "s/google-app-angine-start-command/\&/g" ./package.json
+      - run: cat ./app.yaml
+
+      # rewrite the package.json to start prod or dev as needed  
+      - run: "[ \"$CIRCLE_BRANCH\" == \"master\" ] && sed -i \"s/google-app-angine-start-command/yarn start-gce-prod/g\" ./package.json || sed -i \"s/google-app-angine-start-command/yarn start-gce-dev/g\" ./package.json"
+      - run: cat ./package.json
 
       # deploy the project
       - run: sudo ./google-cloud-sdk/bin/gcloud app deploy
