@@ -57,8 +57,10 @@ jobs:
       - run: "[ \"$CIRCLE_BRANCH\" == \"master\" ] && sed -i \"s/google-app-angine-start-command/yarn start-gce-prod/g\" ./package.json || sed -i \"s/google-app-angine-start-command/yarn start-gce-dev/g\" ./package.json"
       - run: cat ./package.json
 
-      # deploy the project
-      - run: sudo ./google-cloud-sdk/bin/gcloud app deploy
+      # deploy the project - we set the timeout to 20 mins in case the deploy takes a while
+      - run: 
+          command: sudo ./google-cloud-sdk/bin/gcloud -q app deploy
+          no_output_timeout: 1200
 
       # update the dispatch file if it exists
       - run: "[ -f ./dispatch.yaml ] && (sudo ./google-cloud-sdk/bin/gcloud app deploy dispatch.yaml) || echo \"No dispatch file found\""

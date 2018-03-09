@@ -1,8 +1,9 @@
 
-# [START app_yaml]
 runtime: nodejs
 env: flex
 service: survey-prod
-manual_scaling:
-  instances: 1
-# [END app_yaml]
+automatic_scaling:
+  min_num_instances: 1
+  max_num_instances: 20
+  cpu_utilization:
+    target_utilization: 0.7
