@@ -3,12 +3,12 @@ module.exports = {
   port: process.env.PORT,
   app: {
     htmlAttributes: { lang: 'en' },
-    title: 'Sliips',
-    titleTemplate: 'Sliips - %s',
+    title: 'AlumniBase',
+    titleTemplate: 'AlumniBase - %s',
     meta: [
       {
         name: 'description',
-        content: 'We crowdsource payslips in an anonymous to make sure companies can\'t hide bad pay practices.',
+        content: '.',
       },
       {
         name: 'twitter:card',
@@ -16,27 +16,27 @@ module.exports = {
       },
       {
         name: 'twitter:site',
-        content: '@paysliips',
+        content: '@alumnibase',
       },
       {
         name: 'twitter:creator',
-        content: '@paysliips',
+        content: '@alumnibase',
       },
       {
         property: 'og:url',
-        content: 'https://www.sliips.com/',
+        content: 'https://www.alumnnibaseapp.com/',
       },
       {
         property: 'og:title',
-        content: 'Sliips - Make your payslip public!',
+        content: 'AlumniBase - Better Alumni Data',
       },
       {
         property: 'og:description',
-        content: 'We crowdsource payslips in an anonymous to make sure companies can\'t hide bad pay practices.',
+        content: 'Alumni Outcomes Data that is easy to collect and use - solve TEF headaches, widen participation and demonstrate value.',
       },
       {
         property: 'og:image',
-        content: 'https://files.sliips.com/images/ogicon.png',
+        content: 'https://files.alumnibaseapp.com/images/ogicon.png',
       },
     ],
   },
