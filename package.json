@@ -1,7 +1,7 @@
 {
-  "name": "sliips-ui",
+  "name": "alummnibaseapp-survey",
   "version": "1.0",
-  "description": "The Sliips UI Frontend.",
+  "description": "The Alumnibase Survey Frontend.",
   "main": "index.js",
   "engines": {
     "node": "9.x",
@@ -10,11 +10,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/iamacup/sliips-ui"
+    "url": "https://github.com/iamacup/alumnibase-survey"
   },
   "keywords": [
-    "sliips.com",
-    "sliips"
+    "UI",
+    "Frontend"
   ],
   "author": "Tom Pickard <tom@tompickard.com> (https://github.com/iamacup)",
   "licenses": [
@@ -24,7 +24,7 @@
     }
   ],
   "bugs": {
-    "url": "https://github.com/iamacup/sliips-ui/issues"
+    "url": "https://github.com/iamacup/alumnibase-survey/issues"
   },
   "homepage": "https://www.sliips.com/",
   "scripts": {
