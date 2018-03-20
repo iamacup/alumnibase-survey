@@ -242,7 +242,7 @@
   },
   "stylelint": {
     "ignoreFiles": [
-      "fontawesome-pro-5.0.4/**/*"
+      "src/includes/**/*"
     ],
     "extends": "stylelint-config-standard",
     "rules": {
