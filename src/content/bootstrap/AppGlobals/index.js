@@ -8,7 +8,7 @@ import { dNc, whenLoaded } from '../../../content/scripts/custom/utilities';
 import '../../../content/theme/custom/scss/application.scss';
 
 // FontAwesome
-import '../../../../fontawesome-pro-5.0.4/web-fonts-with-css/css/fontawesome-all.css';
+// import '../../../../fontawesome-pro-5.0.4/web-fonts-with-css/css/fontawesome-all.css';
 
 class App extends React.Component {
   componentDidMount() {

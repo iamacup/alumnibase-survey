@@ -14,7 +14,6 @@ module.exports = {
     'echarts-maps/world.js',
     'bootstrap-notify',
     'typed.js',
-    'remarkable',
     'bootstrap-sass/assets/javascripts/bootstrap.js',
     'echarts',
   ],
