@@ -295,7 +295,7 @@
     "jquery.easing": "^1.4.1",
     "js-cookie": "^2.2.0",
     "lodash": "^4.17.4",
-    "react-base": "https://github.com/iamacup/react-base.git#master",
+    "react-base": "https://github.com/iamacup/react-base.git#a2ed739",
     "sync-files": "^1.0.3",
     "typed.js": "^2.0.6",
     "wowjs": "^1.1.3"
