@@ -22,7 +22,7 @@ const OptionsQuestionComponent = ({
 
   const obj = {
     questionID,
-    forceValidate: answer.forceValidate, 
+    forceValidate: answer.forceValidate,
     nextStepCallback,
   };
 

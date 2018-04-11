@@ -24,16 +24,16 @@ const FreeTextQuestionComponent = ({
 
   const obj = {
     questionID,
-    forceValidate: answer.forceValidate, 
+    forceValidate: answer.forceValidate,
     nextStepCallback,
     drawData,
   };
 
   let question = null;
   const questionIdentifier = getQuestionIdentifiers(options);
-  
-if (drawData.mustHaveMiddleName) {
-   question = (
+
+  if (drawData.mustHaveMiddleName) {
+    question = (
       <MiddleName
         {...obj}
         answer={answerBits[questionIdentifier]}
@@ -41,7 +41,7 @@ if (drawData.mustHaveMiddleName) {
         questionIdentifier={questionIdentifier}
       />
     );
-} else {
+  } else {
     question = (
       <Name
         {...obj}
@@ -50,7 +50,7 @@ if (drawData.mustHaveMiddleName) {
         questionIdentifier={questionIdentifier}
       />
     );
-}
+  }
 
   return (
     <QuestionContainer

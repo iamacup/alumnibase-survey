@@ -50,9 +50,9 @@ class FreeTextQuestionMultilineComponent extends React.Component {
     }
   }
 
- validate(answer) {
+  validate(answer) {
     let error = '';
-    let show = false;
+    const show = false;
     let valid = false;
 
     if (dNc(answer) && dNc(answer.optionValue)) {

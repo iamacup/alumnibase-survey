@@ -134,12 +134,14 @@ class SelectQuestionCompanySelectWithRemoteLookupComponent extends React.Compone
   }
 
   componentDidUpdate(prevProps) {
-    //TODO read wall
-    //this.setValueFromState();
-    const { questionIdentifier, questionID, answer, typeAnswer } = this.props;
+    // TODO read wall
+    // this.setValueFromState();
+    const {
+      questionIdentifier, questionID, answer, typeAnswer,
+    } = this.props;
     const validity = this.validate(this.props.answer);
     // set stuff as an error if they need to be
-    
+
     if (
       validity.valid === false &&
       (validity.show === true || this.props.forceValidate === true) &&
@@ -153,16 +155,16 @@ class SelectQuestionCompanySelectWithRemoteLookupComponent extends React.Compone
       );
     }
 
-// [this.props.typeAnswer.optionValue]
-// console.log(prevProps.typeAnswer.optionValue, '*', this.props.typeAnswer.optionValue)
-if (prevProps.typeAnswer.optionValue !== this.props.typeAnswer.optionValue) {
+    // [this.props.typeAnswer.optionValue]
+    // console.log(prevProps.typeAnswer.optionValue, '*', this.props.typeAnswer.optionValue)
+    if (prevProps.typeAnswer.optionValue !== this.props.typeAnswer.optionValue) {
       $(this.input).select2().val(null).trigger('change');
-}
-    //if prevProps.drawData.optionsInfo is not equal to this.props.drawData.optionsInfo
+    }
+    // if prevProps.drawData.optionsInfo is not equal to this.props.drawData.optionsInfo
     // then we know we need to do an update
 
-    //first remove all the current options in select2
-    //then add the new ones
+    // first remove all the current options in select2
+    // then add the new ones
   }
 
   setValueFromState() {
@@ -188,7 +190,7 @@ if (prevProps.typeAnswer.optionValue !== this.props.typeAnswer.optionValue) {
 
   validate(answer) {
     let error = '';
-    let show = false;
+    const show = false;
     let valid = false;
 
     if (dNc(answer) && dNc(answer.optionValue)) {
@@ -198,39 +200,39 @@ if (prevProps.typeAnswer.optionValue !== this.props.typeAnswer.optionValue) {
       } else {
         error = 'You need to select a grade';
       }
-      } else {
-        error = 'You need to select a grade';
-      }
+    } else {
+      error = 'You need to select a grade';
+    }
     return { valid, error, show };
   }
 
   render() {
-    let options = [<option value="" hidden key={0}>Select a Grade</option>];
+    const options = [<option value="" hidden key={0}>Select a Grade</option>];
     let data = [];
 
 
     if (dNc(this.props.typeAnswer.optionValue)) {
-      data = this.props.drawData.resultOptions.filter(element => {
+      data = this.props.drawData.resultOptions.filter((element) => {
         if (element.displayValue === this.props.typeAnswer.optionValue) return element.options;
-        else return null;
-      })
+        return null;
+      });
     } else {
       options.push(
-           <option key={1} value="select" disabled>
+        <option key={1} value="select" disabled>
           Please select a qualification
         </option>,
-        )
+      );
     }
-    
+
     data.forEach(element => (
-      element.options.forEach(value => {
+      element.options.forEach((value) => {
         options.push(
-            <option key={value.optionID} value={value.displayValue}>
-              {value.displayValue}
-            </option>,
-          );
+          <option key={value.optionID} value={value.displayValue}>
+            {value.displayValue}
+          </option>,
+        );
       })
-    ))
+    ));
 
     let displaySelect = true;
     let answerObj = null;

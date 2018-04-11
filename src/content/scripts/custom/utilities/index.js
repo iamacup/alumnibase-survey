@@ -341,11 +341,10 @@ export function getUsefulQuestionBits(options, answer) {
     // console.log(answer, 'AAAAAAAAAA')
       // populate teh answer object if it exists
       answerBits[value] = answer[value];
-    // console.log(answerBits)
+      // console.log(answerBits)
 
       // and also check to see if this answer has any error messages against it
       if (dNc(answer[value].errorMessage)) {
-
         errorBits.push(answer[value].errorMessage);
       }
     }

@@ -50,14 +50,14 @@ class FreeTextQuestionMultilineComponent extends React.Component {
     }
   }
 
- validate(answer) {
+  validate(answer) {
     let error = '';
     let show = false;
     let valid = false;
     const { drawData } = this.props;
-// eslint-disable-next-line no-useless-escape
-if (dNc(answer) && dNc(answer.optionValue)) {
-  if (answer.optionValue.length > 30) {
+    // eslint-disable-next-line no-useless-escape
+    if (dNc(answer) && dNc(answer.optionValue)) {
+      if (answer.optionValue.length > 30) {
         error =
           'There is too much text in here. The max length 30';
         show = true;
@@ -66,16 +66,16 @@ if (dNc(answer) && dNc(answer.optionValue)) {
       }
     } else {
       valid = true;
-    } 
-    
+    }
+
     return { valid, error, show };
   }
 
-   doNextStepCallback(e) {
+  doNextStepCallback(e) {
     if (e.key === 'Enter') {
       this.props.nextStepCallback();
     }
-  } 
+  }
 
   handleChange() {
     const optionValue = this.input.value;

@@ -51,9 +51,9 @@ class FreeTextQuestionMultilineComponent extends React.Component {
     }
   }
 
- validate(answer) {
+  validate(answer) {
     let error = '';
-    let show = false;
+    const show = false;
     let valid = false;
 
     if (dNc(answer) && dNc(answer.optionValue)) {
@@ -71,11 +71,11 @@ class FreeTextQuestionMultilineComponent extends React.Component {
     return { valid, error, show };
   }
 
-   doNextStepCallback(e) {
+  doNextStepCallback(e) {
     if (e.key === 'Enter') {
       this.props.nextStepCallback();
     }
-  } 
+  }
 
   handleChange() {
     const optionValue = this.input.value;
@@ -97,7 +97,7 @@ class FreeTextQuestionMultilineComponent extends React.Component {
     return (
       <span className="form-group">
         <input
-          onKeyPress={(e) => this.doNextStepCallback(e)}
+          onKeyPress={e => this.doNextStepCallback(e)}
           type="text"
           placeholder="Last Name"
           className="form-control"

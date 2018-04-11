@@ -24,7 +24,7 @@ const FreeTextQuestionComponent = ({
 
   const obj = {
     questionID,
-    forceValidate: answer.forceValidate, 
+    forceValidate: answer.forceValidate,
     nextStepCallback,
     drawData,
   };

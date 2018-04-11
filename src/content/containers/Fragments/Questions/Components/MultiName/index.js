@@ -24,33 +24,33 @@ const FreeTextQuestionComponent = ({
 
   const obj = {
     questionID,
-    forceValidate: answer.forceValidate, 
+    forceValidate: answer.forceValidate,
     nextStepCallback,
     drawData,
   };
 
   let question = null;
   const questionIdentifier = getQuestionIdentifiers(options);
-    question = (
-          <div className="row ">
+  question = (
+    <div className="row ">
       <div className="col-sm-12 text-center pb-2">
-      <FirstName
-        {...obj}
-        answer={answerBits[questionIdentifier[0]]}
-        options={options[questionIdentifier[0]]}
-        questionIdentifier={questionIdentifier[0]}
-      />
+        <FirstName
+          {...obj}
+          answer={answerBits[questionIdentifier[0]]}
+          options={options[questionIdentifier[0]]}
+          questionIdentifier={questionIdentifier[0]}
+        />
       </div>
       <div className="col-sm-12">
-          <LastName
-        {...obj}
-        answer={answerBits[questionIdentifier[1]]}
-        options={options[questionIdentifier[1]]}
-        questionIdentifier={questionIdentifier[1]}
-      />
+        <LastName
+          {...obj}
+          answer={answerBits[questionIdentifier[1]]}
+          options={options[questionIdentifier[1]]}
+          questionIdentifier={questionIdentifier[1]}
+        />
       </div>
-      </div>
-    );
+    </div>
+  );
 
   return (
     <QuestionContainer

@@ -2,7 +2,7 @@ export default function checkName(toCheck) {
   const pcexp = /^([A-Z][a-z]+)$/g;
 
   // Load up the string to check
-  let name = toCheck;
+  const name = toCheck;
 
   // Assume we're not going to find a valid name
   let valid = false;

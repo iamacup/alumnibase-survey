@@ -199,10 +199,10 @@ class SelectQuestionCompanySelectWithRemoteLookupComponent extends React.Compone
     const options = [<option value="" hidden key={0} >Select Your Course Type</option>];
 
     data.forEach((value) => {
-      options.push(  
+      options.push(
         <option key={value.optionID} value={value.displayValue}>
           {value.displayValue}
-        </option>  
+        </option>,
       );
     });
 

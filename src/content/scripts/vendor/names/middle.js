@@ -1,10 +1,9 @@
 
 export default function checkMiddleName(toCheck) {
-
   const pcexp = /^([A-Z]\w+\s?){3,9}$/g;
 
   // Load up the string to check
-  let name = toCheck;
+  const name = toCheck;
 
   // Assume we're not going to find a valid name
   let valid = false;

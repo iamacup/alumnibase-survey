@@ -26,8 +26,8 @@ class Viewer extends React.PureComponent {
 
       value.forEach((value2) => {
         // if (value2.friendlyName === 'degreeLevel') {
-          // degreeLevel = value2.optionValue;
-        // } else 
+        // degreeLevel = value2.optionValue;
+        // } else
         if (value2.friendlyName === 'courseType') {
           courseType = value2.optionValue;
         // } else if (value2.friendlyName === 'courseFTPT') {
