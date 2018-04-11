@@ -1,6 +1,7 @@
 import { getAuthenticationHeaders } from '../../../../../content/scripts/custom/utilities';
 
 export const QUESTION_ADD = 'QUESTION_ADD';
+export const QUESTION_REMOVE_IDENTIFIER = 'QUESTION_REMOVE_IDENTIFIER';
 export const QUESTION_REMOVE = 'QUESTION_REMOVE';
 export const QUESTION_UPDATE_ANSWER = 'QUESTION_UPDATE_ANSWER';
 export const QUESTION_ERROR = 'QUESTION_ERROR';
@@ -13,6 +14,20 @@ export const QUESTION_FOLLOWON_START = 'QUESTION_FOLLOWON_START';
 export const QUESTION_FOLLOWON_SUCCESS = 'QUESTION_FOLLOWON_SUCCESS';
 export const QUESTION_FOLLOWON_ERROR = 'QUESTION_FOLLOWON_ERROR';
 export const QUESTION_FOLLOWON_FAILURE = 'QUESTION_FOLLOWON_FAILURE';
+
+export const doRemoveQuestionIdentifier = (questionID, questionIdentifier) => {
+  console.log('I AM GOING TO REMOVE SOMETHING');
+  console.log(questionID);
+  console.log(questionIdentifier);
+  // eslint-disable-next-line no-unused-vars
+  return (dispatch, getState, axios) => {
+    dispatch({
+      type: QUESTION_REMOVE_IDENTIFIER,
+      questionID,
+      questionIdentifier,
+    });
+  };
+}
 
 export const doAddQuestion = questionID =>
   // eslint-disable-next-line no-unused-vars

@@ -16,6 +16,7 @@ import {
   QUESTION_FOLLOWON_SUCCESS,
   QUESTION_FOLLOWON_ERROR,
   QUESTION_FOLLOWON_FAILURE,
+  QUESTION_REMOVE_IDENTIFIER,
 } from './action';
 
 export const initialState = {};
@@ -55,6 +56,13 @@ export const questionInitialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
+    case QUESTION_REMOVE_IDENTIFIER: {
+      const newState = JSON.parse(JSON.stringify(state));
+
+      delete newState[action.questionID].answer[action.questionIdentifier];
+
+      return newState;
+    }
     case QUESTION_ADD: {
       // we check to see if the question has already been added - if it has we don't return anything new.
       if (dNc(state[action.questionID])) {
