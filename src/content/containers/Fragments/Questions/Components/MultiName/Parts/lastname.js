@@ -3,19 +3,12 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { dNc } from '../../../../../../../content/scripts/custom/utilities';
-
+import checkName from '../../../../../../../content/scripts/vendor/names/multiname';
 import * as questionAction from '../../../../../../../content/containers/Fragments/Questions/Components/action';
 
-class SelectQuestionCompanySelectWithRemoteLookupComponent extends React.Component {
-  componentDidMount() {
-    // wait for document to be ready
-    $(() => {
-      // this.setValueFromState();
-    });
-  }
-
+class FreeTextQuestionMultilineComponent extends React.Component {
   componentDidUpdate() {
-    // this.setValueFromState();
+    this.setValueFromState();
 
     const { questionIdentifier, questionID, answer } = this.props;
     const validity = this.validate(this.props.answer);
@@ -32,43 +25,61 @@ class SelectQuestionCompanySelectWithRemoteLookupComponent extends React.Compone
         questionIdentifier,
       );
     }
+
+    // if we are force validating, and the validity is true, but there is no valid answer in the state - we make sure there is an answer in the state
+    // // this caters for optional values etc.
+    // const { drawData } = this.props;
+
+    // if (
+    //   this.props.forceValidate === true &&
+    //   validity.valid === true &&
+    //   (!dNc(this.props.answer) || !dNc(this.props.answer.optionValue))
+    // ) {
+    //   this.handleChange();
+    // } else if (drawData.minLength === 0) {
+    //   // here we check for optional, if found then we just set the thing to valid instantly
+    //   if (dNc(this.props.answer) && this.props.answer.valid !== true) {
+    //     this.handleChange();
+    //   }
+    // }
   }
 
-  /*
-  TODO not implemented yet
 
   setValueFromState() {
     if (dNc(this.props.answer.optionValue)) {
-      // set the state
+      this.input.value = this.props.answer.optionValue;
     }
-  } */
+  }
 
-  validate(answer) {
+ validate(answer) {
     let error = '';
     let show = false;
     let valid = false;
 
-    if (dNc(answer) && dNc(answer.optionID)) {
-      valid = true;
+    if (dNc(answer) && dNc(answer.optionValue)) {
+      if (answer.optionValue.length < 1) {
+        error = 'Please enter your name.';
+      } else if (checkName(answer.optionValue) === false) {
+        error = 'This does not appear to be a valid name.';
+      } else {
+        valid = true;
+      }
     } else {
-      error = 'You need to select an option.';
-      show = false;
+      error = 'You need to enter your name.';
     }
 
     return { valid, error, show };
   }
 
-  buttonPress(dataArr) {
-    // press
-    const optionID = dataArr[0];
-    let optionValue = null;
+   doNextStepCallback(e) {
+    if (e.key === 'Enter') {
+      this.props.nextStepCallback();
+    }
+  } 
 
-    // pull the option value
-    this.props.options.forEach((value) => {
-      if (value.optionID === optionID) {
-        ({ optionValue } = value.optionValue);
-      }
-    });
+  handleChange() {
+    const optionValue = this.input.value;
+    const optionID = null;
 
     const { questionID, questionIdentifier } = this.props;
     const validity = this.validate({ optionValue, optionID });
@@ -83,50 +94,41 @@ class SelectQuestionCompanySelectWithRemoteLookupComponent extends React.Compone
   }
 
   render() {
-    const options = [];
-
-    this.props.options.forEach((value) => {
-      const data = (
-        <div className="radio" key={value.optionID}>
-          <label
-            htmlFor={value.optionID + 'radioButton'}
-            style={{ marginTop: '4px' }}
-          >
-            <input
-              type="radio"
-              name={this.props.questionID}
-              id={value.optionID + 'radioButton'}
-              onClick={() => {
-                this.buttonPress([value.optionID]);
-              }}
-            />
-            {value.optionValue}
-          </label>
-        </div>
-      );
-
-      options.push(data);
-    });
-
-    return options;
+    return (
+      <span className="form-group">
+        <input
+          onKeyPress={(e) => this.doNextStepCallback(e)}
+          type="text"
+          placeholder="Last Name"
+          className="form-control"
+          ref={(input) => {
+            this.input = input;
+          }}
+          onChange={() => {
+            this.handleChange();
+          }}
+        />
+      </span>
+    );
   }
 }
 
-SelectQuestionCompanySelectWithRemoteLookupComponent.propTypes = {
+FreeTextQuestionMultilineComponent.propTypes = {
   reduxAction_doUpdateQuestionAnswer: PropTypes.func,
   reduxAction_doSetQuestionError: PropTypes.func,
-  // nextStepCallback: PropTypes.func,
+  nextStepCallback: PropTypes.func,
   questionID: PropTypes.string.isRequired,
   forceValidate: PropTypes.bool.isRequired,
   answer: PropTypes.object.isRequired,
   questionIdentifier: PropTypes.string.isRequired,
-  options: PropTypes.array.isRequired,
+  // options: PropTypes.array.isRequired,
+  // drawData: PropTypes.object.isRequired,
 };
 
-SelectQuestionCompanySelectWithRemoteLookupComponent.defaultProps = {
+FreeTextQuestionMultilineComponent.defaultProps = {
   reduxAction_doUpdateQuestionAnswer: () => {},
   reduxAction_doSetQuestionError: () => {},
-  // nextStepCallback: () => { },
+  nextStepCallback: () => { },
 };
 
 const mapStateToProps = null;
@@ -153,5 +155,5 @@ const mapDispatchToProps = dispatch => ({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(
-  SelectQuestionCompanySelectWithRemoteLookupComponent,
+  FreeTextQuestionMultilineComponent,
 );

@@ -2,25 +2,24 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import NewWizzardPane from '../../../../../content/containers/Fragments/NewWizzardPane';
+// import NewWizzardPane from '../../../../../content/containers/Fragments/NewWizzardPane';
 
-import { dNc, nextElementInArray } from '../../../../../content/scripts/custom/utilities';
-import { getLatestItemWithFriendlyNameFromState } from '../../../../../content/containers/Pages/University/AllSteps/commonFunctions';
+import { nextElementInArray } from '../../../../../content/scripts/custom/utilities';
 
 class Viewer extends React.PureComponent {
   getStepContent() {
-    const { currentStep, answerData } = this.props;
+    const { currentStep } = this.props;
     let content = null;
 
-    const wizzard = (
-      <NewWizzardPane
-        step={this.props.currentStep}
-        // eslint-disable-next-line no-shadow
-        submitCallback={(answerData) => { this.handleSubmit(answerData); }}
-        saveAPI="api/universityWizzard/saveStep/"
-        fetchAPI="api/universityWizzard/getStep/"
-      />
-    );
+    // const wizzard = (
+    //   <NewWizzardPane
+    //     step={this.props.currentStep}
+    //     // eslint-disable-next-line no-shadow
+    //     submitCallback={(answerData) => { this.handleSubmit(answerData); }}
+    //     saveAPI="api/universityWizzard/saveStep/"
+    //     fetchAPI="api/universityWizzard/getStep/"
+    //   />
+    // );
 
     if (currentStep === '3-1') {
       content = (
@@ -57,7 +56,7 @@ Viewer.propTypes = {
   currentStep: PropTypes.string.isRequired,
   submitDataCallback: PropTypes.func.isRequired,
   type: PropTypes.string.isRequired,
-  answerData: PropTypes.object.isRequired,
+  // answerData: PropTypes.object.isRequired,
 };
 
 export default Viewer;

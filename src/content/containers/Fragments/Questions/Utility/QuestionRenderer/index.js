@@ -2,8 +2,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import _ from 'lodash';
-
 import QuestionComponentWrapper from '../../../../../../content/containers/Fragments/Questions/Utility/QuestionComponentWrapper';
 
 import { dNc } from '../../../../../../content/scripts/custom/utilities';
@@ -70,7 +68,7 @@ class QuestionRenderer extends React.Component {
   // do not think this would work for more than 1 of the things existing in the title!
   // todo this could be streamlined, horribly large ammount of code for two rexex replaces
   getNewTitle(title, answers) {
-    const results = [];
+    // const results = [];
 
     // here we see if we need to replace any of the titles in the data object that are for {} replacements (non array)
     const regex1 = /\{([a-zA-Z]+\/[0-9]+_[0-9a-zA-Z]+)\.([0-9a-zA-Z]+)\|(.*?)\}/g;
@@ -94,6 +92,7 @@ class QuestionRenderer extends React.Component {
         const alternative = m[3];
 
         const arrayValue = questionID.split('_')[1];
+        // eslint-disable-next-line prefer-destructuring
         questionID = questionID.split('_')[0];
 
         // we pull out all the values that apply and then sort them so we can handle 'last', 'first' etc.
@@ -186,7 +185,7 @@ class QuestionRenderer extends React.Component {
       // if there are no answers for that questionID
       currentAnswerKeys.forEach((ittrCurrent) => {
         unvalidatedAnswersKeys.forEach((ittrUnvalidated) => {
-          const subCombinedAnswers = {};
+          // const subCombinedAnswers = {};
           let number = 0;
 
           // we get the data for the unvalidated question ID in the current answers stuff

@@ -5,18 +5,14 @@ import PropTypes from 'prop-types';
 import QuestionContainer from '../../../../../../content/components/Questions/questionContainer';
 import Standard from '../../../../../../content/containers/Fragments/Questions/Components/MultiRange/Parts/Standard';
 
-import {
-  getUsefulQuestionBits,
-  getQuestionIdentifiers,
-  dNc,
-} from '../../../../../../content/scripts/custom/utilities';
+import { getUsefulQuestionBits } from '../../../../../../content/scripts/custom/utilities';
 
 const OptionsQuestionComponent = ({
   data,
   answer,
   nextStepCallback,
   title,
-  explainerText,
+  // explainerText,
 }) => {
   const { questionID, options, drawData } = data;
   const { answerBits, errorBits } = getUsefulQuestionBits(
@@ -26,7 +22,7 @@ const OptionsQuestionComponent = ({
 
   const obj = {
     questionID,
-    forceValidate: answer.forceValidate,
+    forceValidate: answer.forceValidate, 
     nextStepCallback,
   };
 
@@ -72,7 +68,7 @@ OptionsQuestionComponent.propTypes = {
   data: PropTypes.object.isRequired,
   nextStepCallback: PropTypes.func,
   title: PropTypes.string.isRequired,
-  explainerText: PropTypes.object.isRequired,
+  // explainerText: PropTypes.object.isRequired,
 };
 
 OptionsQuestionComponent.defaultProps = {

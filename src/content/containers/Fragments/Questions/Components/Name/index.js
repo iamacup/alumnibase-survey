@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import QuestionContainer from '../../../../../../content/components/Questions/questionContainer';
-import Multiline from '../../../../../../content/containers/Fragments/Questions/Components/FreeText/Parts/multiline';
-import Singleline from '../../../../../../content/containers/Fragments/Questions/Components/FreeText/Parts/singleline';
+import Name from '../../../../../../content/containers/Fragments/Questions/Components/Name/Parts/name';
+import MiddleName from '../../../../../../content/containers/Fragments/Questions/Components/Name/Parts/middle';
 
 import {
   getUsefulQuestionBits,
@@ -31,26 +31,26 @@ const FreeTextQuestionComponent = ({
 
   let question = null;
   const questionIdentifier = getQuestionIdentifiers(options);
-
-  if (drawData.type === 'multiline') {
-    question = (
-      <Multiline
+  
+if (drawData.mustHaveMiddleName) {
+   question = (
+      <MiddleName
         {...obj}
         answer={answerBits[questionIdentifier]}
         options={options[questionIdentifier]}
         questionIdentifier={questionIdentifier}
       />
     );
-  } else {
+} else {
     question = (
-      <Singleline
+      <Name
         {...obj}
         answer={answerBits[questionIdentifier]}
         options={options[questionIdentifier]}
         questionIdentifier={questionIdentifier}
       />
     );
-  }
+}
 
   return (
     <QuestionContainer

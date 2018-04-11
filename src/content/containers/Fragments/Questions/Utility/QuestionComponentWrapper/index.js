@@ -21,6 +21,9 @@ import {
   Postcode,
   FreeText,
   MultiRange,
+  Name,
+  FullName,
+  PreUni,
 } from '../../../../../../content/containers/Fragments/Questions/Components';
 import { redrawCharts } from '../../../../../../content/scripts/custom/echarts/utilities';
 
@@ -178,7 +181,29 @@ class QuestionComponentWrapper extends React.Component {
           <div className={answerContainerClassName} />
         </div>
       );
+    } else if (type === 'name') {
+      return (
+        <div>
+          <Name {...obj} />
+          <div className={answerContainerClassName} />
+        </div>
+      );
+    } else if (type === 'multiName') {
+      return (
+        <div>
+          <FullName {...obj} />
+          <div className={answerContainerClassName} />
+        </div>
+      );
+    } else if (type === 'educationHistory') {
+      return (
+        <div>
+          <PreUni {...obj} />
+          <div className={answerContainerClassName} />
+        </div>
+      );
     }
+
 
     return (
       <SmallSectionError

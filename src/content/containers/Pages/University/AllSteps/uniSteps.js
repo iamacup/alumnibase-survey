@@ -9,7 +9,7 @@ import UniEducationViewer from '../../../../../content/containers/Pages/Universi
 import UniViewer from '../../../../../content/containers/Pages/University/AllSteps/uniViewer';
 
 
-import { dNc, nextElementInArray, nextIndexInArray } from '../../../../../content/scripts/custom/utilities';
+import { nextElementInArray } from '../../../../../content/scripts/custom/utilities';
 import { getLatestItemWithFriendlyNameFromState, getFirstItemWithFriendlyNameFromState } from '../../../../../content/containers/Pages/University/AllSteps/commonFunctions';
 
 import * as storeAction from '../../../../../foundation/redux/globals/DataStoreSingle/actions';

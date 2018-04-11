@@ -68,7 +68,7 @@ class SelectQuestionCompanySelectWithRemoteLookupComponent extends React.Compone
     // pull the option value
     this.props.options.forEach((value) => {
       if (value.optionID === optionID) {
-        optionValue = value.optionValue;
+        ({ optionValue } = value.optionValue);
       }
     });
 
@@ -89,7 +89,7 @@ class SelectQuestionCompanySelectWithRemoteLookupComponent extends React.Compone
 
     this.props.options.forEach((value) => {
       let className = 'btn btn-block btn-option btn-multiline btn-margin';
-      let answered = false;
+      // let answered = false;
 
       if (dNc(value.drawData) && dNc(value.drawData.optionEmphasis)) {
         className += ' btn-emphasis';
@@ -101,7 +101,7 @@ class SelectQuestionCompanySelectWithRemoteLookupComponent extends React.Compone
         this.props.answer.valid === true
       ) {
         className += ' answered';
-        answered = true;
+        // answered = true;
       }
 
       const obj = (

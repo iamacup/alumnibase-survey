@@ -1,9 +1,6 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-
-import { dNc } from '../../../content/scripts/custom/utilities';
 
 const tickDuration = 50;
 const addPercentage = 5;
@@ -37,7 +34,7 @@ class AnswerStatButton extends React.Component {
 
   tick() {
     const { percentage } = this.props;
-    const { numberPercentage, barPercentage } = this.state;
+    const { numberPercentage } = this.state;
 
     if (percentage !== numberPercentage) {
       const tickAmmount = Math.ceil((addPercentage / 100) * percentage);

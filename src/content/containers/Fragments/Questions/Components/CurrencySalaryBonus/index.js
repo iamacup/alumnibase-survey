@@ -14,7 +14,7 @@ import {
 
 const CurrencySalaryBonusQuestionComponent = ({
   data,
-  answer,
+  answer, 
   nextStepCallback,
   title,
 }) => {

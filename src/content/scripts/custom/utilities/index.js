@@ -337,18 +337,20 @@ export function getUsefulQuestionBits(options, answer) {
   Object.keys(options).forEach((value) => {
     // make sure the object is empty
     answerBits[value] = {};
-
     if (dNc(answer) && dNc(answer[value])) {
+    // console.log(answer, 'AAAAAAAAAA')
       // populate teh answer object if it exists
       answerBits[value] = answer[value];
+    // console.log(answerBits)
 
       // and also check to see if this answer has any error messages against it
       if (dNc(answer[value].errorMessage)) {
+
         errorBits.push(answer[value].errorMessage);
       }
     }
   });
-
+  // console.log(answerBits, '******')
   return { answerBits, errorBits };
 }
 

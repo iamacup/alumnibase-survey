@@ -3,11 +3,8 @@ import React from 'react';
 import Helmet from 'react-helmet';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import _ from 'lodash';
 
-import NewWizzardPane from '../../../../../content/containers/Fragments/NewWizzardPane';
-import fetchDataBuilder from '../../../../../foundation/redux/Factories/FetchData';
-import UniEducationViewer from '../../../../../content/containers/Pages/University/AllSteps/uniEducationViewer';
+// import fetchDataBuilder from '../../../../../foundation/redux/Factories/FetchData';
 
 import Navigation from '../../../../../content/containers/Pages/NewTheme/navigation';
 import TopProgress from '../../../../../content/containers/Pages/NewTheme/topProgress';
@@ -17,7 +14,7 @@ import UniSteps from '../../../../../content/containers/Pages/University/AllStep
 import BioSteps from '../../../../../content/containers/Pages/University/AllSteps/bioSteps';
 import PreUniSteps from '../../../../../content/containers/Pages/University/AllSteps/preUniSteps';
 
-import { fireDebouncedResizeEvents, dNc } from '../../../../../content/scripts/custom/utilities';
+import { dNc } from '../../../../../content/scripts/custom/utilities';
 
 import * as storeAction from '../../../../../foundation/redux/globals/DataStoreSingle/actions';
 
@@ -26,8 +23,8 @@ const dataStoreID = 'testHTML3';
 export const dataStoreIDSteps = 'wizzardSteps';
 
 // fetch actions constants
-const fetchDataTransactionStateMainID = 'wizzardUniEducationCompletion';
-const FetchEducation = fetchDataBuilder(fetchDataTransactionStateMainID);
+// const fetchDataTransactionStateMainID = 'wizzardUniEducationCompletion';
+// const FetchEducation = fetchDataBuilder(fetchDataTransactionStateMainID);
 
 // STEP ARRAYS CAN NOT HAVE DUPLICATE ENTRIES!!!!!
 // IF THE SAME STEP NEEDS TO LOOP OR BE RENDERED AT DIFFERENT POINTS - ALIAS IT AND THEN HANDLE IN THE VIEWER

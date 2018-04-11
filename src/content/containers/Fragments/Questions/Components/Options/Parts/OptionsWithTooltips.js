@@ -73,7 +73,7 @@ class SelectQuestionCompanySelectWithRemoteLookupComponent extends React.Compone
     // pull the option value
     this.props.options.forEach((value) => {
       if (value.optionID === optionID) {
-        optionValue = value.optionValue;
+        ({ optionValue } = value.optionValue);
       }
     });
 
@@ -149,7 +149,7 @@ class SelectQuestionCompanySelectWithRemoteLookupComponent extends React.Compone
                 </button>
               </div>
               <div className="float-right" style={{ marginRight: '-50px', marginTop: '8px' }}>
-                <a
+                <span
                   tabIndex="0"
                   className="btn-hint"
                   role="button"
@@ -159,7 +159,7 @@ class SelectQuestionCompanySelectWithRemoteLookupComponent extends React.Compone
                   data-content={value.drawData.questionSecondaryText}
                 >
                   <i className="fal fa-question-circle" style={{ padding: '10px' }} />
-                </a>
+                </span>
               </div>
             </div>
           </div>

@@ -5,6 +5,9 @@ import MonthYearQuestion from './MonthYear';
 import PostcodeQuestion from './Postcode';
 import FreeTextQuestion from './FreeText';
 import MultiRangeQuestion from './MultiRange';
+import NameQuestion from './Name';
+import FullNameQuestion from './MultiName';
+import PreUniQualificationQuestion from './PreUniQualification';
 
 export const CurrencySalaryBonus = CurrencySalaryBonusQuestion;
 export const Select = SelectQuestion;
@@ -13,3 +16,6 @@ export const MonthYear = MonthYearQuestion;
 export const Postcode = PostcodeQuestion;
 export const FreeText = FreeTextQuestion;
 export const MultiRange = MultiRangeQuestion;
+export const Name = NameQuestion;
+export const FullName = FullNameQuestion;
+export const PreUni = PreUniQualificationQuestion;

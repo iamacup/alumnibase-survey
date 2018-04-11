@@ -1,13 +1,11 @@
 
 import React from 'react';
-import Helmet from 'react-helmet';
 
 import Navigation from '../../../../content/containers/Pages/NewTheme/navigation';
 import TopProgress from '../../../../content/containers/Pages/NewTheme/topProgress';
 import BottomProgress from '../../../../content/containers/Pages/NewTheme/bottomProgress';
  
-class Viewer extends React.PureComponent {
-  render() {
+const Viewer = () => {
     return (
       <div className="d-flex">
         <div className="left">
@@ -41,7 +39,6 @@ class Viewer extends React.PureComponent {
         </div>
       </div>
     );
-  }
 }
 
 export default Viewer;

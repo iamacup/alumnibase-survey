@@ -12,6 +12,7 @@ const QuestionContainer = ({
   let errorClassName = 'question-error-message';
   let statusClassName = 'general-question-container';
   const errors = [];
+  // let buttons = '';
 
   if (error !== true) {
     errorClassName = 'd-none';
@@ -48,7 +49,6 @@ const QuestionContainer = ({
             <h6 className="grey-text">{explainerText.useValue}</h6>
           </div>
         </div>
-
         <div className="question-spacer" style={{ height: '1px' }} />
       </div>
     </div>

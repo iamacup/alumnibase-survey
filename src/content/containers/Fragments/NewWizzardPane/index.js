@@ -12,9 +12,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import _ from 'lodash';
 
-import LoadingArea from '../../../../content/components/Loading';
 import QuestionButton from '../../../../content/containers/Fragments/Questions/Utility/QuestionButton';
 import QuestionRenderer from '../../../../content/containers/Fragments/Questions/Utility/QuestionRenderer';
 import fetchDataBuilder from '../../../../foundation/redux/Factories/FetchData';

@@ -74,12 +74,12 @@ class QuestionButton extends React.PureComponent {
       overallClass = 'success-button-container';
     }
 
-    let errorMessageClass = 'd-none';
+    // let errorMessageClass = 'd-none';
     let { buttonContent } = this.props;
 
     if (this.isError() === true) {
       buttonClass += ' error';
-      errorMessageClass = '';
+      // errorMessageClass = '';
       buttonContent = this.props.buttonErrorContent;
     }
 

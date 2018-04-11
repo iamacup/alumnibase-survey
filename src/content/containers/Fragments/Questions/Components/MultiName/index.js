@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import QuestionContainer from '../../../../../../content/components/Questions/questionContainer';
-import Multiline from '../../../../../../content/containers/Fragments/Questions/Components/FreeText/Parts/multiline';
-import Singleline from '../../../../../../content/containers/Fragments/Questions/Components/FreeText/Parts/singleline';
+import FirstName from '../../../../../../content/containers/Fragments/Questions/Components/MultiName/Parts/firstname';
+import LastName from '../../../../../../content/containers/Fragments/Questions/Components/MultiName/Parts/lastname';
 
 import {
   getUsefulQuestionBits,
@@ -31,26 +31,26 @@ const FreeTextQuestionComponent = ({
 
   let question = null;
   const questionIdentifier = getQuestionIdentifiers(options);
-
-  if (drawData.type === 'multiline') {
     question = (
-      <Multiline
+          <div className="row ">
+      <div className="col-sm-12 text-center pb-2">
+      <FirstName
         {...obj}
-        answer={answerBits[questionIdentifier]}
-        options={options[questionIdentifier]}
-        questionIdentifier={questionIdentifier}
+        answer={answerBits[questionIdentifier[0]]}
+        options={options[questionIdentifier[0]]}
+        questionIdentifier={questionIdentifier[0]}
       />
-    );
-  } else {
-    question = (
-      <Singleline
+      </div>
+      <div className="col-sm-12">
+          <LastName
         {...obj}
-        answer={answerBits[questionIdentifier]}
-        options={options[questionIdentifier]}
-        questionIdentifier={questionIdentifier}
+        answer={answerBits[questionIdentifier[1]]}
+        options={options[questionIdentifier[1]]}
+        questionIdentifier={questionIdentifier[1]}
       />
+      </div>
+      </div>
     );
-  }
 
   return (
     <QuestionContainer
