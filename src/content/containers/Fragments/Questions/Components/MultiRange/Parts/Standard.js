@@ -68,7 +68,7 @@ class SelectQuestionCompanySelectWithRemoteLookupComponent extends React.Compone
     // pull the option value
     this.props.options.forEach((value) => {
       if (value.optionID === optionID) {
-        ({ optionValue } = value.optionValue);
+        ({ optionValue } = value);
       }
     });
 
