@@ -5,7 +5,7 @@ import Helmet from 'react-helmet';
 import Navigation from '../../../../content/containers/Pages/NewTheme/navigation';
 import TopProgress from '../../../../content/containers/Pages/NewTheme/topProgress';
 import BottomProgress from '../../../../content/containers/Pages/NewTheme/bottomProgress';
- 
+
 class Viewer extends React.PureComponent {
   render() {
     return (
