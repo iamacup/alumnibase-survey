@@ -5,8 +5,6 @@ class ButtonGroup extends React.PureComponent {
   componentDidMount() {
     // wait for document to be ready
     $(() => {
-      let clickedButtons = [];
-
       $(this.div)
         .find('button')
         .each((index, vertex) => {
@@ -14,50 +12,73 @@ class ButtonGroup extends React.PureComponent {
 
           // iterate over all the buttons and attach click handlers
           button.on('click', () => {
+            let clickedButtons = [];
+
+            // set the class of teh button that was just pressed
+            if (!button.hasClass(this.props.clickedClass)) {
+              // set teh button as clicked
+              button.addClass(this.props.clickedClass);
+            } else {
+              // remove the class
+              button.removeClass(this.props.clickedClass);
+            }
+
             // do something about single clicks
             if (this.props.singleSelect === true) {
+              // remove the click class from all other buttons
               $(this.div)
                 .find('button')
                 .each((index2, vertex2) => {
                   const button2 = $(vertex2);
 
-                  button2.removeClass(this.props.clickedClass);
-                  // empty the array
-                  clickedButtons.splice(0, clickedButtons.length);
+                  if (button2.attr('value') !== button.attr('value')) {
+                    button2.removeClass(this.props.clickedClass);
+                  }
+                });
+
+              clickedButtons = [button.attr('value')];
+            } else {
+              // check to see if we care about clear button ID and if we just pressed it
+              if (this.props.clearButtonID !== null) {
+                // if the button we just pressed was the clear button
+                if (button.attr('value') === this.props.clearButtonID && button.hasClass(this.props.clickedClass)) {
+                  // remove the click class from all other buttons
+                  $(this.div)
+                    .find('button')
+                    .each((index2, vertex2) => {
+                      const button2 = $(vertex2);
+
+                      if (button2.attr('value') !== this.props.clearButtonID) {
+                        button2.removeClass(this.props.clickedClass);
+                      }
+                    });
+                } else if (button.attr('value') !== this.props.clearButtonID) {
+                  // remove the click class from the clear button
+                  $(this.div)
+                    .find('button')
+                    .each((index2, vertex2) => {
+                      const button2 = $(vertex2);
+
+                      if (button2.attr('value') === this.props.clearButtonID) {
+                        button2.removeClass(this.props.clickedClass);
+                      }
+                    });
+                }
+              }
+
+              // build the clickedButtons array
+              $(this.div)
+                .find('button')
+                .each((index2, vertex2) => {
+                  const button2 = $(vertex2);
+
+                  if (button2.hasClass(this.props.clickedClass)) {
+                    clickedButtons.push(button2.attr('value'));
+                  }
                 });
             }
 
-            //check to see if we care about clear button ID and if we just pressed it
-            if(this.props.clearButtonID !== null && button.attr('value') === this.props.clearButtonID) {
-             if (!button.hasClass(this.props.clickedClass)) {
-                // if the button does not have the click class, add it and do the array
-                button.addClass(this.props.clickedClass);
-              } else {
-                // remove the class and remove it from the array
-                button.removeClass(this.props.clickedClass);
-              }
-
-              
-
-            } else if (this.props.clearButtonID !== null && clickedButtons.length === 1 && clickedButtons[0] === this.props.clearButtonID && button.attr('value') !== this.props.clearButtonID) {
-              console.log('hello');
-            } else {
-              if (!button.hasClass(this.props.clickedClass)) {
-                // if the button does not have the click class, add it and do the array
-                button.addClass(this.props.clickedClass);
-                clickedButtons.push(button.attr('value'));
-              } else {
-                // remove the class and remove it from the array
-                button.removeClass(this.props.clickedClass);
-
-                const i = clickedButtons.indexOf(button.attr('value'));
-
-                if (i !== -1) {
-                  clickedButtons.splice(i, 1);
-                }
-              }
-            }
-
+            // return the array
             this.props.callback(clickedButtons);
           });
         });

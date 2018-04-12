@@ -61,6 +61,11 @@ export default (state = initialState, action) => {
 
       delete newState[action.questionID].answer[action.questionIdentifier];
 
+      // we need to set the thing to 'not answered' if there is nothing
+      if (Object.keys(newState[action.questionID].answer).length === 0) {
+        newState[action.questionID].answered = false;
+      }
+
       return newState;
     }
     case QUESTION_ADD: {

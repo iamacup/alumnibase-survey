@@ -15,20 +15,15 @@ export const QUESTION_FOLLOWON_SUCCESS = 'QUESTION_FOLLOWON_SUCCESS';
 export const QUESTION_FOLLOWON_ERROR = 'QUESTION_FOLLOWON_ERROR';
 export const QUESTION_FOLLOWON_FAILURE = 'QUESTION_FOLLOWON_FAILURE';
 
-export const doRemoveQuestionIdentifier = (questionID, questionIdentifier) => {
-  console.log('I AM GOING TO REMOVE SOMETHING');
-  console.log(questionID);
-  console.log(questionIdentifier);
+export const doRemoveQuestionIdentifier = (questionID, questionIdentifier) =>
   // eslint-disable-next-line no-unused-vars
-  return (dispatch, getState, axios) => {
+  (dispatch, getState, axios) => {
     dispatch({
       type: QUESTION_REMOVE_IDENTIFIER,
       questionID,
       questionIdentifier,
     });
   };
-};
-
 export const doAddQuestion = questionID =>
   // eslint-disable-next-line no-unused-vars
   (dispatch, getState, axios) => {

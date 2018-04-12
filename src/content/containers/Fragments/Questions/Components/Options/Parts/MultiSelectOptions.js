@@ -10,23 +10,16 @@ import { dNc } from '../../../../../../../content/scripts/custom/utilities';
 import * as questionAction from '../../../../../../../content/containers/Fragments/Questions/Components/action';
 
 class SelectQuestionCompanySelectWithRemoteLookupComponent extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      none: false,
-    };
-  }
-
   componentDidMount() {
     // wait for document to be ready
     $(() => {
-      // this.setValueFromState();
+      this.setValueFromState();
     });
   }
 
   componentDidUpdate() {
-    // this.setValueFromState();
+    this.setValueFromState();
+
     const { questionIdentifier, questionID, answer } = this.props;
     const validity = this.validate(this.props.answer);
     // set stuff as an error if they need to be
@@ -41,6 +34,12 @@ class SelectQuestionCompanySelectWithRemoteLookupComponent extends React.Compone
         questionIdentifier,
       );
     }
+  }
+
+  setValueFromState() {
+    // in other methods we 'set the state' in render but here we don't.... - i think this might be broken in other components now
+    // due to changes in question group
+    // console.log('TODO - set value from state is not implemented for this component!');
   }
 
   getIndex(dataArr, optionID) {
@@ -61,41 +60,24 @@ class SelectQuestionCompanySelectWithRemoteLookupComponent extends React.Compone
     }
 
     return index;
-    // return -1;
   }
 
-  nonePressed(dataArr) {
-    let nonePressed = false;
+  // returns the option ID of the option that has clearOption set to true in the drawData
+  // TODO button group does not support multiple clear options so if we find more than 1 in the options set - we error out something
+  getClearOptionID() {
+    let clearOptionID = null;
 
-    for (let a = 0; a < dataArr.length; a++) {
-      const optionID = dataArr[a];
+    this.props.options.forEach((value) => {
+      if (dNc(value.drawData) && value.drawData.clearOption === true) {
+        if (clearOptionID !== null) {
+          console.log('error condition - more than 1 clear option was specified');
+        }
 
-      if (optionID === 'options/42960330798') {
-        nonePressed = true;
+        clearOptionID = value.optionID;
       }
-    }
+    });
 
-    return nonePressed;
-  }
-
-  stateContainsNone() {
-    if(dNc(this.props.answer['outreachItems_3'])) {
-      console.log('1 true');
-      return true;
-    }
-
-    console.log('1 false');
-    return false;
-  }
-
-  stateContainsOptionsThatAreNotNone() {
-    if(Object.keys(this.props.answer).length > 0 && !this.stateContainsNone()) {
-      console.log('2 true');
-      return true;
-    }
-
-    console.log('2 false');
-    return false;
+    return clearOptionID;
   }
 
   validate(answer) {
@@ -103,7 +85,8 @@ class SelectQuestionCompanySelectWithRemoteLookupComponent extends React.Compone
     let show = false;
     let valid = false;
 
-    if (dNc(answer) && dNc(answer.optionID)) {
+    // we set to valid as long as 'an' option exists in the state
+    if (Object.keys(answer).length > 0) {
       valid = true;
     } else {
       error = 'You need to select an option.';
@@ -113,91 +96,56 @@ class SelectQuestionCompanySelectWithRemoteLookupComponent extends React.Compone
     return { valid, error, show };
   }
 
-
-  // we care about the following states
-  // 1 - dataArr contains nonePressed option ID AND other options AND the state does not contain none (i.e. outreachItems_3)
-  // in this case we know that none has just be pressed
-  // 2 - dataArr contains nonePressed AND other options AND the state only contains none (i.e. outreachItems_3)
-  // in this case we need to remove none from the state and add the button press
-  // 3 - dataArr does not contain none
-  // we just add the option to the state
-
+  // we need to make sure that our state is the same as dataArr
   buttonPress(dataArr) {
+    const { questionID, questionIdentifier } = this.props;
 
-    console.log(dataArr);
-
-    /*const nonePressed = this.nonePressed(dataArr);
-
-    if(nonePressed === true) {
-      console.log('none pressed');
-    } else {
-      //we just add the option to the state
-      console.log('none not pressed');
-    }*/
-
-    /*const { questionID, questionIdentifier } = this.props;
-
-    // find out if we have pressed the 'none' button
-    const nonePressed = this.nonePressed(dataArr);
-
-    // loop the pressed buttons
+    // first we loop through the dataArr and make sure everything in dataArr is in the state
     for (let a = 0; a < dataArr.length; a++) {
       const optionID = dataArr[a];
+      let optionValue = null;
 
-      // 1 - dataArr contains nonePressed option ID AND other options AND the state does not contain none (i.e. outreachItems_3)
-      if (nonePressed === true && optionID !== 'options/42960330798' && !this.stateContainsOptionsThatAreNotNone()) {
-        //in this case we know that none has just be pressed
-        //we remove this item
-        this.props.reduxAction_doRemoveQuestionIdentifier(questionID, questionIdentifier + '_' + this.getIndex(dataArr, optionID));
-      } else {
-        let optionValue = null;
-        // 3
-        // pull out the option value for the option that was pressed
-        this.props.options.forEach((value) => {
-          if (value.optionID === optionID) {
-            ({ optionValue } = value);
-          }
-        });
+      this.props.options.forEach((value) => {
+        if (value.optionID === optionID) {
+          ({ optionValue } = value);
+        }
+      });
 
-        const validity = this.validate({ optionValue, optionID });
+      // we pass an empty array in here because the state does not yet exist - and we just want it to validate
+      // see the validate method to understand why this works
+      const validity = this.validate(['empty']);
 
-        this.props.reduxAction_doUpdateQuestionAnswer(
-          questionID,
-          questionIdentifier + '_' + this.getIndex(dataArr, optionID),
-          optionID,
-          optionValue,
-          validity.valid,
-        );
+      this.props.reduxAction_doUpdateQuestionAnswer(
+        questionID,
+        questionIdentifier + '_' + this.getIndex(dataArr, optionID),
+        optionID,
+        optionValue,
+        validity.valid,
+      );
+    }
+
+    console.log('redux', this.props.answer);
+    console.log('buttons', dataArr);
+
+    // then we loop through the state and remove anything thats not in the dataArr
+    Object.keys(this.props.answer).forEach((value) => {
+      if (!dataArr.includes(this.props.answer[value].optionID)) {
+        console.log('removing', value);
+        this.props.reduxAction_doRemoveQuestionIdentifier(questionID, value);
       }
-    }*/
+    });
   }
 
   render() {
     const options = [];
-    // console.log(this.state.none)
-    // this array contains all of the pressed indices
-    let arr = [];
 
-    if (Object.keys(this.props.answer).length > 0) {
-      Object.keys(this.props.answer).forEach(element => arr.push(+element.slice(-1)));
-    }
-
-    if (this.state.none) arr = [3];
-
-    // this.props.options - we draw these
-
-    // this.props.answer - these are the buttons that are pressed
+    // loop over the options and draw the buttons
     this.props.options.forEach((value, index) => {
       let className = 'btn btn-block btn-option btn-multiline btn-margin';
-      let answered = false;
+      const answered = false;
 
       if (dNc(value.drawData) && dNc(value.drawData.optionEmphasis)) {
         className += ' btn-emphasis';
-      }
-
-      if (arr.includes(index)) {
-        className += ' answered';
-        answered = true;
       }
 
       let answerObj = null;
@@ -245,8 +193,8 @@ class SelectQuestionCompanySelectWithRemoteLookupComponent extends React.Compone
           this.buttonPress(data);
         }}
         singleSelect={false}
-        clickedClass="testc"
-        clearButtonID="options/42960330798"
+        clickedClass="answered"
+        clearButtonID={this.getClearOptionID()}
       />
     );
   }
