@@ -106,7 +106,7 @@ const OptionsQuestionComponent = ({
   if (dNc(answer.answer)) {
     multiSelectAnswer = answer.answer;
   }
-// console.log(answerBits, questionIdentifier, multiSelectAnswer)
+  // console.log(answerBits, questionIdentifier, multiSelectAnswer)
   if (dNc(drawData.type) && drawData.type === 'list') {
     question = (
       <ListOptions
@@ -127,7 +127,7 @@ const OptionsQuestionComponent = ({
       />
     );
   } else if (dNc(drawData.type) && drawData.type === 'multiSelectOptions') {
-      question = (
+    question = (
       <MultiSelectOptions
         {...obj}
         answer={multiSelectAnswer}

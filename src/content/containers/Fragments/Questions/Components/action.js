@@ -27,7 +27,7 @@ export const doRemoveQuestionIdentifier = (questionID, questionIdentifier) => {
       questionIdentifier,
     });
   };
-}
+};
 
 export const doAddQuestion = questionID =>
   // eslint-disable-next-line no-unused-vars

@@ -10,7 +10,7 @@ import { dNc } from '../../../../../../../content/scripts/custom/utilities';
 import * as questionAction from '../../../../../../../content/containers/Fragments/Questions/Components/action';
 
 class SelectQuestionCompanySelectWithRemoteLookupComponent extends React.Component {
-    constructor(props) {
+  constructor(props) {
     super(props);
 
     this.state = {
@@ -43,16 +43,59 @@ class SelectQuestionCompanySelectWithRemoteLookupComponent extends React.Compone
     }
   }
 
-  getIndex(dataArr) {
-    for(let a=0; a<dataArr.length; a++) {
-      for(let b=0; b<this.props.options.length; b++) {
-        if(this.props.options[b].optionID === dataArr[a]) {
-          return b;
+  getIndex(dataArr, optionID) {
+    let index = -1;
+
+    for (let a = 0; a < dataArr.length; a++) {
+      if (dataArr[a] === optionID) {
+        for (let b = 0; b < this.props.options.length; b++) {
+          if (this.props.options[b].optionID === dataArr[a]) {
+            index = b;
+          }
         }
       }
     }
 
-    return -1;
+    if (index === -1) {
+      console.log('This is an unhandle error condition');
+    }
+
+    return index;
+    // return -1;
+  }
+
+  nonePressed(dataArr) {
+    let nonePressed = false;
+
+    for (let a = 0; a < dataArr.length; a++) {
+      const optionID = dataArr[a];
+
+      if (optionID === 'options/42960330798') {
+        nonePressed = true;
+      }
+    }
+
+    return nonePressed;
+  }
+
+  stateContainsNone() {
+    if(dNc(this.props.answer['outreachItems_3'])) {
+      console.log('1 true');
+      return true;
+    }
+
+    console.log('1 false');
+    return false;
+  }
+
+  stateContainsOptionsThatAreNotNone() {
+    if(Object.keys(this.props.answer).length > 0 && !this.stateContainsNone()) {
+      console.log('2 true');
+      return true;
+    }
+
+    console.log('2 false');
+    return false;
   }
 
   validate(answer) {
@@ -70,81 +113,76 @@ class SelectQuestionCompanySelectWithRemoteLookupComponent extends React.Compone
     return { valid, error, show };
   }
 
+
+  // we care about the following states
+  // 1 - dataArr contains nonePressed option ID AND other options AND the state does not contain none (i.e. outreachItems_3)
+  // in this case we know that none has just be pressed
+  // 2 - dataArr contains nonePressed AND other options AND the state only contains none (i.e. outreachItems_3)
+  // in this case we need to remove none from the state and add the button press
+  // 3 - dataArr does not contain none
+  // we just add the option to the state
+
   buttonPress(dataArr) {
 
-    //we care about the following states
-      //1 - dataArr contains nonePressed option ID AND other options AND the state does not contain none (i.e. outreachItems_3)
-        // in this case we know that none has just be pressed 
-      //2 - dataArr contains nonePressed AND other options AND the state only contains none (i.e. outreachItems_3)
-        // in this case we need to remove none from the state and add the button press
-      //3 - dataArr does not contain none
-        // we just add the option to the state
+    console.log(dataArr);
 
-    let optionValue = null;
-    const { questionID, questionIdentifier } = this.props;
+    /*const nonePressed = this.nonePressed(dataArr);
 
-    //find out if we have pressed the 'none' button
-    let nonePressed = false;
+    if(nonePressed === true) {
+      console.log('none pressed');
+    } else {
+      //we just add the option to the state
+      console.log('none not pressed');
+    }*/
 
-    for(let a=0; a<dataArr.length; a++) {
+    /*const { questionID, questionIdentifier } = this.props;
+
+    // find out if we have pressed the 'none' button
+    const nonePressed = this.nonePressed(dataArr);
+
+    // loop the pressed buttons
+    for (let a = 0; a < dataArr.length; a++) {
       const optionID = dataArr[a];
 
-      if (optionID === 'options/42960330798') {
-        nonePressed = true;
-      }
-    }
-
-    //loop the pressed buttons
-    for(let a=0; a<dataArr.length; a++) {
-      //loop the actual options we have
-      const optionID = dataArr[a]
-
-      //check to see if the none button has been pressed, and the button we are looking at is not the none button
-      if (nonePressed === true && optionID !== 'options/42960330798') {
-        for(let b=0; b<this.props.options.length; b++) {
-            if(this.props.options[b].optionID === dataArr[a]) {
-              this.props.reduxAction_doRemoveQuestionIdentifier(questionID, questionIdentifier + '_' + b);
-            }
-        }
-      // } else if (nonePressed === true && drawData)
+      // 1 - dataArr contains nonePressed option ID AND other options AND the state does not contain none (i.e. outreachItems_3)
+      if (nonePressed === true && optionID !== 'options/42960330798' && !this.stateContainsOptionsThatAreNotNone()) {
+        //in this case we know that none has just be pressed
+        //we remove this item
+        this.props.reduxAction_doRemoveQuestionIdentifier(questionID, questionIdentifier + '_' + this.getIndex(dataArr, optionID));
       } else {
-        //3
-        // eslint-disable-next-line no-loop-func
+        let optionValue = null;
+        // 3
+        // pull out the option value for the option that was pressed
         this.props.options.forEach((value) => {
-            if (value.optionID === optionID) {
-              ({ optionValue } = value);
-            }
+          if (value.optionID === optionID) {
+            ({ optionValue } = value);
+          }
         });
 
-        for(let b=0; b<this.props.options.length; b++) {
-          if(this.props.options[b].optionID === dataArr[a]) {
+        const validity = this.validate({ optionValue, optionID });
 
-            const validity = this.validate({ optionValue, optionID });
-
-            this.props.reduxAction_doUpdateQuestionAnswer(
-              questionID,
-              questionIdentifier + '_' + b, //needs to be unique!
-              optionID,
-              optionValue,
-              validity.valid,
-            );
-          }
-        }
+        this.props.reduxAction_doUpdateQuestionAnswer(
+          questionID,
+          questionIdentifier + '_' + this.getIndex(dataArr, optionID),
+          optionID,
+          optionValue,
+          validity.valid,
+        );
       }
-    }
+    }*/
   }
 
   render() {
     const options = [];
-// console.log(this.state.none)
-    //this array contains all of the pressed indices 
+    // console.log(this.state.none)
+    // this array contains all of the pressed indices
     let arr = [];
 
-   if (Object.keys(this.props.answer).length > 0) {
-  Object.keys(this.props.answer).forEach(element => arr.push(+element.slice(-1)));
-}
+    if (Object.keys(this.props.answer).length > 0) {
+      Object.keys(this.props.answer).forEach(element => arr.push(+element.slice(-1)));
+    }
 
-if (this.state.none) arr = [3]
+    if (this.state.none) arr = [3];
 
     // this.props.options - we draw these
 
@@ -207,6 +245,8 @@ if (this.state.none) arr = [3]
           this.buttonPress(data);
         }}
         singleSelect={false}
+        clickedClass="testc"
+        clearButtonID="options/42960330798"
       />
     );
   }

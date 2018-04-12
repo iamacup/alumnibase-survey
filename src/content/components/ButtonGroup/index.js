@@ -5,7 +5,7 @@ class ButtonGroup extends React.PureComponent {
   componentDidMount() {
     // wait for document to be ready
     $(() => {
-      const clickedButtons = [];
+      let clickedButtons = [];
 
       $(this.div)
         .find('button')
@@ -27,18 +27,34 @@ class ButtonGroup extends React.PureComponent {
                 });
             }
 
-            if (!button.hasClass(this.props.clickedClass)) {
-              // if the button does not have the click class, add it and do the array
-              button.addClass(this.props.clickedClass);
-              clickedButtons.push(button.attr('value'));
+            //check to see if we care about clear button ID and if we just pressed it
+            if(this.props.clearButtonID !== null && button.attr('value') === this.props.clearButtonID) {
+             if (!button.hasClass(this.props.clickedClass)) {
+                // if the button does not have the click class, add it and do the array
+                button.addClass(this.props.clickedClass);
+              } else {
+                // remove the class and remove it from the array
+                button.removeClass(this.props.clickedClass);
+              }
+
+              
+
+            } else if (this.props.clearButtonID !== null && clickedButtons.length === 1 && clickedButtons[0] === this.props.clearButtonID && button.attr('value') !== this.props.clearButtonID) {
+              console.log('hello');
             } else {
-              // remove the class and remove it from the array
-              button.removeClass(this.props.clickedClass);
+              if (!button.hasClass(this.props.clickedClass)) {
+                // if the button does not have the click class, add it and do the array
+                button.addClass(this.props.clickedClass);
+                clickedButtons.push(button.attr('value'));
+              } else {
+                // remove the class and remove it from the array
+                button.removeClass(this.props.clickedClass);
 
-              const i = clickedButtons.indexOf(button.attr('value'));
+                const i = clickedButtons.indexOf(button.attr('value'));
 
-              if (i !== -1) {
-                clickedButtons.splice(i, 1);
+                if (i !== -1) {
+                  clickedButtons.splice(i, 1);
+                }
               }
             }
 
@@ -68,12 +84,14 @@ ButtonGroup.propTypes = {
   clickedClass: PropTypes.string,
   singleSelect: PropTypes.bool,
   wrapperClass: PropTypes.string,
+  clearButtonID: PropTypes.string,
 };
 
 ButtonGroup.defaultProps = {
   clickedClass: 'btn-default-selected',
   singleSelect: false,
   wrapperClass: '',
+  clearButtonID: null,
 };
 
 export default ButtonGroup;
