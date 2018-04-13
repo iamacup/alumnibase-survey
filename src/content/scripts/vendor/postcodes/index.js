@@ -54,7 +54,6 @@ Example call:
   else {alert ("Postcode has invalid format")};
 
 --------------------------------------------------------------------------------------------------*/
-
 export default function checkPostCode(toCheck) {
   // Permitted letters depend upon their position in the postcode.
   const alpha1 = '[abcdefghijklmnoprstuwyz]'; // Character 1
@@ -172,3 +171,4 @@ export default function checkPostCode(toCheck) {
   }
   return false;
 }
+

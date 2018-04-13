@@ -3,16 +3,17 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { dNc } from '../../../../../../../content/scripts/custom/utilities';
+import checkPostCode from '../../../../../../../content/scripts/vendor/postcodes';
+
 import * as questionAction from '../../../../../../../content/containers/Fragments/Questions/Components/action';
 
-class FreeTextQuestionMultilineComponent extends React.Component {
+class PostcodeQuestionPostcodeComponent extends React.Component {
   componentDidUpdate() {
     this.setValueFromState();
 
     const { questionIdentifier, questionID, answer } = this.props;
     const validity = this.validate(this.props.answer);
 
-    // set stuff as an error if they need to be
     if (
       validity.valid === false &&
       (validity.show === true || this.props.forceValidate === true) &&
@@ -25,64 +26,43 @@ class FreeTextQuestionMultilineComponent extends React.Component {
       );
     }
 
-    // if we are force validating, and the validity is true, but there is no valid answer in the state - we make sure there is an answer in the state
-    // // this caters for optional values etc.
-    const { drawData } = this.props;
-
-    if (
-      this.props.forceValidate === true &&
-      validity.valid === true &&
-      (!dNc(this.props.answer) || !dNc(this.props.answer.optionValue))
-    ) {
+// calls to reset the state with the new input after off clicking the don't know button.
+// clicking the butotn off cleates a new state optionID of -2
+// this is quickly overthrown by the handleChange. 
+    if(answer.optionID === -2) {
       this.handleChange();
-    } else if (drawData.minLength === 0) {
-      // here we check for optional, if found then we just set the thing to valid instantly
-      if (dNc(this.props.answer) && this.props.answer.valid !== true) {
-        this.handleChange();
-      }
     }
   }
 
-
   setValueFromState() {
-    if (dNc(this.props.answer.optionValue)) {
+    if (dNc(this.props.answer) && dNc(this.props.answer.optionValue)) {
       this.input.value = this.props.answer.optionValue;
     }
   }
 
   validate(answer) {
     let error = '';
-    let show = false;
+    const show = false;
     let valid = false;
 
-    // eslint-disable-next-line no-useless-escape
-    if (dNc(answer) && dNc(answer.optionValue)) {
-      if (answer.optionValue.length > 30) {
-        error =
-          'There is too much text in here. The max length 30';
-        show = true;
-      } else {
-        valid = true;
-      }
-    } else {
-      valid = true;
-    }
+    if (dNc(answer.optionID) && checkPostCode(answer.optionValue)) {
+      valid = false;
+    } else if (dNc(answer) && dNc(answer.optionValue)) {
+      if (!dNc(answer.optionID) && checkPostCode(answer.optionValue) === false) {
+        error = 'This does not appear to be a valid postcode.';
+      } else valid = true;
+    } else valid = false;
 
     return { valid, error, show };
   }
 
-  doNextStepCallback(e) {
-    if (e.key === 'Enter') {
-      this.props.nextStepCallback();
-    }
-  }
-
   handleChange() {
-    const optionValue = this.input.value;
+    let optionValue = this.input.value;
     const optionID = null;
 
     const { questionID, questionIdentifier } = this.props;
     const validity = this.validate({ optionValue, optionID });
+
     this.props.reduxAction_doUpdateQuestionAnswer(
       questionID,
       questionIdentifier,
@@ -92,41 +72,47 @@ class FreeTextQuestionMultilineComponent extends React.Component {
     );
   }
 
+//  Calls to reset the state with the value in the input form on click back to input.
+  handleFocus() {
+    this.handleChange();
+  }
+
   render() {
+// if the button is clicked the input form will turn back to grey if id had been validated.
+  let classChange = "form-control"
+  if (this.props.answer.optionID === -1) classChange = "form-control hide-green"
+
     return (
-      <span className="form-group">
         <input
-          type="text"
-          placeholder="Subject (optional)"
-          className="form-control"
+          placeholder="Your Postcode"
+          className={classChange}
           ref={(input) => {
             this.input = input;
           }}
           onChange={() => {
             this.handleChange();
           }}
+          onFocus={() => {
+            this.handleFocus();
+          }}
         />
-      </span>
     );
   }
 }
 
-FreeTextQuestionMultilineComponent.propTypes = {
+PostcodeQuestionPostcodeComponent.propTypes = {
   reduxAction_doUpdateQuestionAnswer: PropTypes.func,
   reduxAction_doSetQuestionError: PropTypes.func,
-  nextStepCallback: PropTypes.func,
   questionID: PropTypes.string.isRequired,
   forceValidate: PropTypes.bool.isRequired,
   answer: PropTypes.object.isRequired,
   questionIdentifier: PropTypes.string.isRequired,
-  // options: PropTypes.array.isRequired,
   drawData: PropTypes.object.isRequired,
 };
 
-FreeTextQuestionMultilineComponent.defaultProps = {
+PostcodeQuestionPostcodeComponent.defaultProps = {
   reduxAction_doUpdateQuestionAnswer: () => {},
   reduxAction_doSetQuestionError: () => {},
-  nextStepCallback: () => { },
 };
 
 const mapStateToProps = null;
@@ -153,5 +139,5 @@ const mapDispatchToProps = dispatch => ({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(
-  FreeTextQuestionMultilineComponent,
+  PostcodeQuestionPostcodeComponent,
 );

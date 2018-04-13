@@ -2,17 +2,24 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
+import ButtonGroup from '../../../../../../../content/components/ButtonGroup';
+
 import { dNc } from '../../../../../../../content/scripts/custom/utilities';
+
 import * as questionAction from '../../../../../../../content/containers/Fragments/Questions/Components/action';
 
-class FreeTextQuestionMultilineComponent extends React.Component {
-  componentDidUpdate() {
-    this.setValueFromState();
+class SelectQuestionCompanySelectWithRemoteLookupComponent extends React.Component {
+  componentDidMount() {
+    // wait for document to be ready
+    $(() => {
 
+    });
+  }
+
+  componentDidUpdate() {
     const { questionIdentifier, questionID, answer } = this.props;
     const validity = this.validate(this.props.answer);
 
-    // set stuff as an error if they need to be
     if (
       validity.valid === false &&
       (validity.show === true || this.props.forceValidate === true) &&
@@ -25,28 +32,9 @@ class FreeTextQuestionMultilineComponent extends React.Component {
       );
     }
 
-    // if we are force validating, and the validity is true, but there is no valid answer in the state - we make sure there is an answer in the state
-    // // this caters for optional values etc.
-    const { drawData } = this.props;
-
-    if (
-      this.props.forceValidate === true &&
-      validity.valid === true &&
-      (!dNc(this.props.answer) || !dNc(this.props.answer.optionValue))
-    ) {
-      this.handleChange();
-    } else if (drawData.minLength === 0) {
-      // here we check for optional, if found then we just set the thing to valid instantly
-      if (dNc(this.props.answer) && this.props.answer.valid !== true) {
-        this.handleChange();
-      }
-    }
-  }
-
-
-  setValueFromState() {
-    if (dNc(this.props.answer.optionValue)) {
-      this.input.value = this.props.answer.optionValue;
+    //fiddle with the button group to make sure the button is not pressed
+    if(answer.optionID === '-1' || answer.optionID === -1) {
+      $(this.buttonDOM).addClass('answered');
     }
   }
 
@@ -55,34 +43,31 @@ class FreeTextQuestionMultilineComponent extends React.Component {
     let show = false;
     let valid = false;
 
-    // eslint-disable-next-line no-useless-escape
-    if (dNc(answer) && dNc(answer.optionValue)) {
-      if (answer.optionValue.length > 30) {
-        error =
-          'There is too much text in here. The max length 30';
-        show = true;
-      } else {
-        valid = true;
-      }
-    } else {
+    if (dNc(answer) && dNc(answer.optionID)) {
       valid = true;
+    } else {
+      error = 'You need to select an option.';
+      show = false;
     }
 
     return { valid, error, show };
   }
 
-  doNextStepCallback(e) {
-    if (e.key === 'Enter') {
-      this.props.nextStepCallback();
-    }
-  }
+  buttonPress(dataArr) {
+    let optionID;
 
-  handleChange() {
-    const optionValue = this.input.value;
-    const optionID = null;
+// changing the optionID for on and off clicks, in order to poulate the state with what is in the input.
+    if(dataArr.length > 0) {
+      optionID = -1;
+    } else {
+      optionID = -2;
+    }
+    
+    const optionValue = null;
 
     const { questionID, questionIdentifier } = this.props;
     const validity = this.validate({ optionValue, optionID });
+
     this.props.reduxAction_doUpdateQuestionAnswer(
       questionID,
       questionIdentifier,
@@ -93,40 +78,61 @@ class FreeTextQuestionMultilineComponent extends React.Component {
   }
 
   render() {
+    const options = [];
+    const value = {
+      label: 'Don\'t know',
+      value: -1,
+    };
+
+    let className = 'btn btn-block btn-option btn-multiline btn-margin';
+// turns the button back to grey once the input field has been clicked.
+    if (dNc(this.props.answer.optionValue)) className = "btn btn-block btn-option btn-multiline btn-margin hide-green"
+
+    const answered = false;
+
+    const obj = (
+      <div key={value.value} >
+        <button
+        // ref for jQuery to make sure the button has been turned off when clicked on input field.
+          ref={(buttonDOM) => {this.buttonDOM = buttonDOM;}}
+          value={value.value}
+          className={className}
+        >
+          {value.label}
+        </button>
+      </div>
+    );
+
+    options.push(obj);
+
     return (
-      <span className="form-group">
-        <input
-          type="text"
-          placeholder="Subject (optional)"
-          className="form-control"
-          ref={(input) => {
-            this.input = input;
-          }}
-          onChange={() => {
-            this.handleChange();
-          }}
-        />
-      </span>
+      <ButtonGroup
+        buttons={options}
+        callback={(data) => {
+          this.buttonPress(data);
+        }}
+        singleSelect
+        clickedClass="answered"
+      />
     );
   }
 }
 
-FreeTextQuestionMultilineComponent.propTypes = {
+SelectQuestionCompanySelectWithRemoteLookupComponent.propTypes = {
   reduxAction_doUpdateQuestionAnswer: PropTypes.func,
   reduxAction_doSetQuestionError: PropTypes.func,
-  nextStepCallback: PropTypes.func,
   questionID: PropTypes.string.isRequired,
   forceValidate: PropTypes.bool.isRequired,
   answer: PropTypes.object.isRequired,
   questionIdentifier: PropTypes.string.isRequired,
-  // options: PropTypes.array.isRequired,
-  drawData: PropTypes.object.isRequired,
+  options: PropTypes.array.isRequired,
+  answerDisplay: PropTypes.any,
 };
 
-FreeTextQuestionMultilineComponent.defaultProps = {
+SelectQuestionCompanySelectWithRemoteLookupComponent.defaultProps = {
   reduxAction_doUpdateQuestionAnswer: () => {},
   reduxAction_doSetQuestionError: () => {},
-  nextStepCallback: () => { },
+  answerDisplay: null,
 };
 
 const mapStateToProps = null;
@@ -153,5 +159,5 @@ const mapDispatchToProps = dispatch => ({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(
-  FreeTextQuestionMultilineComponent,
+  SelectQuestionCompanySelectWithRemoteLookupComponent,
 );

@@ -140,7 +140,7 @@ class SelectQuestionCompanySelectWithRemoteLookupComponent extends React.Compone
     const options = [];
 
     // loop over the options and draw the buttons
-    this.props.options.forEach((value, index) => {
+    this.props.options.forEach((value) => {
       let className = 'btn btn-block btn-option btn-multiline btn-margin';
       const answered = false;
 

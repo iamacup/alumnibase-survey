@@ -448,6 +448,11 @@ input:focus,
   text-align: center;
 }
 
+.hide-green {
+  background-color: #f4f6f8 !important;
+  color: #383e49 !important;
+}
+
 .question-success textarea {
   background-color: $green-color;
   color: #fff;

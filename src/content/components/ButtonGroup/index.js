@@ -12,7 +12,7 @@ class ButtonGroup extends React.PureComponent {
 
           // iterate over all the buttons and attach click handlers
           button.on('click', () => {
-            let clickedButtons = [];
+            const clickedButtons = [];
 
             // set the class of teh button that was just pressed
             if (!button.hasClass(this.props.clickedClass)) {
@@ -35,48 +35,44 @@ class ButtonGroup extends React.PureComponent {
                     button2.removeClass(this.props.clickedClass);
                   }
                 });
+            } else if (this.props.clearButtonID !== null) {
+              // if the button we just pressed was the clear button
+              if (button.attr('value') === this.props.clearButtonID && button.hasClass(this.props.clickedClass)) {
+                // remove the click class from all other buttons
+                $(this.div)
+                  .find('button')
+                  .each((index2, vertex2) => {
+                    const button2 = $(vertex2);
 
-              clickedButtons = [button.attr('value')];
-            } else {
-              // check to see if we care about clear button ID and if we just pressed it
-              if (this.props.clearButtonID !== null) {
-                // if the button we just pressed was the clear button
-                if (button.attr('value') === this.props.clearButtonID && button.hasClass(this.props.clickedClass)) {
-                  // remove the click class from all other buttons
-                  $(this.div)
-                    .find('button')
-                    .each((index2, vertex2) => {
-                      const button2 = $(vertex2);
+                    if (button2.attr('value') !== this.props.clearButtonID) {
+                      button2.removeClass(this.props.clickedClass);
+                    }
+                  });
+              } else if (button.attr('value') !== this.props.clearButtonID) {
+                // remove the click class from the clear button
+                $(this.div)
+                  .find('button')
+                  .each((index2, vertex2) => {
+                    const button2 = $(vertex2);
 
-                      if (button2.attr('value') !== this.props.clearButtonID) {
-                        button2.removeClass(this.props.clickedClass);
-                      }
-                    });
-                } else if (button.attr('value') !== this.props.clearButtonID) {
-                  // remove the click class from the clear button
-                  $(this.div)
-                    .find('button')
-                    .each((index2, vertex2) => {
-                      const button2 = $(vertex2);
-
-                      if (button2.attr('value') === this.props.clearButtonID) {
-                        button2.removeClass(this.props.clickedClass);
-                      }
-                    });
-                }
+                    if (button2.attr('value') === this.props.clearButtonID) {
+                      button2.removeClass(this.props.clickedClass);
+                    }
+                  });
               }
-
-              // build the clickedButtons array
-              $(this.div)
-                .find('button')
-                .each((index2, vertex2) => {
-                  const button2 = $(vertex2);
-
-                  if (button2.hasClass(this.props.clickedClass)) {
-                    clickedButtons.push(button2.attr('value'));
-                  }
-                });
             }
+
+
+            // build the clickedButtons array
+            $(this.div)
+              .find('button')
+              .each((index2, vertex2) => {
+                const button2 = $(vertex2);
+
+                if (button2.hasClass(this.props.clickedClass)) {
+                  clickedButtons.push(button2.attr('value'));
+                }
+              });
 
             // return the array
             this.props.callback(clickedButtons);

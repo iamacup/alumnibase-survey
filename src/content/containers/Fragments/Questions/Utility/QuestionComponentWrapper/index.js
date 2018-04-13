@@ -24,6 +24,7 @@ import {
   Name,
   FullName,
   PreUni,
+  Location,
 } from '../../../../../../content/containers/Fragments/Questions/Components';
 import { redrawCharts } from '../../../../../../content/scripts/custom/echarts/utilities';
 
@@ -220,6 +221,13 @@ class QuestionComponentWrapper extends React.Component {
       return (
         <div>
           <PreUni {...obj} />
+          <div className={answerContainerClassName} />
+        </div>
+      );
+    } else if (type === 'locationVariableDetail') {
+      return (
+        <div>
+          <Location {...obj} />
           <div className={answerContainerClassName} />
         </div>
       );
