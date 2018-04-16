@@ -93,7 +93,7 @@ class SelectQuestionCompanySelectWithRemoteLookupComponent extends React.Compone
               optionID = null;
             }
 
-            const { questionID, questionIdentifier, typeAnswer } = this.props;
+            const { questionID, questionIdentifier } = this.props;
             const validity = this.validate({ optionValue, optionID });
 
             if (
@@ -110,7 +110,6 @@ class SelectQuestionCompanySelectWithRemoteLookupComponent extends React.Compone
                   optionID,
                   optionValue,
                   validity.valid,
-                  typeAnswer,
                 );
               }
             } else {
@@ -120,7 +119,6 @@ class SelectQuestionCompanySelectWithRemoteLookupComponent extends React.Compone
                 optionID,
                 optionValue,
                 validity.valid,
-                typeAnswer,
               );
             }
           }
@@ -130,6 +128,10 @@ class SelectQuestionCompanySelectWithRemoteLookupComponent extends React.Compone
       select2EnableOpenOnFocus(this.input);
 
       this.setValueFromState();
+
+      // we do this to make sure the thing is in the state - we need it in the state because otherwise validation gets a bit funky
+      // as, if the question gets validated, then we get new items added to the list, they will automatically be validated
+      this.putItemIntoState();
     });
   }
 
@@ -151,20 +153,12 @@ class SelectQuestionCompanySelectWithRemoteLookupComponent extends React.Compone
         questionID,
         validity.error,
         questionIdentifier,
-        typeAnswer,
       );
     }
 
-    // [this.props.typeAnswer.optionValue]
-    // console.log(prevProps.typeAnswer.optionValue, '*', this.props.typeAnswer.optionValue)
     if (prevProps.typeAnswer.optionValue !== this.props.typeAnswer.optionValue) {
       $(this.input).select2().val(null).trigger('change');
     }
-    // if prevProps.drawData.optionsInfo is not equal to this.props.drawData.optionsInfo
-    // then we know we need to do an update
-
-    // first remove all the current options in select2
-    // then add the new ones
   }
 
   setValueFromState() {
@@ -188,6 +182,21 @@ class SelectQuestionCompanySelectWithRemoteLookupComponent extends React.Compone
     }
   }
 
+  putItemIntoState() {
+    const { questionID, questionIdentifier } = this.props;
+    const optionID = null;
+    const optionValue = null;
+    const validity = this.validate({ optionValue, optionID });
+
+    this.props.reduxAction_doUpdateQuestionAnswer(
+      questionID,
+      questionIdentifier,
+      optionID,
+      optionValue,
+      validity.valid,
+    );
+  }
+
   validate(answer) {
     let error = '';
     const show = false;
@@ -203,13 +212,13 @@ class SelectQuestionCompanySelectWithRemoteLookupComponent extends React.Compone
     } else {
       error = 'You need to select a grade';
     }
+
     return { valid, error, show };
   }
 
   render() {
     const options = [<option value="" hidden key={0}>Select a Grade</option>];
     let data = [];
-
 
     if (dNc(this.props.typeAnswer.optionValue)) {
       data = this.props.drawData.resultOptions.filter((element) => {
@@ -299,7 +308,6 @@ const mapDispatchToProps = dispatch => ({
     optionID,
     optionValue,
     valid,
-    typeAnswer,
   ) =>
     dispatch(
       questionAction.doUpdateQuestionAnswer(
@@ -308,7 +316,6 @@ const mapDispatchToProps = dispatch => ({
         optionID,
         optionValue,
         valid,
-        typeAnswer,
       ),
     ),
   reduxAction_doSetQuestionError: (questionID, message, name) =>

@@ -83,55 +83,21 @@ class SelectQuestionCompanySelectWithRemoteLookupComponent extends React.Compone
           },
         })
         .on('change', () => {
-          if ($(this.input).val().length > 0) {
-            const $data = $(this.input).select2('data');
-
-            let optionID = $data[0].id;
-            const optionValue = $data[0].text;
-
-            if (!pattern.test(optionID)) {
-              optionID = null;
-            }
-
-            const { questionID, questionIdentifier } = this.props;
-            const validity = this.validate({ optionValue, optionID });
-
-            if (
-              dNc(this.props.answer.optionValue) ||
-              dNc(this.props.answer.optionID)
-            ) {
-              if (
-                this.props.answer.optionValue !== optionValue ||
-                this.props.answer.optionID !== optionID
-              ) {
-                this.props.reduxAction_doUpdateQuestionAnswer(
-                  questionID,
-                  questionIdentifier,
-                  optionID,
-                  optionValue,
-                  validity.valid,
-                );
-              }
-            } else {
-              this.props.reduxAction_doUpdateQuestionAnswer(
-                questionID,
-                questionIdentifier,
-                optionID,
-                optionValue,
-                validity.valid,
-              );
-            }
-          }
+          this.updateAnswer();
         });
 
       // try to open when tabbed to
       select2EnableOpenOnFocus(this.input);
 
       this.setValueFromState();
+
+      // we do this to make sure the thing is in the state - we need it in the state because otherwise validation gets a bit funky
+      // as, if the question gets validated, then we get new items added to the list, they will automatically be validated
+      this.putItemIntoState();
     });
   }
 
-  componentDidUpdate() {
+  componentDidUpdate(prevProps) {
     this.setValueFromState();
 
     const { questionIdentifier, questionID, answer } = this.props;
@@ -148,6 +114,11 @@ class SelectQuestionCompanySelectWithRemoteLookupComponent extends React.Compone
         validity.error,
         questionIdentifier,
       );
+    }
+
+    // we check to see if we need to do an update as a result of a change in 'type' validity
+    if (prevProps.resultAnswer.valid !== this.props.resultAnswer.valid) {
+      this.updateAnswer();
     }
   }
 
@@ -173,6 +144,64 @@ class SelectQuestionCompanySelectWithRemoteLookupComponent extends React.Compone
     }
   }
 
+  putItemIntoState() {
+    const { questionID, questionIdentifier } = this.props;
+    const optionID = null;
+    const optionValue = null;
+    const validity = this.validate({ optionValue, optionID });
+
+    this.props.reduxAction_doUpdateQuestionAnswer(
+      questionID,
+      questionIdentifier,
+      optionID,
+      optionValue,
+      validity.valid,
+    );
+  }
+
+  updateAnswer() {
+    if ($(this.input).val().length > 0) {
+      const $data = $(this.input).select2('data');
+
+      let optionID = $data[0].id;
+      const optionValue = $data[0].text;
+
+      if (!pattern.test(optionID)) {
+        optionID = null;
+      }
+
+      const { questionID, questionIdentifier } = this.props;
+      const validity = this.validate({ optionValue, optionID });
+
+      if (
+        dNc(this.props.answer.optionValue) ||
+        dNc(this.props.answer.optionID)
+      ) {
+        if (
+          this.props.answer.optionValue !== optionValue ||
+          this.props.answer.optionID !== optionID ||
+          this.props.answer.valid !== validity.valid
+        ) {
+          this.props.reduxAction_doUpdateQuestionAnswer(
+            questionID,
+            questionIdentifier,
+            optionID,
+            optionValue,
+            validity.valid,
+          );
+        }
+      } else {
+        this.props.reduxAction_doUpdateQuestionAnswer(
+          questionID,
+          questionIdentifier,
+          optionID,
+          optionValue,
+          validity.valid,
+        );
+      }
+    }
+  }
+
   validate(answer) {
     let error = '';
     const show = false;
@@ -180,11 +209,7 @@ class SelectQuestionCompanySelectWithRemoteLookupComponent extends React.Compone
 
     if (dNc(answer) && dNc(answer.optionValue)) {
       // test to see if the optionID is in fact an option ID
-      if (pattern.test(answer.optionID) === true || answer.optionID === null) {
-        valid = true;
-      } else if (answer.optionValue.length <= 1) {
-        error = 'The Qualification type is not long enough.';
-      } else {
+      if ((pattern.test(answer.optionID) === true || answer.optionID === null) && this.props.resultAnswer.valid === true) {
         valid = true;
       }
     } else {
@@ -254,6 +279,7 @@ SelectQuestionCompanySelectWithRemoteLookupComponent.propTypes = {
   drawData: PropTypes.object.isRequired,
   allowAdd: PropTypes.bool.isRequired,
   answerDisplay: PropTypes.any,
+  resultAnswer: PropTypes.object.isRequired,
 };
 
 SelectQuestionCompanySelectWithRemoteLookupComponent.defaultProps = {
