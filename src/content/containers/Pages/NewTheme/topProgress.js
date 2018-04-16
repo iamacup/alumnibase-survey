@@ -37,12 +37,12 @@ class TopProgress extends React.PureComponent {
             </div>
           </div>
 
-          <div className="col-auto">
+          <div className="col-auto ml-5">
             <div style={{ marginTop: '14px', marginRight: '34px' }}>
               <div className="row no-gutters">
 
-                <div className="col-auto">
-                  <div style={{ width: '145px', marginTop: '9px' }}>
+                <div className="col-auto pl-3">
+                  <div style={{ width: '145px', marginTop: '9px' }} id="bar">
                     <div className="progress" style={{ height: '8px' }}>
                       <div className="progress-bar" role="progressbar" style={{ width: percentComplete + '%' }} aria-valuenow={percentComplete} aria-valuemin="0" aria-valuemax="100" />
                     </div>

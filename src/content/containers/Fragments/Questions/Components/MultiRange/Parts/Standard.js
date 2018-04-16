@@ -105,7 +105,7 @@ class SelectQuestionCompanySelectWithRemoteLookupComponent extends React.Compone
       }
 
       const obj = (
-        <div key={value.optionID} className="col-sm">
+        <div key={value.optionID} className="col-sm mb-2 mb-sm-0">
           <div style={{ margin: '0 4px', height: '100%' }}>
             <button
               style={{ height: '100%' }}

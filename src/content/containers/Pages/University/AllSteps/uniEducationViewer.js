@@ -47,7 +47,7 @@ class Viewer extends React.PureComponent {
           <div className="row justify-content-between" key={count + 'key'}>
             <div className="col-auto mr-auto">
               <div>
-                <h6 style={{ marginBottom: '0px' }}>{courseType} {dNc(subject) ? ' - ' + subject : null} <span className="grey-text">(Graduated {graduationYear})</span></h6>
+                <h6 style={{ marginBottom: '0px' }}>{courseType} {dNc(subject) ? ' - ' + subject : null} <span className="grey-text"><br />(Graduated {graduationYear})</span></h6>
               </div>
             </div>
             <div className="col-auto">

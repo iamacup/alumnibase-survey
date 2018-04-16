@@ -62,7 +62,6 @@ class SelectQuestionCompanySelectWithRemoteLookupComponent extends React.Compone
       im.mask(this.input);
 
       const executeFunction = debounce(() => {
-        console.log('onInput');
         this.getCombinedValue();
       }, 254);
 
@@ -145,7 +144,6 @@ class SelectQuestionCompanySelectWithRemoteLookupComponent extends React.Compone
 
   getCombinedValue() {
     if (dNc(this.input.inputmask)) {
-      console.log('looking');
       let yearValue = this.input.inputmask.unmaskedvalue();
       let monthValue = $(this.select).val();
 

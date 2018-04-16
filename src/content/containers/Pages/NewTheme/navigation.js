@@ -18,14 +18,12 @@ class Navigation extends React.PureComponent {
 
     return (
       <div className="new-nav">
-        <div style={{ marginTop: '30px' }} />
-        <div className="d-flex justify-content-center">
+        <div className="d-flex justify-content-center" id="title-mobile">
           <div className="title-text">
             <span className="dark-text">University</span> <span className="light-grey-text">Branding</span>
           </div>
         </div>
-        <div style={{ marginTop: '42px' }} />
-        <div className="list-group list-group-flush" data-toggle="collapse" aria-expanded="false">
+        <div className="list-group list-group-flush" data-toggle="collapse" aria-expanded="false" id="margin-sidebar">
           <button type="button" className={'list-group-item list-group-item-action button' + (theSection === 1 ? ' button-active' : '')}>Section 1 - About You</button>
           <button type="button" className={'list-group-item list-group-item-action button' + (theSection === 2 ? ' button-active' : '')}>Section 2 - Uni Study</button>
           <button type="button" className={'list-group-item list-group-item-action button' + (theSection === 3 ? ' button-active' : '')}>Section 3 - Pre Uni</button>
@@ -38,7 +36,7 @@ class Navigation extends React.PureComponent {
 
         <div style={{ marginTop: '22px' }} />
 
-        <div style={{ paddingLeft: '38px' }} className="medium-grey-text">
+        <div style={{ marginLeft: '38px' }} className="medium-grey-text">
           <h6>some.email@example.com</h6>
           <div style={{ marginTop: '16px' }} />
           <span className="h6"><i className="fal fa-question-circle" style={{ fontSize: '16px' }} /> Help</span>
