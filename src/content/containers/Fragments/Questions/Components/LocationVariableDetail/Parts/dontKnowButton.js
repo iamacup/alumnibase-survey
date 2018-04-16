@@ -32,8 +32,8 @@ class SelectQuestionCompanySelectWithRemoteLookupComponent extends React.Compone
       );
     }
 
-    //fiddle with the button group to make sure the button is not pressed
-    if(answer.optionID === '-1' || answer.optionID === -1) {
+    // fiddle with the button group to make sure the button is not pressed
+    if (answer.optionID === '-1' || answer.optionID === -1) {
       $(this.buttonDOM).addClass('answered');
     }
   }
@@ -56,13 +56,13 @@ class SelectQuestionCompanySelectWithRemoteLookupComponent extends React.Compone
   buttonPress(dataArr) {
     let optionID;
 
-// changing the optionID for on and off clicks, in order to poulate the state with what is in the input.
-    if(dataArr.length > 0) {
+    // changing the optionID for on and off clicks, in order to poulate the state with what is in the input.
+    if (dataArr.length > 0) {
       optionID = -1;
     } else {
       optionID = -2;
     }
-    
+
     const optionValue = null;
 
     const { questionID, questionIdentifier } = this.props;
@@ -85,8 +85,8 @@ class SelectQuestionCompanySelectWithRemoteLookupComponent extends React.Compone
     };
 
     let className = 'btn btn-block btn-option btn-multiline btn-margin';
-// turns the button back to grey once the input field has been clicked.
-    if (dNc(this.props.answer.optionValue)) className = "btn btn-block btn-option btn-multiline btn-margin hide-green"
+    // turns the button back to grey once the input field has been clicked.
+    if (dNc(this.props.answer.optionValue)) className = 'btn btn-block btn-option btn-multiline btn-margin hide-green';
 
     const answered = false;
 
@@ -94,7 +94,7 @@ class SelectQuestionCompanySelectWithRemoteLookupComponent extends React.Compone
       <div key={value.value} >
         <button
         // ref for jQuery to make sure the button has been turned off when clicked on input field.
-          ref={(buttonDOM) => {this.buttonDOM = buttonDOM;}}
+          ref={(buttonDOM) => { this.buttonDOM = buttonDOM; }}
           value={value.value}
           className={className}
         >

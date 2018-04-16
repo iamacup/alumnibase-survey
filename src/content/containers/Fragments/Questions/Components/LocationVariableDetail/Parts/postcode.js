@@ -26,10 +26,10 @@ class PostcodeQuestionPostcodeComponent extends React.Component {
       );
     }
 
-// calls to reset the state with the new input after off clicking the don't know button.
-// clicking the butotn off cleates a new state optionID of -2
-// this is quickly overthrown by the handleChange. 
-    if(answer.optionID === -2) {
+    // calls to reset the state with the new input after off clicking the don't know button.
+    // clicking the butotn off cleates a new state optionID of -2
+    // this is quickly overthrown by the handleChange.
+    if (answer.optionID === -2) {
       this.handleChange();
     }
   }
@@ -57,7 +57,7 @@ class PostcodeQuestionPostcodeComponent extends React.Component {
   }
 
   handleChange() {
-    let optionValue = this.input.value;
+    const optionValue = this.input.value;
     const optionID = null;
 
     const { questionID, questionIdentifier } = this.props;
@@ -72,30 +72,30 @@ class PostcodeQuestionPostcodeComponent extends React.Component {
     );
   }
 
-//  Calls to reset the state with the value in the input form on click back to input.
+  //  Calls to reset the state with the value in the input form on click back to input.
   handleFocus() {
     this.handleChange();
   }
 
   render() {
-// if the button is clicked the input form will turn back to grey if id had been validated.
-  let classChange = "form-control"
-  if (this.props.answer.optionID === -1) classChange = "form-control hide-green"
+    // if the button is clicked the input form will turn back to grey if id had been validated.
+    let classChange = 'form-control';
+    if (this.props.answer.optionID === -1) classChange = 'form-control hide-green';
 
     return (
-        <input
-          placeholder="Your Postcode"
-          className={classChange}
-          ref={(input) => {
+      <input
+        placeholder="Your Postcode"
+        className={classChange}
+        ref={(input) => {
             this.input = input;
           }}
-          onChange={() => {
+        onChange={() => {
             this.handleChange();
           }}
-          onFocus={() => {
+        onFocus={() => {
             this.handleFocus();
           }}
-        />
+      />
     );
   }
 }

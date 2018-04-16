@@ -32,10 +32,10 @@ const PostcodeComponent = ({
   };
 
   let question = null;
-    // get the questionIdentifier
+  // get the questionIdentifier
   const questionIdentifier = getQuestionIdentifiers(options);
 
-// set the questions to render
+  // set the questions to render
   question = (
     <div>
       <Postcode
@@ -48,7 +48,7 @@ const PostcodeComponent = ({
         answer={answerBits[questionIdentifier]}
         questionIdentifier={questionIdentifier}
       />
-      </div>
+    </div>
   );
 
   return (
