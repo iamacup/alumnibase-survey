@@ -13,20 +13,15 @@ class SelectQuestionCompanySelectWithRemoteLookupComponent extends React.Compone
   componentDidMount() {
     // wait for document to be ready
     $(() => {
-      $('[data-toggle="popover"]').popover();
-
-      /* $('.popover-dismiss').popover({
-        trigger: 'focus',
-      }); */
+      this.setValueFromState();
     });
   }
 
   componentDidUpdate() {
-    // this.setValueFromState();
+    this.setValueFromState();
 
     const { questionIdentifier, questionID, answer } = this.props;
     const validity = this.validate(this.props.answer);
-
     // set stuff as an error if they need to be
     if (
       validity.valid === false &&
@@ -41,21 +36,57 @@ class SelectQuestionCompanySelectWithRemoteLookupComponent extends React.Compone
     }
   }
 
-  /*
-  We don't need this because we sort out setting the value from state in render
-
   setValueFromState() {
-    if (dNc(this.props.answer.optionValue)) {
-      // set the state
+    // in other methods we 'set the state' in render but here we don't.... - i think this might be broken in other components now
+    // due to changes in question group
+    // console.log('TODO - set value from state is not implemented for this component!');
+  }
+
+  getIndex(dataArr, optionID) {
+    let index = -1;
+
+    for (let a = 0; a < dataArr.length; a++) {
+      if (dataArr[a] === optionID) {
+        for (let b = 0; b < this.props.options.length; b++) {
+          if (this.props.options[b].optionID === dataArr[a]) {
+            index = b;
+          }
+        }
+      }
     }
-  } */
+
+    if (index === -1) {
+      console.log('This is an unhandle error condition');
+    }
+
+    return index;
+  }
+
+  // returns the option ID of the option that has clearOption set to true in the drawData
+  // TODO button group does not support multiple clear options so if we find more than 1 in the options set - we error out something
+  getClearOptionID() {
+    let clearOptionID = null;
+
+    this.props.options.forEach((value) => {
+      if (dNc(value.drawData) && value.drawData.clearOption === true) {
+        if (clearOptionID !== null) {
+          console.log('error condition - more than 1 clear option was specified');
+        }
+
+        clearOptionID = value.optionID;
+      }
+    });
+
+    return clearOptionID;
+  }
 
   validate(answer) {
     let error = '';
     let show = false;
     let valid = false;
 
-    if (dNc(answer) && dNc(answer.optionID)) {
+    // we set to valid as long as 'an' option exists in the state
+    if (Object.keys(answer).length > 0) {
       valid = true;
     } else {
       error = 'You need to select an option.';
@@ -65,52 +96,59 @@ class SelectQuestionCompanySelectWithRemoteLookupComponent extends React.Compone
     return { valid, error, show };
   }
 
+  // we need to make sure that our state is the same as dataArr
   buttonPress(dataArr) {
-    // press
-    const optionID = dataArr[0];
-    let optionValue = null;
+    const { questionID, questionIdentifier } = this.props;
 
-    // pull the option value
-    this.props.options.forEach((value) => {
-      if (value.optionID === optionID) {
-        ({ optionValue } = value);
+    // first we loop through the dataArr and make sure everything in dataArr is in the state
+    for (let a = 0; a < dataArr.length; a++) {
+      const optionID = dataArr[a];
+      let optionValue = null;
+
+      this.props.options.forEach((value) => {
+        if (value.optionID === optionID) {
+          ({ optionValue } = value);
+        }
+      });
+
+      // we pass an empty array in here because the state does not yet exist - and we just want it to validate
+      // see the validate method to understand why this works
+      const validity = this.validate(['empty']);
+
+      this.props.reduxAction_doUpdateQuestionAnswer(
+        questionID,
+        questionIdentifier + '_' + this.getIndex(dataArr, optionID),
+        optionID,
+        optionValue,
+        validity.valid,
+      );
+    }
+
+    console.log('redux', this.props.answer);
+    console.log('buttons', dataArr);
+
+    // then we loop through the state and remove anything thats not in the dataArr
+    Object.keys(this.props.answer).forEach((value) => {
+      if (!dataArr.includes(this.props.answer[value].optionID)) {
+        console.log('removing', value);
+        this.props.reduxAction_doRemoveQuestionIdentifier(questionID, value);
       }
     });
-
-    const { questionID, questionIdentifier } = this.props;
-    const validity = this.validate({ optionValue, optionID });
-
-    this.props.reduxAction_doUpdateQuestionAnswer(
-      questionID,
-      questionIdentifier,
-      optionID,
-      optionValue,
-      validity.valid,
-    );
   }
 
   render() {
     const options = [];
 
+    // loop over the options and draw the buttons
     this.props.options.forEach((value) => {
-      let className = 'btn btn-block btn-option btn-multiline';
-      let answered = false;
+      let className = 'btn btn-block btn-option btn-multiline btn-margin';
+      const answered = false;
 
       if (dNc(value.drawData) && dNc(value.drawData.optionEmphasis)) {
         className += ' btn-emphasis';
       }
 
-      if (
-        dNc(this.props.answer.optionID) &&
-        this.props.answer.optionID === value.optionID &&
-        this.props.answer.valid === true
-      ) {
-        className += ' answered';
-        answered = true;
-      }
-
       let answerObj = null;
-      let containerClassName = '';
 
       if (dNc(this.props.answerDisplay) && this.props.answerDisplay.type === 'percentages') {
         const { answerDisplay } = this.props;
@@ -130,55 +168,20 @@ class SelectQuestionCompanySelectWithRemoteLookupComponent extends React.Compone
           />
         );
 
-        containerClassName = 'd-none';
+        className += ' d-none';
       }
 
-      let obj = null;
-
-      if (dNc(value.drawData) && dNc(value.drawData.questionPrimaryText) && dNc(value.drawData.questionSecondaryText)) {
-        obj = (
-          <div key={value.optionID}>
-            {answerObj}
-            <div className={'clearfix ' + containerClassName}>
-              <div className="float-left floating-button-left">
-                <button
-                  value={value.optionID}
-                  className={className}
-                >
-                  {value.drawData.questionPrimaryText}
-                </button>
-              </div>
-              <div className="float-right" style={{ marginRight: '-50px', marginTop: '8px' }}>
-                <span
-                  tabIndex="0"
-                  className="btn-hint"
-                  role="button"
-                  data-toggle="popover"
-                  data-trigger="hover"
-                  title=""
-                  data-content={value.drawData.questionSecondaryText}
-                >
-                  <i className="fal fa-question-circle" style={{ padding: '10px' }} />
-                </span>
-              </div>
-            </div>
-          </div>
-        );
-      } else {
-        obj = (
-          <div key={value.optionID}>
-            {answerObj}
-            <div className={containerClassName}>
-              <button
-                value={value.optionID}
-                className={className + ' btn-margin'}
-              >
-                {value.optionValue}
-              </button>
-            </div>
-          </div>
-        );
-      }
+      const obj = (
+        <div key={value.optionID}>
+          {answerObj}
+          <button
+            value={value.optionID}
+            className={className}
+          >
+            {value.optionValue}
+          </button>
+        </div>
+      );
 
       options.push(obj);
     });
@@ -189,7 +192,9 @@ class SelectQuestionCompanySelectWithRemoteLookupComponent extends React.Compone
         callback={(data) => {
           this.buttonPress(data);
         }}
-        singleSelect
+        singleSelect={false}
+        clickedClass="answered"
+        clearButtonID={this.getClearOptionID()}
       />
     );
   }
@@ -198,6 +203,7 @@ class SelectQuestionCompanySelectWithRemoteLookupComponent extends React.Compone
 SelectQuestionCompanySelectWithRemoteLookupComponent.propTypes = {
   reduxAction_doUpdateQuestionAnswer: PropTypes.func,
   reduxAction_doSetQuestionError: PropTypes.func,
+  reduxAction_doRemoveQuestionIdentifier: PropTypes.func,
   // nextStepCallback: PropTypes.func,
   questionID: PropTypes.string.isRequired,
   forceValidate: PropTypes.bool.isRequired,
@@ -210,6 +216,7 @@ SelectQuestionCompanySelectWithRemoteLookupComponent.propTypes = {
 SelectQuestionCompanySelectWithRemoteLookupComponent.defaultProps = {
   reduxAction_doUpdateQuestionAnswer: () => {},
   reduxAction_doSetQuestionError: () => {},
+  reduxAction_doRemoveQuestionIdentifier: () => {},
   // nextStepCallback: () => { },
   answerDisplay: null,
 };
@@ -235,6 +242,8 @@ const mapDispatchToProps = dispatch => ({
     ),
   reduxAction_doSetQuestionError: (questionID, message, name) =>
     dispatch(questionAction.doSetQuestionError(questionID, message, name)),
+  reduxAction_doRemoveQuestionIdentifier: (questionID, questionIdentifier) =>
+    dispatch(questionAction.doRemoveQuestionIdentifier(questionID, questionIdentifier)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(

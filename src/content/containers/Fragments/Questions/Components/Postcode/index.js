@@ -29,7 +29,7 @@ const CurrencySalaryBonusQuestionComponent = ({
       {...obj}
       answer={answerBits.postcode}
       options={options.postcode}
-      questionIdentifier="postcode"
+      questionIdentifier={answerBits[0]}
     />
   );
 

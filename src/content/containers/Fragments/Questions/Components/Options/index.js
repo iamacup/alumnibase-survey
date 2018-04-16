@@ -5,6 +5,7 @@ import QuestionContainer from '../../../../../../content/components/Questions/qu
 import StandardOptions from '../../../../../../content/containers/Fragments/Questions/Components/Options/Parts/StandardOptions';
 import ListOptions from '../../../../../../content/containers/Fragments/Questions/Components/Options/Parts/ListOptions';
 import OptionsWithTooltips from '../../../../../../content/containers/Fragments/Questions/Components/Options/Parts/OptionsWithTooltips';
+import MultiSelectOptions from '../../../../../../content/containers/Fragments/Questions/Components/Options/Parts/MultiSelectOptions';
 
 import {
   getUsefulQuestionBits,
@@ -100,6 +101,12 @@ const OptionsQuestionComponent = ({
     answerDisplay = null;
   }
 
+
+  let multiSelectAnswer = {};
+  if (dNc(answer.answer)) {
+    multiSelectAnswer = answer.answer;
+  }
+  // console.log(answerBits, questionIdentifier, multiSelectAnswer)
   if (dNc(drawData.type) && drawData.type === 'list') {
     question = (
       <ListOptions
@@ -114,6 +121,16 @@ const OptionsQuestionComponent = ({
       <OptionsWithTooltips
         {...obj}
         answer={answerBits[questionIdentifier]}
+        options={options[questionIdentifier]}
+        questionIdentifier={questionIdentifier}
+        answerDisplay={answerDisplay}
+      />
+    );
+  } else if (dNc(drawData.type) && drawData.type === 'multiSelectOptions') {
+    question = (
+      <MultiSelectOptions
+        {...obj}
+        answer={multiSelectAnswer}
         options={options[questionIdentifier]}
         questionIdentifier={questionIdentifier}
         answerDisplay={answerDisplay}

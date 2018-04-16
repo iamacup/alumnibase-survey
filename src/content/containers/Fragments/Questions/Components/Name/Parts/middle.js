@@ -2,22 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import ButtonGroup from '../../../../../../../content/components/ButtonGroup';
-
 import { dNc } from '../../../../../../../content/scripts/custom/utilities';
-
+import checkMiddleName from '../../../../../../../content/scripts/vendor/names/middle';
 import * as questionAction from '../../../../../../../content/containers/Fragments/Questions/Components/action';
 
-class SelectQuestionCompanySelectWithRemoteLookupComponent extends React.Component {
-  componentDidMount() {
-    // wait for document to be ready
-    $(() => {
-      // this.setValueFromState();
-    });
-  }
-
+class FreeTextQuestionMultilineComponent extends React.Component {
   componentDidUpdate() {
-    // this.setValueFromState();
+    this.setValueFromState();
 
     const { questionIdentifier, questionID, answer } = this.props;
     const validity = this.validate(this.props.answer);
@@ -34,43 +25,60 @@ class SelectQuestionCompanySelectWithRemoteLookupComponent extends React.Compone
         questionIdentifier,
       );
     }
-  }
 
-  /*
-  We don't need this because we sort out setting the value from state in render
+    // if we are force validating, and the validity is true, but there is no valid answer in the state - we make sure there is an answer in the state
+    // // this caters for optional values etc.
+  //   const { drawData } = this.props;
+
+  //   if (
+  //     this.props.forceValidate === true &&
+  //     validity.valid === true &&
+  //     (!dNc(this.props.answer) || !dNc(this.props.answer.optionValue))
+  //   ) {
+  //     this.handleChange();
+  //   } else if (drawData.minLength === 0) {
+  //     // here we check for optional, if found then we just set the thing to valid instantly
+  //     if (dNc(this.props.answer) && this.props.answer.valid !== true) {
+  //       this.handleChange();
+  //     }
+  //   }
+  }
 
   setValueFromState() {
     if (dNc(this.props.answer.optionValue)) {
-      // set the state
+      this.input.value = this.props.answer.optionValue;
     }
-  } */
+  }
 
   validate(answer) {
     let error = '';
-    let show = false;
+    const show = false;
     let valid = false;
 
-    if (dNc(answer) && dNc(answer.optionID)) {
-      valid = true;
+    if (dNc(answer) && dNc(answer.optionValue)) {
+      if (answer.optionValue.length < 1) {
+        error = 'Please enter your name.';
+      } else if (checkMiddleName(answer.optionValue) === false) {
+        error = 'This does not appear to be a valid name.';
+      } else {
+        valid = true;
+      }
     } else {
-      error = 'You need to select an option.';
-      show = false;
+      error = 'You need to enter your name.';
     }
 
     return { valid, error, show };
   }
 
-  buttonPress(dataArr) {
-    // press
-    const optionID = dataArr[0];
-    let optionValue = null;
+  /* doNextStepCallback(e) {
+    if (e.keyCode === 13) {
+      this.props.nextStepCallback();
+    }
+  } */
 
-    // pull the option value
-    this.props.options.forEach((value) => {
-      if (value.optionID === optionID) {
-        ({ optionValue } = value);
-      }
-    });
+  handleChange() {
+    const optionValue = this.input.value;
+    const optionID = null;
 
     const { questionID, questionIdentifier } = this.props;
     const validity = this.validate({ optionValue, optionID });
@@ -85,56 +93,24 @@ class SelectQuestionCompanySelectWithRemoteLookupComponent extends React.Compone
   }
 
   render() {
-    const options = [];
-
-    this.props.options.forEach((value) => {
-      let className = 'btn btn-block btn-option btn-multiline btn-margin';
-      // let answered = false;
-
-      if (dNc(value.drawData) && dNc(value.drawData.optionEmphasis)) {
-        className += ' btn-emphasis';
-      }
-
-      if (
-        dNc(this.props.answer.optionID) &&
-        this.props.answer.optionID === value.optionID &&
-        this.props.answer.valid === true
-      ) {
-        className += ' answered';
-        // answered = true;
-      }
-
-      const obj = (
-        <div key={value.optionID} className="col-sm">
-          <div style={{ margin: '0 4px', height: '100%' }}>
-            <button
-              style={{ height: '100%' }}
-              value={value.optionID}
-              className={className}
-            >
-              {value.optionValue}
-            </button>
-          </div>
-        </div>
-      );
-
-      options.push(obj);
-    });
-
     return (
-      <ButtonGroup
-        wrapperClass="row no-gutters padded-buttons"
-        buttons={options}
-        callback={(data) => {
-          this.buttonPress(data);
-        }}
-        singleSelect
-      />
+      <span className="form-group">
+        <input
+          type="text"
+          className="form-control"
+          ref={(input) => {
+            this.input = input;
+          }}
+          onChange={() => {
+            this.handleChange();
+          }}
+        />
+      </span>
     );
   }
 }
 
-SelectQuestionCompanySelectWithRemoteLookupComponent.propTypes = {
+FreeTextQuestionMultilineComponent.propTypes = {
   reduxAction_doUpdateQuestionAnswer: PropTypes.func,
   reduxAction_doSetQuestionError: PropTypes.func,
   // nextStepCallback: PropTypes.func,
@@ -142,10 +118,11 @@ SelectQuestionCompanySelectWithRemoteLookupComponent.propTypes = {
   forceValidate: PropTypes.bool.isRequired,
   answer: PropTypes.object.isRequired,
   questionIdentifier: PropTypes.string.isRequired,
-  options: PropTypes.array.isRequired,
+  // options: PropTypes.array.isRequired,
+  // drawData: PropTypes.object.isRequired,
 };
 
-SelectQuestionCompanySelectWithRemoteLookupComponent.defaultProps = {
+FreeTextQuestionMultilineComponent.defaultProps = {
   reduxAction_doUpdateQuestionAnswer: () => {},
   reduxAction_doSetQuestionError: () => {},
   // nextStepCallback: () => { },
@@ -175,5 +152,5 @@ const mapDispatchToProps = dispatch => ({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(
-  SelectQuestionCompanySelectWithRemoteLookupComponent,
+  FreeTextQuestionMultilineComponent,
 );

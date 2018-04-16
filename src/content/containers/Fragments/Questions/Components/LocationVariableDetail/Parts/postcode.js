@@ -3,24 +3,17 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { dNc } from '../../../../../../../content/scripts/custom/utilities';
+import checkPostCode from '../../../../../../../content/scripts/vendor/postcodes';
 
 import * as questionAction from '../../../../../../../content/containers/Fragments/Questions/Components/action';
 
-class SelectQuestionCompanySelectWithRemoteLookupComponent extends React.Component {
-  componentDidMount() {
-    // wait for document to be ready
-    $(() => {
-      // this.setValueFromState();
-    });
-  }
-
+class PostcodeQuestionPostcodeComponent extends React.Component {
   componentDidUpdate() {
-    // this.setValueFromState();
+    this.setValueFromState();
 
     const { questionIdentifier, questionID, answer } = this.props;
     const validity = this.validate(this.props.answer);
 
-    // set stuff as an error if they need to be
     if (
       validity.valid === false &&
       (validity.show === true || this.props.forceValidate === true) &&
@@ -32,43 +25,40 @@ class SelectQuestionCompanySelectWithRemoteLookupComponent extends React.Compone
         questionIdentifier,
       );
     }
+
+    // calls to reset the state with the new input after off clicking the don't know button.
+    // clicking the butotn off cleates a new state optionID of -2
+    // this is quickly overthrown by the handleChange.
+    if (answer.optionID === -2) {
+      this.handleChange();
+    }
   }
 
-  /*
-  TODO not implemented yet
-
   setValueFromState() {
-    if (dNc(this.props.answer.optionValue)) {
-      // set the state
+    if (dNc(this.props.answer) && dNc(this.props.answer.optionValue)) {
+      this.input.value = this.props.answer.optionValue;
     }
-  } */
+  }
 
   validate(answer) {
     let error = '';
-    let show = false;
+    const show = false;
     let valid = false;
 
-    if (dNc(answer) && dNc(answer.optionID)) {
-      valid = true;
-    } else {
-      error = 'You need to select an option.';
-      show = false;
-    }
+    if (dNc(answer.optionID) && checkPostCode(answer.optionValue)) {
+      valid = false;
+    } else if (dNc(answer) && dNc(answer.optionValue)) {
+      if (!dNc(answer.optionID) && checkPostCode(answer.optionValue) === false) {
+        error = 'This does not appear to be a valid postcode.';
+      } else valid = true;
+    } else valid = false;
 
     return { valid, error, show };
   }
 
-  buttonPress(dataArr) {
-    // press
-    const optionID = dataArr[0];
-    let optionValue = null;
-
-    // pull the option value
-    this.props.options.forEach((value) => {
-      if (value.optionID === optionID) {
-        ({ optionValue } = value);
-      }
-    });
+  handleChange() {
+    const optionValue = this.input.value;
+    const optionID = null;
 
     const { questionID, questionIdentifier } = this.props;
     const validity = this.validate({ optionValue, optionID });
@@ -82,51 +72,47 @@ class SelectQuestionCompanySelectWithRemoteLookupComponent extends React.Compone
     );
   }
 
+  //  Calls to reset the state with the value in the input form on click back to input.
+  handleFocus() {
+    this.handleChange();
+  }
+
   render() {
-    const options = [];
+    // if the button is clicked the input form will turn back to grey if id had been validated.
+    let classChange = 'form-control';
+    if (this.props.answer.optionID === -1) classChange = 'form-control hide-green';
 
-    this.props.options.forEach((value) => {
-      const data = (
-        <div className="radio" key={value.optionID}>
-          <label
-            htmlFor={value.optionID + 'radioButton'}
-            style={{ marginTop: '4px' }}
-          >
-            <input
-              type="radio"
-              name={this.props.questionID}
-              id={value.optionID + 'radioButton'}
-              onClick={() => {
-                this.buttonPress([value.optionID]);
-              }}
-            />
-            {value.optionValue}
-          </label>
-        </div>
-      );
-
-      options.push(data);
-    });
-
-    return options;
+    return (
+      <input
+        placeholder="Your Postcode"
+        className={classChange}
+        ref={(input) => {
+            this.input = input;
+          }}
+        onChange={() => {
+            this.handleChange();
+          }}
+        onFocus={() => {
+            this.handleFocus();
+          }}
+      />
+    );
   }
 }
 
-SelectQuestionCompanySelectWithRemoteLookupComponent.propTypes = {
+PostcodeQuestionPostcodeComponent.propTypes = {
   reduxAction_doUpdateQuestionAnswer: PropTypes.func,
   reduxAction_doSetQuestionError: PropTypes.func,
-  // nextStepCallback: PropTypes.func,
   questionID: PropTypes.string.isRequired,
   forceValidate: PropTypes.bool.isRequired,
   answer: PropTypes.object.isRequired,
   questionIdentifier: PropTypes.string.isRequired,
-  options: PropTypes.array.isRequired,
+  drawData: PropTypes.object.isRequired,
 };
 
-SelectQuestionCompanySelectWithRemoteLookupComponent.defaultProps = {
+PostcodeQuestionPostcodeComponent.defaultProps = {
   reduxAction_doUpdateQuestionAnswer: () => {},
   reduxAction_doSetQuestionError: () => {},
-  // nextStepCallback: () => { },
 };
 
 const mapStateToProps = null;
@@ -153,5 +139,5 @@ const mapDispatchToProps = dispatch => ({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(
-  SelectQuestionCompanySelectWithRemoteLookupComponent,
+  PostcodeQuestionPostcodeComponent,
 );

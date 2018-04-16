@@ -12,17 +12,14 @@ class SelectQuestionCompanySelectWithRemoteLookupComponent extends React.Compone
   componentDidMount() {
     // wait for document to be ready
     $(() => {
-      // this.setValueFromState();
+
     });
   }
 
   componentDidUpdate() {
-    // this.setValueFromState();
-
     const { questionIdentifier, questionID, answer } = this.props;
     const validity = this.validate(this.props.answer);
 
-    // set stuff as an error if they need to be
     if (
       validity.valid === false &&
       (validity.show === true || this.props.forceValidate === true) &&
@@ -34,16 +31,12 @@ class SelectQuestionCompanySelectWithRemoteLookupComponent extends React.Compone
         questionIdentifier,
       );
     }
-  }
 
-  /*
-  We don't need this because we sort out setting the value from state in render
-
-  setValueFromState() {
-    if (dNc(this.props.answer.optionValue)) {
-      // set the state
+    // fiddle with the button group to make sure the button is not pressed
+    if (answer.optionID === '-1' || answer.optionID === -1) {
+      $(this.buttonDOM).addClass('answered');
     }
-  } */
+  }
 
   validate(answer) {
     let error = '';
@@ -61,16 +54,16 @@ class SelectQuestionCompanySelectWithRemoteLookupComponent extends React.Compone
   }
 
   buttonPress(dataArr) {
-    // press
-    const optionID = dataArr[0];
-    let optionValue = null;
+    let optionID;
 
-    // pull the option value
-    this.props.options.forEach((value) => {
-      if (value.optionID === optionID) {
-        ({ optionValue } = value);
-      }
-    });
+    // changing the optionID for on and off clicks, in order to poulate the state with what is in the input.
+    if (dataArr.length > 0) {
+      optionID = -1;
+    } else {
+      optionID = -2;
+    }
+
+    const optionValue = null;
 
     const { questionID, questionIdentifier } = this.props;
     const validity = this.validate({ optionValue, optionID });
@@ -86,49 +79,40 @@ class SelectQuestionCompanySelectWithRemoteLookupComponent extends React.Compone
 
   render() {
     const options = [];
+    const value = {
+      label: 'Don\'t know',
+      value: -1,
+    };
 
-    this.props.options.forEach((value) => {
-      let className = 'btn btn-block btn-option btn-multiline btn-margin';
-      // let answered = false;
+    let className = 'btn btn-block btn-option btn-multiline btn-margin';
+    // turns the button back to grey once the input field has been clicked.
+    if (dNc(this.props.answer.optionValue)) className = 'btn btn-block btn-option btn-multiline btn-margin hide-green';
 
-      if (dNc(value.drawData) && dNc(value.drawData.optionEmphasis)) {
-        className += ' btn-emphasis';
-      }
+    const answered = false;
 
-      if (
-        dNc(this.props.answer.optionID) &&
-        this.props.answer.optionID === value.optionID &&
-        this.props.answer.valid === true
-      ) {
-        className += ' answered';
-        // answered = true;
-      }
+    const obj = (
+      <div key={value.value} >
+        <button
+        // ref for jQuery to make sure the button has been turned off when clicked on input field.
+          ref={(buttonDOM) => { this.buttonDOM = buttonDOM; }}
+          value={value.value}
+          className={className}
+        >
+          {value.label}
+        </button>
+      </div>
+    );
 
-      const obj = (
-        <div key={value.optionID} className="col-sm">
-          <div style={{ margin: '0 4px', height: '100%' }}>
-            <button
-              style={{ height: '100%' }}
-              value={value.optionID}
-              className={className}
-            >
-              {value.optionValue}
-            </button>
-          </div>
-        </div>
-      );
-
-      options.push(obj);
-    });
+    options.push(obj);
 
     return (
       <ButtonGroup
-        wrapperClass="row no-gutters padded-buttons"
         buttons={options}
         callback={(data) => {
           this.buttonPress(data);
         }}
         singleSelect
+        clickedClass="answered"
       />
     );
   }
@@ -137,18 +121,18 @@ class SelectQuestionCompanySelectWithRemoteLookupComponent extends React.Compone
 SelectQuestionCompanySelectWithRemoteLookupComponent.propTypes = {
   reduxAction_doUpdateQuestionAnswer: PropTypes.func,
   reduxAction_doSetQuestionError: PropTypes.func,
-  // nextStepCallback: PropTypes.func,
   questionID: PropTypes.string.isRequired,
   forceValidate: PropTypes.bool.isRequired,
   answer: PropTypes.object.isRequired,
   questionIdentifier: PropTypes.string.isRequired,
   options: PropTypes.array.isRequired,
+  answerDisplay: PropTypes.any,
 };
 
 SelectQuestionCompanySelectWithRemoteLookupComponent.defaultProps = {
   reduxAction_doUpdateQuestionAnswer: () => {},
   reduxAction_doSetQuestionError: () => {},
-  // nextStepCallback: () => { },
+  answerDisplay: null,
 };
 
 const mapStateToProps = null;

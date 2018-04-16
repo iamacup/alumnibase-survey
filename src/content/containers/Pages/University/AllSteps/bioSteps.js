@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 import NewWizzardPane from '../../../../../content/containers/Fragments/NewWizzardPane';
 
-import { dNc, nextElementInArray } from '../../../../../content/scripts/custom/utilities';
+import { nextElementInArray } from '../../../../../content/scripts/custom/utilities';
 import { getLatestItemWithFriendlyNameFromState } from '../../../../../content/containers/Pages/University/AllSteps/commonFunctions';
 
 class Viewer extends React.PureComponent {
@@ -123,9 +123,9 @@ class Viewer extends React.PureComponent {
             <dl className="row" style={{ marginBottom: '24px' }}>
               <dt className="col-sm-4"><div className="privacy-line" /><h4>Data Processing</h4></dt>
               <dd className="col-sm-8">
-                <input className="form-check-input my-checkbox" type="checkbox" value="" id="defaultCheck1" />
                 <div className="form-check">
                   <label className="form-check-label dark-grey-text" htmlFor="defaultCheck1">
+                    <input className="form-check-input my-checkbox" type="checkbox" value="" id="defaultCheck1" />
                   I agree to allow AliumniBase to process data on behalf of {uniName} in order to provide agregate statistics on the alumni network in order to improve the university.
                   </label>
                 </div>
@@ -135,9 +135,9 @@ class Viewer extends React.PureComponent {
             <dl className="row" style={{ marginBottom: '24px' }}>
               <dt className="col-sm-4"><div className="privacy-line" /><h4>Personal Information</h4></dt>
               <dd className="col-sm-8">
-                <input className="form-check-input my-checkbox" type="checkbox" value="" id="defaultCheck2" />
                 <div className="form-check">
                   <label className="form-check-label dark-grey-text" htmlFor="defaultCheck2">
+                    <input className="form-check-input my-checkbox" type="checkbox" value="" id="defaultCheck2" />
                   I agree to allow AlumniBase to collect and store personal information on me, such as gender and age, which will be agregated and provided to other universities in an anonymised, non-identifiable format.
                   </label>
                 </div>
@@ -147,9 +147,9 @@ class Viewer extends React.PureComponent {
             <dl className="row" style={{ marginBottom: '24px' }}>
               <dt className="col-sm-4"><div className="privacy-line" /><h4>Sensitive Personal Information</h4></dt>
               <dd className="col-sm-8">
-                <input className="form-check-input my-checkbox" type="checkbox" value="" id="defaultCheck3" />
                 <div className="form-check">
                   <label className="form-check-label dark-grey-text" htmlFor="defaultCheck3">
+                    <input className="form-check-input my-checkbox" type="checkbox" value="" id="defaultCheck3" />
                 I agree to allow AlumniBase to collect and store sensitive personal information on me, such as ethnicity and religion, which will be agregated and provided to other universities in an anonymised, non-identifiable format.
                   </label>
                 </div>
@@ -159,9 +159,9 @@ class Viewer extends React.PureComponent {
             <dl className="row" style={{ marginBottom: '24px' }}>
               <dt className="col-sm-4 text-truncate"><div className="privacy-line" /><h4>Data Share</h4></dt>
               <dd className="col-sm-8">
-                <input className="form-check-input my-checkbox" type="checkbox" value="" id="defaultCheck4" />
                 <div className="form-check">
                   <label className="form-check-label dark-grey-text" htmlFor="defaultCheck4">
+                    <input className="form-check-input my-checkbox" type="checkbox" value="" id="defaultCheck4" />
                 I agree to allow AlumniBase to use the information that I provide to enable career planning for existing students and the public by sharing data with www.sliips.com (A wholy owned subsidiary of AlumniBase.com)
                   </label>
                 </div>
