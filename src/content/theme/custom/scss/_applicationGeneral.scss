@@ -33,6 +33,10 @@ $red-color: #d02a02;
 
   .section-padding {
     padding: 30px 39px;
+
+    @media (max-width: 922px) {
+      padding: none;
+    }
   }
 
   .overall-progress-corner-modifier {
@@ -87,15 +91,58 @@ $red-color: #d02a02;
 }
 
 .left {
+  display: none;
+  position: fixed;
+  overflow: auto;
   flex: 0 0 300px;
+  background: #fff;
   box-shadow: 1px 0 5px 0 $border-and-shadow-color;
   order: 0;
-  z-index: 2;
+  z-index: 3;
   min-height: 900px;
+
+  @media (min-width: 922px) {
+    display: block !important;
+    position: relative;
+  }
+}
+
+.overlay {
+  @media (max-width: 922px) {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    background-color: rgba(0, 0, 0, 0.3);
+    top: 0;
+    left: 0;
+    display: none;
+    z-index: 2;
+  }
+}
+
+#mobile-navbar {
+  background-color: #fff;
+  height: 65px;
+  color: #6392e9;
+
+  @media (min-width: 922px) {
+    display: none;
+  }
+}
+
+#navigation-toggle {
+  color: #6392e9;
+  background-color: #fff;
+
+  @media (min-width: 922px) {
+    display: none;
+  }
 }
 
 .right {
   flex: 1;
+  z-index: 1;
+  position: relative;
   background-color: $grey-background-color;
 }
 

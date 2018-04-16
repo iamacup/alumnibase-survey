@@ -52,6 +52,25 @@ const uniSteps = ['2-1', 'ask-another-qualification', '2-2', 'ask-next-qualifica
 const preUniSteps = ['3-1'];
 
 class Viewer extends React.Component {
+  componentDidMount() {
+    // button to open responsive navbar on a small screen.
+    $(this.buttonDOM).click(() => {
+      $('.left').slideToggle();
+      $('.overlay').fadeIn();
+    });
+
+    // button inside the responsive navbar to hide it.
+    $(this.buttonDOM2).click(() => {
+      $('.left').toggle();
+      $('.overlay').fadeOut();
+    });
+
+    $('.overlay').click(() => {
+      $('.left').toggle();
+      $('.overlay').toggle();
+    });
+  }
+
   getStepContent() {
     let content = null;
 
@@ -156,12 +175,33 @@ class Viewer extends React.Component {
         <Helmet title="Survey" />
         <div className="d-flex">
           <div className="left">
+            <div className="navigation-toggle" id="content">
+              <div className="row justify-content-end pr-4 pt-2">
+                <button type="button" id="navigation-toggle" className="btn btn-light" ref={(buttonDOM) => { this.buttonDOM2 = buttonDOM; }}>x</button>
+              </div>
+            </div>
             <Navigation />
           </div>
           <div className="right">
+            <div className="navigation-toggle" id="content">
+            <div className="row align-items-center" id="mobile-navbar">
+            <div className="col-3">
+              <button type="button" className="btn btn-light" id="navigation-toggle" ref={(buttonDOM) => { this.buttonDOM = buttonDOM; }}><i class="fal fa-bars" style={{ fontSize: '25px' }} /></button>
+            </div>
+            <div className="col-6">
+            <div className="title-text">
+            <span className="dark-text">University</span> <span className="light-grey-text">Branding</span>
+          </div>
+            </div>
+            <div className="col-2">
+            <button type="button" id="navigation-toggle" className="btn btn-light"><i class="fal fa-question-circle" style={{ fontSize: '18px' }} /></button>
+            </div>
+            </div>
+            </div>
+            <div className="overlay" />
             <div className="new-content container-fluid">
               <div className="section-padding">
-                <h3 className="mb-0 dark-text">Welcome!</h3>
+                <h3 className="dark-text">Welcome!</h3>
                 <div style={{ marginTop: '4px' }} />
                 <h6 className="grey-text mb-0">Hey there, welcome to AlumniBase.com - a tool to see what happened after university!</h6>
                 <div style={{ marginTop: '20px' }} />
@@ -186,6 +226,7 @@ class Viewer extends React.Component {
             </div>
           </div>
         </div>
+        <div className="overlay" />
       </div>
     );
   }

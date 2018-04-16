@@ -25,15 +25,13 @@ class Navigation extends React.PureComponent {
           </div>
         </div>
         <div style={{ marginTop: '42px' }} />
-
-        <div className="list-group list-group-flush">
+        <div className="list-group list-group-flush" data-toggle="collapse" aria-expanded="false">
           <button type="button" className={'list-group-item list-group-item-action button' + (theSection === 1 ? ' button-active' : '')}>Section 1 - About You</button>
           <button type="button" className={'list-group-item list-group-item-action button' + (theSection === 2 ? ' button-active' : '')}>Section 2 - Uni Study</button>
           <button type="button" className={'list-group-item list-group-item-action button' + (theSection === 3 ? ' button-active' : '')}>Section 3 - Pre Uni</button>
           <button type="button" className={'list-group-item list-group-item-action button' + (theSection === 4 ? ' button-active' : '')}>Section 4 - Employment</button>
           <button type="button" className={'list-group-item list-group-item-action button' + (theSection === 5 ? ' button-active' : '')}>Section 5 - Retrospective</button>
         </div>
-
         <div style={{ marginTop: '8px' }} />
 
         <div className="line" />
