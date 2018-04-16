@@ -69,7 +69,6 @@ class PreUniQualificationQuestion extends React.Component {
                 answer={typeAnswer}
                 options={options[questionIdentifier[0]]}
                 questionIdentifier={questionIdentifier[0] + extension}
-                resultAnswer={resultAnswer}
               />
             </div>
           </div>

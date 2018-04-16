@@ -115,11 +115,6 @@ class SelectQuestionCompanySelectWithRemoteLookupComponent extends React.Compone
         questionIdentifier,
       );
     }
-
-    // we check to see if we need to do an update as a result of a change in 'type' validity
-    if (prevProps.resultAnswer.valid !== this.props.resultAnswer.valid) {
-      this.updateAnswer();
-    }
   }
 
   setValueFromState() {
@@ -209,7 +204,7 @@ class SelectQuestionCompanySelectWithRemoteLookupComponent extends React.Compone
 
     if (dNc(answer) && dNc(answer.optionValue)) {
       // test to see if the optionID is in fact an option ID
-      if ((pattern.test(answer.optionID) === true || answer.optionID === null) && this.props.resultAnswer.valid === true) {
+      if (pattern.test(answer.optionID) === true || answer.optionID === null) {
         valid = true;
       }
     } else {
@@ -279,7 +274,6 @@ SelectQuestionCompanySelectWithRemoteLookupComponent.propTypes = {
   drawData: PropTypes.object.isRequired,
   allowAdd: PropTypes.bool.isRequired,
   answerDisplay: PropTypes.any,
-  resultAnswer: PropTypes.object.isRequired,
 };
 
 SelectQuestionCompanySelectWithRemoteLookupComponent.defaultProps = {
