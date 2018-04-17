@@ -279,9 +279,7 @@ class Viewer extends React.PureComponent {
 
           <h4>Thanks for completing section 2!</h4>
           <h5 className="accent-text">Here's what your university alumni are up to!</h5>
-
-          <img alt="s2" src={require('../../../../../content/theme/custom/images/s2.png')} />
-
+          <img alt="s2" src={require('../../../../../content/theme/custom/images/s2.png')} width="100%" />
 
           <div className="d-flex justify-content-center">
             <div className="question-spacer" />

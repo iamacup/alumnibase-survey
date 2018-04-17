@@ -39,7 +39,7 @@ const QuestionContainer = ({
         <div className="question-spacer">
           <div className="d-flex align-items-stretch" style={{ height: '100%' }}>
             <div className="question-answer-line" />
-          </div>
+          </div>    
         </div>
 
         <div className="center-question">
@@ -48,9 +48,11 @@ const QuestionContainer = ({
           <div className={errorClassName}>{errors}</div>
           <div className="explainer-text">
             <h6 className="grey-text">{explainerText.useValue}</h6>
+
           </div>
           {postContent}
         </div>
+
         <div className="question-spacer" style={{ height: '1px' }} />
       </div>
     </div>

@@ -47,7 +47,7 @@ const OptionsQuestionComponent = ({
   });
 
   const question = (
-    <div>
+    <div className="question-sub-title">
       {questionParts}
     </div>
   );

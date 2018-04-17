@@ -8,7 +8,6 @@ import DontKnowButton from '../../../../../../content/containers/Fragments/Quest
 import {
   getQuestionIdentifiers,
   getUsefulQuestionBits,
-  dNc,
 } from '../../../../../../content/scripts/custom/utilities';
 
 const PostcodeComponent = ({

@@ -88,7 +88,7 @@ class SelectQuestionCompanySelectWithRemoteLookupComponent extends React.Compone
     // turns the button back to grey once the input field has been clicked.
     if (dNc(this.props.answer.optionValue)) className = 'btn btn-block btn-option btn-multiline btn-margin hide-green';
 
-    const answered = false;
+    // const answered = false;
 
     const obj = (
       <div key={value.value} >
@@ -125,14 +125,14 @@ SelectQuestionCompanySelectWithRemoteLookupComponent.propTypes = {
   forceValidate: PropTypes.bool.isRequired,
   answer: PropTypes.object.isRequired,
   questionIdentifier: PropTypes.string.isRequired,
-  options: PropTypes.array.isRequired,
-  answerDisplay: PropTypes.any,
+  // options: PropTypes.array.isRequired,
+  // answerDisplay: PropTypes.any,
 };
 
 SelectQuestionCompanySelectWithRemoteLookupComponent.defaultProps = {
   reduxAction_doUpdateQuestionAnswer: () => {},
   reduxAction_doSetQuestionError: () => {},
-  answerDisplay: null,
+  // answerDisplay: null,
 };
 
 const mapStateToProps = null;

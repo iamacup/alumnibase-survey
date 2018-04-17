@@ -76,8 +76,6 @@ class Viewer extends React.Component {
 
     const { step, answerData } = this.props.reduxState_this;
 
-    console.log(step);
-
     if (bioSteps.includes(step)) {
       content = (
         <BioSteps
@@ -199,8 +197,18 @@ class Viewer extends React.Component {
         <div className="d-flex">
           <div className="left">
             <div className="navigation-toggle" id="content">
-              <div className="row justify-content-end pr-4 pt-2">
-                <button type="button" id="navigation-toggle" className="btn btn-light" ref={(buttonDOM) => { this.buttonDOM2 = buttonDOM; }}>x</button>
+              <div className="row align-items-center" id="mobile-navbar">
+
+              <div className="col-2">
+                <button type="button" id="navigation-toggle" className="btn btn-light" ref={(buttonDOM) => { this.buttonDOM2 = buttonDOM; }} style={{ borderColor: '#fff' }}><i class="fal fa-bars" style={{ fontSize: '25px' }} /></button>
+                  </div>
+                 <div className="col-10 pl-4">
+            <div className="title-text">
+            <span className="dark-text">University</span> <span className="light-grey-text">Branding</span>
+          </div>
+            </div>
+
+
               </div>
             </div>
             <Navigation />

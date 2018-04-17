@@ -92,12 +92,14 @@ class QuestionButton extends React.PureComponent {
 
     return (
       <div className={overallClass}>
-        <div className="d-flex justify-content-center">
+        <div className="d-flex justify-content-center">     
+
           <div className="question-spacer">
-            <div className="d-flex align-items-stretch" style={{ height: '100%' }}>
+            <div className="d-flex align-items-stretch" style={{ height: '100%' }} id="question-answer-line-button-mobile">
               <div className="question-answer-line-button" />
             </div>
           </div>
+
           <div className="center-question" style={{ paddingBottom: '0px' }}>
             <button
               onClick={this.props.buttonAction}
@@ -108,7 +110,9 @@ class QuestionButton extends React.PureComponent {
               {buttonContent}
             </button>
           </div>
+
           <div className="question-spacer" style={{ height: '1px' }} />
+
         </div>
       </div>
     );

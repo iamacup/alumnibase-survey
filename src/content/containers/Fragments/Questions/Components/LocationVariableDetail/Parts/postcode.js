@@ -107,7 +107,7 @@ PostcodeQuestionPostcodeComponent.propTypes = {
   forceValidate: PropTypes.bool.isRequired,
   answer: PropTypes.object.isRequired,
   questionIdentifier: PropTypes.string.isRequired,
-  drawData: PropTypes.object.isRequired,
+  // drawData: PropTypes.object.isRequired,
 };
 
 PostcodeQuestionPostcodeComponent.defaultProps = {
