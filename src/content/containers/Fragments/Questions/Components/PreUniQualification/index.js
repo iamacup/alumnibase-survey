@@ -107,6 +107,14 @@ class PreUniQualificationQuestion extends React.Component {
       arr.push(thing);
     }
 
+    const postContent = (
+      <div className="row justify-content-center pb-3">
+        <div className="col-8">
+          <button type="button" className="btn btn-secondary" onClick={e => this.handleClick(e)}>Add more qualifications</button>
+        </div>
+      </div>
+    );
+
     return (
       <div>
         <QuestionContainer
@@ -115,13 +123,8 @@ class PreUniQualificationQuestion extends React.Component {
           error={this.props.answer.error}
           errorMessages={errorBits}
           answered={this.props.answer.answered}
+          postContent={postContent}
         />
-
-        <div className="row justify-content-center pb-3">
-          <div className="col-8">
-            <button type="button" className="btn btn-secondary" onClick={e => this.handleClick(e)}>Add more qualifications</button>
-          </div>
-        </div>
       </div>
     );
   }

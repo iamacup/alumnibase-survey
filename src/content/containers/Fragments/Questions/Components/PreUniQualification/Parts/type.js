@@ -220,7 +220,7 @@ class SelectQuestionCompanySelectWithRemoteLookupComponent extends React.Compone
 
     data.forEach((value) => {
       options.push(
-        <option key={value.optionID} value={value.displayValue}>
+        <option key={value.optionID} value={value.optionID}>
           {value.displayValue}
         </option>,
       );

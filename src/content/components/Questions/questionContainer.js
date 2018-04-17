@@ -8,6 +8,7 @@ const QuestionContainer = ({
   errorMessages,
   answered,
   explainerText,
+  postContent,
 }) => {
   let errorClassName = 'question-error-message';
   let statusClassName = 'general-question-container';
@@ -48,6 +49,7 @@ const QuestionContainer = ({
           <div className="explainer-text">
             <h6 className="grey-text">{explainerText.useValue}</h6>
           </div>
+          {postContent}
         </div>
         <div className="question-spacer" style={{ height: '1px' }} />
       </div>
@@ -62,6 +64,7 @@ QuestionContainer.propTypes = {
   answered: PropTypes.bool.isRequired,
   errorMessages: PropTypes.array.isRequired,
   explainerText: PropTypes.object,
+  postContent: PropTypes.any,
 };
 
 QuestionContainer.defaultProps = {
@@ -72,6 +75,7 @@ QuestionContainer.defaultProps = {
     type: null,
     useValue: '',
   },
+  postContent: null,
 };
 
 export default QuestionContainer;
