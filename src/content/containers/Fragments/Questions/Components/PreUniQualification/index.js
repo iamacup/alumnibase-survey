@@ -16,12 +16,13 @@ class PreUniQualificationQuestion extends React.Component {
     super(props);
 
     this.state = {
-      count: 0,
+      count: 1,
     };
   }
 
   handleClick(e) {
     e.preventDefault();
+
     this.setState({
       count: this.state.count + 1,
     });
@@ -37,16 +38,15 @@ class PreUniQualificationQuestion extends React.Component {
       drawData,
     };
 
-    let question = null;
     const questionIdentifier = getQuestionIdentifiers(options);
-
-
+    let question = null;
     const errorBits = [];
 
     question = (extension) => {
       let typeAnswer = {};
       let resultAnswer = {};
       let subjectAnswer = {};
+
       if (dNc(this.props.answer.answer[questionIdentifier[0] + extension])) {
         typeAnswer = this.props.answer.answer[questionIdentifier[0] + extension];
         errorBits.push(this.props.answer.answer[questionIdentifier[0] + extension].errorMessage);
@@ -72,7 +72,7 @@ class PreUniQualificationQuestion extends React.Component {
               />
             </div>
           </div>
-          <div className="row pb-5">
+          <div className="row pb-3">
             <div className="col-sm-6">
               <Subject
                 {...obj}
@@ -107,6 +107,13 @@ class PreUniQualificationQuestion extends React.Component {
       arr.push(thing);
     }
 
+    const postContent = (
+      <div className="row justify-content-center pb-3">
+        <div className="col-8">
+          <button type="button" className="btn btn-secondary" onClick={e => this.handleClick(e)}>Add more qualifications</button>
+        </div>
+      </div>
+    );
 
     return (
       <div>
@@ -116,13 +123,8 @@ class PreUniQualificationQuestion extends React.Component {
           error={this.props.answer.error}
           errorMessages={errorBits}
           answered={this.props.answer.answered}
+          postContent={postContent}
         />
-
-        <div className="row justify-content-center pb-5">
-          <div className="col-8">
-            <button type="button" className="btn btn-secondary" onClick={e => this.handleClick(e)}>Add more qualifications</button>
-          </div>
-        </div>
       </div>
     );
   }

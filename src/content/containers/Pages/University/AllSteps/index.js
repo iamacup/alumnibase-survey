@@ -49,7 +49,7 @@ const bioSteps = ['0-1', 'intro', 'terms', '1-1', '1-2', '1-3', '1-4', 'summary-
 // 2-5: all the quesitons about experience at uni 1 (target of this survey)
 const uniSteps = ['2-1', 'ask-another-qualification', '2-2', 'ask-next-qualification', 'uni-question', '2-3', '2-2-again', 'ask-next-qualification-again', '2-4', '2-5', 'summary-uni'];
 
-const preUniSteps = ['3-1'];
+const preUniSteps = ['3-1', '3-2', '3-3'];
 
 class Viewer extends React.Component {
   componentDidMount() {
@@ -103,10 +103,10 @@ class Viewer extends React.Component {
         <PreUniSteps
           // eslint-disable-next-line no-shadow
           submitDataCallback={(answerData, nextStep, type) => { this.submitDataCallback(answerData, nextStep, type); }}
-          steps={uniSteps}
+          steps={preUniSteps}
           currentStep={step}
           answerData={answerData}
-          type="uni"
+          type="preuni"
         />
       );
     } else {
@@ -117,14 +117,29 @@ class Viewer extends React.Component {
   }
 
   submitDataCallback(answerData, nextStep, type) {
-    // we let null answer data get passed through here if we need to just change steps without any actual answer data
+    // we let null answer data get passed through here if we need to just change steps without any actual answer dat
     let updateAnswerData = answerData;
 
     if (!dNc(updateAnswerData)) {
       updateAnswerData = this.props.reduxState_this.answerData;
     }
 
+    // this is some code we can use to force test a series of steps after 0-1 is complete (i.e. a sessionID is assigned and a uni picked)
+    if (this.props.reduxState_this.step === '0-1') {
+      const stepTo = '3-1';
+
+      this.props.reduxAction_doUpdate({
+        step: stepTo,
+        answerData: updateAnswerData,
+      });
+
+      this.props.reduxAction_doUpdateStep({ currentStep: 1, stepCount: preUniSteps.length, section: 3 });
+
+      return;
+    }
+
     // we always update the step assuming there was a next step passed
+    // eslint-disable-next-line no-unreachable
     if (nextStep !== null) {
       this.props.reduxAction_doUpdate({
         step: nextStep,
@@ -144,6 +159,12 @@ class Viewer extends React.Component {
         if (stepIndex !== -1) {
           this.props.reduxAction_doUpdateStep({ currentStep: stepIndex + 1, stepCount: uniSteps.length });
         }
+      } else if (type === 'preuni') {
+        const stepIndex = preUniSteps.indexOf(nextStep);
+
+        if (stepIndex !== -1) {
+          this.props.reduxAction_doUpdateStep({ currentStep: stepIndex + 1, stepCount: preUniSteps.length });
+        }
       }
     // otherwise we look to see what type has been finished and then use that to define what to do next
     } else if (type === 'bio') {
@@ -162,6 +183,8 @@ class Viewer extends React.Component {
       });
 
       this.props.reduxAction_doUpdateStep({ currentStep: 1, stepCount: preUniSteps.length, section: 3 });
+    } else if (type === 'preuni') {
+      console.log('TODO here preuni thing');
     } else {
       console.log('TODO HANDLE NON KNOWN');
     }
@@ -192,19 +215,19 @@ class Viewer extends React.Component {
           </div>
           <div className="right">
             <div className="navigation-toggle" id="content">
-            <div className="row align-items-center" id="mobile-navbar">
-            <div className="col-2">
-              <button type="button" className="btn btn-light" ref={(buttonDOM) => { this.buttonDOM = buttonDOM; }} style={{ borderColor: '#fff' }}><i class="fal fa-bars" style={{ fontSize: '25px' }} /></button>
-            </div>
-            <div className="col-8 text-center">
-            <div className="title-text">
-            <span className="dark-text">University</span> <span className="light-grey-text">Branding</span>
-          </div>
-            </div>
-            <div className="col-2">
-            <button type="button" className="btn btn-light" style={{ borderColor: '#fff'}}><i class="fal fa-question-circle" style={{ fontSize: '18px' }} /></button>
-            </div>
-            </div>
+              <div className="row align-items-center" id="mobile-navbar">
+                <div className="col-3">
+                  <button type="button" className="btn btn-light" id="navigation-toggle" ref={(buttonDOM) => { this.buttonDOM = buttonDOM; }}><i className="fal fa-bars" style={{ fontSize: '25px' }} /></button>
+                </div>
+                <div className="col-6">
+                  <div className="title-text">
+                    <span className="dark-text">University</span> <span className="light-grey-text">Branding</span>
+                  </div>
+                </div>
+                <div className="col-2">
+                  <button type="button" id="navigation-toggle" className="btn btn-light"><i className="fal fa-question-circle" style={{ fontSize: '18px' }} /></button>
+                </div>
+              </div>
             </div>
             <div className="overlay" />
             <div className="new-content container-fluid">
