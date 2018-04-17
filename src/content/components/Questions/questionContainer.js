@@ -39,7 +39,7 @@ const QuestionContainer = ({
         <div className="question-spacer">
           <div className="d-flex align-items-stretch" style={{ height: '100%' }}>
             <div className="question-answer-line" />
-          </div>    
+          </div>
         </div>
 
         <div className="center-question">

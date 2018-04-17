@@ -92,7 +92,7 @@ class QuestionButton extends React.PureComponent {
 
     return (
       <div className={overallClass}>
-        <div className="d-flex justify-content-center">     
+        <div className="d-flex justify-content-center">
 
           <div className="question-spacer">
             <div className="d-flex align-items-stretch" style={{ height: '100%' }} id="question-answer-line-button-mobile">
