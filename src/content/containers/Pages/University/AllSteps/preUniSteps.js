@@ -2,7 +2,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-// import NewWizzardPane from '../../../../../content/containers/Fragments/NewWizzardPane';
+import NewWizzardPane from '../../../../../content/containers/Fragments/NewWizzardPane';
 
 import { nextElementInArray } from '../../../../../content/scripts/custom/utilities';
 
@@ -11,25 +11,41 @@ class Viewer extends React.PureComponent {
     const { currentStep } = this.props;
     let content = null;
 
-    // const wizzard = (
-    //   <NewWizzardPane
-    //     step={this.props.currentStep}
-    //     // eslint-disable-next-line no-shadow
-    //     submitCallback={(answerData) => { this.handleSubmit(answerData); }}
-    //     saveAPI="api/universityWizzard/saveStep/"
-    //     fetchAPI="api/universityWizzard/getStep/"
-    //   />
-    // );
+    const wizzard = (
+      <NewWizzardPane
+        step={this.props.currentStep}
+        // eslint-disable-next-line no-shadow
+        submitCallback={(answerData) => { this.handleSubmit(answerData); }}
+        saveAPI="api/universityWizzard/saveStep/"
+        fetchAPI="api/universityWizzard/getStep/"
+      />
+    );
 
     if (currentStep === '3-1') {
       content = (
         <div>
-          <h3>Your life before university</h3>
-          <h4 className="accent-text">Section under construction</h4>
-
-          <div style={{ marginTop: '44px' }} />
-          <i style={{ fontSize: '100px' }} className="grey-text far fa-exclamation-triangle" />
-
+          <div>
+            <div style={{ marginTop: '36px' }} />
+            {wizzard}
+          </div>
+        </div>
+      );
+    } else if (currentStep === '3-2') {
+      content = (
+        <div>
+          <div>
+            <div style={{ marginTop: '36px' }} />
+            {wizzard}
+          </div>
+        </div>
+      );
+    } else if (currentStep === '3-3') {
+      content = (
+        <div>
+          <div>
+            <div style={{ marginTop: '36px' }} />
+            {wizzard}
+          </div>
         </div>
       );
     }

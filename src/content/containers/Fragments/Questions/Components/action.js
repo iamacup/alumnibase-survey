@@ -48,7 +48,6 @@ export const doUpdateQuestionAnswer = (
   optionID,
   optionValue,
   valid,
-  questionIdentifier,
 ) =>
   // eslint-disable-next-line no-unused-vars
   (dispatch, getState, axios) => {
@@ -59,10 +58,8 @@ export const doUpdateQuestionAnswer = (
       optionID,
       optionValue,
       valid,
-      questionIdentifier,
     });
   };
-
 export const doSetQuestionSuccess = (questionID, name) =>
   // eslint-disable-next-line no-unused-vars
   (dispatch, getState, axios) => {
