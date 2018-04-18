@@ -206,6 +206,12 @@ $red-color: #d02a02;
   background: $accent-color;
 }
 
+@media (max-width: 365px) {
+  .progress {
+    width: 150px;
+  }
+}
+
 .input-rectangle {
   height: 44px;
   width: 330px;

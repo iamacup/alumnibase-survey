@@ -176,14 +176,14 @@ class Viewer extends React.Component {
             <div className="navigation-toggle" id="content">
               <div className="row align-items-center" id="mobile-navbar">
 
-              <div className="col-2">
-                <button type="button" id="navigation-toggle" className="btn btn-light" ref={(buttonDOM) => { this.buttonDOM2 = buttonDOM; }} style={{ borderColor: '#fff' }}><i class="fal fa-bars" style={{ fontSize: '25px' }} /></button>
+                <div className="col-2">
+                  <button type="button" id="navigation-toggle" className="btn btn-light" ref={(buttonDOM) => { this.buttonDOM2 = buttonDOM; }} style={{ borderColor: '#fff' }}><i className="fal fa-bars" style={{ fontSize: '25px' }} /></button>
+                </div>
+                <div className="col-10 pl-4">
+                  <div className="title-text">
+                    <span className="dark-text">University</span> <span className="light-grey-text">Branding</span>
                   </div>
-                 <div className="col-10 pl-4">
-            <div className="title-text">
-            <span className="dark-text">University</span> <span className="light-grey-text">Branding</span>
-          </div>
-            </div>
+                </div>
 
 
               </div>
@@ -192,19 +192,16 @@ class Viewer extends React.Component {
           </div>
           <div className="right">
             <div className="navigation-toggle" id="content">
-            <div className="row align-items-center" id="mobile-navbar">
-            <div className="col-2">
-              <button type="button" className="btn btn-light" ref={(buttonDOM) => { this.buttonDOM = buttonDOM; }} style={{ borderColor: '#fff' }}><i class="fal fa-bars" style={{ fontSize: '25px' }} /></button>
-            </div>
-            <div className="col-8 text-center">
-            <div className="title-text">
-            <span className="dark-text">University</span> <span className="light-grey-text">Branding</span>
-          </div>
-            </div>
-            <div className="col-2">
-            <button type="button" className="btn btn-light" style={{ borderColor: '#fff'}}><i class="fal fa-question-circle" style={{ fontSize: '18px' }} /></button>
-            </div>
-            </div>
+              <div className="row align-items-center" id="mobile-navbar">
+                <div className="col-2 pl-4">
+                  <button type="button" className="btn btn-light" ref={(buttonDOM) => { this.buttonDOM = buttonDOM; }} style={{ borderColor: '#fff' }}><i className="fal fa-bars" style={{ fontSize: '25px' }} /></button>
+                </div>
+                <div className="col-8 text-center">
+                  <div className="title-text">
+                    <span className="dark-text">University</span> <span className="light-grey-text">Branding</span>
+                  </div>
+                </div>
+              </div>
             </div>
             <div className="overlay" />
             <div className="new-content container-fluid">
