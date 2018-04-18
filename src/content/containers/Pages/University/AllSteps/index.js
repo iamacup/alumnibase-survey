@@ -216,16 +216,13 @@ class Viewer extends React.Component {
           <div className="right">
             <div className="navigation-toggle" id="content">
               <div className="row align-items-center" id="mobile-navbar">
-                <div className="col-3">
-                  <button type="button" className="btn btn-light" id="navigation-toggle" ref={(buttonDOM) => { this.buttonDOM = buttonDOM; }}><i className="fal fa-bars" style={{ fontSize: '25px' }} /></button>
+                <div className="col-2 pl-4">
+                  <button type="button" className="btn btn-light" ref={(buttonDOM) => { this.buttonDOM = buttonDOM; }} style={{ borderColor: '#fff' }}><i className="fal fa-bars" style={{ fontSize: '25px' }} /></button>
                 </div>
-                <div className="col-6">
+                <div className="col-8 text-center">
                   <div className="title-text">
                     <span className="dark-text">University</span> <span className="light-grey-text">Branding</span>
                   </div>
-                </div>
-                <div className="col-2">
-                  <button type="button" id="navigation-toggle" className="btn btn-light"><i className="fal fa-question-circle" style={{ fontSize: '18px' }} /></button>
                 </div>
               </div>
             </div>
