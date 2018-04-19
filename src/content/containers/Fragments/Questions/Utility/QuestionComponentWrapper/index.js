@@ -25,7 +25,9 @@ import {
   FullName,
   PreUni,
   Location,
+  Destination,
 } from '../../../../../../content/containers/Fragments/Questions/Components';
+
 import { redrawCharts } from '../../../../../../content/scripts/custom/echarts/utilities';
 
 import * as questionAction from '../../../../../../content/containers/Fragments/Questions/Components/action';
@@ -228,6 +230,13 @@ class QuestionComponentWrapper extends React.Component {
       return (
         <div>
           <Location {...obj} />
+          <div className={answerContainerClassName} />
+        </div>
+      );
+    } else if (type === 'EmploymentStatusWithImportance') {
+      return (
+        <div>
+          <Destination {...obj} />
           <div className={answerContainerClassName} />
         </div>
       );
