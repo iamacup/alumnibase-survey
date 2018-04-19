@@ -85,8 +85,32 @@ class QuestionComponentWrapper extends React.Component {
     // set the answer to 'answered' if all of the components are valid
     let valid = true;
 
+    console.log('this will break now!!!! rewrritee!!!');
+    console.log('we no longer provide data.array because the array is defined in the data target');
+    // console.log(data);
 
-    if (data.array === true) {
+    console.log(answer.answer);
+
+    Object.keys(data.parts).forEach((value) => {
+      if (data.parts[value].array === true) {
+        // check there is at least 1 answer that starts with 'value'
+        let found = false;
+
+        Object.keys(answer.answer).forEach((answerValue) => {
+          if (answerValue.startsWith(value)) {
+            found = true;
+          }
+        });
+
+        if (found === false) {
+          valid = false;
+        }
+      } else if (!dNc(answer.answer[value]) || !dNc(answer.answer[value].valid) || answer.answer[value].valid !== true) {
+        valid = false;
+      }
+    });
+
+    /* if (data.array === true) {
       // we have to do something special with array type questions
       // TODO we do not have the option for 'optional' array questions here - not a problem for now but this statement forces invalidity for any that have no options
       if (Object.keys(answer.answer).length === 0) {
@@ -114,7 +138,7 @@ class QuestionComponentWrapper extends React.Component {
           valid = false;
         }
       });
-    }
+    } */
 
     if (valid === true && answer.answered === false) {
       this.props.reduxAction_doSetQuestionSuccess(data.questionID);
