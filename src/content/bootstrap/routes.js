@@ -2,8 +2,8 @@
 // todo we need to update this so that all load data methods call the login function first then the others after
 // todo we should have a generic function for this instead of faffing around with horrible promise hierarchy every time
 
-import newThemePage from '../../content/containers/Pages/NewTheme';
 import universityAllStepsPage from '../../content/containers/Pages/University/AllSteps';
+import GDPRExamplePage from '../../content/containers/Pages/GDPRExample';
 
 // NOTE - you should pass in cookies to any of the methods that
 // load data from the server so that their requests are able to
@@ -14,12 +14,12 @@ import universityAllStepsPage from '../../content/containers/Pages/University/Al
 
 export default [
   {
-    path: '/new',
+    path: '/GDPRExample',
     exact: true,
-    component: newThemePage,
+    component: GDPRExamplePage,
   },
   {
-    path: '/university/all-steps',
+    path: '/',
     exact: true,
     component: universityAllStepsPage,
   },
