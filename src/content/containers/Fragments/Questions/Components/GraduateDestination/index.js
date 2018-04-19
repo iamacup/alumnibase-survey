@@ -14,7 +14,7 @@ const GraduateDestinationsComponent = ({
   title,
 }) => {
     const { questionID, options, drawData } = data;
-  const { answerBits, errorBits } = getUsefulQuestionBits(
+  const { errorBits } = getUsefulQuestionBits(
     options,
     answer.answer,
   );

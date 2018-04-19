@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import ButtonGroup from '../../../../../../../content/components/ButtonGroup';
-import AnswerData from '../../../../../../../content/components/Answers/answerData';
 
 import { dNc } from '../../../../../../../content/scripts/custom/utilities';
 
@@ -34,12 +33,6 @@ class graduateDestinationButtons extends React.Component {
       );
     }
   }
-
-  // setValueFromState() {
-    // in other methods we 'set the state' in render but here we don't.... - i think this might be broken in other components now
-    // due to changes in question group
-    // console.log('TODO - set value from state is not implemented for this component!');
-  // }
 
   getIndex(dataArr, optionID) {
     let index = -1;
@@ -123,7 +116,6 @@ class graduateDestinationButtons extends React.Component {
     // loop over the options and draw the buttons
     this.props.options.forEach((value) => {
       let className = 'btn btn-block btn-option btn-multiline btn-margin';
-      const answered = false;
 
       if (dNc(value.drawData) && dNc(value.drawData.optionEmphasis)) {
         className += ' btn-emphasis';
@@ -131,34 +123,13 @@ class graduateDestinationButtons extends React.Component {
 
       let answerObj = null;
 
-      // if (dNc(this.props.answerDisplay) && this.props.answerDisplay.type === 'percentages') {
-      //   const { answerDisplay } = this.props;
-      //   let data = null;
-
-      //   answerDisplay.data.forEach((datum) => {
-      //     if (datum.optionID === value.optionID) {
-      //       data = datum;
-      //     }
-      //   });
-
-      //   answerObj = (
-      //     <AnswerData
-      //       answered={answered}
-      //       percentage={data.value}
-      //       displayText={value.optionValue}
-      //     />
-      //   );
-
-      //   className += ' d-none';
-      // }
-
 let dataButton = ("")
 let name = value.optionValue;
 
 if (value.drawData) {
   name = value.drawData.questionPrimaryText;
   dataButton = (
-<div className="float-right" style={{ marginRight: '-50px', marginTop: '-45px' }}>
+<div className="float-right" style={{ marginRight: '-50px', marginTop: '-45px' }} key={value.optionID+1}>
                 <span
                   tabIndex="0"
                   className="btn-hint"

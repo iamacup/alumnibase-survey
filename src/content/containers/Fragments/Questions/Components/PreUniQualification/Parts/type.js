@@ -97,7 +97,7 @@ class SelectQuestionCompanySelectWithRemoteLookupComponent extends React.Compone
     });
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate() {
     this.setValueFromState();
 
     const { questionIdentifier, questionID, answer } = this.props;

@@ -87,12 +87,6 @@ class QuestionComponentWrapper extends React.Component {
     // set the answer to 'answered' if all of the components are valid
     let valid = true;
 
-    console.log('this will break now!!!! rewrritee!!!');
-    console.log('we no longer provide data.array because the array is defined in the data target');
-    // console.log(data);
-
-    console.log(answer.answer);
-
     Object.keys(data.parts).forEach((value) => {
       if (data.parts[value].array === true) {
         // check there is at least 1 answer that starts with 'value'
