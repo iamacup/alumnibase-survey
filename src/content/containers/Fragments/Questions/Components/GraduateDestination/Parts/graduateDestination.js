@@ -18,7 +18,6 @@ class graduateDestinationButtons extends React.Component {
   }
 
   componentDidUpdate() {
-
     const { questionIdentifier, questionID, answer } = this.props;
     const validity = this.validate(this.props.answer);
     // set stuff as an error if they need to be
@@ -36,9 +35,9 @@ class graduateDestinationButtons extends React.Component {
   }
 
   // setValueFromState() {
-    // in other methods we 'set the state' in render but here we don't.... - i think this might be broken in other components now
-    // due to changes in question group
-    // console.log('TODO - set value from state is not implemented for this component!');
+  // in other methods we 'set the state' in render but here we don't.... - i think this might be broken in other components now
+  // due to changes in question group
+  // console.log('TODO - set value from state is not implemented for this component!');
   // }
 
   getIndex(dataArr, optionID) {
@@ -129,7 +128,7 @@ class graduateDestinationButtons extends React.Component {
         className += ' btn-emphasis';
       }
 
-      let answerObj = null;
+      const answerObj = null;
 
       // if (dNc(this.props.answerDisplay) && this.props.answerDisplay.type === 'percentages') {
       //   const { answerDisplay } = this.props;
@@ -152,27 +151,27 @@ class graduateDestinationButtons extends React.Component {
       //   className += ' d-none';
       // }
 
-let dataButton = ("")
-let name = value.optionValue;
+      let dataButton = ('');
+      let name = value.optionValue;
 
-if (value.drawData) {
-  name = value.drawData.questionPrimaryText;
-  dataButton = (
-<div className="float-right" style={{ marginRight: '-50px', marginTop: '-45px' }}>
-                <span
-                  tabIndex="0"
-                  className="btn-hint"
-                  role="button"
-                  data-toggle="popover"
-                  data-trigger="hover"
-                  title=""
-                  data-content={value.drawData.questionSecondaryText}
-                >
-                  <i className="fal fa-question-circle" style={{ padding: '10px' }} />
-                </span>
-              </div>
-    )
-}
+      if (value.drawData) {
+        name = value.drawData.questionPrimaryText;
+        dataButton = (
+          <div className="float-right" style={{ marginRight: '-50px', marginTop: '-45px' }}>
+            <span
+              tabIndex="0"
+              className="btn-hint"
+              role="button"
+              data-toggle="popover"
+              data-trigger="hover"
+              title=""
+              data-content={value.drawData.questionSecondaryText}
+            >
+              <i className="fal fa-question-circle" style={{ padding: '10px' }} />
+            </span>
+          </div>
+        );
+      }
 
       const obj = (
         <div key={value.optionID}>
@@ -244,7 +243,7 @@ const mapDispatchToProps = dispatch => ({
     ),
   reduxAction_doSetQuestionError: (questionID, message, name) =>
     dispatch(questionAction.doSetQuestionError(questionID, message, name)),
-    reduxAction_doRemoveQuestionIdentifier: (questionID, questionIdentifier) =>
+  reduxAction_doRemoveQuestionIdentifier: (questionID, questionIdentifier) =>
     dispatch(questionAction.doRemoveQuestionIdentifier(questionID, questionIdentifier)),
 });
 

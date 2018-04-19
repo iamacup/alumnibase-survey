@@ -13,7 +13,7 @@ const GraduateDestinationsComponent = ({
   nextStepCallback,
   title,
 }) => {
-    const { questionID, options, drawData } = data;
+  const { questionID, options, drawData } = data;
   const { answerBits, errorBits } = getUsefulQuestionBits(
     options,
     answer.answer,
@@ -25,23 +25,23 @@ const GraduateDestinationsComponent = ({
     nextStepCallback,
   };
 
-    const questionIdentifiers = Object.keys(options);
+  const questionIdentifiers = Object.keys(options);
   const questionParts = [];
 
-    const part = (
-      <div style={{ marginTop: '28px' }}>
-        <h6 className="grey-text">{drawData[questionIdentifiers[0] + 'Title']}</h6>
-        <GraduateDestinationButton
-          {...obj}
-          answer={answer.answer}
-          options={options[questionIdentifiers[0]]}
-          questionIdentifier={questionIdentifiers[0]}
-        />
-      </div>
-    );
+  const part = (
+    <div style={{ marginTop: '28px' }}>
+      <h6 className="grey-text">{drawData[questionIdentifiers[0] + 'Title']}</h6>
+      <GraduateDestinationButton
+        {...obj}
+        answer={answer.answer}
+        options={options[questionIdentifiers[0]]}
+        questionIdentifier={questionIdentifiers[0]}
+      />
+    </div>
+  );
 
-    questionParts.push(part);
-  
+  questionParts.push(part);
+
   const question = (
     <div className="question-sub-title">
       {questionParts}
@@ -57,8 +57,7 @@ const GraduateDestinationsComponent = ({
       answered={answer.answered}
     />
   );
-
-}
+};
 
 GraduateDestinationsComponent.propTypes = {
   answer: PropTypes.object.isRequired,
