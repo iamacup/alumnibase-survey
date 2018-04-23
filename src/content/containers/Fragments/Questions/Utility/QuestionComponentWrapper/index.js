@@ -28,6 +28,7 @@ import {
   Destination,
   CurrencySalaryBonusTwo,
   FinancialNumber,
+  HoursContractedActual,
 } from '../../../../../../content/containers/Fragments/Questions/Components';
 
 import { redrawCharts } from '../../../../../../content/scripts/custom/echarts/utilities';
@@ -271,6 +272,13 @@ class QuestionComponentWrapper extends React.Component {
       return (
         <div>
           <FinancialNumber {...obj} />
+          <div className={answerContainerClassName} />
+        </div>
+      );
+    } else if (type === 'hoursContractedActual') {
+      return (
+        <div>
+          <HoursContractedActual {...obj} />
           <div className={answerContainerClassName} />
         </div>
       );
