@@ -45,7 +45,7 @@ class FreeTextQuestionMultilineComponent extends React.Component {
   }
 
   setValueFromState() {
-    if (dNc(this.props.answer.optionValue)) {
+    if (dNc(this.props.answer.optionValue) && this.props.answer.optionID === "town-area-city") {
       this.input.value = this.props.answer.optionValue;
     }
   }
@@ -57,13 +57,13 @@ class FreeTextQuestionMultilineComponent extends React.Component {
     const { drawData } = this.props;
 
     if (dNc(answer) && dNc(answer.optionValue)) {
-      if (answer.optionValue.length < drawData.minLength) {
+      if (answer.optionValue.length < 1) {
         error =
           'Your answer must be at least ' +
           drawData.minLength +
           ' characters long';
         show = true;
-      } else if (answer.optionValue.length > drawData.maxLength) {
+      } else if (answer.optionValue.length > 20) {
         error =
           'There is too much text in here. The max length is ' +
           drawData.maxLength;
@@ -71,8 +71,6 @@ class FreeTextQuestionMultilineComponent extends React.Component {
       } else {
         valid = true;
       }
-    } else if (drawData.minLength === 0) {
-      valid = true;
     } else {
       error = 'You need to enter a value.';
     }
@@ -80,15 +78,9 @@ class FreeTextQuestionMultilineComponent extends React.Component {
     return { valid, error, show };
   }
 
-  /* doNextStepCallback(e) {
-    if (e.keyCode === 13) {
-      this.props.nextStepCallback();
-    }
-  } */
-
   handleChange() {
     const optionValue = this.input.value;
-    const optionID = null;
+    const optionID = 'town-area-city';
 
     const { questionID, questionIdentifier } = this.props;
     const validity = this.validate({ optionValue, optionID });
@@ -102,17 +94,29 @@ class FreeTextQuestionMultilineComponent extends React.Component {
     );
   }
 
+    handleFocus() {
+    this.handleChange();
+  }
+
   render() {
+
+    let classChange = 'form-control';
+    if (this.props.answer.optionID === 'postcode') classChange = 'form-control hide-green';
+
     return (
       <span className="form-group">
         <input
+        placeholder="Town"
           type="text"
-          className="form-control"
+          className={classChange}
           ref={(input) => {
             this.input = input;
           }}
           onChange={() => {
             this.handleChange();
+          }}
+               onFocus={() => {
+            this.handleFocus();
           }}
         />
       </span>
@@ -123,19 +127,16 @@ class FreeTextQuestionMultilineComponent extends React.Component {
 FreeTextQuestionMultilineComponent.propTypes = {
   reduxAction_doUpdateQuestionAnswer: PropTypes.func,
   reduxAction_doSetQuestionError: PropTypes.func,
-  // nextStepCallback: PropTypes.func,
   questionID: PropTypes.string.isRequired,
   forceValidate: PropTypes.bool.isRequired,
   answer: PropTypes.object.isRequired,
   questionIdentifier: PropTypes.string.isRequired,
-  // options: PropTypes.array.isRequired,
   drawData: PropTypes.object.isRequired,
 };
 
 FreeTextQuestionMultilineComponent.defaultProps = {
   reduxAction_doUpdateQuestionAnswer: () => {},
   reduxAction_doSetQuestionError: () => {},
-  // nextStepCallback: () => { },
 };
 
 const mapStateToProps = null;

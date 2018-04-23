@@ -35,7 +35,7 @@ class PostcodeQuestionPostcodeComponent extends React.Component {
   }
 
   setValueFromState() {
-    if (dNc(this.props.answer) && dNc(this.props.answer.optionValue)) {
+    if (dNc(this.props.answer) && dNc(this.props.answer.optionValue) && this.props.answer.optionID === 'postcode') {
       this.input.value = this.props.answer.optionValue;
     }
   }
@@ -46,11 +46,11 @@ class PostcodeQuestionPostcodeComponent extends React.Component {
     let valid = false;
 
     if (dNc(answer.optionID) && checkPostCode(answer.optionValue)) {
-      valid = false;
+      valid = true;
     } else if (dNc(answer) && dNc(answer.optionValue)) {
       if (!dNc(answer.optionID) && checkPostCode(answer.optionValue) === false) {
         error = 'This does not appear to be a valid postcode.';
-      } else valid = true;
+      } 
     } else valid = false;
 
     return { valid, error, show };
@@ -58,7 +58,7 @@ class PostcodeQuestionPostcodeComponent extends React.Component {
 
   handleChange() {
     const optionValue = this.input.value;
-    const optionID = null;
+    const optionID = 'postcode';
 
     const { questionID, questionIdentifier } = this.props;
     const validity = this.validate({ optionValue, optionID });
@@ -80,7 +80,7 @@ class PostcodeQuestionPostcodeComponent extends React.Component {
   render() {
     // if the button is clicked the input form will turn back to grey if id had been validated.
     let classChange = 'form-control';
-    if (this.props.answer.optionID === -1) classChange = 'form-control hide-green';
+    if (this.props.answer.optionID === -1 || this.props.answer.optionID === 'town-area-city') classChange = 'form-control hide-green';
 
     return (
       <input
