@@ -11,6 +11,7 @@ import PreUniQualificationQuestion from './PreUniQualification';
 import LocationQuestion from './LocationVariableDetail';
 import GraduateDestinationsQuestion from './EmploymentStatusWithImportance';
 import CurrencySalaryBonusQuestionTwo from './CurrencySalaryBonusTwo';
+import FinancialNumberQuestion from './FinancialNumber';
 
 export const CurrencySalaryBonus = CurrencySalaryBonusQuestion;
 export const Select = SelectQuestion;
@@ -25,3 +26,4 @@ export const PreUni = PreUniQualificationQuestion;
 export const Location = LocationQuestion;
 export const Destination = GraduateDestinationsQuestion;
 export const CurrencySalaryBonusTwo = CurrencySalaryBonusQuestionTwo;
+export const FinancialNumber = FinancialNumberQuestion
