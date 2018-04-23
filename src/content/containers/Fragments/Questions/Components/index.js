@@ -13,6 +13,7 @@ import GraduateDestinationsQuestion from './EmploymentStatusWithImportance';
 import CurrencySalaryBonusQuestionTwo from './CurrencySalaryBonusTwo';
 import FinancialNumberQuestion from './FinancialNumber';
 import HoursContractedActualQuestion from './HoursContractedActual';
+import RangeQuestion from './Range';
 
 export const CurrencySalaryBonus = CurrencySalaryBonusQuestion;
 export const Select = SelectQuestion;
@@ -29,3 +30,4 @@ export const Destination = GraduateDestinationsQuestion;
 export const CurrencySalaryBonusTwo = CurrencySalaryBonusQuestionTwo;
 export const FinancialNumber = FinancialNumberQuestion
 export const HoursContractedActual = HoursContractedActualQuestion
+export const Range = RangeQuestion
