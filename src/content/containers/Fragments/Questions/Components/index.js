@@ -9,7 +9,8 @@ import NameQuestion from './Name';
 import FullNameQuestion from './MultiName';
 import PreUniQualificationQuestion from './PreUniQualification';
 import LocationQuestion from './LocationVariableDetail';
-import GraduateDestinationsQuestion from './GraduateDestination';
+import GraduateDestinationsQuestion from './EmploymentStatusWithImportance';
+import CurrencySalaryBonusQuestionTwo from './CurrencySalaryBonusTwo';
 
 export const CurrencySalaryBonus = CurrencySalaryBonusQuestion;
 export const Select = SelectQuestion;
@@ -23,3 +24,4 @@ export const FullName = FullNameQuestion;
 export const PreUni = PreUniQualificationQuestion;
 export const Location = LocationQuestion;
 export const Destination = GraduateDestinationsQuestion;
+export const CurrencySalaryBonusTwo = CurrencySalaryBonusQuestionTwo;

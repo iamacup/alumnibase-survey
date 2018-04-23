@@ -26,6 +26,7 @@ import {
   PreUni,
   Location,
   Destination,
+  CurrencySalaryBonusTwo,
 } from '../../../../../../content/containers/Fragments/Questions/Components';
 
 import { redrawCharts } from '../../../../../../content/scripts/custom/echarts/utilities';
@@ -255,6 +256,13 @@ class QuestionComponentWrapper extends React.Component {
       return (
         <div>
           <Destination {...obj} />
+          <div className={answerContainerClassName} />
+        </div>
+      );
+    } else if (type === 'currencySalaryBonusTwo') {
+      return (
+        <div>
+          <CurrencySalaryBonusTwo {...obj} />
           <div className={answerContainerClassName} />
         </div>
       );

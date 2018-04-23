@@ -3,23 +3,24 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import ButtonGroup from '../../../../../../../content/components/ButtonGroup';
+import AnswerData from '../../../../../../../content/components/Answers/answerData';
 
 import { dNc } from '../../../../../../../content/scripts/custom/utilities';
 
 import * as questionAction from '../../../../../../../content/containers/Fragments/Questions/Components/action';
 
-class graduateDestinationButtons extends React.Component {
+class Unpaid extends React.Component {
   componentDidMount() {
     // wait for document to be ready
     $(() => {
-      $('[data-toggle="popover"]').popover();
+this.putItemIntoState();
     });
   }
 
   componentDidUpdate() {
-
     const { questionIdentifier, questionID, answer } = this.props;
     const validity = this.validate(this.props.answer);
+
     // set stuff as an error if they need to be
     if (
       validity.valid === false &&
@@ -54,9 +55,6 @@ class graduateDestinationButtons extends React.Component {
     return index;
   }
 
-  // returns the option ID of the option that has clearOption set to true in the drawData
-  // TODO button group does not support multiple clear options so if we find more than 1 in the options set - we error out something
-
   validate(answer) {
     let error = '';
     let show = false;
@@ -73,11 +71,32 @@ class graduateDestinationButtons extends React.Component {
     return { valid, error, show };
   }
 
-  // we need to make sure that our state is the same as dataArr
-  buttonPress(dataArr) {
-    const { questionID, questionIdentifier } = this.props;
+    putItemIntoState() {
+    const { questionID, questionIdentifier, options } = this.props;
+    const {optionID} = options[1];
+    const {optionValue} = options[1];
+    const validity = this.validate({ optionValue, optionID });
 
-    // first we loop through the dataArr and make sure everything in dataArr is in the state
+    this.props.reduxAction_doUpdateQuestionAnswer(
+      questionID,
+      questionIdentifier,
+      optionID,
+      optionValue,
+      validity.valid,
+    );
+  }
+
+  buttonPress(dataArr) {
+    const { questionID, questionIdentifier, options } = this.props;
+
+// clearing the state
+      if (dataArr.length > 0 && options[0].optionID === dataArr[0]) {
+       Object.keys(this.props.answer).forEach((value) => {
+        console.log('removing', value);
+        this.props.reduxAction_doRemoveQuestionIdentifier(questionID, value);
+    });
+      }
+
     for (let a = 0; a < dataArr.length; a++) {
       const optionID = dataArr[a];
       let optionValue = null;
@@ -92,74 +111,80 @@ class graduateDestinationButtons extends React.Component {
       // see the validate method to understand why this works
       const validity = this.validate(['empty']);
 
+//  setting the state with just the 'YES' unpaid value
       this.props.reduxAction_doUpdateQuestionAnswer(
         questionID,
-        questionIdentifier + '_' + this.getIndex(dataArr, optionID),
+        questionIdentifier,
         optionID,
         optionValue,
         validity.valid,
       );
     }
 
-    // then we loop through the state and remove anything thats not in the dataArr
-    Object.keys(this.props.answer).forEach((value) => {
-      if (!dataArr.includes(this.props.answer[value].optionID)) {
-        console.log('removing', value);
-        this.props.reduxAction_doRemoveQuestionIdentifier(questionID, value);
-      }
-    });
+
+    if (!dataArr.includes(this.props.options[0].optionID)) {
+      const optionID = this.props.options[1].optionID;
+      const optionValue = this.props.options[1].optionValue;
+      const validity = this.validate(['empty']);
+
+      this.props.reduxAction_doUpdateQuestionAnswer(
+        questionID,
+        questionIdentifier,
+        optionID,
+        optionValue,
+        validity.valid,
+      );
+    }
   }
 
   render() {
     const options = [];
 
-    // loop over the options and draw the buttons
-    this.props.options.forEach((value) => {
-      let className = 'btn btn-block btn-option btn-multiline btn-margin';
+    const value = this.props.options[0];
 
-      if (dNc(value.drawData) && dNc(value.drawData.optionEmphasis)) {
-        className += ' btn-emphasis';
-      }
+    let className = 'btn btn-block btn-option btn-multiline btn-margin';
+    const answered = false;
 
-      let answerObj = null;
+    if (dNc(value.drawData) && dNc(value.drawData.optionEmphasis)) {
+      className += ' btn-emphasis';
+    }
 
-let dataButton = ("")
-let name = value.optionValue;
+    let answerObj = null;
 
-if (value.drawData) {
-  name = value.drawData.questionPrimaryText;
-  dataButton = (
-<div className="float-right" style={{ marginRight: '-50px', marginTop: '-45px' }} key={value.optionID+1}>
-                <span
-                  tabIndex="0"
-                  className="btn-hint"
-                  role="button"
-                  data-toggle="popover"
-                  data-trigger="hover"
-                  title=""
-                  data-content={value.drawData.questionSecondaryText}
-                >
-                  <i className="fal fa-question-circle" style={{ padding: '10px' }} />
-                </span>
-              </div>
-    )
-}
+    if (dNc(this.props.answerDisplay) && this.props.answerDisplay.type === 'percentages') {
+      const { answerDisplay } = this.props;
+      let data = null;
 
-      const obj = (
-        <div key={value.optionID}>
-          {answerObj}
-          <button
-            value={value.optionID}
-            className={className}
-          >
-            {name}
-          </button>
-          {dataButton}
-        </div>
+      answerDisplay.data.forEach((datum) => {
+        if (datum.optionID === value.optionID) {
+          data = datum;
+        }
+      });
+
+      answerObj = (
+        <AnswerData
+          answered={answered}
+          percentage={data.value}
+          displayText={value.optionValue}
+        />
       );
 
-      options.push(obj);
-    });
+      className += ' d-none';
+    }
+
+    const obj = (
+      <div key={value.optionID}>
+        {answerObj}
+        <button
+          value={value.optionID}
+          className={className}
+        >
+            I'm Unpaid
+        </button>
+      </div>
+    );
+
+    options.push(obj);
 
     return (
       <ButtonGroup
@@ -174,7 +199,7 @@ if (value.drawData) {
   }
 }
 
-graduateDestinationButtons.propTypes = {
+Unpaid.propTypes = {
   reduxAction_doUpdateQuestionAnswer: PropTypes.func,
   reduxAction_doSetQuestionError: PropTypes.func,
   reduxAction_doRemoveQuestionIdentifier: PropTypes.func,
@@ -184,14 +209,15 @@ graduateDestinationButtons.propTypes = {
   answer: PropTypes.object.isRequired,
   questionIdentifier: PropTypes.string.isRequired,
   options: PropTypes.array.isRequired,
-  // answerDisplay: PropTypes.any,
+  answerDisplay: PropTypes.any,
 };
 
-graduateDestinationButtons.defaultProps = {
+Unpaid.defaultProps = {
   reduxAction_doUpdateQuestionAnswer: () => {},
   reduxAction_doSetQuestionError: () => {},
   reduxAction_doRemoveQuestionIdentifier: () => {},
   // nextStepCallback: () => { },
+  answerDisplay: null,
 };
 
 const mapStateToProps = null;
@@ -215,10 +241,10 @@ const mapDispatchToProps = dispatch => ({
     ),
   reduxAction_doSetQuestionError: (questionID, message, name) =>
     dispatch(questionAction.doSetQuestionError(questionID, message, name)),
-    reduxAction_doRemoveQuestionIdentifier: (questionID, questionIdentifier) =>
+  reduxAction_doRemoveQuestionIdentifier: (questionID, questionIdentifier) =>
     dispatch(questionAction.doRemoveQuestionIdentifier(questionID, questionIdentifier)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(
-  graduateDestinationButtons,
+  Unpaid,
 );
