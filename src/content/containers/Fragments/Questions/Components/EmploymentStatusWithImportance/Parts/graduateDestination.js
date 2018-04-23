@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import ButtonGroup from '../../../../../../../content/components/ButtonGroup';
-import AnswerData from '../../../../../../../content/components/Answers/answerData';
 
 import { dNc } from '../../../../../../../content/scripts/custom/utilities';
 
@@ -14,6 +13,17 @@ class graduateDestinationButtons extends React.Component {
     // wait for document to be ready
     $(() => {
       $('[data-toggle="popover"]').popover();
+      $(document).trigger('nifty.ready');
+
+      // make the checkbox look nice with switchery
+      const elem = document.querySelector('#switchery-switch');
+
+      // eslint-disable-next-line no-undef, no-unused-vars
+      const init = new Switchery(elem);
+
+      // elem.onchange = () => {
+      //   this.handleRadio();
+      // };
     });
   }
 
@@ -33,12 +43,6 @@ class graduateDestinationButtons extends React.Component {
       );
     }
   }
-
-  // setValueFromState() {
-  // in other methods we 'set the state' in render but here we don't.... - i think this might be broken in other components now
-  // due to changes in question group
-  // console.log('TODO - set value from state is not implemented for this component!');
-  // }
 
   getIndex(dataArr, optionID) {
     let index = -1;
@@ -79,6 +83,7 @@ class graduateDestinationButtons extends React.Component {
     return { valid, error, show };
   }
 
+
   // we need to make sure that our state is the same as dataArr
   buttonPress(dataArr) {
     const { questionID, questionIdentifier } = this.props;
@@ -98,6 +103,7 @@ class graduateDestinationButtons extends React.Component {
       // see the validate method to understand why this works
       const validity = this.validate(['empty']);
 
+      console.log(optionValue, 'button****');
       this.props.reduxAction_doUpdateQuestionAnswer(
         questionID,
         questionIdentifier + '_' + this.getIndex(dataArr, optionID),
@@ -116,13 +122,32 @@ class graduateDestinationButtons extends React.Component {
     });
   }
 
+  handleRadio(e) {
+    const optionID = e.target.value;
+    const { questionID, questionIdentifier2 } = this.props;
+    const validity = this.validate(['empty']);
+    let optionValue = '';
+
+    this.props.options2.forEach((element) => {
+      if (element.optionID === optionID) {
+        optionValue = element.optionValue;
+      }
+    });
+
+    this.props.reduxAction_doUpdateQuestionAnswer(
+      questionID,
+      questionIdentifier2,
+      optionID,
+      optionValue,
+      validity.valid,
+    );
+  }
+
   render() {
     const options = [];
-
     // loop over the options and draw the buttons
     this.props.options.forEach((value) => {
       let className = 'btn btn-block btn-option btn-multiline btn-margin';
-      const answered = false;
 
       if (dNc(value.drawData) && dNc(value.drawData.optionEmphasis)) {
         className += ' btn-emphasis';
@@ -130,34 +155,13 @@ class graduateDestinationButtons extends React.Component {
 
       const answerObj = null;
 
-      // if (dNc(this.props.answerDisplay) && this.props.answerDisplay.type === 'percentages') {
-      //   const { answerDisplay } = this.props;
-      //   let data = null;
-
-      //   answerDisplay.data.forEach((datum) => {
-      //     if (datum.optionID === value.optionID) {
-      //       data = datum;
-      //     }
-      //   });
-
-      //   answerObj = (
-      //     <AnswerData
-      //       answered={answered}
-      //       percentage={data.value}
-      //       displayText={value.optionValue}
-      //     />
-      //   );
-
-      //   className += ' d-none';
-      // }
-
       let dataButton = ('');
       let name = value.optionValue;
 
       if (value.drawData) {
         name = value.drawData.questionPrimaryText;
         dataButton = (
-          <div className="float-right" style={{ marginRight: '-50px', marginTop: '-45px' }}>
+          <div className="float-right" key={value.optionID + 1}>
             <span
               tabIndex="0"
               className="btn-hint"
@@ -173,16 +177,34 @@ class graduateDestinationButtons extends React.Component {
         );
       }
 
+      let bool = true;
+
+      Object.keys(this.props.answer).forEach((element) => {
+        if (this.props.answer[element].optionID === value.optionID) {
+          bool = false;
+        }
+      });
+
       const obj = (
         <div key={value.optionID}>
-          {answerObj}
-          <button
-            value={value.optionID}
-            className={className}
-          >
-            {name}
-          </button>
-          {dataButton}
+          <div className="row">
+            <div className="col-8">
+              {answerObj}
+              <button
+                value={value.optionID}
+                className={className}
+              >
+                {name}
+              </button>
+            </div>
+            <div className="col-2">
+              {dataButton}
+            </div>
+            <div className="col-2">
+              {/* <input disabled={bool} id="switchery-switch" type="checkbox" value={value.optionID} onChange={(e) => this.handleRadio(e)} /> */}
+              <input disabled={bool} type="radio" name="radio_1" value={value.optionID} onClick={e => this.handleRadio(e)} />
+            </div>
+          </div>
         </div>
       );
 
@@ -211,7 +233,9 @@ graduateDestinationButtons.propTypes = {
   forceValidate: PropTypes.bool.isRequired,
   answer: PropTypes.object.isRequired,
   questionIdentifier: PropTypes.string.isRequired,
+  questionIdentifier2: PropTypes.string.isRequired,
   options: PropTypes.array.isRequired,
+  options2: PropTypes.array.isRequired,
   // answerDisplay: PropTypes.any,
 };
 

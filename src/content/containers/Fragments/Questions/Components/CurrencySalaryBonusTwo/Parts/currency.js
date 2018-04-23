@@ -18,13 +18,12 @@ import * as questionAction from '../../../../../../../content/containers/Fragmen
 // eslint-disable-next-line no-useless-escape
 const pattern = new RegExp('^options/[0-9]+$', 'i');
 
-class SelectQuestionCompanySelectWithRemoteLookupComponent extends React.Component {
+class Currency extends React.Component {
   componentDidMount() {
     // wait for document to be ready
     $(() => {
       const dropdownParent = select2GetCorrectParent(this.input);
-      const placeholder = 'Please select a qualification';
-
+      const placeholder = "GBP"
       const tags = this.props.allowAdd === true;
 
       $(this.input)
@@ -83,7 +82,45 @@ class SelectQuestionCompanySelectWithRemoteLookupComponent extends React.Compone
           },
         })
         .on('change', () => {
-          this.updateAnswer();
+          if ($(this.input).val().length > 0) {
+            const $data = $(this.input).select2('data');
+
+            let optionID = $data[0].id;
+            const optionValue = $data[0].text;
+
+            if (!pattern.test(optionID)) {
+              optionID = null;
+            }
+
+            const { questionID, questionIdentifier } = this.props;
+            const validity = this.validate({ optionValue, optionID });
+
+            if (
+              dNc(this.props.answer.optionValue) ||
+              dNc(this.props.answer.optionID)
+            ) {
+              if (
+                this.props.answer.optionValue !== optionValue ||
+                this.props.answer.optionID !== optionID
+              ) {
+                this.props.reduxAction_doUpdateQuestionAnswer(
+                  questionID,
+                  questionIdentifier,
+                  optionID,
+                  optionValue,
+                  validity.valid,
+                );
+              }
+            } else {
+              this.props.reduxAction_doUpdateQuestionAnswer(
+                questionID,
+                questionIdentifier,
+                optionID,
+                optionValue,
+                validity.valid,
+              );
+            }
+          }
         });
 
       // try to open when tabbed to
@@ -97,13 +134,15 @@ class SelectQuestionCompanySelectWithRemoteLookupComponent extends React.Compone
     });
   }
 
-  componentDidUpdate() {
-    this.setValueFromState();
-
-    const { questionIdentifier, questionID, answer } = this.props;
+  componentDidUpdate(prevProps) {
+    // TODO read wall
+    // this.setValueFromState();
+    const {
+      questionIdentifier, questionID, answer,
+    } = this.props;
     const validity = this.validate(this.props.answer);
-
     // set stuff as an error if they need to be
+    // console.log(validity, answer)
     if (
       validity.valid === false &&
       (validity.show === true || this.props.forceValidate === true) &&
@@ -115,6 +154,10 @@ class SelectQuestionCompanySelectWithRemoteLookupComponent extends React.Compone
         questionIdentifier,
       );
     }
+
+    // if (prevProps.typeAnswer.optionValue !== this.props.typeAnswer.optionValue) {
+    //   $(this.input).select2().val(null).trigger('change');
+    // }
   }
 
   setValueFromState() {
@@ -123,7 +166,6 @@ class SelectQuestionCompanySelectWithRemoteLookupComponent extends React.Compone
 
       if (dNc($data) && $data.length > 0) {
         const { optionValue, optionID } = this.props.answer;
-
         // check to see if something is already selected
         if ($data.length === 1) {
         // something is selected - is it the same as the answer value?
@@ -140,9 +182,9 @@ class SelectQuestionCompanySelectWithRemoteLookupComponent extends React.Compone
   }
 
   putItemIntoState() {
-    const { questionID, questionIdentifier } = this.props;
-    const optionID = null;
-    const optionValue = null;
+    const { questionID, questionIdentifier, options } = this.props;
+    const {optionID} = options[1];
+    const {optionValue} = options[1];
     const validity = this.validate({ optionValue, optionID });
 
     this.props.reduxAction_doUpdateQuestionAnswer(
@@ -154,74 +196,37 @@ class SelectQuestionCompanySelectWithRemoteLookupComponent extends React.Compone
     );
   }
 
-  updateAnswer() {
-    if ($(this.input).val().length > 0) {
-      const $data = $(this.input).select2('data');
-
-      let optionID = $data[0].id;
-      const optionValue = $data[0].text;
-
-      if (!pattern.test(optionID)) {
-        optionID = null;
-      }
-
-      const { questionID, questionIdentifier } = this.props;
-      const validity = this.validate({ optionValue, optionID });
-
-      if (
-        dNc(this.props.answer.optionValue) ||
-        dNc(this.props.answer.optionID)
-      ) {
-        if (
-          this.props.answer.optionValue !== optionValue ||
-          this.props.answer.optionID !== optionID ||
-          this.props.answer.valid !== validity.valid
-        ) {
-          this.props.reduxAction_doUpdateQuestionAnswer(
-            questionID,
-            questionIdentifier,
-            optionID,
-            optionValue,
-            validity.valid,
-          );
-        }
-      } else {
-        this.props.reduxAction_doUpdateQuestionAnswer(
-          questionID,
-          questionIdentifier,
-          optionID,
-          optionValue,
-          validity.valid,
-        );
-      }
-    }
-  }
-
   validate(answer) {
     let error = '';
     const show = false;
     let valid = false;
 
+      if (this.props.unpaidValidity) {
+      valid = true
+    }
+
     if (dNc(answer) && dNc(answer.optionValue)) {
       // test to see if the optionID is in fact an option ID
       if (pattern.test(answer.optionID) === true || answer.optionID === null) {
         valid = true;
+      } else {
+        error = 'You need to select a currency';
       }
     } else {
-      error = 'Please select a valid qualification';
+      error = 'You need to select a currency';
     }
 
     return { valid, error, show };
   }
 
   render() {
-    const data = this.props.drawData.resultOptions;
-    const options = [<option value="" hidden key={0} >Select Your Course Type</option>];
+    const options = [<option key="start" />];
+    const data = [];
 
-    data.forEach((value) => {
+    this.props.options.forEach((value) => {
       options.push(
         <option key={value.optionID} value={value.optionID}>
-          {value.displayValue}
+          {value.optionValue}
         </option>,
       );
     });
@@ -262,24 +267,23 @@ class SelectQuestionCompanySelectWithRemoteLookupComponent extends React.Compone
   }
 }
 
-SelectQuestionCompanySelectWithRemoteLookupComponent.propTypes = {
+Currency.propTypes = {
   reduxAction_doUpdateQuestionAnswer: PropTypes.func,
   reduxAction_doSetQuestionError: PropTypes.func,
-  // nextStepCallback: PropTypes.func,
   questionID: PropTypes.string.isRequired,
   forceValidate: PropTypes.bool.isRequired,
   answer: PropTypes.object.isRequired,
   questionIdentifier: PropTypes.string.isRequired,
-  // options: PropTypes.array.isRequired,
+  options: PropTypes.array.isRequired,
   drawData: PropTypes.object.isRequired,
   allowAdd: PropTypes.bool.isRequired,
+  unpaidValidity: PropTypes.bool.isRequired,
   answerDisplay: PropTypes.any,
 };
 
-SelectQuestionCompanySelectWithRemoteLookupComponent.defaultProps = {
+Currency.defaultProps = {
   reduxAction_doUpdateQuestionAnswer: () => {},
   reduxAction_doSetQuestionError: () => {},
-  // nextStepCallback: () => { },
   answerDisplay: null,
 };
 
@@ -307,5 +311,5 @@ const mapDispatchToProps = dispatch => ({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(
-  SelectQuestionCompanySelectWithRemoteLookupComponent,
+  Currency,
 );

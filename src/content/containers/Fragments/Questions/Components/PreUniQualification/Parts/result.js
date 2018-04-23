@@ -139,7 +139,7 @@ class SelectQuestionCompanySelectWithRemoteLookupComponent extends React.Compone
     // TODO read wall
     // this.setValueFromState();
     const {
-      questionIdentifier, questionID, answer, typeAnswer,
+      questionIdentifier, questionID, answer,
     } = this.props;
     const validity = this.validate(this.props.answer);
     // set stuff as an error if they need to be

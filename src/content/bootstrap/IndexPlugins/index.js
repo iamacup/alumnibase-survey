@@ -35,8 +35,8 @@ result.headTop.push(<meta key="ico17" name="msapplication-square70x70logo" conte
 result.headTop.push(<meta key="ico18" name="msapplication-square150x150logo" content="https://files.alumnibaseapp.com/images/favicomatic/mstile-150x150.png" />);
 result.headTop.push(<meta key="ico19" name="msapplication-wide310x150logo" content="https://files.alumnibaseapp.com/images/favicomatic/mstile-310x150.png" />);
 result.headTop.push(<meta key="ico20" name="msapplication-square310x310logo" content="https://files.alumnibaseapp.com/images/favicomatic/mstile-310x310.png" />);
-
-
+// swifty library
+result.headTop.push(<link key="nn9" href="https://storage.googleapis.com/files.sliips.com/nifty-v2.9/demo/plugins/switchery/switchery.min.css" rel="stylesheet" />);
 
 
 // font
@@ -85,6 +85,9 @@ result.bodyBottom.push(<script key="24" src="https://unpkg.com/inputmask@3.3.11/
 //bootstrap stuff
 result.bodyBottom.push(<script key="25" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossOrigin="anonymous" />);
 result.bodyBottom.push(<script key="26" src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossOrigin="anonymous" />);
+
+// swifty library
+result.bodyBottom.push(<script key="nn23" src="https://storage.googleapis.com/files.sliips.com/nifty-v2.9/demo/plugins/switchery/switchery.min.js" />);
 
 
 export default result;

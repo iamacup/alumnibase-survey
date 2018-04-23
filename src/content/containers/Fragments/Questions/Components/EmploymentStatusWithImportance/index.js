@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import QuestionContainer from '../../../../../../content/components/Questions/questionContainer';
 import GraduateDestinationButton from './Parts/graduateDestination';
+import MostImportant from './Parts/mostImportant';
 
 import { getUsefulQuestionBits } from '../../../../../../content/scripts/custom/utilities';
 
@@ -14,7 +15,7 @@ const GraduateDestinationsComponent = ({
   title,
 }) => {
   const { questionID, options, drawData } = data;
-  const { answerBits, errorBits } = getUsefulQuestionBits(
+  const { errorBits } = getUsefulQuestionBits(
     options,
     answer.answer,
   );
@@ -35,7 +36,9 @@ const GraduateDestinationsComponent = ({
         {...obj}
         answer={answer.answer}
         options={options[questionIdentifiers[0]]}
+        options2={options[questionIdentifiers[1]]}
         questionIdentifier={questionIdentifiers[0]}
+        questionIdentifier2={questionIdentifiers[1]}
       />
     </div>
   );
