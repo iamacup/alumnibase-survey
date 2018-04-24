@@ -14,6 +14,7 @@ import UniSteps from '../../../../../content/containers/Pages/University/AllStep
 import BioSteps from '../../../../../content/containers/Pages/University/AllSteps/bioSteps';
 import PreUniSteps from '../../../../../content/containers/Pages/University/AllSteps/preUniSteps';
 import PostUniSteps from '../../../../../content/containers/Pages/University/AllSteps/postUniSteps';
+import RetrospectiveSteps from '../../../../../content/containers/Pages/University/AllSteps/retrospectiveSteps';
 
 import { dNc } from '../../../../../content/scripts/custom/utilities';
 
@@ -53,6 +54,8 @@ const uniSteps = ['2-1', 'ask-another-qualification', '2-2', 'ask-next-qualifica
 const preUniSteps = ['3-1', '3-2', '3-3'];
 
 const postUniSteps = ['4-1', '4-2', '4-3', '4-4', '4-5'];
+
+const retrospectiveSteps = ['5-1', '5-2', '5-3', '5-4'];
 
 class Viewer extends React.Component {
   componentDidMount() {
@@ -123,6 +126,17 @@ class Viewer extends React.Component {
           type="postuni"
         />
       );
+    } else if (retrospectiveSteps.includes(step)) {
+      content = (
+        <RetrospectiveSteps
+          // eslint-disable-next-line no-shadow
+          submitDataCallback={(answerData, nextStep, type) => { this.submitDataCallback(answerData, nextStep, type); }}
+          steps={retrospectiveSteps}
+          currentStep={step}
+          answerData={answerData}
+          type="retro"
+        />
+      );
     } else {
       content = <h1>Undone</h1>;
     }
@@ -139,18 +153,18 @@ class Viewer extends React.Component {
     }
 
     // this is some code we can use to force test a series of steps after 0-1 is complete (i.e. a sessionID is assigned and a uni picked)
-    if (this.props.reduxState_this.step === '0-1') {
-      const stepTo = '4-4';
+    /* if (this.props.reduxState_this.step === '0-1') {
+      const stepTo = '5-3';
 
       this.props.reduxAction_doUpdate({
         step: stepTo,
         answerData: updateAnswerData,
       });
 
-      this.props.reduxAction_doUpdateStep({ currentStep: 1, stepCount: postUniSteps.length, section: 4 });
+      this.props.reduxAction_doUpdateStep({ currentStep: 1, stepCount: retrospectiveSteps.length, section: 5 });
 
       return;
-    }
+    } */
 
     // we always update the step assuming there was a next step passed
     // eslint-disable-next-line no-unreachable
@@ -185,6 +199,12 @@ class Viewer extends React.Component {
         if (stepIndex !== -1) {
           this.props.reduxAction_doUpdateStep({ currentStep: stepIndex + 1, stepCount: postUniSteps.length });
         }
+      } else if (type === 'retro') {
+        const stepIndex = retrospectiveSteps.indexOf(nextStep);
+
+        if (stepIndex !== -1) {
+          this.props.reduxAction_doUpdateStep({ currentStep: stepIndex + 1, stepCount: retrospectiveSteps.length });
+        }
       }
     // otherwise we look to see what type has been finished and then use that to define what to do next
     } else if (type === 'bio') {
@@ -210,8 +230,16 @@ class Viewer extends React.Component {
       });
 
       this.props.reduxAction_doUpdateStep({ currentStep: 1, stepCount: postUniSteps.length, section: 4 });
+    } else if (type === 'retro') {
+      this.props.reduxAction_doUpdate({
+        step: retrospectiveSteps[0],
+        answerData: updateAnswerData,
+      });
+
+      this.props.reduxAction_doUpdateStep({ currentStep: 1, stepCount: retrospectiveSteps.length, section: 5 });
     } else {
       console.log('TODO HANDLE NON KNOWN');
+      console.log('the wizzard is finished OR in a bad state?');
     }
   }
 
