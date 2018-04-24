@@ -50,7 +50,7 @@ class PostcodeQuestionPostcodeComponent extends React.Component {
     } else if (dNc(answer) && dNc(answer.optionValue)) {
       if (!dNc(answer.optionID) && checkPostCode(answer.optionValue) === false) {
         error = 'This does not appear to be a valid postcode.';
-      } 
+      }
     } else valid = false;
 
     return { valid, error, show };

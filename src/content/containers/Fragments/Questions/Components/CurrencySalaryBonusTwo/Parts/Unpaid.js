@@ -13,7 +13,7 @@ class Unpaid extends React.Component {
   componentDidMount() {
     // wait for document to be ready
     $(() => {
-this.putItemIntoState();
+      this.putItemIntoState();
     });
   }
 
@@ -71,10 +71,10 @@ this.putItemIntoState();
     return { valid, error, show };
   }
 
-    putItemIntoState() {
+  putItemIntoState() {
     const { questionID, questionIdentifier, options } = this.props;
-    const {optionID} = options[1];
-    const {optionValue} = options[1];
+    const { optionID } = options[1];
+    const { optionValue } = options[1];
     const validity = this.validate({ optionValue, optionID });
 
     this.props.reduxAction_doUpdateQuestionAnswer(
@@ -89,13 +89,13 @@ this.putItemIntoState();
   buttonPress(dataArr) {
     const { questionID, questionIdentifier, options } = this.props;
 
-// clearing the state
-      if (dataArr.length > 0 && options[0].optionID === dataArr[0]) {
-       Object.keys(this.props.answer).forEach((value) => {
+    // clearing the state
+    if (dataArr.length > 0 && options[0].optionID === dataArr[0]) {
+      Object.keys(this.props.answer).forEach((value) => {
         console.log('removing', value);
         this.props.reduxAction_doRemoveQuestionIdentifier(questionID, value);
-    });
-      }
+      });
+    }
 
     for (let a = 0; a < dataArr.length; a++) {
       const optionID = dataArr[a];
@@ -111,7 +111,7 @@ this.putItemIntoState();
       // see the validate method to understand why this works
       const validity = this.validate(['empty']);
 
-//  setting the state with just the 'YES' unpaid value
+      //  setting the state with just the 'YES' unpaid value
       this.props.reduxAction_doUpdateQuestionAnswer(
         questionID,
         questionIdentifier,

@@ -98,8 +98,8 @@ class Bonus extends React.Component {
     let show = false;
     let valid = false;
 
-   if (this.props.unpaidValidity) {
-      valid = true
+    if (this.props.unpaidValidity) {
+      valid = true;
     }
 
     if (dNc(answer) && dNc(answer.optionValue)) {
@@ -146,45 +146,44 @@ class Bonus extends React.Component {
   }
 
   render() {
-
-      const value = this.props.answer;
+    const value = this.props.answer;
 
     let className = 'btn btn-block btn-option btn-multiline btn-margin';
 
-    if (dNc(value.optionValue) && value.optionValue === "_NO_BONUS_") {
+    if (dNc(value.optionValue) && value.optionValue === '_NO_BONUS_') {
       className += ' btn-emphasis';
-    } else className = 'btn btn-block btn-option btn-multiline btn-margin'
+    } else className = 'btn btn-block btn-option btn-multiline btn-margin';
 
 
     return (
       <AnimationContainer animationClass="flipInX">
         <div className="row">
-         {/* <div className="col-sm-8"> */}
-            <span className="form-group">
-              <input
-                onKeyUp={(e) => {
+          {/* <div className="col-sm-8"> */}
+          <span className="form-group">
+            <input
+              onKeyUp={(e) => {
                   this.doNextStepCallback(e);
                 }}
-                placeholder="Bonus"
-                className="form-control"
-                ref={(input) => {
+              placeholder="Bonus"
+              className="form-control"
+              ref={(input) => {
                   this.bonusTextInput = input;
                 }}
-              />
-            </span>
-          </div>
-         {/* <div className="col-sm-4">*/}
-         <div className="row">
-            <button
-              onClick={() => {
+            />
+          </span>
+        </div>
+        {/* <div className="col-sm-4"> */}
+        <div className="row">
+          <button
+            onClick={() => {
                 this.noBonusButton();
               }}
-              className={className}
-            >
+            className={className}
+          >
               No Bonus
-            </button>
-          </div>
-       {/* </div>*/}
+          </button>
+        </div>
+        {/* </div> */}
       </AnimationContainer>
     );
   }

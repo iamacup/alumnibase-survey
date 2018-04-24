@@ -26,11 +26,11 @@ const CurrencySalaryBonusQuestionComponent = ({
     answer.answer,
   );
 
-let unpaidValidity = false;
+  let unpaidValidity = false;
 
-if (answerBits.unpaid.optionValue === 'Yes'){
-  unpaidValidity = true;
-}
+  if (answerBits.unpaid.optionValue === 'Yes') {
+    unpaidValidity = true;
+  }
 
   const obj = {
     questionID,
@@ -54,15 +54,17 @@ if (answerBits.unpaid.optionValue === 'Yes'){
 
   let totalValue = null;
   let symbol = '£';
-  const currencyObj = {GBP: '£', USD: '$', EURO: '€', Other: ''}
+  const currencyObj = {
+    GBP: '£', USD: '$', EURO: '€', Other: '',
+  };
 
   if (dNc(answerBits.currency.optionValue)) {
     symbol = currencyObj[answerBits.currency.optionValue];
   }
 
   if (dNc(answerBits.salary.optionValue) && dNc(answerBits.salaryPeriod.optionValue) && dNc(answerBits.bonus.optionValue) && dNc(answerBits.bonusPeriod.optionValue) && dNc(answerBits.currency.optionValue)) {
-    let bonusNum = answerBits.bonus.optionValue
-    if (bonusNum === '_NO_BONUS_') bonusNum = 0
+    let bonusNum = answerBits.bonus.optionValue;
+    if (bonusNum === '_NO_BONUS_') bonusNum = 0;
 
     const salary = answerBits.salary.optionValue * sumElement(answerBits.salaryPeriod.optionValue);
     const bonus = bonusNum * sumElement(answerBits.bonusPeriod.optionValue);

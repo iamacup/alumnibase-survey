@@ -23,8 +23,7 @@ class Currency extends React.Component {
     // wait for document to be ready
     $(() => {
       const dropdownParent = select2GetCorrectParent(this.input);
-      const placeholder = "GBP"
-      const tags = this.props.allowAdd === true;
+      const placeholder = 'GBP';
 
       $(this.input)
         .select2({
@@ -32,54 +31,6 @@ class Currency extends React.Component {
           allowClear: false,
           width: '100%',
           dropdownParent,
-          tags,
-          createTag(params) {
-            return {
-              id: params.term,
-              text: params.term,
-              newOption: true,
-            };
-          },
-          escapeMarkup(markup) {
-            return markup;
-          },
-          templateResult(data) {
-            if (data.loading) return 'loading';
-
-            let markup = '';
-
-            if (data.newOption) {
-              markup =
-                '<div class="select-new-item"><em>Let me add "' +
-                encodeEntities(data.text) +
-                '" to the list.</em></div>';
-            } else {
-              markup = data.text;
-            }
-
-            return markup;
-          },
-          sorter(data) {
-            const dataNormal = [];
-            const dataFreeText = [];
-
-            for (let a = 0; a < data.length; a++) {
-              if (data[a].newOption === true) {
-                dataFreeText.push(data[a]);
-              } else {
-                dataNormal.push(data[a]);
-              }
-            }
-
-            for (let a = 0; a < dataFreeText.length; a++) {
-              dataNormal.push(dataFreeText[a]);
-            }
-
-            return dataNormal;
-          },
-          templateSelection(data) {
-            return data.text;
-          },
         })
         .on('change', () => {
           if ($(this.input).val().length > 0) {
@@ -183,8 +134,8 @@ class Currency extends React.Component {
 
   putItemIntoState() {
     const { questionID, questionIdentifier, options } = this.props;
-    const {optionID} = options[1];
-    const {optionValue} = options[1];
+    const { optionID } = options[1];
+    const { optionValue } = options[1];
     const validity = this.validate({ optionValue, optionID });
 
     this.props.reduxAction_doUpdateQuestionAnswer(
@@ -201,8 +152,8 @@ class Currency extends React.Component {
     const show = false;
     let valid = false;
 
-      if (this.props.unpaidValidity) {
-      valid = true
+    if (this.props.unpaidValidity) {
+      valid = true;
     }
 
     if (dNc(answer) && dNc(answer.optionValue)) {

@@ -39,40 +39,40 @@ const PostcodeComponent = ({
   if (drawData.type === 'postcodeTown') {
     question = (
       <div>
-      <div className="row justify-content-center mb-2">
+        <div className="row justify-content-center mb-2">
       Please enter either:
-      </div>
+        </div>
         <Postcode
-        {...obj}
-        answer={answerBits[questionIdentifier]}
-        questionIdentifier={questionIdentifier}
+          {...obj}
+          answer={answerBits[questionIdentifier]}
+          questionIdentifier={questionIdentifier}
         />
-      <div className="row justify-content-center my-2">
+        <div className="row justify-content-center my-2">
       Or
-      </div>
+        </div>
         <Town
-        {...obj}
-        answer={answerBits[questionIdentifier]}
-        questionIdentifier={questionIdentifier}
+          {...obj}
+          answer={answerBits[questionIdentifier]}
+          questionIdentifier={questionIdentifier}
         />
       </div>
-      )
+    );
   } else {
-  question = (
-    <div>
-      <Postcode
-        {...obj}
-        answer={answerBits[questionIdentifier]}
-        questionIdentifier={questionIdentifier}
-      />
-      <DontKnowButton
-        {...obj}
-        answer={answerBits[questionIdentifier]}
-        questionIdentifier={questionIdentifier}
-      />
-    </div>
-  );
-}
+    question = (
+      <div>
+        <Postcode
+          {...obj}
+          answer={answerBits[questionIdentifier]}
+          questionIdentifier={questionIdentifier}
+        />
+        <DontKnowButton
+          {...obj}
+          answer={answerBits[questionIdentifier]}
+          questionIdentifier={questionIdentifier}
+        />
+      </div>
+    );
+  }
   return (
     <QuestionContainer
       title={title}

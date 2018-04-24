@@ -92,7 +92,7 @@ class Salary extends React.Component {
     let valid = false;
 
     if (this.props.unpaidValidity) {
-      valid = true
+      valid = true;
     }
 
     if (dNc(answer) && dNc(answer.optionValue)) {
