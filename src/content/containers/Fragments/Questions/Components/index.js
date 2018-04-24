@@ -26,4 +26,4 @@ export const PreUni = PreUniQualificationQuestion;
 export const Location = LocationQuestion;
 export const Destination = GraduateDestinationsQuestion;
 export const CurrencySalaryBonusTwo = CurrencySalaryBonusQuestionTwo;
-export const FinancialNumber = FinancialNumberQuestion
+export const FinancialNumber = FinancialNumberQuestion;

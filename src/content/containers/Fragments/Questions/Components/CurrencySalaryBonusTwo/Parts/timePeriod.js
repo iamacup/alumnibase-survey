@@ -177,10 +177,10 @@ class SalaryPeriod extends React.Component {
     }
   }
 
-    putItemIntoState() {
+  putItemIntoState() {
     const { questionID, questionIdentifier, options } = this.props;
-    const {optionID} = options[0];
-    const {optionValue} = options[0];
+    const { optionID } = options[0];
+    const { optionValue } = options[0];
     const validity = this.validate({ optionValue, optionID });
 
     this.props.reduxAction_doUpdateQuestionAnswer(
@@ -202,8 +202,8 @@ class SalaryPeriod extends React.Component {
       name = 'salary';
     }
 
-   if (this.props.unpaidValidity) {
-      valid = true
+    if (this.props.unpaidValidity) {
+      valid = true;
     }
 
     if (dNc(answer) && dNc(answer.optionValue)) {
