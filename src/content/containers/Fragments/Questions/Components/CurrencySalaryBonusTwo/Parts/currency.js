@@ -23,7 +23,7 @@ class Currency extends React.Component {
     // wait for document to be ready
     $(() => {
       const dropdownParent = select2GetCorrectParent(this.input);
-      const placeholder = "GBP"
+      const placeholder = 'GBP';
       const tags = this.props.allowAdd === true;
 
       $(this.input)
@@ -183,8 +183,8 @@ class Currency extends React.Component {
 
   putItemIntoState() {
     const { questionID, questionIdentifier, options } = this.props;
-    const {optionID} = options[1];
-    const {optionValue} = options[1];
+    const { optionID } = options[1];
+    const { optionValue } = options[1];
     const validity = this.validate({ optionValue, optionID });
 
     this.props.reduxAction_doUpdateQuestionAnswer(
@@ -201,8 +201,8 @@ class Currency extends React.Component {
     const show = false;
     let valid = false;
 
-      if (this.props.unpaidValidity) {
-      valid = true
+    if (this.props.unpaidValidity) {
+      valid = true;
     }
 
     if (dNc(answer) && dNc(answer.optionValue)) {
