@@ -13,6 +13,7 @@ import BottomProgress from '../../../../../content/containers/Pages/NewTheme/bot
 import UniSteps from '../../../../../content/containers/Pages/University/AllSteps/uniSteps';
 import BioSteps from '../../../../../content/containers/Pages/University/AllSteps/bioSteps';
 import PreUniSteps from '../../../../../content/containers/Pages/University/AllSteps/preUniSteps';
+import PostUniSteps from '../../../../../content/containers/Pages/University/AllSteps/postUniSteps';
 
 import { dNc } from '../../../../../content/scripts/custom/utilities';
 
@@ -50,6 +51,8 @@ const bioSteps = ['0-1', 'intro', 'terms', '1-1', '1-2', '1-3', '1-4', 'summary-
 const uniSteps = ['2-1', 'ask-another-qualification', '2-2', 'ask-next-qualification', 'uni-question', '2-3', '2-2-again', 'ask-next-qualification-again', '2-4', '2-5', 'summary-uni'];
 
 const preUniSteps = ['3-1', '3-2', '3-3'];
+
+const postUniSteps = ['4-1', '4-2', '4-3', '4-4', '4-5'];
 
 class Viewer extends React.Component {
   componentDidMount() {
@@ -109,6 +112,17 @@ class Viewer extends React.Component {
           type="preuni"
         />
       );
+    } else if (postUniSteps.includes(step)) {
+      content = (
+        <PostUniSteps
+          // eslint-disable-next-line no-shadow
+          submitDataCallback={(answerData, nextStep, type) => { this.submitDataCallback(answerData, nextStep, type); }}
+          steps={postUniSteps}
+          currentStep={step}
+          answerData={answerData}
+          type="postuni"
+        />
+      );
     } else {
       content = <h1>Undone</h1>;
     }
@@ -125,18 +139,18 @@ class Viewer extends React.Component {
     }
 
     // this is some code we can use to force test a series of steps after 0-1 is complete (i.e. a sessionID is assigned and a uni picked)
-    /* if (this.props.reduxState_this.step === '0-1') {
-      const stepTo = '3-1';
+    if (this.props.reduxState_this.step === '0-1') {
+      const stepTo = '4-4';
 
       this.props.reduxAction_doUpdate({
         step: stepTo,
         answerData: updateAnswerData,
       });
 
-      this.props.reduxAction_doUpdateStep({ currentStep: 1, stepCount: preUniSteps.length, section: 3 });
+      this.props.reduxAction_doUpdateStep({ currentStep: 1, stepCount: postUniSteps.length, section: 4 });
 
       return;
-    } */
+    }
 
     // we always update the step assuming there was a next step passed
     // eslint-disable-next-line no-unreachable
@@ -165,6 +179,12 @@ class Viewer extends React.Component {
         if (stepIndex !== -1) {
           this.props.reduxAction_doUpdateStep({ currentStep: stepIndex + 1, stepCount: preUniSteps.length });
         }
+      } else if (type === 'postuni') {
+        const stepIndex = postUniSteps.indexOf(nextStep);
+
+        if (stepIndex !== -1) {
+          this.props.reduxAction_doUpdateStep({ currentStep: stepIndex + 1, stepCount: postUniSteps.length });
+        }
       }
     // otherwise we look to see what type has been finished and then use that to define what to do next
     } else if (type === 'bio') {
@@ -184,7 +204,12 @@ class Viewer extends React.Component {
 
       this.props.reduxAction_doUpdateStep({ currentStep: 1, stepCount: preUniSteps.length, section: 3 });
     } else if (type === 'preuni') {
-      console.log('TODO here preuni thing');
+      this.props.reduxAction_doUpdate({
+        step: postUniSteps[0],
+        answerData: updateAnswerData,
+      });
+
+      this.props.reduxAction_doUpdateStep({ currentStep: 1, stepCount: postUniSteps.length, section: 4 });
     } else {
       console.log('TODO HANDLE NON KNOWN');
     }

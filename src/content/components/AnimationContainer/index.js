@@ -27,7 +27,7 @@ class AnimationContainer extends React.Component {
 }
 
 AnimationContainer.propTypes = {
-  children: PropTypes.element.isRequired,
+  children: PropTypes.node.isRequired,
   animationClass: PropTypes.string,
 };
 
