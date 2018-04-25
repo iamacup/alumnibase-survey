@@ -283,8 +283,7 @@ class QuestionComponentWrapper extends React.Component {
           <div className={answerContainerClassName} />
         </div>
       );
-    } 
-    else if (type === 'range') {
+    } else if (type === 'range') {
       return (
         <div>
           <Range {...obj} />
