@@ -30,6 +30,7 @@ import {
   FinancialNumber,
   HoursContractedActual,
   Range,
+  Scale,
 } from '../../../../../../content/containers/Fragments/Questions/Components';
 
 import { redrawCharts } from '../../../../../../content/scripts/custom/echarts/utilities';
@@ -284,6 +285,13 @@ class QuestionComponentWrapper extends React.Component {
         </div>
       );
     } else if (type === 'range') {
+      return (
+        <div>
+          <Range {...obj} />
+          <div className={answerContainerClassName} />
+        </div>
+      );
+    } else if (type === 'scale') {
       return (
         <div>
           <Range {...obj} />

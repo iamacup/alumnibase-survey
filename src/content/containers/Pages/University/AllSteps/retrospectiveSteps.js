@@ -23,7 +23,7 @@ class Viewer extends React.PureComponent {
 
     if (currentStep === '5-1') {
       content = (
-        <div>
+        <div className="large-question-area">
           <div>
             <div style={{ marginTop: '36px' }} />
             {wizzard}

@@ -53,7 +53,7 @@ const uniSteps = ['2-1', 'ask-another-qualification', '2-2', 'ask-next-qualifica
 
 const preUniSteps = ['3-1', '3-2', '3-3'];
 
-const postUniSteps = ['4-1', '4-2', '4-3', '4-4', '4-5'];
+const postUniSteps = ['4-1', '4-2', '4-3', '4-4', '4-5', '4-6'];
 
 const retrospectiveSteps = ['5-1', '5-2', '5-3', '5-4'];
 
@@ -153,8 +153,8 @@ class Viewer extends React.Component {
     }
 
     // this is some code we can use to force test a series of steps after 0-1 is complete (i.e. a sessionID is assigned and a uni picked)
-    /* if (this.props.reduxState_this.step === '0-1') {
-      const stepTo = '5-3';
+    if (this.props.reduxState_this.step === '0-1') {
+      const stepTo = '4-1';
 
       this.props.reduxAction_doUpdate({
         step: stepTo,
@@ -164,7 +164,7 @@ class Viewer extends React.Component {
       this.props.reduxAction_doUpdateStep({ currentStep: 1, stepCount: retrospectiveSteps.length, section: 5 });
 
       return;
-    } */
+    }
 
     // we always update the step assuming there was a next step passed
     // eslint-disable-next-line no-unreachable
@@ -230,7 +230,7 @@ class Viewer extends React.Component {
       });
 
       this.props.reduxAction_doUpdateStep({ currentStep: 1, stepCount: postUniSteps.length, section: 4 });
-    } else if (type === 'retro') {
+    } else if (type === 'postuni') {
       this.props.reduxAction_doUpdate({
         step: retrospectiveSteps[0],
         answerData: updateAnswerData,
@@ -238,6 +238,7 @@ class Viewer extends React.Component {
 
       this.props.reduxAction_doUpdateStep({ currentStep: 1, stepCount: retrospectiveSteps.length, section: 5 });
     } else {
+      console.log(type);
       console.log('TODO HANDLE NON KNOWN');
       console.log('the wizzard is finished OR in a bad state?');
     }
