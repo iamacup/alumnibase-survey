@@ -106,7 +106,6 @@ class SelectQuestionCompanySelectWithRemoteLookupComponent extends React.Compone
       options.push(obj);
     });
 
-console.log(options)
     return (
       <ButtonGroup
         wrapperClass="row no-gutters padded-buttons"
