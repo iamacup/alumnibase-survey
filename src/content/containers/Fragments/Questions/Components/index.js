@@ -14,6 +14,7 @@ import CurrencySalaryBonusQuestionTwo from './CurrencySalaryBonusTwo';
 import FinancialNumberQuestion from './FinancialNumber';
 import HoursContractedActualQuestion from './HoursContractedActual';
 import RangeQuestion from './Range';
+import ScaleQuestion from './Scale';
 
 export const CurrencySalaryBonus = CurrencySalaryBonusQuestion;
 export const Select = SelectQuestion;
@@ -28,6 +29,7 @@ export const PreUni = PreUniQualificationQuestion;
 export const Location = LocationQuestion;
 export const Destination = GraduateDestinationsQuestion;
 export const CurrencySalaryBonusTwo = CurrencySalaryBonusQuestionTwo;
-export const FinancialNumber = FinancialNumberQuestion
-export const HoursContractedActual = HoursContractedActualQuestion
-export const Range = RangeQuestion
+export const FinancialNumber = FinancialNumberQuestion;
+export const HoursContractedActual = HoursContractedActualQuestion;
+export const Range = RangeQuestion;
+export const Scale = ScaleQuestion;

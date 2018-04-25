@@ -30,15 +30,15 @@ const FreeTextQuestionComponent = ({
 
   let question = null;
   const questionIdentifier = getQuestionIdentifiers(options);
-  
-    question = (
-     <Income
-        {...obj}
-        answer={answerBits[questionIdentifier]}
-        options={options[questionIdentifier]}
-        questionIdentifier={questionIdentifier}
-      />
-    );
+
+  question = (
+    <Income
+      {...obj}
+      answer={answerBits[questionIdentifier]}
+      options={options[questionIdentifier]}
+      questionIdentifier={questionIdentifier}
+    />
+  );
 
   return (
     <QuestionContainer
