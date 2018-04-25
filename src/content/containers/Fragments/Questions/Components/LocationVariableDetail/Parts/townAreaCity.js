@@ -45,7 +45,7 @@ class FreeTextQuestionMultilineComponent extends React.Component {
   }
 
   setValueFromState() {
-    if (dNc(this.props.answer.optionValue) && this.props.answer.optionID === "town-area-city") {
+    if (dNc(this.props.answer.optionValue) && this.props.answer.optionID === 'town-area-city') {
       this.input.value = this.props.answer.optionValue;
     }
   }
@@ -94,19 +94,18 @@ class FreeTextQuestionMultilineComponent extends React.Component {
     );
   }
 
-    handleFocus() {
+  handleFocus() {
     this.handleChange();
   }
 
   render() {
-
     let classChange = 'form-control';
     if (this.props.answer.optionID === 'postcode') classChange = 'form-control hide-green';
 
     return (
       <span className="form-group">
         <input
-        placeholder="Town"
+          placeholder="Town"
           type="text"
           className={classChange}
           ref={(input) => {
@@ -115,7 +114,7 @@ class FreeTextQuestionMultilineComponent extends React.Component {
           onChange={() => {
             this.handleChange();
           }}
-               onFocus={() => {
+          onFocus={() => {
             this.handleFocus();
           }}
         />
