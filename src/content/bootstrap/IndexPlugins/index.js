@@ -49,8 +49,7 @@ result.headTop.push(<link key="6" rel="stylesheet" href="https://maxcdn.bootstra
 result.headTop.push(<link key="8" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />);
 
 // Slider Stylesheets
-result.headTop.push(<link key="9" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/9.9.0/css/bootstrap-slider.min.css" rel="stylesheet" />);
-
+result.headTop.push(<link key="9" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/10.0.0/css/bootstrap-slider.min.css" rel="stylesheet" />)
 // result.headTop.push(<link key="fa1" rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.0.8/css/solid.css" integrity="sha384-+iHwwKZGTdlVFbv4fsKmLkogfdKlp47zQGkSMDN3ANc8kXjyKudKvQwinI5VH+2C" crossorigin="anonymous" />);
 // result.headTop.push(<link key="fa2" rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.0.8/css/fontawesome.css" integrity="sha384-+5VkSw5C1wIu2iUZEfX77QSYRb5fhjmEsRn8u4r9Ma8mvu/GvTag4LDSEAw7RjXl" crossorigin="anonymous" />);
 
@@ -77,7 +76,7 @@ result.bodyTop.push(<script key="17" src="https://ajax.googleapis.com/ajax/libs/
 result.bodyBottom.push(<script key="18" src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js" />);
 
 // Slider JS
-result.bodyBottom.push(<script key="19" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/9.9.0/bootstrap-slider.min.js" />);
+result.bodyBottom.push(<script key="19" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/10.0.0/bootstrap-slider.min.js" />)
 
 // inputmask was added as it stopped working after minification for some reason - would like to put this back into the bundle if possible!
 result.bodyBottom.push(<script key="24" src="https://unpkg.com/inputmask@3.3.11/dist/min/jquery.inputmask.bundle.min.js" />);

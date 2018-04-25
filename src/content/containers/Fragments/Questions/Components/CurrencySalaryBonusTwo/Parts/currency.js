@@ -24,6 +24,10 @@ class Currency extends React.Component {
     $(() => {
       const dropdownParent = select2GetCorrectParent(this.input);
       const placeholder = 'GBP';
+<<<<<<< HEAD
+      const tags = this.props.allowAdd === true;
+=======
+>>>>>>> 7ee80759f0a9e93536d909c9b9373ecd56accf46
 
       $(this.input)
         .select2({
