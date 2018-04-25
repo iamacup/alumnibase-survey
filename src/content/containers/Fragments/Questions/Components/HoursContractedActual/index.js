@@ -31,36 +31,36 @@ const FreeTextQuestionComponent = ({
   let question = null;
   const questionIdentifier = getQuestionIdentifiers(options);
 
-    question = (
-      <div>
+  question = (
+    <div>
       <div className="row mb-3">
-      <div className="col-6">
-      Total hours worked: 
-      </div>
-      <div className="col-6">
-     <Hours
-        {...obj}
-        answer={answer.answer[questionIdentifier[1]]}
-        options={options[questionIdentifier[1]]}
-        questionIdentifier="actual"
-      />
-      </div>
+        <div className="col-6">
+      Total hours worked:
+        </div>
+        <div className="col-6">
+          <Hours
+            {...obj}
+            answer={answer.answer[questionIdentifier[1]]}
+            options={options[questionIdentifier[1]]}
+            questionIdentifier="actual"
+          />
+        </div>
       </div>
       <div className="row">
-           <div className="col-6">
-      Contracted hours: 
+        <div className="col-6">
+      Contracted hours:
+        </div>
+        <div className="col-6">
+          <Hours
+            {...obj}
+            answer={answer.answer[questionIdentifier[0]]}
+            options={options[questionIdentifier[0]]}
+            questionIdentifier="contract"
+          />
+        </div>
       </div>
-      <div className="col-6">
-         <Hours
-        {...obj}
-        answer={answer.answer[questionIdentifier[0]]}
-        options={options[questionIdentifier[0]]}
-        questionIdentifier="contract"
-      />
-      </div>
-      </div>
-      </div>
-    );
+    </div>
+  );
 
   return (
     <QuestionContainer
