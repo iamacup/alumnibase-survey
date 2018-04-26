@@ -21,7 +21,7 @@ class Viewer extends React.PureComponent {
       />
     );
 
-    if (currentStep === '4-1') {
+    if (currentStep === '5-1') {
       content = (
         <div className="large-question-area">
           <div>
@@ -30,7 +30,7 @@ class Viewer extends React.PureComponent {
           </div>
         </div>
       );
-    } else if (currentStep === '4-2') {
+    } else if (currentStep === '5-2') {
       content = (
         <div>
           <div>
@@ -39,34 +39,16 @@ class Viewer extends React.PureComponent {
           </div>
         </div>
       );
-    } else if (currentStep === '4-3') {
+    } else if (currentStep === '5-3') {
       content = (
-        <div>
+        <div className="large-question-area">
           <div>
             <div style={{ marginTop: '36px' }} />
             {wizzard}
           </div>
         </div>
       );
-    } else if (currentStep === '4-4') {
-      content = (
-        <div>
-          <div>
-            <div style={{ marginTop: '36px' }} />
-            {wizzard}
-          </div>
-        </div>
-      );
-    } else if (currentStep === '4-5') {
-      content = (
-        <div>
-          <div>
-            <div style={{ marginTop: '36px' }} />
-            {wizzard}
-          </div>
-        </div>
-      );
-    } else if (currentStep === '4-6') {
+    } else if (currentStep === '5-4') {
       content = (
         <div>
           <div>
