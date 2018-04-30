@@ -226,8 +226,6 @@ Currency.propTypes = {
   answer: PropTypes.object.isRequired,
   questionIdentifier: PropTypes.string.isRequired,
   options: PropTypes.array.isRequired,
-  drawData: PropTypes.object.isRequired,
-  allowAdd: PropTypes.bool.isRequired,
   unpaidValidity: PropTypes.bool.isRequired,
   answerDisplay: PropTypes.any,
 };

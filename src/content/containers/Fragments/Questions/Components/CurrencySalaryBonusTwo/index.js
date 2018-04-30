@@ -7,7 +7,6 @@ import Salary from '../../../../../../content/containers/Fragments/Questions/Com
 import TimePeriod from '../../../../../../content/containers/Fragments/Questions/Components/CurrencySalaryBonusTwo/Parts/timePeriod';
 import Bonus from '../../../../../../content/containers/Fragments/Questions/Components/CurrencySalaryBonusTwo/Parts/bonus';
 import Unpaid from '../../../../../../content/containers/Fragments/Questions/Components/CurrencySalaryBonusTwo/Parts/Unpaid';
-
 import {
   dNc,
   currencySymbolLookup,
@@ -45,14 +44,13 @@ const CurrencySalaryBonusQuestionComponent = ({
   }
 
   const sumElement = (period) => {
-    if (period === 'Anually') return 1;
+    if (period === 'Annually') return 1;
     if (period === 'Monthly') return 12;
     if (period === 'Weekly') return 52;
     if (period === 'Daily') return 365;
     return null;
   };
 
-  let totalValue = null;
   let symbol = '£';
   const currencyObj = {
     GBP: '£', USD: '$', EURO: '€', Other: '',
@@ -61,6 +59,8 @@ const CurrencySalaryBonusQuestionComponent = ({
   if (dNc(answerBits.currency.optionValue)) {
     symbol = currencyObj[answerBits.currency.optionValue];
   }
+
+  let totalValue = null;
 
   if (dNc(answerBits.salary.optionValue) && dNc(answerBits.salaryPeriod.optionValue) && dNc(answerBits.bonus.optionValue) && dNc(answerBits.bonusPeriod.optionValue) && dNc(answerBits.currency.optionValue)) {
     let bonusNum = answerBits.bonus.optionValue;

@@ -10,14 +10,13 @@ import {
   isNumeric,
 } from '../../../../../../../content/scripts/custom/utilities';
 
+import ButtonGroup from '../../../../../../../content/components/ButtonGroup';
 import * as questionAction from '../../../../../../../content/containers/Fragments/Questions/Components/action';
 
 class Bonus extends React.Component {
   componentDidMount() {
     // wait for document to be ready
     $(() => {
-      // const Inputmask = require('inputmask'); TODO need to make this work with minification
-
       // eslint-disable-next-line no-undef
       const im = new Inputmask('numeric', {
         radixPoint: '.',
@@ -129,7 +128,8 @@ class Bonus extends React.Component {
     }
   }
 
-  noBonusButton() {
+  noBonusButton(dataArr) {
+    console.log(dataArr);
     const optionID = null;
     const optionValue = '_NO_BONUS_';
 
@@ -149,16 +149,20 @@ class Bonus extends React.Component {
     const value = this.props.answer;
 
     let className = 'btn btn-block btn-option btn-multiline btn-margin';
+    let style = '#3c3c3c';
 
     if (dNc(value.optionValue) && value.optionValue === '_NO_BONUS_') {
-      className += ' btn-emphasis';
-    } else className = 'btn btn-block btn-option btn-multiline btn-margin';
+      className += ' btn-emphasis show-green';
+      style = '#fff';
+    }
 
+    if (value.optionValue !== '_NO_BONUS_') {
+      className = 'btn btn-block btn-option btn-multiline btn-margin';
+    }
 
     return (
       <AnimationContainer animationClass="flipInX">
         <div className="row">
-          {/* <div className="col-sm-8"> */}
           <span className="form-group">
             <input
               onKeyUp={(e) => {
@@ -172,18 +176,17 @@ class Bonus extends React.Component {
             />
           </span>
         </div>
-        {/* <div className="col-sm-4"> */}
         <div className="row">
           <button
             onClick={() => {
                 this.noBonusButton();
               }}
             className={className}
+            style={{ color: style }}
           >
               No Bonus
           </button>
         </div>
-        {/* </div> */}
       </AnimationContainer>
     );
   }

@@ -121,10 +121,9 @@ class Unpaid extends React.Component {
       );
     }
 
-
     if (!dataArr.includes(this.props.options[0].optionID)) {
-      const optionID = this.props.options[1].optionID;
-      const optionValue = this.props.options[1].optionValue;
+      const { optionID } = this.props.options[1];
+      const { optionValue } = this.props.options[1];
       const validity = this.validate(['empty']);
 
       this.props.reduxAction_doUpdateQuestionAnswer(
@@ -203,7 +202,6 @@ Unpaid.propTypes = {
   reduxAction_doUpdateQuestionAnswer: PropTypes.func,
   reduxAction_doSetQuestionError: PropTypes.func,
   reduxAction_doRemoveQuestionIdentifier: PropTypes.func,
-  // nextStepCallback: PropTypes.func,
   questionID: PropTypes.string.isRequired,
   forceValidate: PropTypes.bool.isRequired,
   answer: PropTypes.object.isRequired,
@@ -216,7 +214,6 @@ Unpaid.defaultProps = {
   reduxAction_doUpdateQuestionAnswer: () => {},
   reduxAction_doSetQuestionError: () => {},
   reduxAction_doRemoveQuestionIdentifier: () => {},
-  // nextStepCallback: () => { },
   answerDisplay: null,
 };
 
