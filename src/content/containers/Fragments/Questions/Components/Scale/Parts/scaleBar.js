@@ -10,13 +10,12 @@ class SelectQuestionCompanySelectWithRemoteLookupComponent extends React.Compone
   componentDidMount() {
     // wait for document to be ready
     $(() => {
+      const id = this.props.questionID.slice(10);
 
-      const id = this.props.questionID.slice(10)
-
-      $(".ex1-" + id).slider();
-      $(".ex1-" + id).on("slide", function(slideEvt) {
-      $("#ex1-" + id + "SliderVal").text(slideEvt.value);
+      $('.ex1-' + id).slider();
+      $('.ex1-' + id).on('slide', function (slideEvt) {
         this.handleSlide(slideEvt.value)
+        $('#ex1-' + id + 'SliderVal').text(slideEvt.value);
       });
     });
   }
@@ -40,18 +39,19 @@ class SelectQuestionCompanySelectWithRemoteLookupComponent extends React.Compone
   }
 
   handleSlide(optionValue) {
-    const optionID = null;
+    console.log(optionValue)
+    // const optionID = null;
 
-    const { questionIdentifier, questionID } = this.props;
-    const validity = this.validate({ optionValue, optionID });
+    // const { questionIdentifier, questionID } = this.props;
+    // const validity = this.validate({ optionValue, optionID });
 
-    this.props.reduxAction_doUpdateQuestionAnswer(
-      questionID,
-      questionIdentifier,
-      optionID,
-      optionValue,
-      validity.valid,
-    );
+    // this.props.reduxAction_doUpdateQuestionAnswer(
+    //   questionID,
+    //   questionIdentifier,
+    //   optionID,
+    //   optionValue,
+    //   validity.valid,
+    // );
   }
 
   validate(answer) {
@@ -127,7 +127,7 @@ class SelectQuestionCompanySelectWithRemoteLookupComponent extends React.Compone
     });
 
     const max = this.props.options[this.props.options.length - 1].optionValue;
-    const id = "ex1-" + this.props.questionID.slice(10)
+    const id = 'ex1-' + this.props.questionID.slice(10);
 
     return (
       <div>
@@ -141,7 +141,7 @@ class SelectQuestionCompanySelectWithRemoteLookupComponent extends React.Compone
           data-slider-step="1"
           data-slider-value={max / 2}
         />
-       <span id="ex1CurrentSliderValLabel">Value: <span id={id + "SliderVal"}></span></span>
+        <span id="ex1CurrentSliderValLabel">Value: <span id={id + 'SliderVal'} /></span>
       </div>
     );
   }
