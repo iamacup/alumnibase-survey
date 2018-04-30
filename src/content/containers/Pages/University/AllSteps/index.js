@@ -257,8 +257,8 @@ class Viewer extends React.Component {
                   <button type="button" id="navigation-toggle" className="btn btn-light" ref={(buttonDOM) => { this.buttonDOM2 = buttonDOM; }} style={{ borderColor: '#fff' }}><i className="fal fa-bars" style={{ fontSize: '25px' }} /></button>
                 </div>
                 <div className="col-10 pl-4">
-                  <div className="title-text">
-                    <span className="dark-text">University</span> <span className="light-grey-text">Branding</span>
+                  <div className="title-text text-center">
+                    <img className="cranfield-logo" alt="cranfield-logo" src={require("../../../../../content/theme/custom/images/Cranfield_University_Arms_2007.jpg")} height="65px" />
                   </div>
                 </div>
 
@@ -275,7 +275,7 @@ class Viewer extends React.Component {
                 </div>
                 <div className="col-8 text-center">
                   <div className="title-text">
-                    <span className="dark-text">University</span> <span className="light-grey-text">Branding</span>
+                    <img className="cranfield-logo" alt="cranfield-logo" src={require("../../../../../content/theme/custom/images/Cranfield_University_Arms_2007.jpg")} height="65px" />
                   </div>
                 </div>
               </div>
