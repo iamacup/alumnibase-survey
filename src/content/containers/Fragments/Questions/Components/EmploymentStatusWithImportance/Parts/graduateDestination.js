@@ -15,13 +15,24 @@ class graduateDestinationButtons extends React.Component {
       $('[data-toggle="popover"]').popover();
       $(document).trigger('nifty.ready');
 
+
       // make the checkbox look nice with switchery
-      const elem = document.querySelector('#switchery-switch');
-
+      // const elem = document.querySelector('#switchery-switch');
       // eslint-disable-next-line no-undef, no-unused-vars
-      const init = new Switchery(elem);
+      // const init = new Switchery(elem);
 
-      // elem.onchange = () => {
+
+      // const elems = Array.prototype.slice.call(document.querySelectorAll('#switchery-switch'));
+
+      // let switchery;
+      // //creating multiple switches
+      // elems.forEach(function(html) {
+      // // eslint-disable-next-line no-undef, no-unused-vars
+      //   switchery = new Switchery(html);
+      // });
+
+      // console.log(switchery)
+      // switchery.onchange = () => {
       //   this.handleRadio();
       // };
     });
@@ -201,7 +212,7 @@ class graduateDestinationButtons extends React.Component {
               {dataButton}
             </div>
             <div className="col-2">
-              {/* <input disabled={bool} id="switchery-switch" type="checkbox" value={value.optionID} onChange={(e) => this.handleRadio(e)} /> */}
+              {/* <input id="switchery-switch" type="checkbox" value={value.optionID} /> */}
               <input disabled={bool} type="radio" name="radio_1" value={value.optionID} onClick={e => this.handleRadio(e)} />
             </div>
           </div>
@@ -228,7 +239,6 @@ graduateDestinationButtons.propTypes = {
   reduxAction_doUpdateQuestionAnswer: PropTypes.func,
   reduxAction_doSetQuestionError: PropTypes.func,
   reduxAction_doRemoveQuestionIdentifier: PropTypes.func,
-  // nextStepCallback: PropTypes.func,
   questionID: PropTypes.string.isRequired,
   forceValidate: PropTypes.bool.isRequired,
   answer: PropTypes.object.isRequired,
@@ -236,14 +246,12 @@ graduateDestinationButtons.propTypes = {
   questionIdentifier2: PropTypes.string.isRequired,
   options: PropTypes.array.isRequired,
   options2: PropTypes.array.isRequired,
-  // answerDisplay: PropTypes.any,
 };
 
 graduateDestinationButtons.defaultProps = {
   reduxAction_doUpdateQuestionAnswer: () => {},
   reduxAction_doSetQuestionError: () => {},
   reduxAction_doRemoveQuestionIdentifier: () => {},
-  // nextStepCallback: () => { },
 };
 
 const mapStateToProps = null;
