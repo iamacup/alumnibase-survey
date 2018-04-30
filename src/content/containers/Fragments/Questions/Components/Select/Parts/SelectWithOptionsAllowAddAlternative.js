@@ -27,13 +27,13 @@ class SelectQuestionCompanySelectWithRemoteLookupComponent extends React.Compone
 
       const tags = this.props.allowAdd === true;
 
-$('#inputData').hide();
+      $('#inputData').hide();
 
- $(this.buttonDOM).click(() => {
-  // $('#addData').replaceWith(<InputData />)
-      $('#inputData').show();
-      $('#addData').hide();
-    });
+      $(this.buttonDOM).click(() => {
+        // $('#addData').replaceWith(<InputData />)
+        $('#inputData').show();
+        $('#addData').hide();
+      });
 
       $(this.input)
         .select2({
@@ -134,7 +134,6 @@ $('#inputData').hide();
 
       // try to open when tabbed to
       select2EnableOpenOnFocus(this.input);
-
     });
   }
 
@@ -188,17 +187,17 @@ $('#inputData').hide();
     }
 
     const addData = (
-          <div className="row pt-3"  key={1} id="addData">
-          <div className="col-10 text-right">
-                <p style={{ fontSize: "12px", color: '#a9a9a9'}}>Add another option</p>
-          </div>
-          <div className="col-1">
-                <button ref={(buttonDOM) => { this.buttonDOM = buttonDOM; }}> 
-            <i class="fal fa-plus-circle" style={{color: '#a9a9a9', fontSize: "20px" }} />
+      <div className="row pt-3" key={1} id="addData">
+        <div className="col-10 text-right">
+          <p style={{ fontSize: '12px', color: '#a9a9a9' }}>Add another option</p>
+        </div>
+        <div className="col-1">
+          <button ref={(buttonDOM) => { this.buttonDOM = buttonDOM; }}>
+            <i className="fal fa-plus-circle" style={{ color: '#a9a9a9', fontSize: '20px' }} />
           </button>
-          </div>
-          </div>
-        );
+        </div>
+      </div>
+    );
 
     const selectObj = (
       <div className={displaySelect === true ? '' : 'd-none'}>
@@ -212,12 +211,12 @@ $('#inputData').hide();
       </div>
     );
 
-const obj = {
-  questionID: this.props.questionID,
-  nextStepCallback: this.props.nextStepCallback,
-  drawData: this.props.drawData,
-  forceValidate: this.props.forceValidate
-}
+    const obj = {
+      questionID: this.props.questionID,
+      nextStepCallback: this.props.nextStepCallback,
+      drawData: this.props.drawData,
+      forceValidate: this.props.forceValidate,
+    };
 
     return (
       <div>
@@ -225,12 +224,12 @@ const obj = {
         {selectObj}
         {addData}
         <div className="pt-3" id="inputData">
-        <InputData 
-        {...obj}
-        answer={this.props.answer}
-        questionIdentifier={this.props.questionIdentifier}
-        />
-      </div>
+          <InputData
+            {...obj}
+            answer={this.props.answer}
+            questionIdentifier={this.props.questionIdentifier}
+          />
+        </div>
       </div>
     );
   }
