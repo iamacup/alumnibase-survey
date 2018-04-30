@@ -11,11 +11,13 @@ class SelectQuestionCompanySelectWithRemoteLookupComponent extends React.Compone
     // wait for document to be ready
     $(() => {
       const id = this.props.questionID.slice(10);
+      const _ = this;
 
       $('.ex1-' + id).slider();
       $('.ex1-' + id).on('slide', function (slideEvt) {
         $('#ex1-' + id + 'SliderVal').text(slideEvt.value);
-        this.handleSlide(slideEvt.value)
+        let value = slideEvt.value;
+        _.handleSlide(value)
       });
     });
   }
@@ -39,25 +41,32 @@ class SelectQuestionCompanySelectWithRemoteLookupComponent extends React.Compone
   }
 
   handleSlide(value) {
-    console.log(value);
-    // const optionID = null;
+    const optionValue = value;
 
-    // const { questionIdentifier, questionID } = this.props;
-    // const validity = this.validate({ optionValue, optionID });
+const id = this.props.options.filter(element => {
+if (Number(element.optionValue) === value) return element.optionID
+else return null;
+})
 
-    // this.props.reduxAction_doUpdateQuestionAnswer(
-    //   questionID,
-    //   questionIdentifier,
-    //   optionID,
-    //   optionValue,
-    //   validity.valid,
-    // );
+const optionID = id[0].optionID;
+
+    const { questionIdentifier, questionID } = this.props;
+    const validity = this.validate({ optionValue, optionID });
+
+    this.props.reduxAction_doUpdateQuestionAnswer(
+      questionID,
+      questionIdentifier,
+      optionID,
+      optionValue,
+      validity.valid,
+    );
   }
 
   validate(answer) {
     let error = '';
     let show = false;
     let valid = false;
+
 
     if (dNc(answer) && dNc(answer.optionID)) {
       valid = true;
@@ -141,6 +150,7 @@ class SelectQuestionCompanySelectWithRemoteLookupComponent extends React.Compone
           data-slider-max={max}
           data-slider-step="1"
           data-slider-value={2}
+          tooltip_position='bottom'
         />
       </div>
       <div className="row justify-content-center">
