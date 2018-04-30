@@ -20,7 +20,7 @@ class Navigation extends React.PureComponent {
       <div className="new-nav">
         <div className="d-flex justify-content-center" id="title-mobile">
           <div className="title-text">
-            <img className="cranfield-logo" alt="cranfield-logo" src={require("../../../../content/theme/custom/images/Cranfield_University_Arms_2007.jpg")} height="150px" />
+            <img className="cranfield-logo" alt="cranfield-logo" src="http://geebeeworld.com/wp-content/uploads/Marques-Cranfield-University-UK.png" height="150px" />
           </div>
         </div>
         <div className="list-group list-group-flush" data-toggle="collapse" aria-expanded="false" id="margin-sidebar">

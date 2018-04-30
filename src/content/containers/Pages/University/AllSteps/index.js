@@ -258,7 +258,7 @@ class Viewer extends React.Component {
                 </div>
                 <div className="col-10 pl-4">
                   <div className="title-text text-center">
-                    <img className="cranfield-logo" alt="cranfield-logo" src={require("../../../../../content/theme/custom/images/Cranfield_University_Arms_2007.jpg")} height="65px" />
+                    <img className="cranfield-logo" alt="cranfield-logo" src="http://geebeeworld.com/wp-content/uploads/Marques-Cranfield-University-UK.png" height="65px" />
                   </div>
                 </div>
 
@@ -275,7 +275,7 @@ class Viewer extends React.Component {
                 </div>
                 <div className="col-8 text-center">
                   <div className="title-text">
-                    <img className="cranfield-logo" alt="cranfield-logo" src={require("../../../../../content/theme/custom/images/Cranfield_University_Arms_2007.jpg")} height="65px" />
+                    <img className="cranfield-logo" alt="cranfield-logo" src="http://geebeeworld.com/wp-content/uploads/Marques-Cranfield-University-UK.png" height="65px" />
                   </div>
                 </div>
               </div>

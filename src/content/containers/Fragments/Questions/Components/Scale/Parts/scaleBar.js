@@ -133,7 +133,7 @@ class SelectQuestionCompanySelectWithRemoteLookupComponent extends React.Compone
       <div>
         <input
           className={id}
-          id={this.props.questionID}
+          id="ex1Slider"
           data-slider-id="ex1Slider"
           type="text"
           data-slider-min={this.props.options[0].optionValue}

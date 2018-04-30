@@ -6,7 +6,7 @@
 $base-color: #383e49;
 $grey-background-color: #f4f6f8;
 $border-and-shadow-color: #dfe4eb;
-$accent-color: #6e9cec;
+$accent-color: #15254a;
 $green-color: #68d36e;
 $orange-color: #ff9800;
 $alt-button-color: #a7b0be;
@@ -733,6 +733,10 @@ input:focus,
 
 #ex1Slider .slider-selection {
   background: #bababa;
+}
+
+#ex1Slider .slider-handle {
+  background: $accent-color;
 }
 
 .not-found-page {
