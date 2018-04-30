@@ -2,8 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import ButtonGroup from '../../../../../../../content/components/ButtonGroup';
-
 import { dNc } from '../../../../../../../content/scripts/custom/utilities';
 
 import * as questionAction from '../../../../../../../content/containers/Fragments/Questions/Components/action';
@@ -12,13 +10,14 @@ class SelectQuestionCompanySelectWithRemoteLookupComponent extends React.Compone
   componentDidMount() {
     // wait for document to be ready
     $(() => {
-      $('#ex1').slider({
-        formatter(value) {
-          return 'Current value: ' + value;
-        },
+
+      const id = this.props.questionID.slice(10)
+
+      $(".ex1-" + id).slider();
+      $(".ex1-" + id).on("slide", function(slideEvt) {
+      $("#ex1-" + id + "SliderVal").text(slideEvt.value);
+        this.handleSlide(slideEvt.value)
       });
-      // $(document).ready('nifty');
-      // $(document).trigger('nifty.ready');
     });
   }
 
@@ -38,6 +37,21 @@ class SelectQuestionCompanySelectWithRemoteLookupComponent extends React.Compone
         questionIdentifier,
       );
     }
+  }
+
+  handleSlide(optionValue) {
+    const optionID = null;
+
+    const { questionIdentifier, questionID } = this.props;
+    const validity = this.validate({ optionValue, optionID });
+
+    this.props.reduxAction_doUpdateQuestionAnswer(
+      questionID,
+      questionIdentifier,
+      optionID,
+      optionValue,
+      validity.valid,
+    );
   }
 
   validate(answer) {
@@ -113,12 +127,13 @@ class SelectQuestionCompanySelectWithRemoteLookupComponent extends React.Compone
     });
 
     const max = this.props.options[this.props.options.length - 1].optionValue;
+    const id = "ex1-" + this.props.questionID.slice(10)
 
-    console.log(this.props.answer);
     return (
       <div>
         <input
-          id="ex1"
+          className={id}
+          id={this.props.questionID}
           data-slider-id="ex1Slider"
           type="text"
           data-slider-min={this.props.options[0].optionValue}
@@ -126,16 +141,7 @@ class SelectQuestionCompanySelectWithRemoteLookupComponent extends React.Compone
           data-slider-step="1"
           data-slider-value={max / 2}
         />
-
-        <input
-          id="ex6"
-          type="text"
-          data-slider-min="-5"
-          data-slider-max="20"
-          data-slider-step="1"
-          data-slider-value="3"
-        />
-        <span id="ex1CurrentSliderValLabel">Current Slider Value: <span id="ex1SliderVal">3</span></span>
+       <span id="ex1CurrentSliderValLabel">Value: <span id={id + "SliderVal"}></span></span>
       </div>
     );
   }
