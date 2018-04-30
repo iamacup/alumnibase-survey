@@ -107,7 +107,7 @@ const SelectQuestionComponent = ({
         allowAdd={false}
         answerDisplay={answerDisplay}
       />
-      )
+    );
   } else {
     // todo handle error state here
     console.log('error state here TODO');

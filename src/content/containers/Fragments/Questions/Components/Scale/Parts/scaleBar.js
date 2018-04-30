@@ -14,8 +14,8 @@ class SelectQuestionCompanySelectWithRemoteLookupComponent extends React.Compone
 
       $('.ex1-' + id).slider();
       $('.ex1-' + id).on('slide', function (slideEvt) {
-        this.handleSlide(slideEvt.value)
         $('#ex1-' + id + 'SliderVal').text(slideEvt.value);
+        this.handleSlide(slideEvt.value)
       });
     });
   }
@@ -38,8 +38,8 @@ class SelectQuestionCompanySelectWithRemoteLookupComponent extends React.Compone
     }
   }
 
-  handleSlide(optionValue) {
-    console.log(optionValue)
+  handleSlide(value) {
+    console.log(value);
     // const optionID = null;
 
     // const { questionIdentifier, questionID } = this.props;
@@ -131,6 +131,7 @@ class SelectQuestionCompanySelectWithRemoteLookupComponent extends React.Compone
 
     return (
       <div>
+      <div className="row justify-content-center">
         <input
           className={id}
           id={this.props.questionID}
@@ -139,9 +140,12 @@ class SelectQuestionCompanySelectWithRemoteLookupComponent extends React.Compone
           data-slider-min={this.props.options[0].optionValue}
           data-slider-max={max}
           data-slider-step="1"
-          data-slider-value={max / 2}
+          data-slider-value={2}
         />
+      </div>
+      <div className="row justify-content-center">
         <span id="ex1CurrentSliderValLabel">Value: <span id={id + 'SliderVal'} /></span>
+      </div>
       </div>
     );
   }

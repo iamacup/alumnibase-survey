@@ -8,7 +8,7 @@ import * as questionAction from '../../../../../../../content/containers/Fragmen
 
 class Input extends React.Component {
   componentDidUpdate() {
-    this.setValueFromState()
+    this.setValueFromState();
 
     const { questionIdentifier, questionID, answer } = this.props;
     const validity = this.validate(this.props.answer);
@@ -23,7 +23,7 @@ class Input extends React.Component {
         questionID,
         validity.error,
         questionIdentifier,
-      )
+      );
     }
   }
 
@@ -35,7 +35,7 @@ class Input extends React.Component {
 
   validate(answer) {
     let error = '';
-    let show = false;
+    const show = false;
     let valid = false;
 
     if (dNc(answer) && dNc(answer.optionValue)) {
