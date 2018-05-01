@@ -33,27 +33,25 @@ const FreeTextQuestionComponent = ({
 
   question = (
     <div>
-      <div className="row mb-3">
-        <div className="col-6">
-      Total hours worked:
+      <div className="row justify-content-center">
+        <div className="col-12 text-center mb-2">
+      {drawData.subTitles[questionIdentifier[1]]}
         </div>
-        <div className="col-6">
+        <div className="col-10 mb-3">
           <Hours
             {...obj}
-            answer={answer.answer[questionIdentifier[1]]}
+            answer={answerBits[questionIdentifier[1]]}
             options={options[questionIdentifier[1]]}
             questionIdentifier="actual"
           />
         </div>
-      </div>
-      <div className="row">
-        <div className="col-6">
-      Contracted hours:
+        <div className="col-12 text-center mb-2">
+      {drawData.subTitles[questionIdentifier[0]]}
         </div>
-        <div className="col-6">
+        <div className="col-10">
           <Hours
             {...obj}
-            answer={answer.answer[questionIdentifier[0]]}
+            answer={answerBits[questionIdentifier[0]]}
             options={options[questionIdentifier[0]]}
             questionIdentifier="contract"
           />
