@@ -14,10 +14,10 @@ class SelectQuestionCompanySelectWithRemoteLookupComponent extends React.Compone
       const _ = this;
 
       $('.ex1-' + id).slider();
-      $('.ex1-' + id).on('slide', function (slideEvt) {
+      $('.ex1-' + id).on('slide', (slideEvt) => {
         $('#ex1-' + id + 'SliderVal').text(slideEvt.value);
-        let value = slideEvt.value;
-        _.handleSlide(value)
+        const value = slideEvt.value;
+        _.handleSlide(value);
       });
     });
   }
@@ -43,12 +43,12 @@ class SelectQuestionCompanySelectWithRemoteLookupComponent extends React.Compone
   handleSlide(value) {
     const optionValue = value;
 
-const id = this.props.options.filter(element => {
-if (Number(element.optionValue) === value) return element.optionID
-else return null;
-})
+    const id = this.props.options.filter((element) => {
+      if (Number(element.optionValue) === value) return element.optionID;
+      return null;
+    });
 
-const optionID = id[0].optionID;
+    const optionID = id[0].optionID;
 
     const { questionIdentifier, questionID } = this.props;
     const validity = this.validate({ optionValue, optionID });
@@ -140,22 +140,22 @@ const optionID = id[0].optionID;
 
     return (
       <div>
-      <div className="row justify-content-center">
-        <input
-          className={id}
-          id={this.props.questionID}
-          data-slider-id="ex1Slider"
-          type="text"
-          data-slider-min={this.props.options[0].optionValue}
-          data-slider-max={max}
-          data-slider-step="1"
-          data-slider-value={2}
-          tooltip_position='bottom'
-        />
-      </div>
-      <div className="row justify-content-center">
-        <span id="ex1CurrentSliderValLabel">Value: <span id={id + 'SliderVal'} /></span>
-      </div>
+        <div className="row justify-content-center">
+          <input
+            className={id}
+            id={this.props.questionID}
+            data-slider-id="ex1Slider"
+            type="text"
+            data-slider-min={this.props.options[0].optionValue}
+            data-slider-max={max}
+            data-slider-step="1"
+            data-slider-value={2}
+            tooltip_position="bottom"
+          />
+        </div>
+        <div className="row justify-content-center">
+          <span id="ex1CurrentSliderValLabel">Value: <span id={id + 'SliderVal'} /></span>
+        </div>
       </div>
     );
   }
