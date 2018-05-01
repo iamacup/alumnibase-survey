@@ -51,11 +51,11 @@ const bioSteps = ['0-1', 'intro', 'terms', '1-1', '1-2', '1-3', '1-4', 'summary-
 // 2-5: all the quesitons about experience at uni 1 (target of this survey)
 const uniSteps = ['2-1', 'ask-another-qualification', '2-2', 'ask-next-qualification', 'uni-question', '2-3', '2-2-again', 'ask-next-qualification-again', '2-4', '2-5', 'summary-uni'];
 
-const preUniSteps = ['3-1', '3-2', '3-3'];
+const preUniSteps = ['3-1', '3-2', '3-3', 'summary-pre'];
 
-const postUniSteps = ['4-1', '4-2', '4-3', '4-4', '4-5', '4-6'];
+const postUniSteps = ['4-1', '4-2', '4-3', '4-4', '4-5', '4-6', 'summary-post'];
 
-const retrospectiveSteps = ['5-1', '5-2', '5-3', '5-4'];
+const retrospectiveSteps = ['5-1', '5-2', '5-3', '5-4', 'summary-retrospective'];
 
 class Viewer extends React.Component {
   componentDidMount() {
@@ -154,7 +154,7 @@ class Viewer extends React.Component {
 
     // this is some code we can use to force test a series of steps after 0-1 is complete (i.e. a sessionID is assigned and a uni picked)
     if (this.props.reduxState_this.step === '0-1') {
-      const stepTo = '5-2';
+      const stepTo = '4-5';
 
       this.props.reduxAction_doUpdate({
         step: stepTo,

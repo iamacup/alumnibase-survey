@@ -21,9 +21,14 @@ class Viewer extends React.PureComponent {
       />
     );
 
+    const companyName = '';
+    // const companyName = this.props.answerData.data['questions/42953555352_0'].company.optionValue;
+    const uniName = this.props.answerData.data['questions/42953580507_0'].universityName.optionValue;
+
     if (currentStep === '5-1') {
       content = (
         <div className="large-question-area">
+          <h3>{uniName}</h3>
           <div>
             <div style={{ marginTop: '36px' }} />
             {wizzard}
@@ -33,6 +38,8 @@ class Viewer extends React.PureComponent {
     } else if (currentStep === '5-2') {
       content = (
         <div>
+          <h3>Retrospective</h3>
+          <h4 className="accent-text">Overall Satisfaction</h4>
           <div>
             <div style={{ marginTop: '36px' }} />
             {wizzard}
@@ -42,6 +49,8 @@ class Viewer extends React.PureComponent {
     } else if (currentStep === '5-3') {
       content = (
         <div className="large-question-area">
+          <h3>{uniName}</h3>
+          <h4 className="accent-text">Your degree</h4>
           <div>
             <div style={{ marginTop: '36px' }} />
             {wizzard}
@@ -54,6 +63,34 @@ class Viewer extends React.PureComponent {
           <div>
             <div style={{ marginTop: '36px' }} />
             {wizzard}
+          </div>
+        </div>
+      );
+    } else if (currentStep === 'summary-retrospective') {
+      content = (
+        <div>
+
+          <h4>Thanks for completing section 5!</h4>
+          <h5 className="accent-text">You will see different data at the end of every section.</h5>
+
+          <div style={{ marginTop: '26px' }} />
+
+          <div>
+            <img alt="s5" className="img-fluid" src={require('../../../../../content/theme/custom/images/s5.png')} />
+          </div>
+
+          <div style={{ marginTop: '26px' }} />
+
+          <div className="d-flex justify-content-center">
+            <div className="question-spacer" />
+            <div className="center-question" style={{ paddingBottom: '0px' }}>
+              <h5 className="dark-text" style={{ marginBottom: '22px' }}>Ready to proceed?</h5>
+              <h6 className="grey-text">You can return here at any time using the navigation on the left.</h6>
+              <button className="btn btn-block btn-next-step answered btn-margin" onClick={() => { this.handleSubmit(null); }}>
+                  Next Step!
+              </button>
+            </div>
+            <div className="question-spacer" style={{ height: '1px' }} />
           </div>
         </div>
       );
@@ -81,7 +118,7 @@ Viewer.propTypes = {
   currentStep: PropTypes.string.isRequired,
   submitDataCallback: PropTypes.func.isRequired,
   type: PropTypes.string.isRequired,
-  // answerData: PropTypes.object.isRequired,
+  answerData: PropTypes.object.isRequired,
 };
 
 export default Viewer;
