@@ -125,10 +125,10 @@ class SelectQuestionCompanySelectWithRemoteLookupComponent extends React.Compone
 
               markup =
                 '<div style="margin-left:15px; margin-right:15px;"><div class="row flex-v-center-xs">' +
-                '<div class="col-xs-2 text-center"><div style="max-width:64px;"><img src="' +
+                '<div class="col-sm-6 text-center"><div style="max-width:64px;"><img src="' +
                 imageURL +
                 '" class="img-responsive"></div></div>' +
-                '<div class="col-xs-10">' +
+                '<div class="col-sm-6 align-self-center">' +
                 data.text +
                 '</div>' +
                 '</div></div>';
