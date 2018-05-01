@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import QuestionContainer from '../../../../../../content/components/Questions/questionContainer';
 import CompanySelectWithRemoteLookup from '../../../../../../content/containers/Fragments/Questions/Components/Select/Parts/CompanySelectWithRemoteLookup';
 import SelectWithOptions from '../../../../../../content/containers/Fragments/Questions/Components/Select/Parts/SelectWithOptions';
+import SelectWithOptionsAllowAddAlternative from '../../../../../../content/containers/Fragments/Questions/Components/Select/Parts/SelectWithOptionsAllowAddAlternative';
 
 import {
   getUsefulQuestionBits,
@@ -88,6 +89,17 @@ const SelectQuestionComponent = ({
   } else if (drawData.type === 'selectWithOptions') {
     question = (
       <SelectWithOptions
+        {...obj}
+        answer={answerBits[questionIdentifier]}
+        options={options[questionIdentifier]}
+        questionIdentifier={questionIdentifier}
+        allowAdd={false}
+        answerDisplay={answerDisplay}
+      />
+    );
+  } else if (drawData.type === 'selectWithOptionsAllowAddAlternative') {
+    question = (
+      <SelectWithOptionsAllowAddAlternative
         {...obj}
         answer={answerBits[questionIdentifier]}
         options={options[questionIdentifier]}

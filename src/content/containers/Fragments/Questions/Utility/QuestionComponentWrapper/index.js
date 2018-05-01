@@ -294,7 +294,7 @@ class QuestionComponentWrapper extends React.Component {
     } else if (type === 'scale') {
       return (
         <div>
-          <Range {...obj} />
+          <Scale {...obj} />
           <div className={answerContainerClassName} />
         </div>
       );

@@ -16,14 +16,33 @@ class graduateDestinationButtons extends React.Component {
       $(document).trigger('nifty.ready');
 
       // make the checkbox look nice with switchery
-      const elem = document.querySelector('#switchery-switch');
+      const elems = Array.prototype.slice.call(document.querySelectorAll('.switchery-switch'));
 
+      // const ids = [];
+
+      let init;
+      elems.forEach((html) => {
       // eslint-disable-next-line no-undef, no-unused-vars
-      const init = new Switchery(elem);
+        init = new Switchery(html);
+      });
 
-      // elem.onchange = () => {
-      //   this.handleRadio();
-      // };
+      // $('.btn').click((e) => {
+      //  if (!ids.includes(e.target.id)) ids.push(e.target.id)
+      //   else {
+      //     let index = ids.indexOf(e.target.id)
+      //     ids.splice(index, 1);
+      //   }
+
+      // ids.forEach(element => {
+      //   console.log(element, init.element.value)
+      // if (element === init.element.id) init.enable()
+      //   else init.disable();
+      // })
+      // });
+
+      $('.switchery-switch').on('change', (clickEvt) => {
+        this.handleRadio(clickEvt);
+      });
     });
   }
 
@@ -103,7 +122,6 @@ class graduateDestinationButtons extends React.Component {
       // see the validate method to understand why this works
       const validity = this.validate(['empty']);
 
-      console.log(optionValue, 'button****');
       this.props.reduxAction_doUpdateQuestionAnswer(
         questionID,
         questionIdentifier + '_' + this.getIndex(dataArr, optionID),
@@ -122,17 +140,11 @@ class graduateDestinationButtons extends React.Component {
     });
   }
 
-  handleRadio(e) {
-    const optionID = e.target.value;
+  handleRadio(clickEvt) {
+    const optionID = clickEvt.target.id;
     const { questionID, questionIdentifier2 } = this.props;
     const validity = this.validate(['empty']);
-    let optionValue = '';
-
-    this.props.options2.forEach((element) => {
-      if (element.optionID === optionID) {
-        optionValue = element.optionValue;
-      }
-    });
+    const optionValue = 'true';
 
     this.props.reduxAction_doUpdateQuestionAnswer(
       questionID,
@@ -177,13 +189,16 @@ class graduateDestinationButtons extends React.Component {
         );
       }
 
-      let bool = true;
+      // const keys = Object.keys(this.props.answer);
+      // let disable = true;
 
-      Object.keys(this.props.answer).forEach((element) => {
-        if (this.props.answer[element].optionID === value.optionID) {
-          bool = false;
-        }
-      });
+      // if (keys.length > 0) {
+      //   keys.forEach((key) => {
+      //     if (value.optionID === this.props.answer[key].optionID) disable = false;
+      //     else disable = true;
+      //   });
+      // }
+
 
       const obj = (
         <div key={value.optionID}>
@@ -193,6 +208,7 @@ class graduateDestinationButtons extends React.Component {
               <button
                 value={value.optionID}
                 className={className}
+                id={value.optionID}
               >
                 {name}
               </button>
@@ -201,8 +217,7 @@ class graduateDestinationButtons extends React.Component {
               {dataButton}
             </div>
             <div className="col-2">
-              {/* <input disabled={bool} id="switchery-switch" type="checkbox" value={value.optionID} onChange={(e) => this.handleRadio(e)} /> */}
-              <input disabled={bool} type="radio" name="radio_1" value={value.optionID} onClick={e => this.handleRadio(e)} />
+              <input className="switchery-switch" id={value.optionID} type="checkbox" value={value.optionID} />
             </div>
           </div>
         </div>
@@ -228,22 +243,19 @@ graduateDestinationButtons.propTypes = {
   reduxAction_doUpdateQuestionAnswer: PropTypes.func,
   reduxAction_doSetQuestionError: PropTypes.func,
   reduxAction_doRemoveQuestionIdentifier: PropTypes.func,
-  // nextStepCallback: PropTypes.func,
   questionID: PropTypes.string.isRequired,
   forceValidate: PropTypes.bool.isRequired,
   answer: PropTypes.object.isRequired,
   questionIdentifier: PropTypes.string.isRequired,
   questionIdentifier2: PropTypes.string.isRequired,
   options: PropTypes.array.isRequired,
-  options2: PropTypes.array.isRequired,
-  // answerDisplay: PropTypes.any,
+  // options2: PropTypes.array.isRequired,
 };
 
 graduateDestinationButtons.defaultProps = {
   reduxAction_doUpdateQuestionAnswer: () => {},
   reduxAction_doSetQuestionError: () => {},
   reduxAction_doRemoveQuestionIdentifier: () => {},
-  // nextStepCallback: () => { },
 };
 
 const mapStateToProps = null;

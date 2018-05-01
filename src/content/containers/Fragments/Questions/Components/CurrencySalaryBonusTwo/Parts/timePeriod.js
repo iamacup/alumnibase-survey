@@ -18,7 +18,7 @@ import * as questionAction from '../../../../../../../content/containers/Fragmen
 // eslint-disable-next-line no-useless-escape
 const pattern = new RegExp('^options/[0-9]+$', 'i');
 
-class SalaryPeriod extends React.Component {
+class TimePeriod extends React.Component {
   componentDidMount() {
     // wait for document to be ready
     $(() => {
@@ -131,7 +131,7 @@ class SalaryPeriod extends React.Component {
     });
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate() {
     // TODO read wall
     // this.setValueFromState();
     const {
@@ -222,7 +222,6 @@ class SalaryPeriod extends React.Component {
 
   render() {
     const options = [];
-    const data = [];
 
     this.props.options.forEach((value) => {
       options.push(
@@ -268,7 +267,7 @@ class SalaryPeriod extends React.Component {
   }
 }
 
-SalaryPeriod.propTypes = {
+TimePeriod.propTypes = {
   reduxAction_doUpdateQuestionAnswer: PropTypes.func,
   reduxAction_doSetQuestionError: PropTypes.func,
   questionID: PropTypes.string.isRequired,
@@ -276,13 +275,13 @@ SalaryPeriod.propTypes = {
   answer: PropTypes.object.isRequired,
   questionIdentifier: PropTypes.string.isRequired,
   options: PropTypes.array.isRequired,
-  drawData: PropTypes.object.isRequired,
+  // drawData: PropTypes.object.isRequired,
   allowAdd: PropTypes.bool.isRequired,
   unpaidValidity: PropTypes.bool.isRequired,
   answerDisplay: PropTypes.any,
 };
 
-SalaryPeriod.defaultProps = {
+TimePeriod.defaultProps = {
   reduxAction_doUpdateQuestionAnswer: () => {},
   reduxAction_doSetQuestionError: () => {},
   answerDisplay: null,
@@ -312,5 +311,5 @@ const mapDispatchToProps = dispatch => ({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(
-  SalaryPeriod,
+  TimePeriod,
 );

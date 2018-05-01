@@ -2,61 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import {
-  dNc,
-  debounce,
-} from '../../../../../../../content/scripts/custom/utilities';
-
+import { dNc } from '../../../../../../../content/scripts/custom/utilities';
+// import checkName from '../../../../../../../content/scripts/vendor/names';
 import * as questionAction from '../../../../../../../content/containers/Fragments/Questions/Components/action';
 
-class Hours extends React.Component {
-  componentDidMount() {
-    // wait for document to be ready
-    $(() => {
-      // const Inputmask = require('inputmask'); TODO need to make this work with minification
-
-      // eslint-disable-next-line no-undef
-      const im = new Inputmask('numeric', {
-        radixPoint: '.',
-        digits: 2,
-        allowMinus: false,
-        autoGroup: true,
-        showMaskOnHover: false,
-        showMaskOnFocus: false,
-        rightAlign: false,
-        autoUnmask: true,
-      });
-
-      im.mask(this.salaryTextInput);
-
-      const executeFunction = debounce(() => {
-        let optionValue = this.salaryTextInput.inputmask.unmaskedvalue();
-        const optionID = null;
-        optionValue = optionValue.split('.');
-        optionValue =
-          optionValue.shift() +
-          (optionValue.length ? '.' + optionValue.join('') : '');
-
-        const { questionID, questionIdentifier } = this.props;
-        const validity = this.validate({ optionValue, optionID });
-
-        this.props.reduxAction_doUpdateQuestionAnswer(
-          questionID,
-          questionIdentifier,
-          optionID,
-          optionValue,
-          validity.valid,
-        );
-      }, 253);
-
-      $(this.salaryTextInput).on('input', executeFunction);
-
-      // this.setValueFromState();
-    });
-  }
-
+class Input extends React.Component {
   componentDidUpdate() {
-    // this.setValueFromState();
+    this.setValueFromState();
 
     const { questionIdentifier, questionID, answer } = this.props;
     const validity = this.validate(this.props.answer);
@@ -75,44 +27,57 @@ class Hours extends React.Component {
     }
   }
 
+  setValueFromState() {
+    if (dNc(this.props.answer.optionValue)) {
+      this.input.value = this.props.answer.optionValue;
+    }
+  }
 
   validate(answer) {
     let error = '';
-    let show = false;
+    const show = false;
     let valid = false;
 
     if (dNc(answer) && dNc(answer.optionValue)) {
       if (answer.optionValue.length < 1) {
-        error = 'Please enter the amount of hours worked';
-      } else if (answer.optionValue < 0) {
-        error = 'You must have worked a positive amount of hours';
-        show = true;
+        error = 'Please enter a value.';
       } else {
         valid = true;
       }
     } else {
-      error = 'You need to enter the amount of hours worked';
+      error = 'You need a value.';
     }
 
     return { valid, error, show };
   }
 
-  doNextStepCallback(e) {
-    if (e.keyCode === 13) {
-      this.props.nextStepCallback();
-    }
+  handleChange() {
+    const optionValue = this.input.value;
+    const optionID = null;
+
+    const { questionID, questionIdentifier } = this.props;
+    const validity = this.validate({ optionValue, optionID });
+
+    this.props.reduxAction_doUpdateQuestionAnswer(
+      questionID,
+      questionIdentifier,
+      optionID,
+      optionValue,
+      validity.valid,
+    );
   }
 
   render() {
     return (
       <span className="form-group">
         <input
-          onKeyUp={(e) => {
-            this.doNextStepCallback(e);
-          }}
+          type="text"
           className="form-control"
           ref={(input) => {
-            this.salaryTextInput = input;
+            this.input = input;
+          }}
+          onChange={() => {
+            this.handleChange();
           }}
         />
       </span>
@@ -120,21 +85,21 @@ class Hours extends React.Component {
   }
 }
 
-Hours.propTypes = {
+Input.propTypes = {
   reduxAction_doUpdateQuestionAnswer: PropTypes.func,
   reduxAction_doSetQuestionError: PropTypes.func,
-  nextStepCallback: PropTypes.func,
+  // nextStepCallback: PropTypes.func,
   questionID: PropTypes.string.isRequired,
   forceValidate: PropTypes.bool.isRequired,
   answer: PropTypes.object.isRequired,
   questionIdentifier: PropTypes.string.isRequired,
-  // options: PropTypes.array.isRequired,
+  // drawData: PropTypes.object.isRequired,
 };
 
-Hours.defaultProps = {
+Input.defaultProps = {
   reduxAction_doUpdateQuestionAnswer: () => {},
   reduxAction_doSetQuestionError: () => {},
-  nextStepCallback: () => {},
+  // nextStepCallback: () => { },
 };
 
 const mapStateToProps = null;
@@ -161,5 +126,5 @@ const mapDispatchToProps = dispatch => ({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(
-  Hours,
+  Input,
 );

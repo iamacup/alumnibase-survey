@@ -536,6 +536,11 @@ input:focus,
   text-align: center;
 }
 
+.show-green {
+  background-color: $green-color;
+  color: #fff;
+}
+
 .hide-green {
   background-color: #f4f6f8 !important;
   color: #383e49 !important;
@@ -728,4 +733,32 @@ input:focus,
 
 #ex1Slider .slider-selection {
   background: #bababa;
+}
+
+.not-found-page {
+  background-color: #354950;
+
+  .circle-one {
+    border-radius: 50%;
+    background-color: #354950;
+    width: 750px;
+    height: 700px;
+    border-right: dashed white;
+  }
+
+  .circle-two {
+    border-radius: 50%;
+    background-color: #a7b0be;
+    width: 700px;
+    height: 700px;
+    padding-top: 50px;
+  }
+
+  .circle-three {
+    border-radius: 50%;
+    background-color: #f4f6f8;
+    width: 600px;
+    height: 600px;
+    padding-top: 50px;
+  }
 }

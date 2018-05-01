@@ -4,6 +4,7 @@
 
 import universityAllStepsPage from '../../content/containers/Pages/University/AllSteps';
 import GDPRExamplePage from '../../content/containers/Pages/GDPRExample';
+import NotFoundPage from '../../content/containers/Pages/NotFoundPage';
 
 // NOTE - you should pass in cookies to any of the methods that
 // load data from the server so that their requests are able to
@@ -23,9 +24,9 @@ export default [
     exact: true,
     component: universityAllStepsPage,
   },
-  /* {
+  {
     path: '*',
     component: NotFoundPage,
-    loadData: defaultLoadFunction,
-  }, */
+    // loadData: defaultLoadFunction,
+  },
 ];

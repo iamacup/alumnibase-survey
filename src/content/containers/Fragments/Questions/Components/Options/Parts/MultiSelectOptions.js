@@ -124,9 +124,6 @@ class SelectQuestionCompanySelectWithRemoteLookupComponent extends React.Compone
       );
     }
 
-    console.log('redux', this.props.answer);
-    console.log('buttons', dataArr);
-
     // then we loop through the state and remove anything thats not in the dataArr
     Object.keys(this.props.answer).forEach((value) => {
       if (!dataArr.includes(this.props.answer[value].optionID)) {

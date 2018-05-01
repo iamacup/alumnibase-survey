@@ -1,15 +1,15 @@
-
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import AnswerData from '../../../../../../../content/components/Answers/answerData';
+import InputData from './InputData';
 
 import {
   dNc,
   select2GetCorrectParent,
   select2EnableOpenOnFocus,
-  setSelect2Value,
+  encodeEntities,
 } from '../../../../../../../content/scripts/custom/utilities';
 
 import * as questionAction from '../../../../../../../content/containers/Fragments/Questions/Components/action';
@@ -17,12 +17,22 @@ import * as questionAction from '../../../../../../../content/containers/Fragmen
 // eslint-disable-next-line no-useless-escape
 const pattern = new RegExp('^options/[0-9]+$', 'i');
 
-class Currency extends React.Component {
+class SelectQuestionCompanySelectWithRemoteLookupComponent extends React.Component {
   componentDidMount() {
     // wait for document to be ready
     $(() => {
       const dropdownParent = select2GetCorrectParent(this.input);
-      const placeholder = 'GBP';
+      const { placeholder } = this.props.drawData;
+
+      const tags = this.props.allowAdd === true;
+
+      $('#inputData').hide();
+
+      $(this.buttonDOM).click(() => {
+        // $('#addData').replaceWith(<InputData />)
+        $('#inputData').show();
+        $('#addData').hide();
+      });
 
       $(this.input)
         .select2({
@@ -30,6 +40,54 @@ class Currency extends React.Component {
           allowClear: false,
           width: '100%',
           dropdownParent,
+          tags,
+          createTag(params) {
+            return {
+              id: params.term,
+              text: params.term,
+              newOption: true,
+            };
+          },
+          escapeMarkup(markup) {
+            return markup;
+          },
+          templateResult(data) {
+            if (data.loading) return 'loading';
+
+            let markup = '';
+
+            if (data.newOption) {
+              markup =
+                '<div class="select-new-item"><em>Let me add "' +
+                encodeEntities(data.text) +
+                '" to the list.</em></div>';
+            } else {
+              markup = data.text;
+            }
+
+            return markup;
+          },
+          sorter(data) {
+            const dataNormal = [];
+            const dataFreeText = [];
+
+            for (let a = 0; a < data.length; a++) {
+              if (data[a].newOption === true) {
+                dataFreeText.push(data[a]);
+              } else {
+                dataNormal.push(data[a]);
+              }
+            }
+
+            for (let a = 0; a < dataFreeText.length; a++) {
+              dataNormal.push(dataFreeText[a]);
+            }
+
+            return dataNormal;
+          },
+          templateSelection(data) {
+            return data.text;
+          },
         })
         .on('change', () => {
           if ($(this.input).val().length > 0) {
@@ -75,75 +133,7 @@ class Currency extends React.Component {
 
       // try to open when tabbed to
       select2EnableOpenOnFocus(this.input);
-
-      this.setValueFromState();
-
-      // we do this to make sure the thing is in the state - we need it in the state because otherwise validation gets a bit funky
-      // as, if the question gets validated, then we get new items added to the list, they will automatically be validated
-      this.putItemIntoState();
     });
-  }
-
-  componentDidUpdate() {
-    // TODO read wall
-    // this.setValueFromState();
-    const {
-      questionIdentifier, questionID, answer,
-    } = this.props;
-    const validity = this.validate(this.props.answer);
-    // set stuff as an error if they need to be
-    // console.log(validity, answer)
-    if (
-      validity.valid === false &&
-      (validity.show === true || this.props.forceValidate === true) &&
-      answer.errorMessage !== validity.error
-    ) {
-      this.props.reduxAction_doSetQuestionError(
-        questionID,
-        validity.error,
-        questionIdentifier,
-      );
-    }
-
-    // if (prevProps.typeAnswer.optionValue !== this.props.typeAnswer.optionValue) {
-    //   $(this.input).select2().val(null).trigger('change');
-    // }
-  }
-
-  setValueFromState() {
-    if (dNc(this.props.answer.optionValue)) {
-      const $data = $(this.input).select2('data');
-
-      if (dNc($data) && $data.length > 0) {
-        const { optionValue, optionID } = this.props.answer;
-        // check to see if something is already selected
-        if ($data.length === 1) {
-        // something is selected - is it the same as the answer value?
-          if ($data[0].text !== optionValue) {
-          // need to update the option because the selected one right now is not the same as the state
-            setSelect2Value(this.input, optionValue, optionID);
-          }
-        } else {
-        // there is currently no selected option so we need to set one
-          setSelect2Value(this.input, optionValue, optionID);
-        }
-      }
-    }
-  }
-
-  putItemIntoState() {
-    const { questionID, questionIdentifier, options } = this.props;
-    const { optionID } = options[1];
-    const { optionValue } = options[1];
-    const validity = this.validate({ optionValue, optionID });
-
-    this.props.reduxAction_doUpdateQuestionAnswer(
-      questionID,
-      questionIdentifier,
-      optionID,
-      optionValue,
-      validity.valid,
-    );
   }
 
   validate(answer) {
@@ -151,26 +141,26 @@ class Currency extends React.Component {
     const show = false;
     let valid = false;
 
-    if (this.props.unpaidValidity) {
-      valid = true;
-    }
-
     if (dNc(answer) && dNc(answer.optionValue)) {
       // test to see if the optionID is in fact an option ID
       if (pattern.test(answer.optionID) === true || answer.optionID === null) {
         valid = true;
+      } else if (answer.optionValue.length <= 1) {
+        error = 'The value is not long enough.';
       } else {
-        error = 'You need to select a currency';
+        valid = true;
       }
     } else {
-      error = 'You need to select a currency';
+      error = 'Please enter a value';
     }
 
     return { valid, error, show };
   }
 
   render() {
-    const options = [<option key="start" />];
+    const options = [];
+
+    options.push(<option key="start" />);
 
     this.props.options.forEach((value) => {
       options.push(
@@ -195,6 +185,19 @@ class Currency extends React.Component {
       );
     }
 
+    const addData = (
+      <div className="row pt-3" key={1} id="addData">
+        <div className="col-10 text-right">
+          <p style={{ fontSize: '12px', color: '#a9a9a9' }}>Add another option</p>
+        </div>
+        <div className="col-1">
+          <button ref={(buttonDOM) => { this.buttonDOM = buttonDOM; }}>
+            <i className="fal fa-plus-circle" style={{ color: '#a9a9a9', fontSize: '20px' }} />
+          </button>
+        </div>
+      </div>
+    );
+
     const selectObj = (
       <div className={displaySelect === true ? '' : 'd-none'}>
         <select
@@ -207,30 +210,48 @@ class Currency extends React.Component {
       </div>
     );
 
+    const obj = {
+      questionID: this.props.questionID,
+      nextStepCallback: this.props.nextStepCallback,
+      drawData: this.props.drawData,
+      forceValidate: this.props.forceValidate,
+    };
+
     return (
       <div>
         {answerObj}
         {selectObj}
+        {addData}
+        <div className="pt-3" id="inputData">
+          <InputData
+            {...obj}
+            answer={this.props.answer}
+            questionIdentifier={this.props.questionIdentifier}
+          />
+        </div>
       </div>
     );
   }
 }
 
-Currency.propTypes = {
+SelectQuestionCompanySelectWithRemoteLookupComponent.propTypes = {
   reduxAction_doUpdateQuestionAnswer: PropTypes.func,
   reduxAction_doSetQuestionError: PropTypes.func,
+  nextStepCallback: PropTypes.func,
   questionID: PropTypes.string.isRequired,
   forceValidate: PropTypes.bool.isRequired,
   answer: PropTypes.object.isRequired,
   questionIdentifier: PropTypes.string.isRequired,
   options: PropTypes.array.isRequired,
-  unpaidValidity: PropTypes.bool.isRequired,
+  drawData: PropTypes.object.isRequired,
+  allowAdd: PropTypes.bool.isRequired,
   answerDisplay: PropTypes.any,
 };
 
-Currency.defaultProps = {
+SelectQuestionCompanySelectWithRemoteLookupComponent.defaultProps = {
   reduxAction_doUpdateQuestionAnswer: () => {},
   reduxAction_doSetQuestionError: () => {},
+  nextStepCallback: () => {},
   answerDisplay: null,
 };
 
@@ -258,5 +279,5 @@ const mapDispatchToProps = dispatch => ({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(
-  Currency,
+  SelectQuestionCompanySelectWithRemoteLookupComponent,
 );
