@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 import {
   dNc,
   debounce,
-  isNumeric,
 } from '../../../../../../../content/scripts/custom/utilities';
 
 import * as questionAction from '../../../../../../../content/containers/Fragments/Questions/Components/action';
@@ -129,7 +128,7 @@ Hours.propTypes = {
   forceValidate: PropTypes.bool.isRequired,
   answer: PropTypes.object.isRequired,
   questionIdentifier: PropTypes.string.isRequired,
-  options: PropTypes.array.isRequired,
+  // options: PropTypes.array.isRequired,
 };
 
 Hours.defaultProps = {

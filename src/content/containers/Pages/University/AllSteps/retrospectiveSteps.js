@@ -21,8 +21,6 @@ class Viewer extends React.PureComponent {
       />
     );
 
-    const companyName = '';
-    // const companyName = this.props.answerData.data['questions/42953555352_0'].company.optionValue;
     const uniName = this.props.answerData.data['questions/42953580507_0'].universityName.optionValue;
 
     if (currentStep === '5-1') {

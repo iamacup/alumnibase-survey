@@ -16,7 +16,7 @@ class SelectQuestionCompanySelectWithRemoteLookupComponent extends React.Compone
       $('.ex1-' + id).slider();
       $('.ex1-' + id).on('slide', (slideEvt) => {
         $('#ex1-' + id + 'SliderVal').text(slideEvt.value);
-        const value = slideEvt.value;
+        const { value } = slideEvt;
         _.handleSlide(value);
       });
     });
@@ -48,7 +48,7 @@ class SelectQuestionCompanySelectWithRemoteLookupComponent extends React.Compone
       return null;
     });
 
-    const optionID = id[0].optionID;
+    const { optionID } = id[0];
 
     const { questionIdentifier, questionID } = this.props;
     const validity = this.validate({ optionValue, optionID });

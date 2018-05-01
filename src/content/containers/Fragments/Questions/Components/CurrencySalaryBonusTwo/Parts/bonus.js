@@ -10,7 +10,6 @@ import {
   isNumeric,
 } from '../../../../../../../content/scripts/custom/utilities';
 
-import ButtonGroup from '../../../../../../../content/components/ButtonGroup';
 import * as questionAction from '../../../../../../../content/containers/Fragments/Questions/Components/action';
 
 class Bonus extends React.Component {
@@ -200,7 +199,7 @@ Bonus.propTypes = {
   forceValidate: PropTypes.bool.isRequired,
   answer: PropTypes.object.isRequired,
   questionIdentifier: PropTypes.string.isRequired,
-  options: PropTypes.array.isRequired,
+  // options: PropTypes.array.isRequired,
   currencySymbol: PropTypes.string.isRequired,
   unpaidValidity: PropTypes.bool.isRequired,
 };

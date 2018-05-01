@@ -10,7 +10,6 @@ import {
   select2GetCorrectParent,
   select2EnableOpenOnFocus,
   setSelect2Value,
-  encodeEntities,
 } from '../../../../../../../content/scripts/custom/utilities';
 
 import * as questionAction from '../../../../../../../content/containers/Fragments/Questions/Components/action';
@@ -85,7 +84,7 @@ class Currency extends React.Component {
     });
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate() {
     // TODO read wall
     // this.setValueFromState();
     const {
@@ -172,7 +171,6 @@ class Currency extends React.Component {
 
   render() {
     const options = [<option key="start" />];
-    const data = [];
 
     this.props.options.forEach((value) => {
       options.push(

@@ -140,7 +140,6 @@ Salary.propTypes = {
   questionIdentifier: PropTypes.string.isRequired,
   unpaidValidity: PropTypes.bool.isRequired,
   // options: PropTypes.array.isRequired,
-  currencySymbol: PropTypes.string.isRequired,
 };
 
 Salary.defaultProps = {

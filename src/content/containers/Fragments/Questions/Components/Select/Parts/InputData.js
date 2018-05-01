@@ -88,18 +88,18 @@ class Input extends React.Component {
 Input.propTypes = {
   reduxAction_doUpdateQuestionAnswer: PropTypes.func,
   reduxAction_doSetQuestionError: PropTypes.func,
-  nextStepCallback: PropTypes.func,
+  // nextStepCallback: PropTypes.func,
   questionID: PropTypes.string.isRequired,
   forceValidate: PropTypes.bool.isRequired,
   answer: PropTypes.object.isRequired,
   questionIdentifier: PropTypes.string.isRequired,
-  drawData: PropTypes.object.isRequired,
+  // drawData: PropTypes.object.isRequired,
 };
 
 Input.defaultProps = {
   reduxAction_doUpdateQuestionAnswer: () => {},
   reduxAction_doSetQuestionError: () => {},
-  nextStepCallback: () => { },
+  // nextStepCallback: () => { },
 };
 
 const mapStateToProps = null;

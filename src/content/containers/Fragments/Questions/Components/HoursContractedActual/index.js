@@ -35,7 +35,7 @@ const FreeTextQuestionComponent = ({
     <div>
       <div className="row justify-content-center">
         <div className="col-12 text-center mb-2">
-      {drawData.subTitles[questionIdentifier[1]]}
+          {drawData.subTitles[questionIdentifier[1]]}
         </div>
         <div className="col-10 mb-3">
           <Hours
@@ -46,7 +46,7 @@ const FreeTextQuestionComponent = ({
           />
         </div>
         <div className="col-12 text-center mb-2">
-      {drawData.subTitles[questionIdentifier[0]]}
+          {drawData.subTitles[questionIdentifier[0]]}
         </div>
         <div className="col-10">
           <Hours

@@ -9,7 +9,6 @@ import {
   dNc,
   select2GetCorrectParent,
   select2EnableOpenOnFocus,
-  setSelect2Value,
   encodeEntities,
 } from '../../../../../../../content/scripts/custom/utilities';
 
