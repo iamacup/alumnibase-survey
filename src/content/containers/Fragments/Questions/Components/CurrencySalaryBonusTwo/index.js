@@ -134,7 +134,7 @@ const CurrencySalaryBonusQuestionComponent = ({
 
       <div className="row justify-content-between mt-3">
         <div className="col-6">
-          <h4>Common Value:</h4>
+          <h4>Total Salary:</h4>
         </div>
         <div className="col-6 text-right">
           <h5>{totalValue} / year</h5>
