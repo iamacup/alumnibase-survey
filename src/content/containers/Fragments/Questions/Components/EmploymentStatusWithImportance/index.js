@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 
 import QuestionContainer from '../../../../../../content/components/Questions/questionContainer';
 import GraduateDestinationButton from './Parts/graduateDestination';
-import MostImportant from './Parts/mostImportant';
 
 import { getUsefulQuestionBits } from '../../../../../../content/scripts/custom/utilities';
 
