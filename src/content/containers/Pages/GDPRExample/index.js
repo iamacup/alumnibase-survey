@@ -18,32 +18,32 @@ const Viewer = () => (
             <div className="form-check">
               <label className="form-check-label dark-grey-text" htmlFor="defaultCheck1">
                 <input className="form-check-input my-checkbox" type="checkbox" value="" id="defaultCheck1" checked />
-                  You consent to AlumniBase holding and processing your personal information and sensitive personal information that you submitted when you took the AlumniBase survey. This is vital so that we can provide the anonymised and aggregate insights to your university so they can improve their service. No personally identifiable information is shared with anyone. 
-              </label>
+                 You consent to AlumniBase holding and processing your personal information and sensitive personal information that you submit as part of taking this survey. This is vital so that we can provide the anonymised and aggregate insights to your university so they can improve their service. No personally identifiable information is shared with anyone.
+                 </label>
             </div>
           </dd>
         </dl>
 
         <dl className="row" style={{ marginBottom: '24px' }}>
-          <dt className="col-sm-5"><div className="privacy-line" /><h4>Our Marketing by email</h4><h6>Given on 11/11/11</h6></dt>
+          <dt className="col-sm-5"><div className="privacy-line" /><h4>Our Marketing by email.</h4><h6>Given on 11/11/11</h6></dt>
           <dd className="col-sm-7">
             <div className="form-check">
               <label className="form-check-label dark-grey-text" htmlFor="defaultCheck2">
                 <input className="form-check-input my-checkbox" type="checkbox" value="" id="defaultCheck2" checked />
-                  You consent to receiving our emails in future if there are any further questions we add to the survey that might be applicable to you. I.e. we might ask you to update us on your career in three years time, while also sending you new information about where you stand in your peer group.  These emails will not be frequent!
-              </label>
+                You consent to receiving our emails in future if there are any further questions we add to the survey that might be applicable to you. For example, we might ask you to update us on your career in three years time, while also sending you new information about where you stand in your peer group.  These emails will not be frequent!
+                 </label>
             </div>
           </dd>
         </dl>
 
         <dl className="row" style={{ marginBottom: '24px' }}>
-          <dt className="col-sm-5"><div className="privacy-line" /><h4>Marketing of third party products/services sent by us, via email.</h4><h6>Given on 11/11/11</h6></dt>
+          <dt className="col-sm-5"><div className="privacy-line" /><h4>3rd Party Marketing via Email.</h4><h6>Given on 11/11/11</h6></dt>
           <dd className="col-sm-7">
             <div className="form-check">
               <label className="form-check-label dark-grey-text" htmlFor="defaultCheck3">
                 <input className="form-check-input my-checkbox" type="checkbox" value="" id="defaultCheck3" checked />
-               Your university may launch a further study course or some professional development that our algorithms may identify as being useful for your career, and we would let you know about these opportunities for further professional development.
-              </label>
+             Your university may launch a further study course or some professional development that our algorithms may identify as being useful for your career. By ticking this box you consent to us emailing you to let you know about these opportunities for further professional development.
+            </label>
             </div>
           </dd>
         </dl>
