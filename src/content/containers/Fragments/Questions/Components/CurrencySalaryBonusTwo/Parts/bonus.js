@@ -99,9 +99,9 @@ class Bonus extends React.Component {
       } else if (!isNumeric(answer.optionValue)) {
         error = 'The bonus does not appear to be a number.';
         show = true;
-      } else if (answer.optionValue < 0) {
-        error = 'Your bonus must be positive!';
-        show = true;
+      // } else if (answer.optionValue < 0) {
+      //   error = 'Your bonus must be positive!';
+      //   show = true;
       } else {
         valid = true;
       }
