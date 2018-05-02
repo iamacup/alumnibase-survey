@@ -93,8 +93,7 @@ class Salary extends React.Component {
 
     if (this.props.unpaidValidity) {
       valid = true;
-    } else {
-    if (dNc(answer) && dNc(answer.optionValue)) {
+    } else if (dNc(answer) && dNc(answer.optionValue)) {
       if (answer.optionValue.length < 1) {
         error = 'Please enter a salary value.';
       } else if (!isNumeric(answer.optionValue)) {
@@ -108,7 +107,6 @@ class Salary extends React.Component {
       }
     } else {
       error = 'You need to enter an annual salary value.';
-    }
     }
 
     return { valid, error, show };

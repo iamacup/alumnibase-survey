@@ -19,7 +19,7 @@ const Viewer = () => (
               <label className="form-check-label dark-grey-text" htmlFor="defaultCheck1">
                 <input className="form-check-input my-checkbox" type="checkbox" value="" id="defaultCheck1" checked />
                  You consent to AlumniBase holding and processing your personal information and sensitive personal information that you submit as part of taking this survey. This is vital so that we can provide the anonymised and aggregate insights to your university so they can improve their service. No personally identifiable information is shared with anyone.
-                 </label>
+              </label>
             </div>
           </dd>
         </dl>
@@ -31,7 +31,7 @@ const Viewer = () => (
               <label className="form-check-label dark-grey-text" htmlFor="defaultCheck2">
                 <input className="form-check-input my-checkbox" type="checkbox" value="" id="defaultCheck2" checked />
                 You consent to receiving our emails in future if there are any further questions we add to the survey that might be applicable to you. For example, we might ask you to update us on your career in three years time, while also sending you new information about where you stand in your peer group.  These emails will not be frequent!
-                 </label>
+              </label>
             </div>
           </dd>
         </dl>
@@ -43,7 +43,7 @@ const Viewer = () => (
               <label className="form-check-label dark-grey-text" htmlFor="defaultCheck3">
                 <input className="form-check-input my-checkbox" type="checkbox" value="" id="defaultCheck3" checked />
              Your university may launch a further study course or some professional development that our algorithms may identify as being useful for your career. By ticking this box you consent to us emailing you to let you know about these opportunities for further professional development.
-            </label>
+              </label>
             </div>
           </dd>
         </dl>

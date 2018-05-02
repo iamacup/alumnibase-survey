@@ -101,7 +101,7 @@ class Unpaid extends React.Component {
 
   buttonPress(dataArr) {
     const { questionID, questionIdentifier, options } = this.props;
-    
+
     // clearing the state
     // if (dataArr.length > 0 && options[0].optionID === dataArr[0]) {
     //   Object.keys(this.props.answer).forEach((value) => {
@@ -112,19 +112,19 @@ class Unpaid extends React.Component {
 
     const names = this.props.names;
     // setting salary and bonus to -1
-      names.forEach(name => {
-        let optionID = null;
-        let optionValue = -1;
-        let validity = this.validate(['empty']);
+    names.forEach((name) => {
+      const optionID = null;
+      const optionValue = -1;
+      const validity = this.validate(['empty']);
 
-        this.props.reduxAction_doUpdateQuestionAnswer(
-          questionID,
-          name,
-          optionID,
-          optionValue,
-          validity.valid
-          )
-      })
+      this.props.reduxAction_doUpdateQuestionAnswer(
+        questionID,
+        name,
+        optionID,
+        optionValue,
+        validity.valid,
+      );
+    });
 
     for (let a = 0; a < dataArr.length; a++) {
       const optionID = dataArr[a];
@@ -148,10 +148,10 @@ class Unpaid extends React.Component {
     }
 
     if (!dataArr.includes(this.props.options[0].optionID)) {
-      let { optionID } = this.props.options[1];
-      let { optionValue } = this.props.options[1];
+      const { optionID } = this.props.options[1];
+      const { optionValue } = this.props.options[1];
       const validity = this.validate(['empty']);
-    // setting unpaid to 'No'
+      // setting unpaid to 'No'
       this.props.reduxAction_doUpdateQuestionAnswer(
         questionID,
         questionIdentifier,
@@ -160,11 +160,11 @@ class Unpaid extends React.Component {
         validity.valid,
       );
 
-    // clearing the salary and bonus options in the state
-      names.forEach(name => {
+      // clearing the salary and bonus options in the state
+      names.forEach((name) => {
         console.log('removing', name);
         this.props.reduxAction_doRemoveQuestionIdentifier(questionID, name);
-      })
+      });
     }
   }
 

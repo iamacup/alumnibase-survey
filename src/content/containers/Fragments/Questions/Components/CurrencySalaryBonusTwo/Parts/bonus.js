@@ -53,12 +53,10 @@ class Bonus extends React.Component {
       }, 253);
 
       $(this.bonusTextInput).on('input', executeFunction);
-
     });
   }
 
   componentDidUpdate() {
-
     const { questionIdentifier, questionID, answer } = this.props;
     const validity = this.validate(this.props.answer);
 
@@ -90,8 +88,7 @@ class Bonus extends React.Component {
 
     if (this.props.unpaidValidity) {
       valid = true;
-    } else {
-    if (dNc(answer) && dNc(answer.optionValue)) {
+    } else if (dNc(answer) && dNc(answer.optionValue)) {
       if (answer.optionValue === '_NO_BONUS_' && answer.optionID === null) {
         valid = true;
       } else if (answer.optionValue.length < 1) {
@@ -108,7 +105,6 @@ class Bonus extends React.Component {
     } else {
       error = 'You need to enter a bonus value.';
     }
-}
     return { valid, error, show };
   }
 
