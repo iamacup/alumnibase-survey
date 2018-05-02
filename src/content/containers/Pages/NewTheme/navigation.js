@@ -20,10 +20,6 @@ class Navigation extends React.PureComponent {
       theSection = section;
     }
 
-    console.log(this.props.reduxState_steps)
-
-
-
     const handleClick = (sectionNum) => {
 
       const realSection = this.props.reduxState_steps.realSection;
@@ -38,9 +34,6 @@ class Navigation extends React.PureComponent {
       let sectionTo = -1;
       let currentStep;
 
-// if sectionNum > realSection && realStep includes summary
-//  it should go to section-1
-console.log(possibleSections[sectionNum].length)
       if(sectionNum > realSection) {
         if (stepName === summary) {
           stepTo = realSection + 1 + '-1';
