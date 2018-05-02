@@ -93,22 +93,22 @@ class Salary extends React.Component {
 
     if (this.props.unpaidValidity) {
       valid = true;
-    }
-
+    } else {
     if (dNc(answer) && dNc(answer.optionValue)) {
       if (answer.optionValue.length < 1) {
         error = 'Please enter a salary value.';
       } else if (!isNumeric(answer.optionValue)) {
         error = 'The salary does not appear to be a number.';
         show = true;
-      } else if (answer.optionValue < 0) {
-        error = 'Your salary must be positive!';
-        show = true;
+      // } else if (answer.optionValue < 0) {
+        // error = 'Your salary must be positive!';
+        // show = true;
       } else {
         valid = true;
       }
     } else {
       error = 'You need to enter an annual salary value.';
+    }
     }
 
     return { valid, error, show };

@@ -54,12 +54,10 @@ class Bonus extends React.Component {
 
       $(this.bonusTextInput).on('input', executeFunction);
 
-      this.setValueFromState();
     });
   }
 
   componentDidUpdate() {
-    this.setValueFromState();
 
     const { questionIdentifier, questionID, answer } = this.props;
     const validity = this.validate(this.props.answer);
@@ -85,12 +83,6 @@ class Bonus extends React.Component {
     }
   }
 
-  setValueFromState() {
-    if (dNc(this.props.answer.optionValue)) {
-      this.bonusTextInput.value = this.props.answer.optionValue;
-    }
-  }
-
   validate(answer) {
     let error = '';
     let show = false;
@@ -98,8 +90,7 @@ class Bonus extends React.Component {
 
     if (this.props.unpaidValidity) {
       valid = true;
-    }
-
+    } else {
     if (dNc(answer) && dNc(answer.optionValue)) {
       if (answer.optionValue === '_NO_BONUS_' && answer.optionID === null) {
         valid = true;
@@ -117,7 +108,7 @@ class Bonus extends React.Component {
     } else {
       error = 'You need to enter a bonus value.';
     }
-
+}
     return { valid, error, show };
   }
 

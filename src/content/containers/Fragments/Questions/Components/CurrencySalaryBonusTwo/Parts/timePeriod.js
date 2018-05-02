@@ -202,10 +202,9 @@ class TimePeriod extends React.Component {
       name = 'salary';
     }
 
-    if (this.props.unpaidValidity) {
-      valid = true;
-    }
-
+    // if (this.props.unpaidValidity) {
+    //   valid = true;
+    // } else {
     if (dNc(answer) && dNc(answer.optionValue)) {
       // test to see if the optionID is in fact an option ID
       if (pattern.test(answer.optionID) === true || answer.optionID === null) {
@@ -216,7 +215,8 @@ class TimePeriod extends React.Component {
     } else {
       error = `You need to select a ${name} period`;
     }
-
+    // }
+    
     return { valid, error, show };
   }
 

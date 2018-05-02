@@ -101,27 +101,41 @@ class Unpaid extends React.Component {
 
   buttonPress(dataArr) {
     const { questionID, questionIdentifier, options } = this.props;
-
+    
     // clearing the state
-    if (dataArr.length > 0 && options[0].optionID === dataArr[0]) {
-      Object.keys(this.props.answer).forEach((value) => {
-        console.log('removing', value);
-        this.props.reduxAction_doRemoveQuestionIdentifier(questionID, value);
-      });
-    }
+    // if (dataArr.length > 0 && options[0].optionID === dataArr[0]) {
+    //   Object.keys(this.props.answer).forEach((value) => {
+    //     console.log('removing', value);
+    //     this.props.reduxAction_doRemoveQuestionIdentifier(questionID, value);
+    //   });
+    // }
+
+    const names = this.props.names;
+    // setting salary and bonus to -1
+      names.forEach(name => {
+        let optionID = null;
+        let optionValue = -1;
+        let validity = this.validate(['empty']);
+
+        this.props.reduxAction_doUpdateQuestionAnswer(
+          questionID,
+          name,
+          optionID,
+          optionValue,
+          validity.valid
+          )
+      })
 
     for (let a = 0; a < dataArr.length; a++) {
       const optionID = dataArr[a];
       let optionValue = null;
+      const validity = this.validate(['empty']);
 
       this.props.options.forEach((value) => {
         if (value.optionID === optionID) {
           ({ optionValue } = value);
         }
       });
-      // we pass an empty array in here because the state does not yet exist - and we just want it to validate
-      // see the validate method to understand why this works
-      const validity = this.validate(['empty']);
 
       //  setting the state with just the 'YES' unpaid value
       this.props.reduxAction_doUpdateQuestionAnswer(
@@ -134,10 +148,10 @@ class Unpaid extends React.Component {
     }
 
     if (!dataArr.includes(this.props.options[0].optionID)) {
-      const { optionID } = this.props.options[1];
-      const { optionValue } = this.props.options[1];
+      let { optionID } = this.props.options[1];
+      let { optionValue } = this.props.options[1];
       const validity = this.validate(['empty']);
-
+    // setting unpaid to 'No'
       this.props.reduxAction_doUpdateQuestionAnswer(
         questionID,
         questionIdentifier,
@@ -145,6 +159,12 @@ class Unpaid extends React.Component {
         optionValue,
         validity.valid,
       );
+
+    // clearing the salary and bonus options in the state
+      names.forEach(name => {
+        console.log('removing', name);
+        this.props.reduxAction_doRemoveQuestionIdentifier(questionID, name);
+      })
     }
   }
 
@@ -219,6 +239,7 @@ Unpaid.propTypes = {
   answer: PropTypes.object.isRequired,
   questionIdentifier: PropTypes.string.isRequired,
   options: PropTypes.array.isRequired,
+  names: PropTypes.array.isRequired,
   answerDisplay: PropTypes.any,
 };
 
