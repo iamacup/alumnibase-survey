@@ -21,38 +21,37 @@ class Navigation extends React.PureComponent {
     }
 
     const handleClick = (sectionNum) => {
-
       const realSection = this.props.reduxState_steps.realSection;
-      let realStep = this.props.reduxState_steps.realStep;
+      const realStep = this.props.reduxState_steps.realStep;
       const stepName = this.props.reduxState_steps.stepName;
 
-      const summary = possibleSections[realSection][possibleSections[realSection].length-1];
+      const summary = possibleSections[realSection][possibleSections[realSection].length - 1];
 
-      //if the step we are moving to is 'not done' then we need to display not done
-      ///otherwise we move to the step and show the summary information
+      // if the step we are moving to is 'not done' then we need to display not done
+      // /otherwise we move to the step and show the summary information
       let stepTo = -1;
       let sectionTo = -1;
       let currentStep;
 
-      if(sectionNum > realSection) {
+      if (sectionNum > realSection) {
         if (stepName === summary) {
           stepTo = realSection + 1 + '-1';
           sectionTo = sectionNum;
           currentStep = possibleSections[realSection].indexOf(stepName);
         } else {
-        //we know its not done
+        // we know its not done
           stepTo = 'not-done';
           sectionTo = sectionNum;
-          currentStep = 1; 
+          currentStep = 1;
         }
-      } else if(sectionNum === realSection) {
-        //we need to do nothing
+      } else if (sectionNum === realSection) {
+        // we need to do nothing
         stepTo = possibleSections[sectionNum][realStep];
         sectionTo = realSection;
         currentStep = realStep + 1;
       } else {
         // we go to the section and show the 'summary' thing
-        stepTo = possibleSections[sectionNum][possibleSections[sectionNum].length-1];
+        stepTo = possibleSections[sectionNum][possibleSections[sectionNum].length - 1];
         sectionTo = sectionNum;
         currentStep = possibleSections[sectionNum].length;
       }
@@ -61,9 +60,8 @@ class Navigation extends React.PureComponent {
         step: stepTo,
       });
 
-      this.props.reduxAction_doUpdateStep({ currentStep, stepCount:possibleSections[sectionNum].length , section: sectionTo });
-
-  }
+      this.props.reduxAction_doUpdateStep({ currentStep, stepCount: possibleSections[sectionNum].length, section: sectionTo });
+    };
 
 
     return (

@@ -60,12 +60,12 @@ const retrospectiveSteps = ['5-1', '5-2', '5-3', '5-4', 'summary-retrospective']
 const notDoneStep = ['not-done'];
 
 export const possibleSections = {
-        1: ['0-1', 'intro', 'terms', '1-1', '1-2', '1-3', '1-4', 'summary-bio'],
-        2: ['2-1', 'ask-another-qualification', '2-2', 'ask-next-qualification', 'uni-question', '2-3', '2-2-again', 'ask-next-qualification-again', '2-4', '2-5', 'summary-uni'],
-        3: ['3-1', '3-2', '3-3', 'summary-pre'],
-        4: ['4-1', '4-2', '4-3', '4-4', '4-5', '4-6', 'summary-post'],
-        5: ['5-1', '5-2', '5-3', '5-4', 'summary-retrospective'],
-      };
+  1: ['0-1', 'intro', 'terms', '1-1', '1-2', '1-3', '1-4', 'summary-bio'],
+  2: ['2-1', 'ask-another-qualification', '2-2', 'ask-next-qualification', 'uni-question', '2-3', '2-2-again', 'ask-next-qualification-again', '2-4', '2-5', 'summary-uni'],
+  3: ['3-1', '3-2', '3-3', 'summary-pre'],
+  4: ['4-1', '4-2', '4-3', '4-4', '4-5', '4-6', 'summary-post'],
+  5: ['5-1', '5-2', '5-3', '5-4', 'summary-retrospective'],
+};
 
 class Viewer extends React.Component {
   componentDidMount() {
@@ -167,18 +167,18 @@ class Viewer extends React.Component {
     }
 
     // this is some code we can use to force test a series of steps after 0-1 is complete (i.e. a sessionID is assigned and a uni picked)
-    // if (this.props.reduxState_this.step === '0-1') {
-    //   const stepTo = '2-1';
+    if (this.props.reduxState_this.step === '0-1') {
+      const stepTo = '4-1';
 
-    //   this.props.reduxAction_doUpdate({
-    //     step: stepTo,
-    //     answerData: updateAnswerData,
-    //   });
+      this.props.reduxAction_doUpdate({
+        step: stepTo,
+        answerData: updateAnswerData,
+      });
 
-    //   this.props.reduxAction_doUpdateStep({ currentStep: 1, stepCount: retrospectiveSteps.length, section: 5 });
+      this.props.reduxAction_doUpdateStep({ currentStep: 1, stepCount: retrospectiveSteps.length, section: 5 });
 
-    //   return;
-    // }
+      return;
+    }
 
     // we always update the step assuming there was a next step passed
     // eslint-disable-next-line no-unreachable
@@ -193,31 +193,41 @@ class Viewer extends React.Component {
         const stepIndex = bioSteps.indexOf(nextStep);
 
         if (stepIndex !== -1) {
-          this.props.reduxAction_doUpdateStep({ currentStep: stepIndex + 1, stepCount: bioSteps.length, realSection: 1, realStep: stepIndex, stepName: '1-' + stepIndex });
+          this.props.reduxAction_doUpdateStep({
+            currentStep: stepIndex + 1, stepCount: bioSteps.length, realSection: 1, realStep: stepIndex, stepName: '1-' + stepIndex,
+          });
         }
       } else if (type === 'uni') {
         const stepIndex = uniSteps.indexOf(nextStep);
 
         if (stepIndex !== -1) {
-          this.props.reduxAction_doUpdateStep({ currentStep: stepIndex + 1, stepCount: uniSteps.length, realSection: 2, realStep: stepIndex, stepName: '2-' + stepIndex });
+          this.props.reduxAction_doUpdateStep({
+            currentStep: stepIndex + 1, stepCount: uniSteps.length, realSection: 2, realStep: stepIndex, stepName: '2-' + stepIndex,
+          });
         }
       } else if (type === 'preuni') {
         const stepIndex = preUniSteps.indexOf(nextStep);
 
         if (stepIndex !== -1) {
-          this.props.reduxAction_doUpdateStep({ currentStep: stepIndex + 1, stepCount: preUniSteps.length, realSection: 3, realStep: stepIndex, stepName: '3-' + stepIndex });
+          this.props.reduxAction_doUpdateStep({
+            currentStep: stepIndex + 1, stepCount: preUniSteps.length, realSection: 3, realStep: stepIndex, stepName: '3-' + stepIndex,
+          });
         }
       } else if (type === 'postuni') {
         const stepIndex = postUniSteps.indexOf(nextStep);
 
         if (stepIndex !== -1) {
-          this.props.reduxAction_doUpdateStep({ currentStep: stepIndex + 1, stepCount: postUniSteps.length, realSection: 4, realStep: stepIndex, stepName: '4-' + stepIndex });
+          this.props.reduxAction_doUpdateStep({
+            currentStep: stepIndex + 1, stepCount: postUniSteps.length, realSection: 4, realStep: stepIndex, stepName: '4-' + stepIndex,
+          });
         }
       } else if (type === 'retro') {
         const stepIndex = retrospectiveSteps.indexOf(nextStep);
 
         if (stepIndex !== -1) {
-          this.props.reduxAction_doUpdateStep({ currentStep: stepIndex + 1, stepCount: retrospectiveSteps.length, realSection: 5, realStep: stepIndex, stepName: '5-' + stepIndex });
+          this.props.reduxAction_doUpdateStep({
+            currentStep: stepIndex + 1, stepCount: retrospectiveSteps.length, realSection: 5, realStep: stepIndex, stepName: '5-' + stepIndex,
+          });
         }
       }
     // otherwise we look to see what type has been finished and then use that to define what to do next
@@ -229,28 +239,36 @@ class Viewer extends React.Component {
       });
 
       // update the steps
-      this.props.reduxAction_doUpdateStep({ currentStep: 1, stepCount: uniSteps.length, section: 2, realSection: 2, realStep: 1, stepName: uniSteps[0] });
+      this.props.reduxAction_doUpdateStep({
+        currentStep: 1, stepCount: uniSteps.length, section: 2, realSection: 2, realStep: 1, stepName: uniSteps[0],
+      });
     } else if (type === 'uni') {
       this.props.reduxAction_doUpdate({
         step: preUniSteps[0],
         answerData: updateAnswerData,
       });
 
-      this.props.reduxAction_doUpdateStep({ currentStep: 1, stepCount: preUniSteps.length, section: 3, realSection: 3, realStep: 1, stepName: preUniSteps[0] });
+      this.props.reduxAction_doUpdateStep({
+        currentStep: 1, stepCount: preUniSteps.length, section: 3, realSection: 3, realStep: 1, stepName: preUniSteps[0],
+      });
     } else if (type === 'preuni') {
       this.props.reduxAction_doUpdate({
         step: postUniSteps[0],
         answerData: updateAnswerData,
       });
 
-      this.props.reduxAction_doUpdateStep({ currentStep: 1, stepCount: postUniSteps.length, section: 4, realSection: 4, realStep: 1, stepName: postUniSteps[0] });
+      this.props.reduxAction_doUpdateStep({
+        currentStep: 1, stepCount: postUniSteps.length, section: 4, realSection: 4, realStep: 1, stepName: postUniSteps[0],
+      });
     } else if (type === 'postuni') {
       this.props.reduxAction_doUpdate({
         step: retrospectiveSteps[0],
         answerData: updateAnswerData,
       });
 
-      this.props.reduxAction_doUpdateStep({ currentStep: 1, stepCount: retrospectiveSteps.length, section: 5, realSection: 5, realStep: 1, stepName: retrospectiveSteps[0] });
+      this.props.reduxAction_doUpdateStep({
+        currentStep: 1, stepCount: retrospectiveSteps.length, section: 5, realSection: 5, realStep: 1, stepName: retrospectiveSteps[0],
+      });
     } else {
       console.log(type);
       console.log('TODO HANDLE NON KNOWN');

@@ -33,6 +33,19 @@ class Unpaid extends React.Component {
         questionIdentifier,
       );
     }
+
+  //   if (
+  //     this.props.forceValidate === true &&
+  //     validity.valid === true &&
+  //     (!dNc(this.props.answer) || !dNc(this.props.answer.optionValue))
+  //   ) {
+  //     this.putItemIntoState();
+  //   } else if (dNc(this.props.answer.unpaid) && this.props.answer.unpaid.optionValue === "Yes") {
+  //   //   // here we check for optional, if found then we just set the thing to valid instantly
+  //   //   if (dNc(this.props.answer) && this.props.answer.valid !== true) {
+  //       this.putItemIntoState();
+  //   //   }
+  //   }
   }
 
   getIndex(dataArr, optionID) {
@@ -106,7 +119,6 @@ class Unpaid extends React.Component {
           ({ optionValue } = value);
         }
       });
-
       // we pass an empty array in here because the state does not yet exist - and we just want it to validate
       // see the validate method to understand why this works
       const validity = this.validate(['empty']);
