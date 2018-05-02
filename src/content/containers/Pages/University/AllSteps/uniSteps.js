@@ -8,6 +8,7 @@ import UniViewer from '../../../../../content/containers/Pages/University/AllSte
 import { nextElementInArray } from '../../../../../content/scripts/custom/utilities';
 import { getLatestItemWithFriendlyNameFromState, getFirstItemWithFriendlyNameFromState } from '../../../../../content/containers/Pages/University/AllSteps/commonFunctions';
 import * as storeAction from '../../../../../foundation/redux/globals/DataStoreSingle/actions';
+
 const dataStoreID = 'testHTML3UniSub';
 const fetchEducationDataTransactionStateMainID = 'wizzardUniEducationCompletion';
 const FetchEducation = fetchDataBuilder(fetchEducationDataTransactionStateMainID);

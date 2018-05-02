@@ -16,33 +16,14 @@ class graduateDestinationButtons extends React.Component {
       $(document).trigger('nifty.ready');
 
       // make the checkbox look nice with switchery
-      const elems = Array.prototype.slice.call(document.querySelectorAll('.switchery-switch'));
+      const elem = document.querySelector('#switchery-switch');
 
-      // const ids = [];
-
-      let init;
-      elems.forEach((html) => {
       // eslint-disable-next-line no-undef, no-unused-vars
-        init = new Switchery(html);
-      });
+      const init = new Switchery(elem);
 
-      // $('.btn').click((e) => {
-      //  if (!ids.includes(e.target.id)) ids.push(e.target.id)
-      //   else {
-      //     let index = ids.indexOf(e.target.id)
-      //     ids.splice(index, 1);
-      //   }
-
-      // ids.forEach(element => {
-      //   console.log(element, init.element.value)
-      // if (element === init.element.id) init.enable()
-      //   else init.disable();
-      // })
-      // });
-
-      $('.switchery-switch').on('change', (clickEvt) => {
-        this.handleRadio(clickEvt);
-      });
+      // elem.onchange = () => {
+      //   this.handleRadio();
+      // };
     });
   }
 
@@ -87,25 +68,25 @@ class graduateDestinationButtons extends React.Component {
   // TODO button group does not support multiple clear options so if we find more than 1 in the options set - we error out something
 
   validate(answer) {
-    let error = '';
-    let show = false;
-    let valid = false;
+   let error = '';
+   let show = false;
+   let valid = false;
 
-    // we set to valid as long as 'an' option exists in the state
-    if (Object.keys(answer).length > 0) {
-      valid = true;
-    } else {
-      error = 'You need to select an option.';
-      show = false;
-    }
+   // we set to valid as long as 'an' option exists in the state
+   if (Object.keys(answer).length > 0) {
+     valid = true;
+   } else {
+     error = 'You need to select an option.';
+     show = false;
+   }
 
-    return { valid, error, show };
-  }
+   return { valid, error, show };
+ }
 
 
-  // we need to make sure that our state is the same as dataArr
-  buttonPress(dataArr) {
-    const { questionID, questionIdentifier } = this.props;
+ // we need to make sure that our state is the same as dataArr
+ buttonPress(dataArr) {
+   const { questionID, questionIdentifier } = this.props;
 
     // first we loop through the dataArr and make sure everything in dataArr is in the state
     for (let a = 0; a < dataArr.length; a++) {
@@ -122,6 +103,7 @@ class graduateDestinationButtons extends React.Component {
       // see the validate method to understand why this works
       const validity = this.validate(['empty']);
 
+      console.log(optionValue, 'button****');
       this.props.reduxAction_doUpdateQuestionAnswer(
         questionID,
         questionIdentifier + '_' + this.getIndex(dataArr, optionID),
@@ -140,11 +122,18 @@ class graduateDestinationButtons extends React.Component {
     });
   }
 
-  handleRadio(clickEvt) {
-    const optionID = clickEvt.target.id;
+  handleRadio(e) {
+    console.log("*******")
+    const optionID = e.target.value;
     const { questionID, questionIdentifier2 } = this.props;
     const validity = this.validate(['empty']);
-    const optionValue = 'true';
+    let optionValue = '';
+
+    this.props.options2.forEach((element) => {
+      if (element.optionID === optionID) {
+        optionValue = element.optionValue;
+      }
+    });
 
     this.props.reduxAction_doUpdateQuestionAnswer(
       questionID,
@@ -189,17 +178,15 @@ class graduateDestinationButtons extends React.Component {
         );
       }
 
-      // const keys = Object.keys(this.props.answer);
-      // let disable = true;
+      let bool = true;
 
-      // if (keys.length > 0) {
-      //   keys.forEach((key) => {
-      //     if (value.optionID === this.props.answer[key].optionID) disable = false;
-      //     else disable = true;
-      //   });
-      // }
+      Object.keys(this.props.answer).forEach((element) => {
+        if (this.props.answer[element].optionID === value.optionID) {
+          bool = false;
+        }
+      });
 
-
+      console.log(value.optionID)
       const obj = (
         <div key={value.optionID}>
           <div className="row">
@@ -208,7 +195,6 @@ class graduateDestinationButtons extends React.Component {
               <button
                 value={value.optionID}
                 className={className}
-                id={value.optionID}
               >
                 {name}
               </button>
@@ -217,7 +203,8 @@ class graduateDestinationButtons extends React.Component {
               {dataButton}
             </div>
             <div className="col-2">
-              <input className="switchery-switch" id={value.optionID} type="checkbox" value={value.optionID} />
+              {/* <input disabled={bool} id="switchery-switch" type="checkbox" value={value.optionID} onChange={(e) => this.handleRadio(e)} /> */}
+              <input disabled={bool} type="radio" name="radio_1" value={value.optionID} onClick={e => this.handleRadio(e)} />
             </div>
           </div>
         </div>
@@ -243,19 +230,22 @@ graduateDestinationButtons.propTypes = {
   reduxAction_doUpdateQuestionAnswer: PropTypes.func,
   reduxAction_doSetQuestionError: PropTypes.func,
   reduxAction_doRemoveQuestionIdentifier: PropTypes.func,
+  // nextStepCallback: PropTypes.func,
   questionID: PropTypes.string.isRequired,
   forceValidate: PropTypes.bool.isRequired,
   answer: PropTypes.object.isRequired,
   questionIdentifier: PropTypes.string.isRequired,
   questionIdentifier2: PropTypes.string.isRequired,
   options: PropTypes.array.isRequired,
-  // options2: PropTypes.array.isRequired,
+  options2: PropTypes.array.isRequired,
+  // answerDisplay: PropTypes.any,
 };
 
 graduateDestinationButtons.defaultProps = {
   reduxAction_doUpdateQuestionAnswer: () => {},
   reduxAction_doSetQuestionError: () => {},
   reduxAction_doRemoveQuestionIdentifier: () => {},
+  // nextStepCallback: () => { },
 };
 
 const mapStateToProps = null;

@@ -70,10 +70,18 @@ const CurrencySalaryBonusQuestionComponent = ({
     const bonus = bonusNum * sumElement(answerBits.bonusPeriod.optionValue);
     totalValue = symbol + (salary + bonus);
   }
+let className;
+if (answer.answer.unpaid) {
+  if (answer.answer.unpaid.optionValue === 'No') {
+    className='show-container'
+  } else if (answer.answer.unpaid.optionValue === 'Yes') {
+    className='hidden-container'
+}
+}
 
   const question = (
     <div>
-
+<div className={className}>
       <div className="row flex-v-center-sm">
         <div className="col-sm-12">
           <Currency
@@ -140,7 +148,7 @@ const CurrencySalaryBonusQuestionComponent = ({
           <h5>{totalValue} / year</h5>
         </div>
       </div>
-
+</div>
       <div className="row justify-content-center">
         <div className="col-10">
           <Unpaid
@@ -148,6 +156,7 @@ const CurrencySalaryBonusQuestionComponent = ({
             answer={answer.answer}
             options={options.unpaid}
             questionIdentifier="unpaid"
+            names={["salary", "bonus"]}
           />
         </div>
       </div>
