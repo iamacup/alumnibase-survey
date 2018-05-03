@@ -15,7 +15,6 @@ import * as questionAction from '../../../../../../../content/containers/Fragmen
 class SelectQuestionCompanySelectWithRemoteLookupComponent extends React.Component {
   componentDidMount() {
     // wait for document to be ready
-
     $(() => {
       // month value
       const dropdownParent = select2GetCorrectParent(this.select);
@@ -146,10 +145,6 @@ class SelectQuestionCompanySelectWithRemoteLookupComponent extends React.Compone
   getCombinedValue() {
     console.log('getting value');
 
-        const now = new Date();
-    const currentYear = now.getFullYear()
-    const currentMonth = now.getMonth()
-
     if (dNc(this.input.inputmask)) {
       let yearValue = this.input.inputmask.unmaskedvalue();
       let monthValue = $(this.select).val();
@@ -162,28 +157,23 @@ class SelectQuestionCompanySelectWithRemoteLookupComponent extends React.Compone
         monthValue = '';
       }
 
-    let hadBirthday = 0;
-    if (+monthValue > currentMonth) hadBirthday = -1;
-
-      const optionValue = (currentYear - yearValue) + hadBirthday;
-      // (currentYear - yearValue) + hadBirthday;
-      // monthValue + '/' + yearValue;
+      const optionValue = monthValue + '/' + yearValue;
       const optionID = null;
 
       const { questionID, questionIdentifier } = this.props;
       const validity = this.validate({ optionValue, optionID });
-// console.log(this.props.answer)
-      // if (dNc(this.props.answer.optionValue) || dNc(this.props.answer.optionID)) {
-      //   if (this.props.answer.optionValue !== optionValue || this.props.answer.optionID !== optionID) {
-      //     this.props.reduxAction_doUpdateQuestionAnswer(
-      //       questionID,
-      //       questionIdentifier,
-      //       optionID,
-      //       optionValue,
-      //       validity.valid,
-      //     );
-      //   }
-      // } else {
+
+      if (dNc(this.props.answer.optionValue) || dNc(this.props.answer.optionID)) {
+        if (this.props.answer.optionValue !== optionValue || this.props.answer.optionID !== optionID) {
+          this.props.reduxAction_doUpdateQuestionAnswer(
+            questionID,
+            questionIdentifier,
+            optionID,
+            optionValue,
+            validity.valid,
+          );
+        }
+      } else {
         this.props.reduxAction_doUpdateQuestionAnswer(
           questionID,
           questionIdentifier,
@@ -191,7 +181,7 @@ class SelectQuestionCompanySelectWithRemoteLookupComponent extends React.Compone
           optionValue,
           validity.valid,
         );
-      // }
+      }
     }
   }
 
@@ -201,11 +191,10 @@ class SelectQuestionCompanySelectWithRemoteLookupComponent extends React.Compone
     let valid = false;
 
     if (dNc(answer) && dNc(answer.optionValue)) {
-console.log(answer)
       // eslint-disable-next-line no-useless-escape
-      // const matches = answer.optionValue.match(/^([0-1][0-9][\/]([1][9]|[2][0])[0-9][0-9])$/i);
-        if (answer.optionValue.length === 2) {
-      // if (dNc(matches) && matches.length === 3) {
+      const matches = answer.optionValue.match(/^([0-1][0-9][\/]([1][9]|[2][0])[0-9][0-9])$/i);
+
+      if (dNc(matches) && matches.length === 3) {
         valid = true;
       } else {
         error = 'You need to select a month and year';
