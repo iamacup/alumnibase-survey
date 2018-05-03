@@ -93,8 +93,8 @@ class QuestionRenderer extends React.Component {
         // eslint-disable-next-line prefer-destructuring
         questionID = questionID.split('_')[0];
 
-        if (friendlyName === "companyName") {
-          friendlyName = "company";
+        if (friendlyName === 'companyName') {
+          friendlyName = 'company';
         }
         // we pull out all the values that apply and then sort them so we can handle 'last', 'first' etc.
         // we do this by sorting it and then updating the questionID to be what we pull out as the final result
@@ -112,9 +112,9 @@ class QuestionRenderer extends React.Component {
           newTitle = title.replace(m[0], alternative);
         }
       }
-// console.log(newTitle) // inside the while loop logs both titles with company and uni
+      // console.log(newTitle) // inside the while loop logs both titles with company and uni
     }
-// console.log(newTitle)  // outside only logs the title being passed to the question, newTitle is being replaced with the uni name?
+    // console.log(newTitle)  // outside only logs the title being passed to the question, newTitle is being replaced with the uni name?
 
 
     // THIS CHUNK LOOKS FOR ARRAY REPLACEMENTS
