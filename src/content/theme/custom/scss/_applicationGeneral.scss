@@ -766,3 +766,9 @@ input:focus,
 .hidden-container {
   display: none;
 }
+
+.errorContainer.errored {
+  input {
+    border-color: red;
+  }
+}

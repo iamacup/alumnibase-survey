@@ -5,6 +5,7 @@
 import universityAllStepsPage from '../../content/containers/Pages/University/AllSteps';
 import GDPRExamplePage from '../../content/containers/Pages/GDPRExample';
 import NotFoundPage from '../../content/containers/Pages/NotFoundPage';
+import LoginPage from '../../content/containers/Pages/LoginPage';
 
 // NOTE - you should pass in cookies to any of the methods that
 // load data from the server so that their requests are able to
@@ -14,6 +15,11 @@ import NotFoundPage from '../../content/containers/Pages/NotFoundPage';
 // IT IT IS NOT UNIQUE WE NEED TO DO SOMETHING ELSE AS THE KEY IN THE APP!!!!!
 
 export default [
+  {
+    path: '/login',
+    exact: true,
+    component: LoginPage,
+  },
   {
     path: '/GDPRExample',
     exact: true,

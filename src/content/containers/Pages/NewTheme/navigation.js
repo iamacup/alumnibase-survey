@@ -88,6 +88,7 @@ class Navigation extends React.PureComponent {
           <a href="mailto:hello@alumnibaseapp.com?Subject=Hello"><h6 className="medium-grey-text">some.email@example.com</h6></a>
           {/*   <div style={{ marginTop: '16px' }} />
                  <span className="h6"><i className="fal fa-question-circle" style={{ fontSize: '16px' }} /> Help</span> */}
+          <a href="/login"><button type="button" className="btn btn-light" style={{ width: '200px' }}>Sign In</button></a>
         </div>
       </div>
     );
