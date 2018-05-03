@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { dNc } from '../../../../../../../content/scripts/custom/utilities';
+import { dNc, debounce } from '../../../../../../../content/scripts/custom/utilities';
 import * as questionAction from '../../../../../../../content/containers/Fragments/Questions/Components/action';
 
 class FreeTextQuestionMultilineComponent extends React.Component {
@@ -34,13 +34,23 @@ class FreeTextQuestionMultilineComponent extends React.Component {
       validity.valid === true &&
       (!dNc(this.props.answer) || !dNc(this.props.answer.optionValue))
     ) {
-      this.handleChange();
+     debounce(() => {
+        this.handleChange();
+      }, 400);
     } else if (drawData.minLength === 0) {
       // here we check for optional, if found then we just set the thing to valid instantly
       if (dNc(this.props.answer) && this.props.answer.valid !== true) {
+        debounce(() => {
         this.handleChange();
+      }, 400);
       }
     }
+
+    const executeFunction = debounce(() => {
+        this.handleChange();
+      }, 400);
+
+      $(this.input).on('input', executeFunction);
   }
 
 
@@ -102,9 +112,9 @@ class FreeTextQuestionMultilineComponent extends React.Component {
           ref={(input) => {
             this.input = input;
           }}
-          onChange={() => {
-            this.handleChange();
-          }}
+          // onChange={() => {
+          //   this.handleChange();
+          // }}
         />
       </span>
     );
