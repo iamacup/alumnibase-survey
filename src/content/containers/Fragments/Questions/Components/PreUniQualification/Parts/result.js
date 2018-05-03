@@ -127,17 +127,14 @@ class SelectQuestionCompanySelectWithRemoteLookupComponent extends React.Compone
       // try to open when tabbed to
       select2EnableOpenOnFocus(this.input);
 
-      this.setValueFromState();
 
       // we do this to make sure the thing is in the state - we need it in the state because otherwise validation gets a bit funky
       // as, if the question gets validated, then we get new items added to the list, they will automatically be validated
-      this.putItemIntoState();
     });
   }
 
   componentDidUpdate(prevProps) {
     // TODO read wall
-    // this.setValueFromState();
     const {
       questionIdentifier, questionID, answer,
     } = this.props;
@@ -158,27 +155,6 @@ class SelectQuestionCompanySelectWithRemoteLookupComponent extends React.Compone
 
     if (prevProps.typeAnswer.optionValue !== this.props.typeAnswer.optionValue) {
       $(this.input).select2().val(null).trigger('change');
-    }
-  }
-
-  setValueFromState() {
-    if (dNc(this.props.answer.optionValue)) {
-      const $data = $(this.input).select2('data');
-
-      if (dNc($data) && $data.length > 0) {
-        const { optionValue, optionID } = this.props.answer;
-        // check to see if something is already selected
-        if ($data.length === 1) {
-        // something is selected - is it the same as the answer value?
-          if ($data[0].text !== optionValue) {
-          // need to update the option because the selected one right now is not the same as the state
-            setSelect2Value(this.input, optionValue, optionID);
-          }
-        } else {
-        // there is currently no selected option so we need to set one
-          setSelect2Value(this.input, optionValue, optionID);
-        }
-      }
     }
   }
 
