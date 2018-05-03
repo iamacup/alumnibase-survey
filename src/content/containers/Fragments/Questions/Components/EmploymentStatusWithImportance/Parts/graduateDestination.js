@@ -103,7 +103,6 @@ class graduateDestinationButtons extends React.Component {
       // see the validate method to understand why this works
       const validity = this.validate(['empty']);
 
-      console.log(optionValue, 'button****');
       this.props.reduxAction_doUpdateQuestionAnswer(
         questionID,
         questionIdentifier + '_' + this.getIndex(dataArr, optionID),
@@ -123,7 +122,6 @@ class graduateDestinationButtons extends React.Component {
   }
 
   handleRadio(e) {
-    console.log('*******');
     const optionID = e.target.value;
     const { questionID, questionIdentifier2 } = this.props;
     const validity = this.validate(['empty']);
@@ -186,7 +184,6 @@ class graduateDestinationButtons extends React.Component {
         }
       });
 
-      console.log(value.optionID);
       const obj = (
         <div key={value.optionID}>
           <div className="row">
