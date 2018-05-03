@@ -68,25 +68,25 @@ class graduateDestinationButtons extends React.Component {
   // TODO button group does not support multiple clear options so if we find more than 1 in the options set - we error out something
 
   validate(answer) {
-   let error = '';
-   let show = false;
-   let valid = false;
+    let error = '';
+    let show = false;
+    let valid = false;
 
-   // we set to valid as long as 'an' option exists in the state
-   if (Object.keys(answer).length > 0) {
-     valid = true;
-   } else {
-     error = 'You need to select an option.';
-     show = false;
-   }
+    // we set to valid as long as 'an' option exists in the state
+    if (Object.keys(answer).length > 0) {
+      valid = true;
+    } else {
+      error = 'You need to select an option.';
+      show = false;
+    }
 
-   return { valid, error, show };
- }
+    return { valid, error, show };
+  }
 
 
- // we need to make sure that our state is the same as dataArr
- buttonPress(dataArr) {
-   const { questionID, questionIdentifier } = this.props;
+  // we need to make sure that our state is the same as dataArr
+  buttonPress(dataArr) {
+    const { questionID, questionIdentifier } = this.props;
 
     // first we loop through the dataArr and make sure everything in dataArr is in the state
     for (let a = 0; a < dataArr.length; a++) {
@@ -103,7 +103,6 @@ class graduateDestinationButtons extends React.Component {
       // see the validate method to understand why this works
       const validity = this.validate(['empty']);
 
-      console.log(optionValue, 'button****');
       this.props.reduxAction_doUpdateQuestionAnswer(
         questionID,
         questionIdentifier + '_' + this.getIndex(dataArr, optionID),
@@ -123,7 +122,6 @@ class graduateDestinationButtons extends React.Component {
   }
 
   handleRadio(e) {
-    console.log("*******")
     const optionID = e.target.value;
     const { questionID, questionIdentifier2 } = this.props;
     const validity = this.validate(['empty']);
@@ -186,7 +184,6 @@ class graduateDestinationButtons extends React.Component {
         }
       });
 
-      console.log(value.optionID)
       const obj = (
         <div key={value.optionID}>
           <div className="row">

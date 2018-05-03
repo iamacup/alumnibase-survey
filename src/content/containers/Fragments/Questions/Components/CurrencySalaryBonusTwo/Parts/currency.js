@@ -153,8 +153,7 @@ class Currency extends React.Component {
 
     if (this.props.unpaidValidity) {
       valid = true;
-    } else {
-    if (dNc(answer) && dNc(answer.optionValue)) {
+    } else if (dNc(answer) && dNc(answer.optionValue)) {
       // test to see if the optionID is in fact an option ID
       if (pattern.test(answer.optionID) === true || answer.optionID === null) {
         valid = true;
@@ -163,7 +162,6 @@ class Currency extends React.Component {
       }
     } else {
       error = 'You need to select a currency';
-    }
     }
 
     return { valid, error, show };

@@ -70,85 +70,85 @@ const CurrencySalaryBonusQuestionComponent = ({
     const bonus = bonusNum * sumElement(answerBits.bonusPeriod.optionValue);
     totalValue = symbol + (salary + bonus);
   }
-let className;
-if (answer.answer.unpaid) {
-  if (answer.answer.unpaid.optionValue === 'No') {
-    className='show-container'
-  } else if (answer.answer.unpaid.optionValue === 'Yes') {
-    className='hidden-container'
-}
-}
+  let className;
+  if (answer.answer.unpaid) {
+    if (answer.answer.unpaid.optionValue === 'No') {
+      className = 'show-container';
+    } else if (answer.answer.unpaid.optionValue === 'Yes') {
+      className = 'hidden-container';
+    }
+  }
 
   const question = (
     <div>
-<div className={className}>
-      <div className="row flex-v-center-sm">
-        <div className="col-sm-12">
-          <Currency
-            {...obj}
-            answer={answerBits.currency}
-            options={options.currency}
-            questionIdentifier="currency"
-          />
+      <div className={className}>
+        <div className="row flex-v-center-sm">
+          <div className="col-sm-12">
+            <Currency
+              {...obj}
+              answer={answerBits.currency}
+              options={options.currency}
+              questionIdentifier="currency"
+            />
+          </div>
+        </div>
+
+        <h4 className="mt-3">Salary</h4>
+
+        <div className="row flex-v-center-sm">
+          <div className="col-sm-6">
+            <Salary
+              {...obj}
+              answer={answerBits.salary}
+              options={options.salary}
+              questionIdentifier="salary"
+              currencySymbol={symbol}
+            />
+          </div>
+          <div className="col-sm-6">
+            <TimePeriod
+              {...obj}
+              answer={answerBits.salaryPeriod}
+              options={options.salaryPeriod}
+              questionIdentifier="salaryPeriod"
+              allowAdd={false}
+              typeAnswer={answerBits.salaryPeriod}
+            />
+          </div>
+        </div>
+
+        <h4 className="mt-3">Bonus</h4>
+
+        <div className="row flex-v-center-sm">
+          <div className="col-sm-6">
+            <Bonus
+              {...obj}
+              answer={answerBits.bonus}
+              options={options.bonus}
+              questionIdentifier="bonus"
+              currencySymbol={symbol}
+            />
+          </div>
+          <div className="col-sm-6 align-self-center">
+            <TimePeriod
+              {...obj}
+              answer={answerBits.bonusPeriod}
+              options={options.bonusPeriod}
+              questionIdentifier="bonusPeriod"
+              allowAdd={false}
+            />
+          </div>
+        </div>
+
+        <div className="row justify-content-between mt-3">
+          <div className="col-6">
+            <h4>Total Salary:</h4>
+          </div>
+          <div className="col-6 text-right">
+            <h5>{totalValue} / year</h5>
+          </div>
         </div>
       </div>
-
-      <h4 className="mt-3">Salary</h4>
-
-      <div className="row flex-v-center-sm">
-        <div className="col-sm-6">
-          <Salary
-            {...obj}
-            answer={answerBits.salary}
-            options={options.salary}
-            questionIdentifier="salary"
-            currencySymbol={symbol}
-          />
-        </div>
-        <div className="col-sm-6">
-          <TimePeriod
-            {...obj}
-            answer={answerBits.salaryPeriod}
-            options={options.salaryPeriod}
-            questionIdentifier="salaryPeriod"
-            allowAdd={false}
-            typeAnswer={answerBits.salaryPeriod}
-          />
-        </div>
-      </div>
-
-      <h4 className="mt-3">Bonus</h4>
-
-      <div className="row flex-v-center-sm">
-        <div className="col-sm-6">
-          <Bonus
-            {...obj}
-            answer={answerBits.bonus}
-            options={options.bonus}
-            questionIdentifier="bonus"
-            currencySymbol={symbol}
-          />
-        </div>
-        <div className="col-sm-6 align-self-center">
-          <TimePeriod
-            {...obj}
-            answer={answerBits.bonusPeriod}
-            options={options.bonusPeriod}
-            questionIdentifier="bonusPeriod"
-            allowAdd={false}
-          />
-        </div>
-      </div>
-
-      <div className="row justify-content-between mt-3">
-        <div className="col-6">
-          <h4>Total Salary:</h4>
-        </div>
-        <div className="col-6 text-right">
-          <h5>{totalValue} / year</h5>
-        </div>
-      </div>
-</div>
       <div className="row justify-content-center">
         <div className="col-10">
           <Unpaid
@@ -156,7 +156,7 @@ if (answer.answer.unpaid) {
             answer={answer.answer}
             options={options.unpaid}
             questionIdentifier="unpaid"
-            names={["salary", "bonus"]}
+            names={['salary', 'bonus']}
           />
         </div>
       </div>

@@ -216,7 +216,7 @@ class TimePeriod extends React.Component {
       error = `You need to select a ${name} period`;
     }
     // }
-    
+
     return { valid, error, show };
   }
 

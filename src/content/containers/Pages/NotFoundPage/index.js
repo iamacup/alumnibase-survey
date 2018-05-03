@@ -4,64 +4,49 @@ import Navigation from '../../../../content/containers/Pages/NewTheme/navigation
 class NotFoundPage extends React.Component {
   render() {
     return (
-      <div className="not-found-page">
-        <div className="container" style={{ padding: '25px' }}>
-          <div className="row">
-            <div className="col-md-8">
-              <div className="circle-one">
-                <div className="circle-two">
-                  <div className="circle-three">
-                    <div className="circle-four">
-                      <div className="row">
-                        <div style={{ paddingLeft: '40px' }}>
-                          <h1 style={{
-                             fontWeight: '700',
-                             fontSize: '100px',
-                             color: '#354950',
-                             paddingTop: '150px',
-                             paddingLeft: '40px',
-                            }}
-                          >404
-                          </h1>
-                          <hr style={{ backgroundColor: '#f4f6f8', width: '550px' }} />
-                          <h1
-                            className="text-right"
-                            style={{
-                             fontWeight: '300',
-                             fontSize: '30px',
-                             marginTop: '10px',
-                             color: '#a7b0be',
-                             marginRight: '40px',
-                            }}
-                          >Page not found
-                          </h1>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+      <div style={{ height: '100vh', backgroundColor: '#f4f6f8' }}>
+        <div className="row">
+          
+{/*-----------------------------------Left----------------------------------------------*/}
+          <div className="col-sm-3" style={{ backgroundColor: '#fff' }}> {/*media query for height: '100vh' */}
+            <div className="new-nav">
+              <div className="d-flex justify-content-center">
+                <div className="title-text">
+                  <span className="dark-text">University</span> <span className="light-grey-text">Branding</span>
+                </div>
+              </div>
+              <div className="list-group list-group-flush" data-toggle="collapse" aria-expanded="false" id="margin-sidebar">
+              <a href="/"> <button type="button" className='list-group-item list-group-item-action button'>Home Page</button></a>
+              <a href="/login"> <button type="button" className='list-group-item list-group-item-action button'>Sign In</button></a>
+              </div>
+              <div className="line" style={{ marginTop: '8px' }} />
+            </div>
+          </div>
+
+{/*---------------------------------------Right------------------------------------------*/}
+
+          <div className="col-sm-9">
+            <div className="row justify-content-center">
+              <div className="col-8">
+                <div className="page-box p-4 p-sm-5" style={{ backgroundColor: '#fff', marginTop: '80px', borderRadius: '2%', boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)' }}>
+                <h1>404</h1>
+                <p>We can't seem to find the page you're looking for.</p>
+                <br />
+                <br />
+                <div className="row justify-content-center">
+                <p>If you think this might be a problem on our end, here's how to let us know</p>
+                <div className="col-6">
+                <a href="mailto:hello@alumnibaseapp.com?Subject=Hello"><button type="button" className="btn btn-light"><i class="fal fa-envelope"></i><br />Email us</button></a>
+                </div>
+                <div className="col-6">
+                <a href="http://alumnibaseapp.com/meet-me"><button type="button" className="btn btn-light"><i class="fal fa-comments"></i><br />Chat Now</button></a>
+                </div>
+                </div>
                 </div>
               </div>
             </div>
-            <div className="col-md-4 align-self-center">
-              <ul>
-                <div className="row mt-2">
-                  <button type="button" className="btn btn-secondary btn-lg btn-block">Section 1 - About You</button>
-                </div>
-                <div className="row mt-2">
-                  <button type="button" className="btn btn-secondary btn-lg btn-block">Section 2 - Uni Study</button>
-                </div>
-                <div className="row mt-2">
-                  <button type="button" className="btn btn-secondary btn-lg btn-block">Section 3 - Pre Uni</button>
-                </div>
-                <div className="row mt-2">
-                  <button type="button" className="btn btn-secondary btn-lg btn-block">Section 4 - Employment</button>
-                </div>
-                <div className="row mt-2">
-                  <button type="button" className="btn btn-secondary btn-lg btn-block">Section 5 - Retrospective</button>
-                </div>
-              </ul>
-            </div>
           </div>
+
         </div>
       </div>
     );
