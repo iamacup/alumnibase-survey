@@ -78,69 +78,13 @@ class SelectQuestionCompanySelectWithRemoteLookupComponent extends React.Compone
     return { valid, error, show };
   }
 
-  buttonPress(dataArr) {
-    const optionID = dataArr[0];
-    let optionValue = null;
-
-    this.props.options.forEach((value) => {
-      if (value.optionID === optionID) {
-        ({ optionValue } = value);
-      }
-    });
-
-    const { questionID, questionIdentifier } = this.props;
-    const validity = this.validate({ optionValue, optionID });
-
-    this.props.reduxAction_doUpdateQuestionAnswer(
-      questionID,
-      questionIdentifier,
-      optionID,
-      optionValue,
-      validity.valid,
-    );
-  }
-
   render() {
-    const options = [];
-
-    this.props.options.forEach((value) => {
-      let className = 'btn btn-block btn-option btn-multiline btn-margin';
-
-      if (dNc(value.drawData) && dNc(value.drawData.optionEmphasis)) {
-        className += ' btn-emphasis';
-      }
-
-      if (
-        dNc(this.props.answer.optionID) &&
-        this.props.answer.optionID === value.optionID &&
-        this.props.answer.valid === true
-      ) {
-        className += ' answered';
-      }
-
-      const obj = (
-        <div key={value.optionID} className="col-sm-2 col-xl mb-2 mb-sm-0">
-          <div style={{ margin: '0 4px', height: '100%' }}>
-            <button
-              style={{ height: '100%' }}
-              value={value.optionID}
-              className={className}
-            >
-              {value.optionValue}
-            </button>
-          </div>
-        </div>
-      );
-
-      options.push(obj);
-    });
-
     const max = this.props.options[this.props.options.length - 1].optionValue;
     const id = 'ex1-' + this.props.questionID.slice(10);
 
     return (
-      <div>
         <div className="row justify-content-center">
+        <div className="col-8 text-center">
           <input
             className={id}
             id={this.props.questionID}
@@ -149,13 +93,13 @@ class SelectQuestionCompanySelectWithRemoteLookupComponent extends React.Compone
             data-slider-min={this.props.options[0].optionValue}
             data-slider-max={max}
             data-slider-step="1"
-            data-slider-value={2}
+            data-slider-value={max/2}
             tooltip_position="bottom"
           />
         </div>
-        <div className="row justify-content-center">
-          <span id="ex1CurrentSliderValLabel">Value: <span id={id + 'SliderVal'} /></span>
-        </div>
+        <div className="col-2 justify-content-start">
+          <div id="ex1CurrentSliderValLabel"><span id={id + 'SliderVal'} /></div>
+      </div>
       </div>
     );
   }

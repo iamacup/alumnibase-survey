@@ -733,7 +733,11 @@ input:focus,
 }
 
 #ex1Slider .slider-selection {
-  background: #bababa;
+  background: $border-and-shadow-color;
+}
+
+#ex1Slider .slider-handle {
+  background: $accent-color;
 }
 
 .not-found-page {
