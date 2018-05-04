@@ -167,18 +167,18 @@ class Viewer extends React.Component {
     }
 
     // this is some code we can use to force test a series of steps after 0-1 is complete (i.e. a sessionID is assigned and a uni picked)
-    if (this.props.reduxState_this.step === '0-1') {
-      const stepTo = '3-2';
+    // if (this.props.reduxState_this.step === '0-1') {
+    //   const stepTo = '3-2';
 
-      this.props.reduxAction_doUpdate({
-        step: stepTo,
-        answerData: updateAnswerData,
-      });
+    //   this.props.reduxAction_doUpdate({
+    //     step: stepTo,
+    //     answerData: updateAnswerData,
+    //   });
 
-      this.props.reduxAction_doUpdateStep({ currentStep: 1, stepCount: retrospectiveSteps.length, section: 5 });
+    //   this.props.reduxAction_doUpdateStep({ currentStep: 1, stepCount: retrospectiveSteps.length, section: 5 });
 
-      return;
-    }
+    //   return;
+    // }
 
     // we always update the step assuming there was a next step passed
     // eslint-disable-next-line no-unreachable
