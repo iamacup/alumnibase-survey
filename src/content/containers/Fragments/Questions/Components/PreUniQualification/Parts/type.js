@@ -92,7 +92,6 @@ class SelectQuestionCompanySelectWithRemoteLookupComponent extends React.Compone
   }
 
   componentDidUpdate() {
-
     const { questionIdentifier, questionID, answer } = this.props;
     const validity = this.validate(this.props.answer);
 

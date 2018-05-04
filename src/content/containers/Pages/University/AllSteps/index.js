@@ -55,7 +55,7 @@ const preUniSteps = ['3-1', '3-2', '3-3', 'summary-pre'];
 
 const postUniSteps = ['4-1', '4-2', '4-3', '4-4', '4-5', '4-6', 'summary-post'];
 
-const retrospectiveSteps = ['5-1', '5-2', '5-3', '5-4', 'summary-retrospective'];
+const retrospectiveSteps = ['5-1', '5-2', '5-3', '5-4', 'summary-retrospective', 'final-page'];
 
 const notDoneStep = ['not-done'];
 
@@ -64,7 +64,7 @@ export const possibleSections = {
   2: ['2-1', 'ask-another-qualification', '2-2', 'ask-next-qualification', 'uni-question', '2-3', '2-2-again', 'ask-next-qualification-again', '2-4', '2-5', 'summary-uni'],
   3: ['3-1', '3-2', '3-3', 'summary-pre'],
   4: ['4-1', '4-2', '4-3', '4-4', '4-5', '4-6', 'summary-post'],
-  5: ['5-1', '5-2', '5-3', '5-4', 'summary-retrospective'],
+  5: ['5-1', '5-2', '5-3', '5-4', 'summary-retrospective', 'final-page'],
 };
 
 class Viewer extends React.Component {
@@ -168,7 +168,7 @@ class Viewer extends React.Component {
 
     // this is some code we can use to force test a series of steps after 0-1 is complete (i.e. a sessionID is assigned and a uni picked)
     if (this.props.reduxState_this.step === '0-1') {
-      const stepTo = '4-1';
+      const stepTo = '3-2';
 
       this.props.reduxAction_doUpdate({
         step: stepTo,
