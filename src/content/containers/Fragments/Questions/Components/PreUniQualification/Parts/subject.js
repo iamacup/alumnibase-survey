@@ -47,7 +47,6 @@ class FreeTextQuestionMultilineComponent extends React.Component {
     }
   }
 
-
   setValueFromState() {
     if (dNc(this.props.answer.optionValue)) {
       this.input.value = this.props.answer.optionValue;
@@ -106,11 +105,11 @@ class FreeTextQuestionMultilineComponent extends React.Component {
           ref={(input) => {
             this.input = input;
           }}
-          onChange={() => {
-            debounce(() => {
-            this.handleChange();
-            });
-          }}
+          onInput={
+             debounce(() => {
+                this.handleChange();
+              }, 400)
+          }
         />
       </span>
     );
