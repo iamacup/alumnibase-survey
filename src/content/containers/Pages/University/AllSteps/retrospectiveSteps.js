@@ -95,7 +95,7 @@ class Viewer extends React.PureComponent {
     } else if (currentStep === 'final-page') {
       content = (
         <div>
-        <h3>Congratulations!</h3>
+          <h3>Congratulations!</h3>
         </div>
       );
     }
