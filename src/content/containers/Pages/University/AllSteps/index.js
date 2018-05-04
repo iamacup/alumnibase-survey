@@ -296,16 +296,16 @@ class Viewer extends React.Component {
             </div>
             <Navigation />
             <div className="row mx-2 ml-4" style={{ position: 'absolute', bottom: '20px', left: '0' }}>
-            <div className="col-4">
-            <a href="/"><h6 className="medium-grey-text">Privacy</h6></a>
+              <div className="col-4">
+                <a href="/"><h6 className="medium-grey-text">Privacy</h6></a>
+              </div>
+              <div className="col-4">
+                <a href="/"><h6 className="medium-grey-text">Terms</h6></a>
+              </div>
+              <div className="col-4">
+                <a href="/"><h6 className="medium-grey-text">Cookies</h6></a>
+              </div>
             </div>
-            <div className="col-4">
-            <a href="/"><h6 className="medium-grey-text">Terms</h6></a>
-            </div>
-            <div className="col-4">
-            <a href="/"><h6 className="medium-grey-text">Cookies</h6></a>
-            </div>
-          </div>
           </div>
           <div className="right">
             <div className="navigation-toggle" id="content">

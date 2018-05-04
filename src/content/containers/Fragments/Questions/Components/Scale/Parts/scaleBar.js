@@ -83,7 +83,7 @@ class SelectQuestionCompanySelectWithRemoteLookupComponent extends React.Compone
     const id = 'ex1-' + this.props.questionID.slice(10);
 
     return (
-        <div className="row justify-content-center">
+      <div className="row justify-content-center">
         <div className="col-8 text-center">
           <input
             className={id}
@@ -93,13 +93,13 @@ class SelectQuestionCompanySelectWithRemoteLookupComponent extends React.Compone
             data-slider-min={this.props.options[0].optionValue}
             data-slider-max={max}
             data-slider-step="1"
-            data-slider-value={max/2}
+            data-slider-value={max / 2}
             tooltip_position="bottom"
           />
         </div>
         <div className="col-2 justify-content-start">
           <div id="ex1CurrentSliderValLabel"><span id={id + 'SliderVal'} /></div>
-      </div>
+        </div>
       </div>
     );
   }

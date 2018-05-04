@@ -72,7 +72,7 @@ class PreUniQualificationQuestion extends React.Component {
             </div>
           </div>
           <div className="row pb-6">
-            <div className="col-sm-4">
+            <div className="col-sm-6">
               <Subject
                 {...obj}
                 answer={subjectAnswer}

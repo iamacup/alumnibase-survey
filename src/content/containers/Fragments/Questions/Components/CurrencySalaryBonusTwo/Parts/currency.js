@@ -146,9 +146,9 @@ class Currency extends React.Component {
 
   validate(answer) {
     let error = '';
-    let show = false;
+    const show = false;
     let valid = false;
-console.log(answer)
+    console.log(answer);
     if (this.props.unpaidValidity) {
       valid = true;
     } else if (dNc(answer) && dNc(answer.optionValue)) {
@@ -166,7 +166,7 @@ console.log(answer)
   }
 
   render() {
-    console.log(this.props.unpaidValidity)
+    console.log(this.props.unpaidValidity);
     const options = [<option key="start" />];
 
     this.props.options.forEach((value) => {

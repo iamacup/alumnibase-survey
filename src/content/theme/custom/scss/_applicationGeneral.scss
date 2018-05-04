@@ -740,34 +740,6 @@ input:focus,
   background: $accent-color;
 }
 
-.not-found-page {
-  background-color: #354950;
-
-  .circle-one {
-    border-radius: 50%;
-    background-color: #354950;
-    width: 750px;
-    height: 700px;
-    border-right: dashed white;
-  }
-
-  .circle-two {
-    border-radius: 50%;
-    background-color: #a7b0be;
-    width: 700px;
-    height: 700px;
-    padding-top: 50px;
-  }
-
-  .circle-three {
-    border-radius: 50%;
-    background-color: #f4f6f8;
-    width: 600px;
-    height: 600px;
-    padding-top: 50px;
-  }
-}
-
 .hidden-container {
   display: none;
 }
@@ -775,5 +747,32 @@ input:focus,
 .errorContainer.errored {
   input {
     border-color: red;
+  }
+}
+
+.not-found-page {
+  background-color: #f4f6f8;
+  height: 100vh;
+
+  @media (min-width: 992px) {
+    .navbar-404 {
+      height: 100vh;
+    }
+  }
+
+  .page-box-404 {
+    background-color: #fff;
+    margin-top: 80px;
+    border-radius: 2%;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  }
+
+  .colour {
+    color: $accent-color;
+  }
+
+  .heading {
+    font-weight: bold;
+    font-size: 40px;
   }
 }
