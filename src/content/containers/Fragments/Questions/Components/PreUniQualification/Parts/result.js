@@ -25,62 +25,12 @@ class SelectQuestionCompanySelectWithRemoteLookupComponent extends React.Compone
       const dropdownParent = select2GetCorrectParent(this.input);
       const placeholder = 'Select a grade';
 
-      const tags = this.props.allowAdd === true;
-
       $(this.input)
         .select2({
           placeholder,
           allowClear: false,
           width: '100%',
           dropdownParent,
-          tags,
-          createTag(params) {
-            return {
-              id: params.term,
-              text: params.term,
-              newOption: true,
-            };
-          },
-          escapeMarkup(markup) {
-            return markup;
-          },
-          templateResult(data) {
-            if (data.loading) return 'loading';
-
-            let markup = '';
-
-            if (data.newOption) {
-              markup =
-                '<div class="select-new-item"><em>Let me add "' +
-                encodeEntities(data.text) +
-                '" to the list.</em></div>';
-            } else {
-              markup = data.text;
-            }
-
-            return markup;
-          },
-          sorter(data) {
-            const dataNormal = [];
-            const dataFreeText = [];
-
-            for (let a = 0; a < data.length; a++) {
-              if (data[a].newOption === true) {
-                dataFreeText.push(data[a]);
-              } else {
-                dataNormal.push(data[a]);
-              }
-            }
-
-            for (let a = 0; a < dataFreeText.length; a++) {
-              dataNormal.push(dataFreeText[a]);
-            }
-
-            return dataNormal;
-          },
-          templateSelection(data) {
-            return data.text;
-          },
         })
         .on('change', () => {
           if ($(this.input).val().length > 0) {
@@ -155,6 +105,15 @@ class SelectQuestionCompanySelectWithRemoteLookupComponent extends React.Compone
 
     if (prevProps.typeAnswer.optionValue !== this.props.typeAnswer.optionValue) {
       $(this.input).select2().val(null).trigger('change');
+
+      // we do a little hack here to make sure that the width does not change.
+      // this will break if the hierarchy of:
+      //    container (parent)
+      //       this.input
+      //       select2 span element
+      // changes at some point
+      const $s2 = $(this.input).parent().find('> span');
+      $s2.css('width', '100%');
     }
   }
 
