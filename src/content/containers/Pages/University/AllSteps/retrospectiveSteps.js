@@ -69,7 +69,7 @@ class Viewer extends React.PureComponent {
         <div>
 
           <h4>Thanks for completing section 5!</h4>
-          <h5 className="accent-text">You will see different data at the end of every section.</h5>
+          <h5 className="accent-text">.</h5>
 
           <div style={{ marginTop: '26px' }} />
 
@@ -82,17 +82,24 @@ class Viewer extends React.PureComponent {
           <div className="d-flex justify-content-center">
             <div className="question-spacer" />
             <div className="center-question" style={{ paddingBottom: '0px' }}>
-              <h5 className="dark-text" style={{ marginBottom: '22px' }}>Ready to proceed?</h5>
-              <h6 className="grey-text">You can return here at any time using the navigation on the left.</h6>
+              <h5 className="dark-text" style={{ marginBottom: '22px' }}>Congratulations!</h5>
+              <h6 className="grey-text">You have now finished the survey!</h6>
               <button className="btn btn-block btn-next-step answered btn-margin" onClick={() => { this.handleSubmit(null); }}>
-                  Next Step!
+                  Complete
               </button>
             </div>
             <div className="question-spacer" style={{ height: '1px' }} />
           </div>
         </div>
       );
+    } else if (currentStep === 'final-page') {
+      content = (
+        <div>
+        <h3>Congratulations!</h3>
+        </div>
+      );
     }
+
 
     return content;
   }
