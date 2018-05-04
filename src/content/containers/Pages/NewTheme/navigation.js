@@ -85,7 +85,7 @@ class Navigation extends React.PureComponent {
         <div style={{ marginTop: '22px' }} />
 
         <div style={{ marginLeft: '38px' }} className="medium-grey-text">
-          <a href="/login"><h6 className="medium-grey-text"><i class="fal fa-cog"></i>  Settings</h6></a>
+          <a href="/login"><h6 className="medium-grey-text"><i className="fal fa-cog" />  Settings</h6></a>
           {/*   <div style={{ marginTop: '16px' }} />
                  <span className="h6"><i className="fal fa-question-circle" style={{ fontSize: '16px' }} /> Help</span> */}
         </div>

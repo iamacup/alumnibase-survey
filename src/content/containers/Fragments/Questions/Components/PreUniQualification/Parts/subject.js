@@ -109,14 +109,14 @@ class FreeTextQuestionMultilineComponent extends React.Component {
           onChange={() => {
             debounce(() => {
             this.handleChange();
-            })
+            });
           }}
         />
       </span>
     );
   }
 }
-              
+
 
 FreeTextQuestionMultilineComponent.propTypes = {
   reduxAction_doUpdateQuestionAnswer: PropTypes.func,
