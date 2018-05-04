@@ -84,7 +84,6 @@ class SelectQuestionCompanySelectWithRemoteLookupComponent extends React.Compone
         .on('change', () => {
           if ($(this.input).val().length > 0) {
             const $data = $(this.input).select2('data');
-
             let optionID = $data[0].id;
             const optionValue = $data[0].text;
 
@@ -128,6 +127,9 @@ class SelectQuestionCompanySelectWithRemoteLookupComponent extends React.Compone
 
       this.setValueFromState();
 
+      // we do this to make sure the thing is in the state - we need it in the state because otherwise validation gets a bit funky
+      // as, if the question gets validated, then we get new items added to the list, they will automatically be validated
+      // this.putItemIntoState();
     });
   }
 
@@ -140,6 +142,7 @@ class SelectQuestionCompanySelectWithRemoteLookupComponent extends React.Compone
     const validity = this.validate(this.props.answer);
     // set stuff as an error if they need to be
 
+console.log(validity.valid === false, this.props.forceValidate === true, answer.errorMessage !== validity.error)
     if (
       validity.valid === false &&
       (validity.show === true || this.props.forceValidate === true) &&
@@ -177,6 +180,21 @@ class SelectQuestionCompanySelectWithRemoteLookupComponent extends React.Compone
       }
     }
   }
+
+  // putItemIntoState() {
+  //   const { questionID, questionIdentifier } = this.props;
+  //   const optionID = null;
+  //   const optionValue = null;
+  //   const validity = this.validate({ optionValue, optionID });
+
+  //   this.props.reduxAction_doUpdateQuestionAnswer(
+  //     questionID,
+  //     questionIdentifier,
+  //     optionID,
+  //     optionValue,
+  //     validity.valid,
+  //   );
+  // }
 
   validate(answer) {
     let error = '';

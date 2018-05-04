@@ -59,7 +59,6 @@ class PreUniQualificationQuestion extends React.Component {
         subjectAnswer = this.props.answer.answer[questionIdentifier[2] + extension];
         errorBits.push(this.props.answer.answer[questionIdentifier[2] + extension].errorMessage);
       }
-
       return (
         <div>
           <div className="row pt-2">
@@ -72,8 +71,8 @@ class PreUniQualificationQuestion extends React.Component {
               />
             </div>
           </div>
-          <div className="row pb-3">
-            <div className="col-sm-6">
+          <div className="row pb-6">
+            <div className="col-sm-4">
               <Subject
                 {...obj}
                 answer={subjectAnswer}

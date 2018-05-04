@@ -6,6 +6,10 @@ import { dNc, debounce } from '../../../../../../../content/scripts/custom/utili
 import * as questionAction from '../../../../../../../content/containers/Fragments/Questions/Components/action';
 
 class FreeTextQuestionMultilineComponent extends React.Component {
+  componentDidMount() {
+    // this.handleChange();
+  }
+
   componentDidUpdate() {
     this.setValueFromState();
 
@@ -34,23 +38,13 @@ class FreeTextQuestionMultilineComponent extends React.Component {
       validity.valid === true &&
       (!dNc(this.props.answer) || !dNc(this.props.answer.optionValue))
     ) {
-      debounce(() => {
       this.handleChange();
-    }, 400);
     } else if (drawData.minLength === 0) {
       // here we check for optional, if found then we just set the thing to valid instantly
       if (dNc(this.props.answer) && this.props.answer.valid !== true) {
-        debounce(() => {
-      this.handleChange();
-    }, 400);
+        this.handleChange();
       }
     }
-
-    const executeFunction = debounce(() => {
-      this.handleChange();
-    }, 400);
-
-    $(this.input).on('input', executeFunction);
   }
 
 
@@ -90,9 +84,9 @@ class FreeTextQuestionMultilineComponent extends React.Component {
   handleChange() {
     const optionValue = this.input.value;
     const optionID = null;
-
     const { questionID, questionIdentifier } = this.props;
     const validity = this.validate({ optionValue, optionID });
+
     this.props.reduxAction_doUpdateQuestionAnswer(
       questionID,
       questionIdentifier,
@@ -112,11 +106,17 @@ class FreeTextQuestionMultilineComponent extends React.Component {
           ref={(input) => {
             this.input = input;
           }}
+          onChange={() => {
+            debounce(() => {
+            this.handleChange();
+            })
+          }}
         />
       </span>
     );
   }
 }
+              
 
 FreeTextQuestionMultilineComponent.propTypes = {
   reduxAction_doUpdateQuestionAnswer: PropTypes.func,
