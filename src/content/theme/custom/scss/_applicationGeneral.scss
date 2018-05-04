@@ -116,7 +116,7 @@ $red-color: #d02a02;
   box-shadow: 1px 0 5px 0 $border-and-shadow-color;
   order: 0;
   z-index: 3;
-  min-height: 900px;
+  min-height: 100vh;
 
   @media (min-width: 992px) {
     display: block !important;
@@ -161,6 +161,7 @@ $red-color: #d02a02;
   z-index: 1;
   position: relative;
   background-color: $grey-background-color;
+  height: 100vh;
 }
 
 .question-spacer {

@@ -68,17 +68,16 @@ class QuestionRenderer extends React.Component {
   // do not think this would work for more than 1 of the things existing in the title!
   // todo this could be streamlined, horribly large ammount of code for two rexex replaces
   getNewTitle(title, answers) {
-    // const results = [];
     // here we see if we need to replace any of the titles in the data object that are for {} replacements (non array)
     const regex1 = /\{([a-zA-Z]+\/[0-9]+_[0-9a-zA-Z]+)\.([0-9a-zA-Z]+)\|(.*?)\}/g;
     const regex2 = /\[([a-zA-Z]+\/[0-9]+)\.([0-9a-zA-Z]+)\|(.*?)\]/g;
     let m;
-    let newTitle = null;
+    let newTitle = title;
 
     // THIS CHUNK LOOKS FOR SIMPLE REPLACEMENTS
 
     // eslint-disable-next-line no-cond-assign
-    while ((m = regex1.exec(title)) !== null) {
+    while ((m = regex1.exec(newTitle)) !== null) {
       // This is necessary to avoid infinite loops with zero-width matches
       if (m.index === regex1.lastIndex) {
         regex1.lastIndex++;
@@ -101,26 +100,24 @@ class QuestionRenderer extends React.Component {
         // we loop the keys looking for something that starts with the questionID and has the friendlyName
         if (this.props.useMutatedTitles === true) {
           const foundItems = sortedRelevantBits(questionID, friendlyName, answers);
+
           if (arrayValue === 'latest' && foundItems.length > 0) {
-            newTitle = title.replace(m[0], foundItems[foundItems.length - 1].data.optionValue);
+            newTitle = newTitle.replace(m[0], foundItems[foundItems.length - 1].data.optionValue);
           } else if (arrayValue === 'first' && foundItems.length > 0) {
-            newTitle = title.replace(m[0], foundItems[0].data.optionValue);
+            newTitle = newTitle.replace(m[0], foundItems[0].data.optionValue);
           } else {
-            newTitle = title.replace(m[0], alternative);
+            newTitle = newTitle.replace(m[0], alternative);
           }
         } else {
-          newTitle = title.replace(m[0], alternative);
+          newTitle = newTitle.replace(m[0], alternative);
         }
       }
-      // console.log(newTitle) // inside the while loop logs both titles with company and uni
     }
-    // console.log(newTitle)  // outside only logs the title being passed to the question, newTitle is being replaced with the uni name?
-
 
     // THIS CHUNK LOOKS FOR ARRAY REPLACEMENTS
 
     // eslint-disable-next-line no-cond-assign
-    while ((m = regex2.exec(title)) !== null) {
+    while ((m = regex2.exec(newTitle)) !== null) {
       // This is necessary to avoid infinite loops with zero-width matches
       if (m.index === regex2.lastIndex) {
         regex2.lastIndex++;
@@ -146,13 +143,10 @@ class QuestionRenderer extends React.Component {
         compiledTitle = compiledTitle.substring(0, compiledTitle.length - seperator.length);
 
         // do the replace
-        newTitle = title.replace(m[0], compiledTitle);
+        newTitle = newTitle.replace(m[0], compiledTitle);
       }
     }
 
-    if (newTitle === null) {
-      return title;
-    }
     return newTitle;
   }
 
