@@ -284,7 +284,6 @@ class Viewer extends React.Component {
           <div className="left">
             <div className="navigation-toggle" id="content">
               <div className="row align-items-center" id="mobile-navbar">
-
                 <div className="col-2">
                   <button type="button" id="navigation-toggle" className="btn btn-light" ref={(buttonDOM) => { this.buttonDOM2 = buttonDOM; }} style={{ borderColor: '#fff' }}><i className="fal fa-bars" style={{ fontSize: '25px' }} /></button>
                 </div>
@@ -293,11 +292,20 @@ class Viewer extends React.Component {
                     <span className="dark-text">University</span> <span className="light-grey-text">Branding</span>
                   </div>
                 </div>
-
-
               </div>
             </div>
             <Navigation />
+            <div className="row mx-2 ml-4" style={{ position: 'absolute', bottom: '20px', left: '0' }}>
+            <div className="col-4">
+            <a href="/"><h6 className="medium-grey-text">Privacy</h6></a>
+            </div>
+            <div className="col-4">
+            <a href="/"><h6 className="medium-grey-text">Terms</h6></a>
+            </div>
+            <div className="col-4">
+            <a href="/"><h6 className="medium-grey-text">Cookies</h6></a>
+            </div>
+          </div>
           </div>
           <div className="right">
             <div className="navigation-toggle" id="content">
