@@ -1,4 +1,3 @@
-
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -88,10 +87,15 @@ class SelectQuestionCompanySelectWithRemoteLookupComponent extends React.Compone
 
       // try to open when tabbed to
       select2EnableOpenOnFocus(this.input);
+
+      this.setValueFromState();
+
     });
   }
 
   componentDidUpdate() {
+    this.setValueFromState();
+
     const { questionIdentifier, questionID, answer } = this.props;
     const validity = this.validate(this.props.answer);
 
@@ -106,6 +110,28 @@ class SelectQuestionCompanySelectWithRemoteLookupComponent extends React.Compone
         validity.error,
         questionIdentifier,
       );
+    }
+  }
+
+  setValueFromState() {
+    if (dNc(this.props.answer.optionValue)) {
+      const $data = $(this.input).select2('data');
+
+      if (dNc($data) && $data.length > 0) {
+        const { optionValue, optionID } = this.props.answer;
+
+        // check to see if something is already selected
+        if ($data.length === 1) {
+        // something is selected - is it the same as the answer value?
+          if ($data[0].text !== optionValue) {
+          // need to update the option because the selected one right now is not the same as the state
+            setSelect2Value(this.input, optionValue, optionID);
+          }
+        } else {
+        // there is currently no selected option so we need to set one
+          setSelect2Value(this.input, optionValue, optionID);
+        }
+      }
     }
   }
 
@@ -157,9 +183,7 @@ class SelectQuestionCompanySelectWithRemoteLookupComponent extends React.Compone
     const show = false;
     let valid = false;
 
-
     if (dNc(answer) && dNc(answer.optionValue)) {
-      // if (answer.optionValue)
       // test to see if the optionID is in fact an option ID
       if (pattern.test(answer.optionID) === true || answer.optionID === null) {
         valid = true;

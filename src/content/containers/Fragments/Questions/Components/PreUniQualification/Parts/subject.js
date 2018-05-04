@@ -35,14 +35,14 @@ class FreeTextQuestionMultilineComponent extends React.Component {
       (!dNc(this.props.answer) || !dNc(this.props.answer.optionValue))
     ) {
       debounce(() => {
-        this.handleChange();
-      }, 400);
+      this.handleChange();
+    }, 400);
     } else if (drawData.minLength === 0) {
       // here we check for optional, if found then we just set the thing to valid instantly
       if (dNc(this.props.answer) && this.props.answer.valid !== true) {
         debounce(() => {
-          this.handleChange();
-        }, 400);
+      this.handleChange();
+    }, 400);
       }
     }
 
@@ -112,9 +112,6 @@ class FreeTextQuestionMultilineComponent extends React.Component {
           ref={(input) => {
             this.input = input;
           }}
-          // onChange={() => {
-          //   this.handleChange();
-          // }}
         />
       </span>
     );
