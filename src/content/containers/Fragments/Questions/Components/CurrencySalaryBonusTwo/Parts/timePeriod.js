@@ -231,23 +231,9 @@ class TimePeriod extends React.Component {
       );
     });
 
-    let displaySelect = true;
-    let answerObj = null;
-
-    if (dNc(this.props.answerDisplay) && this.props.answerDisplay.type === 'percentages') {
-      displaySelect = false;
-
-      answerObj = (
-        <AnswerData
-          answered
-          percentage={this.props.answerDisplay.value}
-          displayText={this.props.answer.optionValue}
-        />
-      );
-    }
 
     const selectObj = (
-      <div className={displaySelect === true ? '' : 'd-none'}>
+      <div>
         <select
           ref={(input) => {
                   this.input = input;
@@ -260,7 +246,6 @@ class TimePeriod extends React.Component {
 
     return (
       <div>
-        {answerObj}
         {selectObj}
       </div>
     );

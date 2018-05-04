@@ -173,42 +173,11 @@ class Unpaid extends React.Component {
 
     const value = this.props.options[0];
 
-    let className = 'btn btn-block btn-option btn-multiline btn-margin';
-    const answered = false;
-
-    if (dNc(value.drawData) && dNc(value.drawData.optionEmphasis)) {
-      className += ' btn-emphasis';
-    }
-
-    let answerObj = null;
-
-    if (dNc(this.props.answerDisplay) && this.props.answerDisplay.type === 'percentages') {
-      const { answerDisplay } = this.props;
-      let data = null;
-
-      answerDisplay.data.forEach((datum) => {
-        if (datum.optionID === value.optionID) {
-          data = datum;
-        }
-      });
-
-      answerObj = (
-        <AnswerData
-          answered={answered}
-          percentage={data.value}
-          displayText={value.optionValue}
-        />
-      );
-
-      className += ' d-none';
-    }
-
     const obj = (
       <div key={value.optionID}>
-        {answerObj}
         <button
           value={value.optionID}
-          className={className}
+          className="btn btn-block btn-option btn-multiline btn-margin"
         >
             I'm Unpaid
         </button>

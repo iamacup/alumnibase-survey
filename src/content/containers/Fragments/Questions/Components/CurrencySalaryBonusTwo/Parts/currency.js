@@ -85,14 +85,12 @@ class Currency extends React.Component {
   }
 
   componentDidUpdate() {
-    // TODO read wall
     // this.setValueFromState();
     const {
       questionIdentifier, questionID, answer,
     } = this.props;
     const validity = this.validate(this.props.answer);
-    // set stuff as an error if they need to be
-    // console.log(validity, answer)
+
     if (
       validity.valid === false &&
       (validity.show === true || this.props.forceValidate === true) &&
@@ -148,9 +146,9 @@ class Currency extends React.Component {
 
   validate(answer) {
     let error = '';
-    const show = false;
+    let show = false;
     let valid = false;
-
+console.log(answer)
     if (this.props.unpaidValidity) {
       valid = true;
     } else if (dNc(answer) && dNc(answer.optionValue)) {
@@ -168,6 +166,7 @@ class Currency extends React.Component {
   }
 
   render() {
+    console.log(this.props.unpaidValidity)
     const options = [<option key="start" />];
 
     this.props.options.forEach((value) => {
@@ -178,23 +177,8 @@ class Currency extends React.Component {
       );
     });
 
-    let displaySelect = true;
-    let answerObj = null;
-
-    if (dNc(this.props.answerDisplay) && this.props.answerDisplay.type === 'percentages') {
-      displaySelect = false;
-
-      answerObj = (
-        <AnswerData
-          answered
-          percentage={this.props.answerDisplay.value}
-          displayText={this.props.answer.optionValue}
-        />
-      );
-    }
-
     const selectObj = (
-      <div className={displaySelect === true ? '' : 'd-none'}>
+      <div>
         <select
           ref={(input) => {
                   this.input = input;
@@ -207,7 +191,6 @@ class Currency extends React.Component {
 
     return (
       <div>
-        {answerObj}
         {selectObj}
       </div>
     );
