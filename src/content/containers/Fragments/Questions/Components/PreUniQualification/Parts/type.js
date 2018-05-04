@@ -25,62 +25,12 @@ class SelectQuestionCompanySelectWithRemoteLookupComponent extends React.Compone
       const dropdownParent = select2GetCorrectParent(this.input);
       const placeholder = 'Please select a qualification';
 
-      const tags = this.props.allowAdd === true;
-
       $(this.input)
         .select2({
           placeholder,
           allowClear: false,
           width: '100%',
           dropdownParent,
-          tags,
-          createTag(params) {
-            return {
-              id: params.term,
-              text: params.term,
-              newOption: true,
-            };
-          },
-          escapeMarkup(markup) {
-            return markup;
-          },
-          templateResult(data) {
-            if (data.loading) return 'loading';
-
-            let markup = '';
-
-            if (data.newOption) {
-              markup =
-                '<div class="select-new-item"><em>Let me add "' +
-                encodeEntities(data.text) +
-                '" to the list.</em></div>';
-            } else {
-              markup = data.text;
-            }
-
-            return markup;
-          },
-          sorter(data) {
-            const dataNormal = [];
-            const dataFreeText = [];
-
-            for (let a = 0; a < data.length; a++) {
-              if (data[a].newOption === true) {
-                dataFreeText.push(data[a]);
-              } else {
-                dataNormal.push(data[a]);
-              }
-            }
-
-            for (let a = 0; a < dataFreeText.length; a++) {
-              dataNormal.push(dataFreeText[a]);
-            }
-
-            return dataNormal;
-          },
-          templateSelection(data) {
-            return data.text;
-          },
         })
         .on('change', () => {
           this.updateAnswer();
@@ -183,23 +133,8 @@ class SelectQuestionCompanySelectWithRemoteLookupComponent extends React.Compone
       );
     });
 
-    let displaySelect = true;
-    let answerObj = null;
-
-    if (dNc(this.props.answerDisplay) && this.props.answerDisplay.type === 'percentages') {
-      displaySelect = false;
-
-      answerObj = (
-        <AnswerData
-          answered
-          percentage={this.props.answerDisplay.value}
-          displayText={this.props.answer.optionValue}
-        />
-      );
-    }
-
     const selectObj = (
-      <div className={displaySelect === true ? '' : 'd-none'}>
+      <div>
         <select
           ref={(input) => {
                   this.input = input;
@@ -212,7 +147,6 @@ class SelectQuestionCompanySelectWithRemoteLookupComponent extends React.Compone
 
     return (
       <div>
-        {answerObj}
         {selectObj}
       </div>
     );
