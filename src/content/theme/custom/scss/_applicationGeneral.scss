@@ -161,7 +161,7 @@ $red-color: #d02a02;
   z-index: 1;
   position: relative;
   background-color: $grey-background-color;
-  height: 100vh;
+  min-height: 100vh;
 }
 
 .question-spacer {
