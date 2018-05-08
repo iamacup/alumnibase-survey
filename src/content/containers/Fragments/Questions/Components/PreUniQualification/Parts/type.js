@@ -2,14 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import AnswerData from '../../../../../../../content/components/Answers/answerData';
-
 import {
   dNc,
   select2GetCorrectParent,
   select2EnableOpenOnFocus,
   setSelect2Value,
-  encodeEntities,
 } from '../../../../../../../content/scripts/custom/utilities';
 
 import * as questionAction from '../../../../../../../content/containers/Fragments/Questions/Components/action';
@@ -205,15 +202,12 @@ SelectQuestionCompanySelectWithRemoteLookupComponent.propTypes = {
   questionIdentifier: PropTypes.string.isRequired,
   // options: PropTypes.array.isRequired,
   drawData: PropTypes.object.isRequired,
-  allowAdd: PropTypes.bool.isRequired,
-  answerDisplay: PropTypes.any,
 };
 
 SelectQuestionCompanySelectWithRemoteLookupComponent.defaultProps = {
   reduxAction_doUpdateQuestionAnswer: () => {},
   reduxAction_doSetQuestionError: () => {},
   // nextStepCallback: () => { },
-  answerDisplay: null,
 };
 
 const mapStateToProps = null;

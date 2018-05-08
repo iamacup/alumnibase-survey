@@ -3,9 +3,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import ButtonGroup from '../../../../../../../content/components/ButtonGroup';
-import AnswerData from '../../../../../../../content/components/Answers/answerData';
-
-import { dNc } from '../../../../../../../content/scripts/custom/utilities';
 
 import * as questionAction from '../../../../../../../content/containers/Fragments/Questions/Components/action';
 
@@ -110,7 +107,7 @@ class Unpaid extends React.Component {
     //   });
     // }
 
-    const names = this.props.names;
+    const { names } = this.props;
     // setting salary and bonus to -1
     names.forEach((name) => {
       const optionID = null;
@@ -131,7 +128,7 @@ class Unpaid extends React.Component {
       let optionValue = null;
       const validity = this.validate(['empty']);
 
-      this.props.options.forEach((value) => {
+      options.forEach((value) => {
         if (value.optionID === optionID) {
           ({ optionValue } = value);
         }
@@ -147,9 +144,9 @@ class Unpaid extends React.Component {
       );
     }
 
-    if (!dataArr.includes(this.props.options[0].optionID)) {
-      const { optionID } = this.props.options[1];
-      const { optionValue } = this.props.options[1];
+    if (!dataArr.includes(options[0].optionID)) {
+      const { optionID } = options[1];
+      const { optionValue } = options[1];
       const validity = this.validate(['empty']);
       // setting unpaid to 'No'
       this.props.reduxAction_doUpdateQuestionAnswer(
@@ -209,14 +206,12 @@ Unpaid.propTypes = {
   questionIdentifier: PropTypes.string.isRequired,
   options: PropTypes.array.isRequired,
   names: PropTypes.array.isRequired,
-  answerDisplay: PropTypes.any,
 };
 
 Unpaid.defaultProps = {
   reduxAction_doUpdateQuestionAnswer: () => {},
   reduxAction_doSetQuestionError: () => {},
   reduxAction_doRemoveQuestionIdentifier: () => {},
-  answerDisplay: null,
 };
 
 const mapStateToProps = null;

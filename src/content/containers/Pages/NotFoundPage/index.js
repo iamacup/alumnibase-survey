@@ -1,7 +1,7 @@
 import React from 'react';
-import Navigation from '../../../../content/containers/Pages/NewTheme/navigation';
+// import Navigation from '../../../../content/containers/Pages/NewTheme/navigation';
 
-class NotFoundPage extends React.Component {
+class NotFoundPage extends React.PureComponent {
   render() {
     return (
       <div className="not-found-page">

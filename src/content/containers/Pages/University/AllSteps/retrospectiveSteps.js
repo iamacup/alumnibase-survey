@@ -28,7 +28,7 @@ class Viewer extends React.PureComponent {
         <div className="large-question-area">
           <h3>{uniName}</h3>
           <div>
-            <div style={{ marginTop: '36px' }} />
+            <div style={{ marginTop: '36px'}} />
             {wizzard}
           </div>
         </div>
@@ -96,6 +96,7 @@ class Viewer extends React.PureComponent {
       content = (
         <div>
           <h3>Congratulations!</h3>
+          <h3>You have completed the survey!</h3>
           <img src={require('../../../../../content/theme/custom/images/turtle.jpg')} alt="Alumni Base" height="500" />
         </div>
       );

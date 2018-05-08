@@ -9,7 +9,6 @@ import {
   select2GetCorrectParent,
   select2EnableOpenOnFocus,
   setSelect2Value,
-  encodeEntities,
 } from '../../../../../../../content/scripts/custom/utilities';
 
 import * as questionAction from '../../../../../../../content/containers/Fragments/Questions/Components/action';
@@ -92,7 +91,6 @@ class SelectQuestionCompanySelectWithRemoteLookupComponent extends React.Compone
     const validity = this.validate(this.props.answer);
     // set stuff as an error if they need to be
 
-    console.log(validity.valid === false, this.props.forceValidate === true, answer.errorMessage !== validity.error);
     if (
       validity.valid === false &&
       (validity.show === true || this.props.forceValidate === true) &&
@@ -245,9 +243,7 @@ SelectQuestionCompanySelectWithRemoteLookupComponent.propTypes = {
   forceValidate: PropTypes.bool.isRequired,
   answer: PropTypes.object.isRequired,
   questionIdentifier: PropTypes.string.isRequired,
-  // options: PropTypes.array.isRequired,
   drawData: PropTypes.object.isRequired,
-  allowAdd: PropTypes.bool.isRequired,
   answerDisplay: PropTypes.any,
 };
 

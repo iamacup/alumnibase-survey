@@ -22,7 +22,7 @@ class Viewer extends React.PureComponent {
     );
 
     const uniName = this.props.answerData.data['questions/42953580507_0'].universityName.optionValue;
-    console.log(this.props);
+
     if (currentStep === '3-1') {
       content = (
         <div>

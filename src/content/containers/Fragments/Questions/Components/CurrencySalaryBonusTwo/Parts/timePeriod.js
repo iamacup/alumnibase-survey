@@ -3,8 +3,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import AnswerData from '../../../../../../../content/components/Answers/answerData';
-
 import {
   dNc,
   select2GetCorrectParent,
@@ -262,14 +260,12 @@ TimePeriod.propTypes = {
   options: PropTypes.array.isRequired,
   // drawData: PropTypes.object.isRequired,
   allowAdd: PropTypes.bool.isRequired,
-  unpaidValidity: PropTypes.bool.isRequired,
-  answerDisplay: PropTypes.any,
+  // unpaidValidity: PropTypes.bool.isRequired,
 };
 
 TimePeriod.defaultProps = {
   reduxAction_doUpdateQuestionAnswer: () => {},
   reduxAction_doSetQuestionError: () => {},
-  answerDisplay: null,
 };
 
 const mapStateToProps = null;

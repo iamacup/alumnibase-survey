@@ -3,8 +3,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import AnswerData from '../../../../../../../content/components/Answers/answerData';
-
 import {
   dNc,
   select2GetCorrectParent,
@@ -148,7 +146,7 @@ class Currency extends React.Component {
     let error = '';
     const show = false;
     let valid = false;
-    console.log(answer);
+
     if (this.props.unpaidValidity) {
       valid = true;
     } else if (dNc(answer) && dNc(answer.optionValue)) {
@@ -166,7 +164,6 @@ class Currency extends React.Component {
   }
 
   render() {
-    console.log(this.props.unpaidValidity);
     const options = [<option key="start" />];
 
     this.props.options.forEach((value) => {
@@ -206,13 +203,11 @@ Currency.propTypes = {
   questionIdentifier: PropTypes.string.isRequired,
   options: PropTypes.array.isRequired,
   unpaidValidity: PropTypes.bool.isRequired,
-  answerDisplay: PropTypes.any,
 };
 
 Currency.defaultProps = {
   reduxAction_doUpdateQuestionAnswer: () => {},
   reduxAction_doSetQuestionError: () => {},
-  answerDisplay: null,
 };
 
 const mapStateToProps = null;

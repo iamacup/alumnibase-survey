@@ -21,9 +21,9 @@ class Navigation extends React.PureComponent {
     }
 
     const handleClick = (sectionNum) => {
-      const realSection = this.props.reduxState_steps.realSection;
-      const realStep = this.props.reduxState_steps.realStep;
-      const stepName = this.props.reduxState_steps.stepName;
+      const {realSection} = this.props.reduxState_steps;
+      const {realStep} = this.props.reduxState_steps;
+      const {stepName} = this.props.reduxState_steps;
 
       const summary = possibleSections[realSection][possibleSections[realSection].length - 1];
 
@@ -94,7 +94,7 @@ class Navigation extends React.PureComponent {
 
 Navigation.propTypes = {
   reduxState_steps: PropTypes.object,
-  reduxState_this: PropTypes.object,
+  // reduxState_this: PropTypes.object,
   reduxAction_doUpdate: PropTypes.func,
   reduxAction_doUpdateStep: PropTypes.func,
 };
@@ -105,16 +105,16 @@ Navigation.defaultProps = {
     stepCount: 7,
     section: 1,
   },
-  reduxState_this: {
-    step: '0-1',
-  },
+  // reduxState_this: {
+  //   step: '0-1',
+  // },
   reduxAction_doUpdate: () => {},
   reduxAction_doUpdateStep: () => {},
 };
 
 const mapStateToProps = state => ({
   reduxState_steps: state.dataStoreSingle[dataStoreIDSteps],
-  reduxState_this: state.dataStoreSingle[dataStoreID],
+  // reduxState_this: state.dataStoreSingle[dataStoreID],
 });
 
 const mapDispatchToProps = dispatch => ({
