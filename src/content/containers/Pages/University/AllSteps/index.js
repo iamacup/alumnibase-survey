@@ -305,7 +305,7 @@ class Viewer extends React.Component {
               <div className="col-4">
                 <a href="/"><h6 className="medium-grey-text">Cookies</h6></a>
               </div>
-            </div>
+            </div> 
           </div>
           <div className="right">
             <div className="navigation-toggle" id="content">
