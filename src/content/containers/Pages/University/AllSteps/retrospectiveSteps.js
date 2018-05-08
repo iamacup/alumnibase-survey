@@ -70,7 +70,6 @@ class Viewer extends React.PureComponent {
 
           <h4>Thanks for completing section 5!</h4>
           <h5 className="accent-text">Here's what your university alumni are up to!</h5>
-          <h5 className="accent-text">.</h5>
 
           <div style={{ marginTop: '26px' }} />
 

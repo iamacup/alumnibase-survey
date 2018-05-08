@@ -96,11 +96,11 @@ class QuestionButton extends React.PureComponent {
 
           <div className="question-spacer">
             <div className="d-flex align-items-stretch" style={{ height: '100%' }} id="question-answer-line-button-mobile">
-              <div className="question-answer-line-button" />
+              <div className="question-answer-line-button"/>
             </div>
           </div>
 
-          <div className="center-question" style={{ paddingBottom: '0px' }}>
+          <div className="center-question" style={{ paddingBottom: '0px'}}>
             <button
               onClick={this.props.buttonAction}
               type="submit"
@@ -113,7 +113,7 @@ class QuestionButton extends React.PureComponent {
 
           <div className="question-spacer" style={{ height: '1px' }} />
 
-        </div>
+          </div>
       </div>
     );
   }
