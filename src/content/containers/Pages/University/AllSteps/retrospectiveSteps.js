@@ -96,6 +96,7 @@ class Viewer extends React.PureComponent {
       content = (
         <div>
           <h3>Congratulations!</h3>
+          <img src={require('../../../../../content/theme/custom/images/turtle.jpg')} alt="Alumni Base" height="500" />
         </div>
       );
     }
