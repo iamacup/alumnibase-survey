@@ -69,6 +69,7 @@ class Viewer extends React.PureComponent {
         <div>
 
           <h4>Thanks for completing section 5!</h4>
+          <h5 className="accent-text">Here's what your university alumni are up to!</h5>
           <h5 className="accent-text">.</h5>
 
           <div style={{ marginTop: '26px' }} />
@@ -84,6 +85,7 @@ class Viewer extends React.PureComponent {
             <div className="center-question" style={{ paddingBottom: '0px' }}>
               <h5 className="dark-text" style={{ marginBottom: '22px' }}>Congratulations!</h5>
               <h6 className="grey-text">You have now finished the survey!</h6>
+              <h6 className="grey-text">Click complete to submit your data</h6>
               <button className="btn btn-block btn-next-step answered btn-margin" onClick={() => { this.handleSubmit(null); }}>
                   Complete
               </button>

@@ -96,7 +96,7 @@ class Viewer extends React.PureComponent {
         <div>
 
           <h4>Thanks for completing section 4!</h4>
-          <h5 className="accent-text">You will see different data at the end of every section.</h5>
+          <h5 className="accent-text">Here's what your university alumni are up to!</h5>
 
           <div style={{ marginTop: '26px' }} />
 
