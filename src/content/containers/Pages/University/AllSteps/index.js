@@ -149,7 +149,16 @@ class Viewer extends React.Component {
       );
     } else if (notDoneStep.includes(step)) {
       content = (
-        <h1>This needs to be something about the step not being done</h1>
+        <div>
+          <div className="container">
+          <div className="row justify-content-center">
+          <div className="col-10 m-3">
+          <h3>Ooops!</h3>
+          <h4>You will need to finish the previous sections to view this page.</h4>
+        </div>
+        </div>
+        </div>
+        </div>
       );
     } else {
       content = <h1>Undone</h1>;
