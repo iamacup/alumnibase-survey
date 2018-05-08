@@ -129,6 +129,7 @@ class graduateDestinationButtons extends React.Component {
 
     this.props.options2.forEach((element) => {
       if (element.optionID === optionID) {
+        // eslint-disable-next-line prefer-destructuring
         optionValue = element.optionValue;
       }
     });

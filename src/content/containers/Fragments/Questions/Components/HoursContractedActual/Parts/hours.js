@@ -88,8 +88,8 @@ class Hours extends React.Component {
         error = 'You must have worked a positive amount of hours';
         show = true;
       } else if (answer.optionValue > 48) {
-      error = 'You must have worked the legal amount of hours in a week';
-      show = true;
+        error = 'You must have worked the legal amount of hours in a week';
+        show = true;
       } else {
         valid = true;
       }

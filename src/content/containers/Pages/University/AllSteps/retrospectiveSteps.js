@@ -28,7 +28,7 @@ class Viewer extends React.PureComponent {
         <div className="large-question-area">
           <h3>{uniName}</h3>
           <div>
-            <div style={{ marginTop: '36px'}} />
+            <div style={{ marginTop: '36px' }} />
             {wizzard}
           </div>
         </div>

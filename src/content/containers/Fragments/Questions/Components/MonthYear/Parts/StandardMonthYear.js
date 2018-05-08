@@ -143,7 +143,6 @@ class SelectQuestionCompanySelectWithRemoteLookupComponent extends React.Compone
   }
 
   getCombinedValue() {
-
     if (dNc(this.input.inputmask)) {
       let yearValue = this.input.inputmask.unmaskedvalue();
       let monthValue = $(this.select).val();

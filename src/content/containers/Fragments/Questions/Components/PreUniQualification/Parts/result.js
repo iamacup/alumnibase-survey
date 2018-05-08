@@ -90,7 +90,6 @@ class SelectQuestionCompanySelectWithRemoteLookupComponent extends React.Compone
     } = this.props;
     const validity = this.validate(this.props.answer);
     // set stuff as an error if they need to be
-// console.log(validity.valid === false, validity.show, answer.errorMessage !== validity.error)
     if (
       validity.valid === false &&
       (validity.show === true) &&
@@ -155,7 +154,7 @@ class SelectQuestionCompanySelectWithRemoteLookupComponent extends React.Compone
 
   validate(answer) {
     let error = '';
-    let show = false;
+    const show = false;
     let valid = false;
 
     if (dNc(answer) && dNc(answer.optionValue)) {

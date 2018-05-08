@@ -203,7 +203,7 @@ SelectQuestionCompanySelectWithRemoteLookupComponent.propTypes = {
   reduxAction_doRemoveQuestionIdentifier: PropTypes.func,
   // nextStepCallback: PropTypes.func,
   questionID: PropTypes.string.isRequired,
-  forceValidate: PropTypes.bool.isRequired,
+  // forceValidate: PropTypes.bool.isRequired,
   answer: PropTypes.object.isRequired,
   questionIdentifier: PropTypes.string.isRequired,
   options: PropTypes.array.isRequired,

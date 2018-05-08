@@ -21,9 +21,9 @@ class Navigation extends React.PureComponent {
     }
 
     const handleClick = (sectionNum) => {
-      const {realSection} = this.props.reduxState_steps;
-      const {realStep} = this.props.reduxState_steps;
-      const {stepName} = this.props.reduxState_steps;
+      const { realSection } = this.props.reduxState_steps;
+      const { realStep } = this.props.reduxState_steps;
+      const { stepName } = this.props.reduxState_steps;
 
       const summary = possibleSections[realSection][possibleSections[realSection].length - 1];
 

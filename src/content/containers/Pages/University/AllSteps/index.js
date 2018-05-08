@@ -151,13 +151,13 @@ class Viewer extends React.Component {
       content = (
         <div>
           <div className="container">
-          <div className="row justify-content-center">
-          <div className="col-10 m-3">
-          <h3>Ooops!</h3>
-          <h4>You will need to finish the previous sections to view this page.</h4>
-        </div>
-        </div>
-        </div>
+            <div className="row justify-content-center">
+              <div className="col-10 m-3">
+                <h3>Ooops!</h3>
+                <h4>You will need to finish the previous sections to view this page.</h4>
+              </div>
+            </div>
+          </div>
         </div>
       );
     } else {
@@ -177,7 +177,7 @@ class Viewer extends React.Component {
 
     // this is some code we can use to force test a series of steps after 0-1 is complete (i.e. a sessionID is assigned and a uni picked)
     // if (this.props.reduxState_this.step === '0-1') {
-    //   const stepTo = '3-2';
+    //   const stepTo = '2-5';
 
     //   this.props.reduxAction_doUpdate({
     //     step: stepTo,
@@ -314,7 +314,7 @@ class Viewer extends React.Component {
               <div className="col-4">
                 <a href="/"><h6 className="medium-grey-text">Cookies</h6></a>
               </div>
-            </div> 
+            </div>
           </div>
           <div className="right">
             <div className="navigation-toggle" id="content">
