@@ -25,7 +25,7 @@ class SelectQuestionCompanySelectWithRemoteLookupComponent extends React.Compone
     // set stuff as an error if they need to be
     if (
       validity.valid === false &&
-      (validity.show === true || this.props.forceValidate === true) &&
+      (validity.show === true) &&
       answer.errorMessage !== validity.error
     ) {
       this.props.reduxAction_doSetQuestionError(

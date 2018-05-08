@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { dNc, debounce } from '../../../../../../../content/scripts/custom/utilities';
 import * as questionAction from '../../../../../../../content/containers/Fragments/Questions/Components/action';
 
-class FreeTextQuestionMultilineComponent extends React.Component {
+class Subject extends React.Component {
   componentDidMount() {
     // this.handleChange();
   }
@@ -19,7 +19,7 @@ class FreeTextQuestionMultilineComponent extends React.Component {
     // set stuff as an error if they need to be
     if (
       validity.valid === false &&
-      (validity.show === true || this.props.forceValidate === true) &&
+      (validity.show === true) &&
       answer.errorMessage !== validity.error
     ) {
       this.props.reduxAction_doSetQuestionError(
@@ -110,6 +110,7 @@ class FreeTextQuestionMultilineComponent extends React.Component {
                 this.handleChange();
               }, 400)
           }
+          maxLength="30"
         />
       </span>
     );
@@ -117,7 +118,7 @@ class FreeTextQuestionMultilineComponent extends React.Component {
 }
 
 
-FreeTextQuestionMultilineComponent.propTypes = {
+Subject.propTypes = {
   reduxAction_doUpdateQuestionAnswer: PropTypes.func,
   reduxAction_doSetQuestionError: PropTypes.func,
   nextStepCallback: PropTypes.func,
@@ -129,7 +130,7 @@ FreeTextQuestionMultilineComponent.propTypes = {
   drawData: PropTypes.object.isRequired,
 };
 
-FreeTextQuestionMultilineComponent.defaultProps = {
+Subject.defaultProps = {
   reduxAction_doUpdateQuestionAnswer: () => {},
   reduxAction_doSetQuestionError: () => {},
   nextStepCallback: () => { },
@@ -159,5 +160,5 @@ const mapDispatchToProps = dispatch => ({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(
-  FreeTextQuestionMultilineComponent,
+  Subject,
 );

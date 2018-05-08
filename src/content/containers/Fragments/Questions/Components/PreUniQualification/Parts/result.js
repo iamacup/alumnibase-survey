@@ -90,10 +90,10 @@ class SelectQuestionCompanySelectWithRemoteLookupComponent extends React.Compone
     } = this.props;
     const validity = this.validate(this.props.answer);
     // set stuff as an error if they need to be
-
+// console.log(validity.valid === false, validity.show, answer.errorMessage !== validity.error)
     if (
       validity.valid === false &&
-      (validity.show === true || this.props.forceValidate === true) &&
+      (validity.show === true) &&
       answer.errorMessage !== validity.error
     ) {
       this.props.reduxAction_doSetQuestionError(
@@ -155,7 +155,7 @@ class SelectQuestionCompanySelectWithRemoteLookupComponent extends React.Compone
 
   validate(answer) {
     let error = '';
-    const show = false;
+    let show = false;
     let valid = false;
 
     if (dNc(answer) && dNc(answer.optionValue)) {
@@ -173,6 +173,7 @@ class SelectQuestionCompanySelectWithRemoteLookupComponent extends React.Compone
   }
 
   render() {
+    // <option value="" hidden key={0}>Select a Grade</option>
     const options = [<option value="" hidden key={0}>Select a Grade</option>];
     let data = [];
 
@@ -240,7 +241,7 @@ SelectQuestionCompanySelectWithRemoteLookupComponent.propTypes = {
   reduxAction_doSetQuestionError: PropTypes.func,
   typeAnswer: PropTypes.any.isRequired,
   questionID: PropTypes.string.isRequired,
-  forceValidate: PropTypes.bool.isRequired,
+  // forceValidate: PropTypes.bool.isRequired,
   answer: PropTypes.object.isRequired,
   questionIdentifier: PropTypes.string.isRequired,
   drawData: PropTypes.object.isRequired,
