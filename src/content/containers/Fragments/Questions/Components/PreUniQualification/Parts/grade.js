@@ -6,7 +6,7 @@ class Grade extends React.Component {
       <div>
         Grade
       </div>
-      )
+    );
   }
 }
 

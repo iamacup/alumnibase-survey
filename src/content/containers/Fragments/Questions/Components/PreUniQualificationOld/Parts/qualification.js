@@ -2,16 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import {
-  dNc,
-  select2GetCorrectParent,
-  select2EnableOpenOnFocus,
-  setSelect2Value,
-  encodeEntities,
-} from '../../../../../../../content/scripts/custom/utilities';
-
-import * as questionAction from '../../../../../../../content/containers/Fragments/Questions/Components/action';
-
 class Qualification extends React.Component {
   componentDidMount() {
     // wait for component to load
@@ -69,9 +59,9 @@ Qualifications.defaultProps = {
         optionValue,
         valid,
       ),
-    ),
+    )
       reduxAction_doSetQuestionError: (questionID, message, name) => 
       dispatch(questionAction.doSetQuestionError(questionID, message, name)),
-  });
+  })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Qualification);

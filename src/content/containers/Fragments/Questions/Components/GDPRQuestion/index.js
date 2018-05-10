@@ -34,15 +34,15 @@ const GDPRQuestionComponent = ({
   };
 
   const question = (
-    <div className='row justify-content-center'>
-    <div className='col-12'>
-      <GDPRButton
-        {...obj}
-        answer={answerBits}
-        options={options}
-        questionIdentifier={questionIdentifier}
-      />
-    </div>
+    <div className="row justify-content-center">
+      <div className="col-12">
+        <GDPRButton
+          {...obj}
+          answer={answerBits}
+          options={options}
+          questionIdentifier={questionIdentifier}
+        />
+      </div>
     </div>
   );
 
