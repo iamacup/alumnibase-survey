@@ -15,6 +15,7 @@ import FinancialNumberQuestion from './FinancialNumber';
 import HoursContractedActualQuestion from './HoursContractedActual';
 import RangeQuestion from './Range';
 import ScaleQuestion from './Scale';
+import GDPRQuestion from './GDPRQuestion';
 
 export const CurrencySalaryBonus = CurrencySalaryBonusQuestion;
 export const Select = SelectQuestion;
@@ -33,3 +34,4 @@ export const FinancialNumber = FinancialNumberQuestion;
 export const HoursContractedActual = HoursContractedActualQuestion;
 export const Range = RangeQuestion;
 export const Scale = ScaleQuestion;
+export const GDPR = GDPRQuestion;

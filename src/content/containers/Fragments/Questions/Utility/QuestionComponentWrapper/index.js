@@ -31,6 +31,7 @@ import {
   HoursContractedActual,
   Range,
   Scale,
+  GDPR,
 } from '../../../../../../content/containers/Fragments/Questions/Components';
 
 import { redrawCharts } from '../../../../../../content/scripts/custom/echarts/utilities';
@@ -295,6 +296,13 @@ class QuestionComponentWrapper extends React.Component {
       return (
         <div>
           <Scale {...obj} />
+          <div className={answerContainerClassName} />
+        </div>
+      );
+    } else if (type === 'GDPR') {
+      return (
+        <div>
+          <GDPR {...obj} />
           <div className={answerContainerClassName} />
         </div>
       );
