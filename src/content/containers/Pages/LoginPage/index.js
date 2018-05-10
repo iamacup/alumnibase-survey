@@ -83,7 +83,7 @@ class Login extends React.Component {
       $(this.errorDiv).addClass('errored');
       $(this.errorText).toggleClass('d-block');
       $(this.errorText2).toggleClass('d-block mb-3 ml-2');
-    }
+    };
 
     return (
       <div style={{ backgroundColor: '#f2f4f7', padding: '50px' }}>
@@ -147,7 +147,7 @@ class Login extends React.Component {
               </form>
             </div>
           </div>
-         <div className="pt-5 mt-sm-5" />
+          <div className="pt-5 mt-sm-5" />
           <div className="row justify-content-center text-center mt-5">
             <div className="col-10 col-sm-4 mb-5 mb-sm-1 mt-sm-5">
               <a href="/">Privacy</a>

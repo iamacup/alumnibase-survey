@@ -137,21 +137,6 @@ class SelectQuestionCompanySelectWithRemoteLookupComponent extends React.Compone
     }
   }
 
-  // putItemIntoState() {
-  //   const { questionID, questionIdentifier } = this.props;
-  //   const optionID = null;
-  //   const optionValue = null;
-  //   const validity = this.validate({ optionValue, optionID });
-
-  //   this.props.reduxAction_doUpdateQuestionAnswer(
-  //     questionID,
-  //     questionIdentifier,
-  //     optionID,
-  //     optionValue,
-  //     validity.valid,
-  //   );
-  // }
-
   validate(answer) {
     let error = '';
     const show = false;
