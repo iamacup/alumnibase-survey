@@ -7,9 +7,10 @@ import UniEducationViewer from '../../../../../content/containers/Pages/Universi
 import UniViewer from '../../../../../content/containers/Pages/University/AllSteps/uniViewer';
 import { nextElementInArray } from '../../../../../content/scripts/custom/utilities';
 import { getLatestItemWithFriendlyNameFromState, getFirstItemWithFriendlyNameFromState } from '../../../../../content/containers/Pages/University/AllSteps/commonFunctions';
+import { dataStoreIDSteps, possibleSections } from '../../../../../content/containers/Pages/University/AllSteps';
 import * as storeAction from '../../../../../foundation/redux/globals/DataStoreSingle/actions';
 
-const dataStoreID = 'testHTML3UniSub';
+let dataStoreID = 'testHTML3UniSub';
 const fetchEducationDataTransactionStateMainID = 'wizzardUniEducationCompletion';
 const FetchEducation = fetchDataBuilder(fetchEducationDataTransactionStateMainID);
 const fetchUniDataTransactionStateMainID = 'wizzardUniCompletion';
@@ -131,6 +132,26 @@ class Viewer extends React.PureComponent {
         useMutatedTitles={useMutatedTitles}
       />
     );
+
+let pageButton = (
+            <div className="center-question" style={{ paddingBottom: '0px' }}>
+              <h5 className="dark-text" style={{ marginBottom: '22px' }}>Ready to proceed?</h5>
+              <button className="btn btn-block btn-next-step answered btn-margin" onClick={() => { this.nextStep(); }}>
+                  Let's go!
+              </button>
+            </div>
+            )
+
+if (this.props.reduxState_steps.realSection > this.props.reduxState_steps.section) {
+    pageButton = (
+    <div className="center-question" style={{ paddingBottom: '0px' }}>
+     <button className="btn btn-block btn-next-step answered btn-margin" onClick={() => { this.handleSummaryButtonClick(); }}>
+                    Continue survey?
+                </button>
+    </div>
+    );
+};
+
     const uniName = getLatestItemWithFriendlyNameFromState('universityName', 'your university', answerData);
     if (currentStep === '2-1') {
       content = (
@@ -247,12 +268,7 @@ class Viewer extends React.PureComponent {
           <img alt="s2" src={require('../../../../../content/theme/custom/images/s2.png')} width="100%" />
           <div className="d-flex justify-content-center">
             <div className="question-spacer" />
-            <div className="center-question" style={{ paddingBottom: '0px' }}>
-              <h5 className="dark-text" style={{ marginBottom: '22px' }}>Ready to proceed?</h5>
-              <button className="btn btn-block btn-next-step answered btn-margin" onClick={() => { this.nextStep(); }}>
-                  Let's go!
-              </button>
-            </div>
+       {pageButton}
             <div className="question-spacer" style={{ height: '1px' }} />
           </div>
         </div>
@@ -268,12 +284,14 @@ class Viewer extends React.PureComponent {
     this.props.reduxAction_doUpdate({ qualificationLoop: newValue });
     this.props.submitDataCallback(null, steps[0], type);
   }
+
   // just push us onto the next step
   nextStep() {
     const { steps, currentStep, type } = this.props;
     const next = nextElementInArray(steps, currentStep);
     this.props.submitDataCallback(null, next, type);
   }
+
   handleSubmit(answerData) {
     const { steps, currentStep, type } = this.props;
     if (currentStep === 'uni-question') {
@@ -283,12 +301,33 @@ class Viewer extends React.PureComponent {
       this.props.submitDataCallback(answerData, next, type);
     }
   }
+
+    handleSummaryButtonClick() {
+      dataStoreID = 'testHTML3'
+      
+      const { realSection } = this.props.reduxState_steps;
+      const { realStep } = this.props.reduxState_steps;
+
+      const stepTo = possibleSections[realSection][realStep]
+
+      console.log(stepTo, realStep, realSection)
+
+      this.props.reduxAction_doUpdate({
+        step: stepTo,
+      });
+
+      this.props.reduxAction_doUpdateStep({ currentStep: realStep + 1, stepCount: possibleSections[realSection].length, section: realSection });
+  }
+
+
   render() {
     console.log('render pre uni step: ' + this.props.currentStep);
     return this.getStepContent();
   }
 }
 Viewer.propTypes = {
+  reduxState_steps: PropTypes.object,
+  reduxAction_doUpdateStep: PropTypes.func,
   steps: PropTypes.array.isRequired,
   currentStep: PropTypes.string.isRequired,
   submitDataCallback: PropTypes.func.isRequired,
@@ -298,13 +337,21 @@ Viewer.propTypes = {
   type: PropTypes.string.isRequired,
 };
 Viewer.defaultProps = {
+    reduxState_steps: {
+    currentStep: 11,
+    stepCout: 11,
+    section: 1,
+  },
   reduxState_this: {},
   reduxAction_doUpdate: () => {},
+  reduxAction_doUpdateStep: () => {},
 };
 const mapStateToProps = state => ({
   reduxState_this: state.dataStoreSingle[dataStoreID],
+  reduxState_steps: state.dataStoreSingle[dataStoreIDSteps],
 });
 const mapDispatchToProps = dispatch => ({
   reduxAction_doUpdate: data => dispatch(storeAction.doUpdate(dataStoreID, data, initialThisState)),
+  reduxAction_doUpdateStep: data => dispatch(storeAction.doUpdate(dataStoreIDSteps, data)),
 });
 export default connect(mapStateToProps, mapDispatchToProps)(Viewer);
