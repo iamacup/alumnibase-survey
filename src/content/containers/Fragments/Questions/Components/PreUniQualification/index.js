@@ -12,91 +12,136 @@ import {
   dNc,
 } from '../../../../../../content/scripts/custom/utilities';
 
-const preUniQualificationComponent = ({
-  data,
-  answer,
-  nextStepCallback,
-  title,
-  explainerText,
-}) => {
-  const useExplainerText = explainerText;
-  const { questionID, options, drawData } = data;
-  const { answerBits, errorBits } = getUsefulQuestionBits(
-    options,
-    answer.answer,
-  );
+class preUniQualificationComponent extends React.Component {
+  constructor(props) {
+    super(props);
 
-  const questionIdentifier = getQuestionIdentifiers(options);
-  const obj = {
-    questionID,
-    forceValidate: answer.forceValidate,
-    nextStepCallback,
-    drawData,
+    this.state = {
+      count: 1,
+    };
+  }
+
+  handleClick(e) {
+    e.preventDefault();
+
+    this.setState({
+      count: this.state.count + 1,
+    });
+  }
+
+  render() {
+    const { questionID, options, drawData } = this.props.data;
+    const { answer, nextStepCallback, title } = this.props
+    const questionIdentifier = getQuestionIdentifiers(options);
+
+    const { answerBits, errorBits } = getUsefulQuestionBits(
+      options,
+      answer.answer,
+    );
+
+    const obj = {
+      questionID,
+      forceValidate: answer.forceValidate,
+      nextStepCallback,
+      drawData,
+    };
+
+    let question = null;
+
+    question = (extension) => {
+
+      let qualificationAnswer = {};
+      let gradeAnswer = {};
+      let subjectAnswer = {};
+
+      if (dNc(answer.answer[questionIdentifier[0] + extension])) {
+        qualificationAnswer = answer.answer[questionIdentifier[0] + extension];
+      }
+
+      if (dNc(answer.answer[questionIdentifier[1] + extension])) {
+        gradeAnswer = answer.answer[questionIdentifier[1] + extension];
+      }
+
+    if (dNc(answer.answer[questionIdentifier[2] + extension])) {
+        subjectAnswer = answer.answer[questionIdentifier[2] + extension];
+      }
+
+      return (
+      <div>
+      <div className="row">
+          <div className="col-12 mb-2">
+            <Qualification
+              {...obj}
+              answer={qualificationAnswer}
+              options={options[questionIdentifier[0]]}
+              questionIdentifier={questionIdentifier[0] + extension}
+              gradeAnswer={gradeAnswer}
+            />
+          </div>
+        </div>
+        <div className="row mb-3">
+          <div className="col-6">
+             <Subject
+              {...obj}
+              answer={subjectAnswer}
+              questionIdentifier={questionIdentifier[2] + extension}
+            />
+          </div>
+          <div className="col-6">
+           <Grade
+              {...obj}
+              answer={gradeAnswer}
+              questionIdentifier={questionIdentifier[1] + extension}
+              qualificationAnswer={qualificationAnswer}
+            />
+          </div>
+        </div>
+      </div>
+    );
   };
 
-  let qualificationAnswer = null;
-  let gradeAnswer = null;
+  const arr = [];
 
-  if (dNc(answerBits[questionIdentifier[0]])) {
-    qualificationAnswer = answerBits[questionIdentifier[0]];
+  for (let a = 0; a < this.state.count; a++) {
+    const thing = (
+      <div>
+        {question('_' + a)}
+      </div>
+    );
+
+    arr.push(thing);
   }
 
-  if (dNc(answerBits[questionIdentifier[1]])) {
-    gradeAnswer = answerBits[questionIdentifier[1]];
+let postContent = ('')
+
+  if (3 * this.state.count === Object.keys(answer.answer).length) {
+     postContent = (
+      <div className="row justify-content-center pb-3">
+        <div className="col-8">
+          <button type="button" className="btn btn-secondary" onClick={e => this.handleClick(e)}>Add more qualifications</button>
+        </div>
+      </div>
+    );
+   } 
+
+    return (
+      <QuestionContainer
+        title={title}
+        question={arr}
+        error={answer.error}
+        errorMessages={errorBits}
+        answered={answer.answered}
+        postContent={postContent}
+      />
+    );
   }
-
-  const question = (
-    <div>
-      <div className="row">
-        <div className="col-12 mb-2">
-          <Qualification
-            {...obj}
-            answer={answerBits[questionIdentifier[0]]}
-            options={options[questionIdentifier[0]]}
-            questionIdentifier={questionIdentifier[0]}
-            gradeAnswer={gradeAnswer}
-          />
-        </div>
-      </div>
-      <div className="row">
-        <div className="col-6">
-          <Subject 
-          {...obj}
-          answer={answerBits[questionIdentifier[2]]}
-          questionIdentifier={questionIdentifier[2]}
-          />
-        </div>
-        <div className="col-6">
-          <Grade
-            {...obj}
-            answer={answerBits[questionIdentifier[1]]}
-            options={options[questionIdentifier[1]]}
-            questionIdentifier={questionIdentifier[1]}
-            qualificationAnswer={qualificationAnswer}
-          />
-        </div>
-      </div>
-    </div>
-  );
-
-  return (
-    <QuestionContainer
-      title={title}
-      question={question}
-      error={answer.error}
-      errorMessages={errorBits}
-      answered={answer.answered}
-      explainerText={useExplainerText}
-    />
-  );
-};
+}
 
 preUniQualificationComponent.propTypes = {
   answer: PropTypes.object.isRequired,
   data: PropTypes.object.isRequired,
   nextStepCallback: PropTypes.func,
   title: PropTypes.string.isRequired,
-  explainerText: PropTypes.object.isRequired,
 };
 
 preUniQualificationComponent.defaultProps = {
