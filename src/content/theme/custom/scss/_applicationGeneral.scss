@@ -118,14 +118,14 @@ $red-color: #d02a02;
   z-index: 3;
   min-height: 100vh;
 
-  @media (min-width: 992px) {
+  @media (min-width: 1200px) {
     display: block !important;
     position: relative;
   }
 }
 
 .overlay {
-  @media (max-width: 992px) {
+  @media (max-width: 1200px) {
     width: 100vw;
     height: 100vh;
     position: fixed;
@@ -142,7 +142,7 @@ $red-color: #d02a02;
   height: 65px;
   color: #6392e9;
 
-  @media (min-width: 992px) {
+  @media (min-width: 1200px) {
     display: none;
   }
 
@@ -150,7 +150,7 @@ $red-color: #d02a02;
     color: #6392e9;
     background-color: #fff;
 
-    @media (min-width: 992px) {
+    @media (min-width: 1200px) {
       display: none;
     }
   }
