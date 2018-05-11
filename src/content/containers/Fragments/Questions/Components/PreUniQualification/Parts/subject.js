@@ -10,38 +10,38 @@ import {
 import * as questionAction from '../../../../../../../content/containers/Fragments/Questions/Components/action';
 
 class Subject extends React.Component {
-componentDidMount() {
+  componentDidMount() {
   // wait for document to load
-$(() => {
-  this.putItemIntoState();
-});
-}
+    $(() => {
+      this.putItemIntoState();
+    });
+  }
 
-componentDidUpdate() {
-  const { questionIdentifier, questionID, answer } = this.props;
-  const validity = this.validate(answer);
+  componentDidUpdate() {
+    const { questionIdentifier, questionID, answer } = this.props;
+    const validity = this.validate(answer);
 
-  if(
-    validity.valid === false &&
+    if (
+      validity.valid === false &&
     (validity.show === true) &&
     answer.errorMessage !== validity.error
-  ) {
-    this.props.reduxAction_doSetQuestionError(
-      questionID,
-      validity.error,
-      questionIdentifier,
-    );
+    ) {
+      this.props.reduxAction_doSetQuestionError(
+        questionID,
+        validity.error,
+        questionIdentifier,
+      );
+    }
   }
-}
 
-putItemIntoState() {
-  const { questionIdentifier, questionID } = this.props;
-  const optionID = null
-  let optionValue = null;
-   
-   if (dNc(this.input.value)) optionValue = this.input.value
-  
-  const validity = this.validate({ optionID, optionValue });
+  putItemIntoState() {
+    const { questionIdentifier, questionID } = this.props;
+    const optionID = null;
+    let optionValue = null;
+
+    if (dNc(this.input.value)) optionValue = this.input.value;
+
+    const validity = this.validate({ optionID, optionValue });
 
     this.props.reduxAction_doUpdateQuestionAnswer(
       questionID,
@@ -52,27 +52,27 @@ putItemIntoState() {
     );
   }
 
-validate(answer) {
-  let error = '';
-  let show = false;
-  let valid = true;
+  validate(answer) {
+    let error = '';
+    let show = false;
+    let valid = true;
 
-  if(dNc(answer) && dNc(answer.optionValue)) {
-    if (answer.optionValue.length > 20) {
-      error = 'There is too much text in here. The max length is 20';
-      show = true;
-      valid = false;
-    } else {
-      valid = true;
+    if (dNc(answer) && dNc(answer.optionValue)) {
+      if (answer.optionValue.length > 20) {
+        error = 'There is too much text in here. The max length is 20';
+        show = true;
+        valid = false;
+      } else {
+        valid = true;
+      }
     }
-  }
 
-return { valid, error, show }
-}
+    return { valid, error, show };
+  }
 
   render() {
     return (
-        <span className="form-group">
+      <span className="form-group">
         <input
           type="text"
           className="form-control"
@@ -116,18 +116,18 @@ const mapDispatchToProps = dispatch => ({
     optionID,
     optionValue,
     valid,
-  ) => 
-  dispatch(
-    questionAction.doUpdateQuestionAnswer(
-      questionID,
-      name,
-      optionID,
-      optionValue,
-      valid,
+  ) =>
+    dispatch(
+      questionAction.doUpdateQuestionAnswer(
+        questionID,
+        name,
+        optionID,
+        optionValue,
+        valid,
+      ),
     ),
-  ),
-  reduxAction_doSetQuestionError: (questionID, message, name) => 
-  dispatch(questionAction.doSetQuestionError(questionID, message, name)),
-})
+  reduxAction_doSetQuestionError: (questionID, message, name) =>
+    dispatch(questionAction.doSetQuestionError(questionID, message, name)),
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(Subject);

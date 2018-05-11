@@ -13,7 +13,7 @@ class Qualification extends React.Component {
   componentDidMount() {
     // wait for component to load
     $(() => {
-       const dropdownParent = select2GetCorrectParent(this.input);
+      const dropdownParent = select2GetCorrectParent(this.input);
       const placeholder = 'Select a qualification';
 
       $(this.input)
@@ -23,83 +23,83 @@ class Qualification extends React.Component {
           width: '100%',
           dropdownParent,
         })
-      .on('change', () => {
-        if (dNc($(this.input).val())) {
-          this.putItemIntoState();
-        }
-      })
-    })
+        .on('change', () => {
+          if (dNc($(this.input).val())) {
+            this.putItemIntoState();
+          }
+        });
+    });
   }
 
-componentDidUpdate() {
-  const { questionIdentifier, questionID, answer } = this.props;
-  const validity = this.validate(this.props.answer);
+  componentDidUpdate() {
+    const { questionIdentifier, questionID, answer } = this.props;
+    const validity = this.validate(this.props.answer);
 
-  const gradeID = this.props.gradeAnswer.optionID;
-  const qualificationID = this.props.answer.optionID;
-  let qualificationGrades = [];
+    const gradeID = this.props.gradeAnswer.optionID;
+    const qualificationID = this.props.answer.optionID;
+    let qualificationGrades = [];
 
-  this.props.drawData.resultOptions.forEach(element => {
-    if (element.optionID === qualificationID) {
-    qualificationGrades = element.options;
-    }
-  });
-
-  let allGradeIDs = qualificationGrades.map(grade => grade.optionID)
-
-  if (dNc(gradeID) && !allGradeIDs.includes(gradeID)) {
-        this.props.reduxAction_doRemoveQuestionIdentifier(questionID, 'preUniQualifications-result')
+    this.props.drawData.resultOptions.forEach((element) => {
+      if (element.optionID === qualificationID) {
+        qualificationGrades = element.options;
       }
+    });
 
-  if (
-    validity.valid === false &&
+    const allGradeIDs = qualificationGrades.map(grade => grade.optionID);
+
+    if (dNc(gradeID) && !allGradeIDs.includes(gradeID)) {
+      this.props.reduxAction_doRemoveQuestionIdentifier(questionID, 'preUniQualifications-result');
+    }
+
+    if (
+      validity.valid === false &&
     (validity.show === true || this.props.forceValidate === true) &&
     answer.errorMessage !== validity.error
-  ) {
-    this.props.reduxAction_doSetQuestionError(
-      questionID,
-      validity.error,
-      questionIdentifier,
+    ) {
+      this.props.reduxAction_doSetQuestionError(
+        questionID,
+        validity.error,
+        questionIdentifier,
       );
-  }
-}
-
-putItemIntoState(){
-  const { questionIdentifier, questionID, options } = this.props;
-  const optionID = $(this.input).val();
-  let optionValue = null;
-
-  this.props.options.forEach(option => {
-    if (option.optionID === optionID) optionValue = option.optionValue;
-  })
-
-  const validity = this.validate({optionID, optionValue})
-
-  this.props.reduxAction_doUpdateQuestionAnswer(
-    questionID,
-    questionIdentifier,
-    optionID,
-    optionValue,
-    validity.valid,
-    );
-}
-
-validate(answer) {
-  let error = '';
-  const show = false;
-  let valid = false;
-
-  if (dNc(answer) && dNc(answer.optionValue)) {
-    if (answer.optionValue.length < 1) {
-      error = "you need to choose an option"
-    } else {
-      valid = true;
     }
-  } else {
-    error = "please select a qualification";
   }
-  return { valid, error, show }
-}
+
+  putItemIntoState() {
+    const { questionIdentifier, questionID, options } = this.props;
+    const optionID = $(this.input).val();
+    let optionValue = null;
+
+    this.props.options.forEach((option) => {
+      if (option.optionID === optionID) optionValue = option.optionValue;
+    });
+
+    const validity = this.validate({ optionID, optionValue });
+
+    this.props.reduxAction_doUpdateQuestionAnswer(
+      questionID,
+      questionIdentifier,
+      optionID,
+      optionValue,
+      validity.valid,
+    );
+  }
+
+  validate(answer) {
+    let error = '';
+    const show = false;
+    let valid = false;
+
+    if (dNc(answer) && dNc(answer.optionValue)) {
+      if (answer.optionValue.length < 1) {
+        error = 'you need to choose an option';
+      } else {
+        valid = true;
+      }
+    } else {
+      error = 'please select a qualification';
+    }
+    return { valid, error, show };
+  }
 
   render() {
     const options = [<option key="start" hidden />];
@@ -107,14 +107,14 @@ validate(answer) {
     this.props.options.forEach((value) => {
       options.push(
         <option key={value.optionID} value={value.optionID}>
-        {value.optionValue}
+          {value.optionValue}
         </option>,
-        )
-    })
+      );
+    });
 
     return (
       <div>
-          <select
+        <select
           ref={(input) => {
                   this.input = input;
                 }}
@@ -150,26 +150,26 @@ Qualification.defaultProps = {
 const mapStateToProps = null;
 
 const mapDispatchToProps = dispatch => ({
-reduxAction_doUpdateQuestionAnswer: (
-  questionID,
-  name,
-  optionID,
-  optionValue,
-  valid,
-) =>
-  dispatch(
-    questionAction.doUpdateQuestionAnswer(
-      questionID,
-      name,
-      optionID,
-      optionValue,
-      valid,
+  reduxAction_doUpdateQuestionAnswer: (
+    questionID,
+    name,
+    optionID,
+    optionValue,
+    valid,
+  ) =>
+    dispatch(
+      questionAction.doUpdateQuestionAnswer(
+        questionID,
+        name,
+        optionID,
+        optionValue,
+        valid,
+      ),
     ),
-  ),
-reduxAction_doSetQuestionError: (questionID, message, name) =>
-dispatch(questionAction.doSetQuestionError(questionID, message, name)),
-reduxAction_doRemoveQuestionIdentifier: (questionID, questionIdentifier) =>
-dispatch(questionAction.doRemoveQuestionIdentifier(questionID, questionIdentifier)),
+  reduxAction_doSetQuestionError: (questionID, message, name) =>
+    dispatch(questionAction.doSetQuestionError(questionID, message, name)),
+  reduxAction_doRemoveQuestionIdentifier: (questionID, questionIdentifier) =>
+    dispatch(questionAction.doRemoveQuestionIdentifier(questionID, questionIdentifier)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Qualification);

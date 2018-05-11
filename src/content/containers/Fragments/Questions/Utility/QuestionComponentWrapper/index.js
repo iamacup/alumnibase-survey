@@ -100,8 +100,8 @@ class QuestionComponentWrapper extends React.Component {
 
         Object.keys(answer.answer).forEach((answerValue) => {
           if (answerValue.startsWith(value)) {
-            //we found an answer, now lets check it is value
-            if(answer.answer[answerValue].valid === true) {
+            // we found an answer, now lets check it is value
+            if (answer.answer[answerValue].valid === true) {
               found = true;
             }
           }
@@ -129,7 +129,6 @@ class QuestionComponentWrapper extends React.Component {
     } else if (valid === false && answer.answerd === true) {
       // this condition should not be reachable because we update the overall validity to invalid when a question is answered.
     }
-
   }
 
   componentWillUnmount() {

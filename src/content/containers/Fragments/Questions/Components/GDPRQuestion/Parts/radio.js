@@ -119,7 +119,7 @@ class GDPRButton extends React.Component {
             </div>
             <div>
               <div className="card-body">
-      <p>You consent to AlumniBase holding and processing your personal information and sensitive personal information that you submit as part of taking this survey. This is vital so that we can provide the anonymised and aggregate insights to your university so they can improve their service. No personally identifiable information is shared with anyone.</p>
+                <p>You consent to AlumniBase holding and processing your personal information and sensitive personal information that you submit as part of taking this survey. This is vital so that we can provide the anonymised and aggregate insights to your university so they can improve their service. No personally identifiable information is shared with anyone.</p>
               </div>
             </div>
           </div>

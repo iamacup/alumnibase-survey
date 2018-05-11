@@ -27,7 +27,7 @@ class Viewer extends React.PureComponent {
     if (currentStep === '0-1') {
       content = (
         <div>
-      <h4 className="mb-5 mx-5" style={{ color: 'purple', fontWeight: 'bold' }} >This page is used to simulate the 'click this link in email'. <br />i.e. a user would not see this step when entering the system.</h4>
+          <h4 className="mb-5 mx-5" style={{ color: 'purple', fontWeight: 'bold' }} >This page is used to simulate the 'click this link in email'. <br />i.e. a user would not see this step when entering the system.</h4>
           <div className="seperator" />
           {wizzard}
         </div>
@@ -109,23 +109,23 @@ class Viewer extends React.PureComponent {
     } else if (currentStep === 'terms') {
       content = (
         <div className="large-question-area">
-        <h3 style={{ marginBottom: '24px' }}>{uniName}</h3>
-  <div className="px-5 lots-of-text text-left mx-5">
-                      <p>
+          <h3 style={{ marginBottom: '24px' }}>{uniName}</h3>
+          <div className="px-5 lots-of-text text-left mx-5">
+            <p>
                         Before we begin there are a couple of things you need to know about the data we are about to collect.
-                      </p>
-                      <p>
+            </p>
+            <p>
                         We will never share personally identifiable information with anyone, including your university. In order for you to help your university, we need you to agree to the following:
-                      </p>
-                      </div>
-               <div style={{ marginTop: '34px' }} />
-                   <NewWizzardPane
-        step={'0-2'}
+            </p>
+          </div>
+          <div style={{ marginTop: '34px' }} />
+          <NewWizzardPane
+            step="0-2"
         // eslint-disable-next-line no-shadow
-        submitCallback={(answerData) => { this.handleSubmit(answerData); }}
-        saveAPI="api/universityWizzard/saveStep/"
-        fetchAPI="api/universityWizzard/getStep/"
-      />
+            submitCallback={(answerData) => { this.handleSubmit(answerData); }}
+            saveAPI="api/universityWizzard/saveStep/"
+            fetchAPI="api/universityWizzard/getStep/"
+          />
         </div>
       );
     } else if (currentStep === '1-1') {
