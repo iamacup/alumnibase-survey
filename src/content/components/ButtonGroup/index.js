@@ -13,7 +13,6 @@ class ButtonGroup extends React.PureComponent {
           // iterate over all the buttons and attach click handlers
           button.on('click', () => {
             const clickedButtons = [];
-
             // set the class of teh button that was just pressed
             if (!button.hasClass(this.props.clickedClass)) {
               // set teh button as clicked
@@ -74,10 +73,31 @@ class ButtonGroup extends React.PureComponent {
                 }
               });
 
+      $(this.div)
+                  .find('button')
+                  .each((index2, vertex2) => {
+                    const button2 = $(vertex2);
+                    const doubleButtons = [['options/42960338841', 'options/42960338842'], ['options/42960338844', 'options/42960338845']];
+
+              doubleButtons.forEach(idArray => {
+                if (button.attr('value') === idArray[0] && button2.attr('value') === idArray[1] && button2.hasClass(this.props.clickedClass)) {
+                  button2.removeClass(this.props.clickedClass);
+                  clickedButtons.splice(clickedButtons.indexOf(idArray[1]), 1)
+                } 
+
+                  if (button.attr('value') === idArray[1] && button2.attr('value') === idArray[0] && button2.hasClass(this.props.clickedClass)) {
+                  button2.removeClass(this.props.clickedClass);
+                  clickedButtons.splice(clickedButtons.indexOf(idArray[0]), 1)
+                }
+
+              })
+          });
+
             // return the array
             this.props.callback(clickedButtons);
-          });
+
         });
+    });
     });
   }
 
