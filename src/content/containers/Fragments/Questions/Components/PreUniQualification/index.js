@@ -34,17 +34,46 @@ const preUniQualificationComponent = ({
     drawData,
   };
 
+  let qualificationAnswer = null;
+  let gradeAnswer = null;
+
+  if (dNc(answerBits[questionIdentifier[0]])) {
+    qualificationAnswer = answerBits[questionIdentifier[0]];
+  }
+
+  if (dNc(answerBits[questionIdentifier[1]])) {
+    gradeAnswer = answerBits[questionIdentifier[1]];
+  }
+
   const question = (
     <div>
-      <div className="row justify-content-center">
-        <Qualification />
+      <div className="row">
+        <div className="col-12 mb-2">
+          <Qualification
+            {...obj}
+            answer={answerBits[questionIdentifier[0]]}
+            options={options[questionIdentifier[0]]}
+            questionIdentifier={questionIdentifier[0]}
+            gradeAnswer={gradeAnswer}
+          />
+        </div>
       </div>
       <div className="row">
         <div className="col-6">
-          <Subject />
+          <Subject 
+          {...obj}
+          answer={answerBits[questionIdentifier[2]]}
+          questionIdentifier={questionIdentifier[2]}
+          />
         </div>
         <div className="col-6">
-          <Grade />
+          <Grade
+            {...obj}
+            answer={answerBits[questionIdentifier[1]]}
+            options={options[questionIdentifier[1]]}
+            questionIdentifier={questionIdentifier[1]}
+            qualificationAnswer={qualificationAnswer}
+          />
         </div>
       </div>
     </div>

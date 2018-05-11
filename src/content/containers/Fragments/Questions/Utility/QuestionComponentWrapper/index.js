@@ -100,7 +100,10 @@ class QuestionComponentWrapper extends React.Component {
 
         Object.keys(answer.answer).forEach((answerValue) => {
           if (answerValue.startsWith(value)) {
-            found = true;
+            //we found an answer, now lets check it is value
+            if(answer.answer[answerValue].valid === true) {
+              found = true;
+            }
           }
         });
 
@@ -111,36 +114,6 @@ class QuestionComponentWrapper extends React.Component {
         valid = false;
       }
     });
-
-    /* if (data.array === true) {
-      // we have to do something special with array type questions
-      // TODO we do not have the option for 'optional' array questions here - not a problem for now but this statement forces invalidity for any that have no options
-      if (Object.keys(answer.answer).length === 0) {
-        valid = false;
-      }
-
-      // we loop over the answers
-      Object.keys(answer.answer).forEach((value) => {
-        if (
-          !dNc(answer.answer[value]) ||
-          !dNc(answer.answer[value].valid) ||
-          answer.answer[value].valid !== true
-        ) {
-          valid = false;
-        }
-      });
-    } else {
-      // we check all the keys are answered
-      Object.keys(data.options).forEach((value) => {
-        if (
-          !dNc(answer.answer[value]) ||
-          !dNc(answer.answer[value].valid) ||
-          answer.answer[value].valid !== true
-        ) {
-          valid = false;
-        }
-      });
-    } */
 
     if (valid === true && answer.answered === false) {
       this.props.reduxAction_doSetQuestionSuccess(data.questionID);
@@ -156,6 +129,7 @@ class QuestionComponentWrapper extends React.Component {
     } else if (valid === false && answer.answerd === true) {
       // this condition should not be reachable because we update the overall validity to invalid when a question is answered.
     }
+
   }
 
   componentWillUnmount() {
