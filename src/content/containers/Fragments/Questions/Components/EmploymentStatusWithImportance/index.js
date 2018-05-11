@@ -29,7 +29,7 @@ const GraduateDestinationsComponent = ({
   const questionParts = [];
 
   const part = (
-    <div style={{ marginTop: '28px' }}>
+    <div style={{ marginTop: '28px' }} key={1}>
       <h6 className="grey-text">{drawData[questionIdentifiers[0] + 'Title']}</h6>
       <GraduateDestinationButton
         {...obj}

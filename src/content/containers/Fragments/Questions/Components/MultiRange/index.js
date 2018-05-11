@@ -7,7 +7,7 @@ import Standard from '../../../../../../content/containers/Fragments/Questions/C
 
 import { getUsefulQuestionBits } from '../../../../../../content/scripts/custom/utilities';
 
-const OptionsQuestionComponent = ({
+const MultiRangeQuestionComponent = ({
   data,
   answer,
   nextStepCallback,
@@ -30,9 +30,10 @@ const OptionsQuestionComponent = ({
   const questionIdentifiers = Object.keys(options);
   const questionParts = [];
 
-  questionIdentifiers.forEach((value) => {
+  questionIdentifiers.forEach((value, i) => {
     const part = (
-      <div style={{ marginTop: '28px' }}>
+      // eslint-disable-next-line react/no-array-index-key
+      <div key={i} style={{ marginTop: '28px' }}>
         <h6 className="grey-text">{drawData[value + 'Title']}</h6>
         <Standard
           {...obj}
@@ -63,7 +64,7 @@ const OptionsQuestionComponent = ({
   );
 };
 
-OptionsQuestionComponent.propTypes = {
+MultiRangeQuestionComponent.propTypes = {
   answer: PropTypes.object.isRequired,
   data: PropTypes.object.isRequired,
   nextStepCallback: PropTypes.func,
@@ -71,8 +72,8 @@ OptionsQuestionComponent.propTypes = {
   // explainerText: PropTypes.object.isRequired,
 };
 
-OptionsQuestionComponent.defaultProps = {
+MultiRangeQuestionComponent.defaultProps = {
   nextStepCallback: () => {},
 };
 
-export default OptionsQuestionComponent;
+export default MultiRangeQuestionComponent;

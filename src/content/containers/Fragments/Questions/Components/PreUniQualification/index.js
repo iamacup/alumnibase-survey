@@ -34,7 +34,7 @@ class preUniQualificationComponent extends React.Component {
     const { answer, nextStepCallback, title } = this.props
     const questionIdentifier = getQuestionIdentifiers(options);
 
-    const { answerBits, errorBits } = getUsefulQuestionBits(
+    const { errorBits } = getUsefulQuestionBits(
       options,
       answer.answer,
     );
@@ -104,7 +104,7 @@ class preUniQualificationComponent extends React.Component {
 
   for (let a = 0; a < this.state.count; a++) {
     const thing = (
-      <div>
+      <div key={this.state.count}>
         {question('_' + a)}
       </div>
     );

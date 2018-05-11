@@ -14,16 +14,6 @@ class graduateDestinationButtons extends React.Component {
     $(() => {
       $('[data-toggle="popover"]').popover();
       $(document).trigger('nifty.ready');
-
-      // make the checkbox look nice with switchery
-      const elem = document.querySelector('#switchery-switch');
-
-      // eslint-disable-next-line no-undef, no-unused-vars
-      const init = new Switchery(elem);
-
-      // elem.onchange = () => {
-      //   this.handleRadio();
-      // };
     });
   }
 
@@ -201,7 +191,6 @@ class graduateDestinationButtons extends React.Component {
               {dataButton}
             </div>
             <div className="col-2">
-              {/* <input disabled={bool} id="switchery-switch" type="checkbox" value={value.optionID} onChange={(e) => this.handleRadio(e)} /> */}
               <input disabled={bool} type="radio" name="radio_1" value={value.optionID} onClick={e => this.handleRadio(e)} />
             </div>
           </div>

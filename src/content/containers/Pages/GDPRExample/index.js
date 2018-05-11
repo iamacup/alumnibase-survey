@@ -2,7 +2,7 @@
 import React from 'react';
 
 
-const Viewer = () => (
+const GDPRExample = () => (
   <div className="py-5 my-5">
     <div className="container">
       <h3 style={{ marginBottom: '24px' }}>You're GDPR Preferences</h3>
@@ -122,4 +122,4 @@ const Viewer = () => (
   </div>
 );
 
-export default Viewer;
+export default GDPRExample;

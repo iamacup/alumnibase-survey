@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import LoadingArea from '../../../../content/components/Loading';
 
 import fetchDataBuilder from '../../../../foundation/redux/Factories/FetchData';
 import { dNc } from '../../../../content/scripts/custom/utilities';
@@ -40,11 +39,11 @@ class Login extends React.Component {
                 message: 'The username is required',
               },
               emailAddress: {
-                onError(e, data) {
-                  console.log('error');
+                onError() {
+                  console.log('error with email');
                 },
-                onSuccess(e, data) {
-                  console.log('success');
+                onSuccess() {
+                  console.log('email success');
                 },
               },
             },
@@ -58,19 +57,16 @@ class Login extends React.Component {
   }
 
   handleChange() {
-    const email = this.email.value;
-
     this.setState({
       email: this.email.value,
     });
   }
 
   render() {
-    let generalStatus = null;
     let payload = null;
 
     if (dNc(this.props.reduxState_fetchDataTransaction.default)) {
-      ({ generalStatus, payload } = this.props.reduxState_fetchDataTransaction.default);
+      ({ payload } = this.props.reduxState_fetchDataTransaction.default);
     }
 
     const { email } = this.state;

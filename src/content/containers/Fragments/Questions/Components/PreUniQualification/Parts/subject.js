@@ -96,10 +96,8 @@ Subject.propTypes = {
   reduxAction_doUpdateQuestionAnswer: PropTypes.func,
   reduxAction_doSetQuestionError: PropTypes.func,
   questionID: PropTypes.string.isRequired,
-  forceValidate: PropTypes.bool.isRequired,
   answer: PropTypes.object.isRequired,
   questionIdentifier: PropTypes.string.isRequired,
-  drawData: PropTypes.object.isRequired,
 };
 
 Subject.defaultProps = {

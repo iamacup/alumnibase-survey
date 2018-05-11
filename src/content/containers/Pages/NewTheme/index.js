@@ -5,7 +5,7 @@ import Navigation from '../../../../content/containers/Pages/NewTheme/navigation
 import TopProgress from '../../../../content/containers/Pages/NewTheme/topProgress';
 import BottomProgress from '../../../../content/containers/Pages/NewTheme/bottomProgress';
 
-const Viewer = () => (
+const ViewerNewTheme = () => (
   <div className="d-flex">
     <div className="left">
       <Navigation />
@@ -39,4 +39,4 @@ const Viewer = () => (
   </div>
 );
 
-export default Viewer;
+export default ViewerNewTheme;

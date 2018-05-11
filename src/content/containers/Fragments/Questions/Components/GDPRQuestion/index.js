@@ -7,7 +7,6 @@ import GDPRButton from '../../../../../../content/containers/Fragments/Questions
 import {
   getUsefulQuestionBits,
   getQuestionIdentifiers,
-  dNc,
 } from '../../../../../../content/scripts/custom/utilities';
 
 

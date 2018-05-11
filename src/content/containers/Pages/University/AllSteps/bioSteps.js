@@ -7,7 +7,7 @@ import NewWizzardPane from '../../../../../content/containers/Fragments/NewWizza
 import { nextElementInArray } from '../../../../../content/scripts/custom/utilities';
 import { getLatestItemWithFriendlyNameFromState } from '../../../../../content/containers/Pages/University/AllSteps/commonFunctions';
 
-class Viewer extends React.PureComponent {
+class BioViewer extends React.PureComponent {
   getStepContent() {
     const { currentStep, answerData } = this.props;
     let content = null;
@@ -225,11 +225,12 @@ class Viewer extends React.PureComponent {
   }
 
   render() {
+    console.log('render pre uni step: ' + this.props.currentStep);
     return this.getStepContent();
   }
 }
 
-Viewer.propTypes = {
+BioViewer.propTypes = {
   steps: PropTypes.array.isRequired,
   currentStep: PropTypes.string.isRequired,
   submitDataCallback: PropTypes.func.isRequired,
@@ -237,4 +238,4 @@ Viewer.propTypes = {
   answerData: PropTypes.object.isRequired,
 };
 
-export default Viewer;
+export default BioViewer;

@@ -69,8 +69,8 @@ class Qualification extends React.Component {
     const optionID = $(this.input).val();
     let optionValue = null;
 
-    this.props.options.forEach((option) => {
-      if (option.optionID === optionID) optionValue = option.optionValue;
+    options.forEach((option) => {
+      if (option.optionID === optionID) ({ optionValue } = option);
     });
 
     const validity = this.validate({ optionID, optionValue });

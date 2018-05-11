@@ -183,8 +183,6 @@ GDPRButton.propTypes = {
   reduxAction_doSetQuestionError: PropTypes.func,
   questionID: PropTypes.string.isRequired,
   forceValidate: PropTypes.bool.isRequired,
-  nextStepCallback: PropTypes.func,
-  drawData: PropTypes.array.isRequired,
   answer: PropTypes.array.isRequired,
   options: PropTypes.object.isRequired,
   questionIdentifier: PropTypes.array.isRequired,
@@ -193,7 +191,6 @@ GDPRButton.propTypes = {
 GDPRButton.defaultProps = {
   reduxAction_doUpdateQuestionAnswer: () => {},
   reduxAction_doSetQuestionError: () => {},
-  nextStepCallback: () => {},
 };
 
 const mapStateToProps = null;
