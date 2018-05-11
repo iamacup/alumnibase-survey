@@ -27,7 +27,7 @@ class Viewer extends React.PureComponent {
     if (currentStep === '0-1') {
       content = (
         <div>
-          {/* <h4>This page is used to simulate the 'click this link in email'. i.e. a user would not see this step when entering the system.</h4> */}
+      <h4 className="mb-5 mx-5" style={{ color: 'purple', fontWeight: 'bold' }} >This page is used to simulate the 'click this link in email'. <br />i.e. a user would not see this step when entering the system.</h4>
           <div className="seperator" />
           {wizzard}
         </div>
@@ -108,86 +108,24 @@ class Viewer extends React.PureComponent {
       );
     } else if (currentStep === 'terms') {
       content = (
-        <div>
-          <h3 style={{ marginBottom: '24px' }}>{uniName}</h3>
-          <div className="px-5 lots-of-text text-left">
-            <p>
-              Before we begin there are a couple of things you need to know about the data we are about to collect.
-            </p>
-            <p>
-              We will never share personally identifiable information with anyone, including your university. In order for you to help your university, we need you to agree to the following:
-            </p>
-
-            <div style={{ marginTop: '34px' }} />
-
-            <dl className="row" style={{ marginBottom: '24px' }}>
-              <dt className="col-sm-4"><div className="privacy-line" /><h4>Data Processing</h4></dt>
-              <dd className="col-sm-8">
-                <div className="form-check">
-                  <label className="form-check-label dark-grey-text" htmlFor="defaultCheck1">
-                    <input className="form-check-input my-checkbox" type="checkbox" value="" id="defaultCheck1" />
-                  I agree to allow AliumniBase to process data on behalf of {uniName} in order to provide agregate statistics on the alumni network in order to improve the university.
-                  </label>
-                </div>
-              </dd>
-            </dl>
-
-            <dl className="row" style={{ marginBottom: '24px' }}>
-              <dt className="col-sm-4"><div className="privacy-line" /><h4>Personal Information</h4></dt>
-              <dd className="col-sm-8">
-                <div className="form-check">
-                  <label className="form-check-label dark-grey-text" htmlFor="defaultCheck2">
-                    <input className="form-check-input my-checkbox" type="checkbox" value="" id="defaultCheck2" />
-                  I agree to allow AlumniBase to collect and store personal information on me, such as gender and age, which will be agregated and provided to other universities in an anonymised, non-identifiable format.
-                  </label>
-                </div>
-              </dd>
-            </dl>
-
-            <dl className="row" style={{ marginBottom: '24px' }}>
-              <dt className="col-sm-4"><div className="privacy-line" /><h4>Sensitive Personal Information</h4></dt>
-              <dd className="col-sm-8">
-                <div className="form-check">
-                  <label className="form-check-label dark-grey-text" htmlFor="defaultCheck3">
-                    <input className="form-check-input my-checkbox" type="checkbox" value="" id="defaultCheck3" />
-                I agree to allow AlumniBase to collect and store sensitive personal information on me, such as ethnicity and religion, which will be agregated and provided to other universities in an anonymised, non-identifiable format.
-                  </label>
-                </div>
-              </dd>
-            </dl>
-
-            <dl className="row" style={{ marginBottom: '24px' }}>
-              <dt className="col-sm-4 text-truncate"><div className="privacy-line" /><h4>Data Share</h4></dt>
-              <dd className="col-sm-8">
-                <div className="form-check">
-                  <label className="form-check-label dark-grey-text" htmlFor="defaultCheck4">
-                    <input className="form-check-input my-checkbox" type="checkbox" value="" id="defaultCheck4" />
-                I agree to allow AlumniBase to use the information that I provide to enable career planning for existing students and the public by sharing data with www.sliips.com (A wholy owned subsidiary of AlumniBase.com)
-                  </label>
-                </div>
-              </dd>
-            </dl>
-
-
-          </div>
-
-
-          <div>
-            <div className="d-flex justify-content-center">
-              <div className="question-spacer" />
-              <div className="center-question" style={{ paddingBottom: '0px' }}>
-                <button
-                  onClick={() => { this.handleSubmit(null); }}
-                  type="submit"
-                  className="btn btn-block btn-next-step answered"
-                >
-                  <span>Next Step <i className="far fa-arrow-right" /></span>
-                </button>
-              </div>
-              <div className="question-spacer" style={{ height: '1px' }} />
-            </div>
-          </div>
-
+        <div className="large-question-area">
+        <h3 style={{ marginBottom: '24px' }}>{uniName}</h3>
+  <div className="px-5 lots-of-text text-left mx-5">
+                      <p>
+                        Before we begin there are a couple of things you need to know about the data we are about to collect.
+                      </p>
+                      <p>
+                        We will never share personally identifiable information with anyone, including your university. In order for you to help your university, we need you to agree to the following:
+                      </p>
+                      </div>
+               <div style={{ marginTop: '34px' }} />
+                   <NewWizzardPane
+        step={'0-2'}
+        // eslint-disable-next-line no-shadow
+        submitCallback={(answerData) => { this.handleSubmit(answerData); }}
+        saveAPI="api/universityWizzard/saveStep/"
+        fetchAPI="api/universityWizzard/getStep/"
+      />
         </div>
       );
     } else if (currentStep === '1-1') {

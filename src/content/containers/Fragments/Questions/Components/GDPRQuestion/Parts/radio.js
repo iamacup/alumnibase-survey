@@ -107,7 +107,7 @@ class GDPRButton extends React.Component {
               <div onClick={e => this.handleChange(e, this.props.questionIdentifier[0])}>
                 <div className="row">
                   <div className="col-10 align-self-center">
-                    <h5 className="mb-0">
+                    <h5 className="mb-0" >
           Holding your Personal Information
                     </h5>
                   </div>
@@ -119,7 +119,7 @@ class GDPRButton extends React.Component {
             </div>
             <div>
               <div className="card-body">
-      You consent to AlumniBase holding and processing your personal information and sensitive personal information that you submit as part of taking this survey. This is vital so that we can provide the anonymised and aggregate insights to your university so they can improve their service. No personally identifiable information is shared with anyone.
+      <p>You consent to AlumniBase holding and processing your personal information and sensitive personal information that you submit as part of taking this survey. This is vital so that we can provide the anonymised and aggregate insights to your university so they can improve their service. No personally identifiable information is shared with anyone.</p>
               </div>
             </div>
           </div>
