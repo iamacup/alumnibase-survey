@@ -33,24 +33,24 @@ class Viewer extends React.PureComponent {
     }
 
     let pageButton = (
-            <div className="center-question" style={{ paddingBottom: '0px' }}>
-              <h5 className="dark-text" style={{ marginBottom: '22px' }}>Ready to proceed?</h5>
-              <h6 className="grey-text">You can return here at any time using the navigation on the left.</h6>
-              <button className="btn btn-block btn-next-step answered btn-margin" onClick={() => { this.handleSubmit(null); }}>
+      <div className="center-question" style={{ paddingBottom: '0px' }}>
+        <h5 className="dark-text" style={{ marginBottom: '22px' }}>Ready to proceed?</h5>
+        <h6 className="grey-text">You can return here at any time using the navigation on the left.</h6>
+        <button className="btn btn-block btn-next-step answered btn-margin" onClick={() => { this.handleSubmit(null); }}>
                   Next Step!
-              </button>
-            </div>
-            )
+        </button>
+      </div>
+    );
 
-if (this.props.reduxState_steps.realSection > (this.props.reduxState_steps.section)) {
-  pageButton = (
-    <div className="center-question" style={{ paddingBottom: '0px' }}>
-     <button className="btn btn-block btn-next-step answered btn-margin" onClick={() => { this.handleSummaryButtonClick(); }}>
+    if (this.props.reduxState_steps.realSection > (this.props.reduxState_steps.section)) {
+      pageButton = (
+        <div className="center-question" style={{ paddingBottom: '0px' }}>
+          <button className="btn btn-block btn-next-step answered btn-margin" onClick={() => { this.handleSummaryButtonClick(); }}>
                     Continue survey?
-                </button>
-    </div>
-    )
-};
+          </button>
+        </div>
+      );
+    }
 
     if (currentStep === '4-1') {
       content = (
@@ -152,17 +152,17 @@ if (this.props.reduxState_steps.realSection > (this.props.reduxState_steps.secti
     this.props.submitDataCallback(answerData, next, type);
   }
 
-    handleSummaryButtonClick() {
-      const { realSection } = this.props.reduxState_steps;
-      const { realStep } = this.props.reduxState_steps;
+  handleSummaryButtonClick() {
+    const { realSection } = this.props.reduxState_steps;
+    const { realStep } = this.props.reduxState_steps;
 
-      const stepTo = possibleSections[realSection][realStep]
+    const stepTo = possibleSections[realSection][realStep];
 
-      this.props.reduxAction_doUpdate({
-        step: stepTo,
-      });
+    this.props.reduxAction_doUpdate({
+      step: stepTo,
+    });
 
-      this.props.reduxAction_doUpdateStep({ currentStep: realStep + 1, stepCount: possibleSections[realSection].length, section: realSection });
+    this.props.reduxAction_doUpdateStep({ currentStep: realStep + 1, stepCount: possibleSections[realSection].length, section: realSection });
   }
 
   render() {
@@ -190,7 +190,7 @@ Viewer.defaultProps = {
   },
   reduxAction_doUpdate: () => {},
   reduxAction_doUpdateStep: () => {},
-}
+};
 
 const mapStateToProps = state => ({
   reduxState_steps: state.dataStoreSingle[dataStoreIDSteps],

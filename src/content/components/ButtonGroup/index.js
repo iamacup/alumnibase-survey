@@ -73,31 +73,29 @@ class ButtonGroup extends React.PureComponent {
                 }
               });
 
-      $(this.div)
-                  .find('button')
-                  .each((index2, vertex2) => {
-                    const button2 = $(vertex2);
-                    const doubleButtons = [['options/42960338841', 'options/42960338842'], ['options/42960338844', 'options/42960338845']];
+            $(this.div)
+              .find('button')
+              .each((index2, vertex2) => {
+                const button2 = $(vertex2);
+                const doubleButtons = [['options/42960338841', 'options/42960338842'], ['options/42960338844', 'options/42960338845']];
 
-              doubleButtons.forEach(idArray => {
-                if (button.attr('value') === idArray[0] && button2.attr('value') === idArray[1] && button2.hasClass(this.props.clickedClass)) {
-                  button2.removeClass(this.props.clickedClass);
-                  clickedButtons.splice(clickedButtons.indexOf(idArray[1]), 1)
-                } 
+                doubleButtons.forEach((idArray) => {
+                  if (button.attr('value') === idArray[0] && button2.attr('value') === idArray[1] && button2.hasClass(this.props.clickedClass)) {
+                    button2.removeClass(this.props.clickedClass);
+                    clickedButtons.splice(clickedButtons.indexOf(idArray[1]), 1);
+                  }
 
                   if (button.attr('value') === idArray[1] && button2.attr('value') === idArray[0] && button2.hasClass(this.props.clickedClass)) {
-                  button2.removeClass(this.props.clickedClass);
-                  clickedButtons.splice(clickedButtons.indexOf(idArray[0]), 1)
-                }
-
-              })
-          });
+                    button2.removeClass(this.props.clickedClass);
+                    clickedButtons.splice(clickedButtons.indexOf(idArray[0]), 1);
+                  }
+                });
+              });
 
             // return the array
             this.props.callback(clickedButtons);
-
+          });
         });
-    });
     });
   }
 

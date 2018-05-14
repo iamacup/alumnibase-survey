@@ -133,24 +133,24 @@ class Viewer extends React.PureComponent {
       />
     );
 
-let pageButton = (
-            <div className="center-question" style={{ paddingBottom: '0px' }}>
-              <h5 className="dark-text" style={{ marginBottom: '22px' }}>Ready to proceed?</h5>
-              <button className="btn btn-block btn-next-step answered btn-margin" onClick={() => { this.nextStep(); }}>
+    let pageButton = (
+      <div className="center-question" style={{ paddingBottom: '0px' }}>
+        <h5 className="dark-text" style={{ marginBottom: '22px' }}>Ready to proceed?</h5>
+        <button className="btn btn-block btn-next-step answered btn-margin" onClick={() => { this.nextStep(); }}>
                   Let's go!
-              </button>
-            </div>
-            )
-
-if (this.props.reduxState_steps.realSection > this.props.reduxState_steps.section) {
-    pageButton = (
-    <div className="center-question" style={{ paddingBottom: '0px' }}>
-     <button className="btn btn-block btn-next-step answered btn-margin" onClick={() => { this.handleSummaryButtonClick(); }}>
-                    Continue survey?
-                </button>
-    </div>
+        </button>
+      </div>
     );
-};
+
+    if (this.props.reduxState_steps.realSection > this.props.reduxState_steps.section) {
+      pageButton = (
+        <div className="center-question" style={{ paddingBottom: '0px' }}>
+          <button className="btn btn-block btn-next-step answered btn-margin" onClick={() => { this.handleSummaryButtonClick(); }}>
+                    Continue survey?
+          </button>
+        </div>
+      );
+    }
 
     const uniName = getLatestItemWithFriendlyNameFromState('universityName', 'your university', answerData);
     if (currentStep === '2-1') {
@@ -268,7 +268,7 @@ if (this.props.reduxState_steps.realSection > this.props.reduxState_steps.sectio
           <img alt="s2" src={require('../../../../../content/theme/custom/images/s2.png')} width="100%" />
           <div className="d-flex justify-content-center">
             <div className="question-spacer" />
-       {pageButton}
+            {pageButton}
             <div className="question-spacer" style={{ height: '1px' }} />
           </div>
         </div>
@@ -302,21 +302,21 @@ if (this.props.reduxState_steps.realSection > this.props.reduxState_steps.sectio
     }
   }
 
-    handleSummaryButtonClick() {
-      dataStoreID = 'testHTML3'
-      
-      const { realSection } = this.props.reduxState_steps;
-      const { realStep } = this.props.reduxState_steps;
+  handleSummaryButtonClick() {
+    dataStoreID = 'testHTML3';
 
-      const stepTo = possibleSections[realSection][realStep]
+    const { realSection } = this.props.reduxState_steps;
+    const { realStep } = this.props.reduxState_steps;
 
-      console.log(stepTo, realStep, realSection)
+    const stepTo = possibleSections[realSection][realStep];
 
-      this.props.reduxAction_doUpdate({
-        step: stepTo,
-      });
+    console.log(stepTo, realStep, realSection);
 
-      this.props.reduxAction_doUpdateStep({ currentStep: realStep + 1, stepCount: possibleSections[realSection].length, section: realSection });
+    this.props.reduxAction_doUpdate({
+      step: stepTo,
+    });
+
+    this.props.reduxAction_doUpdateStep({ currentStep: realStep + 1, stepCount: possibleSections[realSection].length, section: realSection });
   }
 
 
@@ -337,7 +337,7 @@ Viewer.propTypes = {
   type: PropTypes.string.isRequired,
 };
 Viewer.defaultProps = {
-    reduxState_steps: {
+  reduxState_steps: {
     currentStep: 11,
     stepCout: 11,
     section: 1,

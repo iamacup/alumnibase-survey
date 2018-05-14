@@ -31,7 +31,7 @@ class preUniQualificationComponent extends React.Component {
 
   render() {
     const { questionID, options, drawData } = this.props.data;
-    const { answer, nextStepCallback, title } = this.props
+    const { answer, nextStepCallback, title } = this.props;
     const questionIdentifier = getQuestionIdentifiers(options);
 
     const { errorBits } = getUsefulQuestionBits(
@@ -49,7 +49,6 @@ class preUniQualificationComponent extends React.Component {
     let question = null;
 
     question = (extension) => {
-
       let qualificationAnswer = {};
       let gradeAnswer = {};
       let subjectAnswer = {};
@@ -62,67 +61,67 @@ class preUniQualificationComponent extends React.Component {
         gradeAnswer = answer.answer[questionIdentifier[1] + extension];
       }
 
-    if (dNc(answer.answer[questionIdentifier[2] + extension])) {
+      if (dNc(answer.answer[questionIdentifier[2] + extension])) {
         subjectAnswer = answer.answer[questionIdentifier[2] + extension];
       }
 
       return (
-      <div>
-      <div className="row">
-          <div className="col-12 mb-2">
-            <Qualification
-              {...obj}
-              answer={qualificationAnswer}
-              options={options[questionIdentifier[0]]}
-              questionIdentifier={questionIdentifier[0] + extension}
-              gradeAnswer={gradeAnswer}
-            />
+        <div>
+          <div className="row">
+            <div className="col-12 mb-2">
+              <Qualification
+                {...obj}
+                answer={qualificationAnswer}
+                options={options[questionIdentifier[0]]}
+                questionIdentifier={questionIdentifier[0] + extension}
+                gradeAnswer={gradeAnswer}
+              />
+            </div>
+          </div>
+          <div className="row mb-3">
+            <div className="col-6">
+              <Subject
+                {...obj}
+                answer={subjectAnswer}
+                questionIdentifier={questionIdentifier[2] + extension}
+              />
+            </div>
+            <div className="col-6">
+              <Grade
+                {...obj}
+                answer={gradeAnswer}
+                questionIdentifier={questionIdentifier[1] + extension}
+                qualificationAnswer={qualificationAnswer}
+              />
+            </div>
           </div>
         </div>
-        <div className="row mb-3">
-          <div className="col-6">
-             <Subject
-              {...obj}
-              answer={subjectAnswer}
-              questionIdentifier={questionIdentifier[2] + extension}
-            />
-          </div>
-          <div className="col-6">
-           <Grade
-              {...obj}
-              answer={gradeAnswer}
-              questionIdentifier={questionIdentifier[1] + extension}
-              qualificationAnswer={qualificationAnswer}
-            />
+      );
+    };
+
+    const arr = [];
+
+    for (let a = 0; a < this.state.count; a++) {
+      const thing = (
+        <div key={this.state.count}>
+          {question('_' + a)}
+        </div>
+      );
+
+      arr.push(thing);
+    }
+
+    let postContent = ('');
+
+    if (3 * this.state.count === Object.keys(answer.answer).length) {
+      postContent = (
+        <div className="row justify-content-center pb-3">
+          <div className="col-8">
+            <button type="button" className="btn btn-secondary" onClick={e => this.handleClick(e)}>Add more qualifications</button>
           </div>
         </div>
-      </div>
-    );
-  };
-
-  const arr = [];
-
-  for (let a = 0; a < this.state.count; a++) {
-    const thing = (
-      <div key={this.state.count}>
-        {question('_' + a)}
-      </div>
-    );
-
-    arr.push(thing);
-  }
-
-let postContent = ('')
-
-  if (3 * this.state.count === Object.keys(answer.answer).length) {
-     postContent = (
-      <div className="row justify-content-center pb-3">
-        <div className="col-8">
-          <button type="button" className="btn btn-secondary" onClick={e => this.handleClick(e)}>Add more qualifications</button>
-        </div>
-      </div>
-    );
-   } 
+      );
+    }
 
     return (
       <QuestionContainer
