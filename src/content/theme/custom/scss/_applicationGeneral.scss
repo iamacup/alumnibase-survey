@@ -55,7 +55,7 @@ $red-color: #d02a02;
 }
 
 .new-nav {
-  @media (min-width: 992px) {
+  @media (min-width: 1200px) {
     margin-top: 30px;
 
     #margin-sidebar {
@@ -68,7 +68,7 @@ $red-color: #d02a02;
     font-weight: bold;
     line-height: 27px;
 
-    @media (max-width: 992px) {
+    @media (max-width: 1200px) {
       display: none;
     }
   }
