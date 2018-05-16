@@ -68,7 +68,7 @@ class Navigation extends React.PureComponent {
       <div className="new-nav">
         <div className="d-flex justify-content-center" id="title-mobile">
           <div className="title-text">
-            <span className="dark-text">University</span> <span className="light-grey-text">Branding</span>
+            <img className="King's College" alt="loughborough-logo" src={require('../../../../content/theme/custom/images/kings.png')} height="100px" />
           </div>
         </div>
         <div className="list-group list-group-flush" data-toggle="collapse" aria-expanded="false" id="margin-sidebar">
