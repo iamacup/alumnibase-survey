@@ -300,7 +300,7 @@ class Viewer extends React.Component {
                 </div>
                 <div className="col-10 pl-4">
                   <div className="title-text">
-                    <img className="sheffield-logo" alt="University of Sheffield" src={require('../../../../../content/theme/custom/images/sheffield.png')} height="55px" />
+                    <img className="sheffield-logo" alt="Sheffield Hallam University" src={require('../../../../../content/theme/custom/images/sheffield.png')} height="55px" />
                   </div>
                 </div>
               </div>
@@ -326,7 +326,7 @@ class Viewer extends React.Component {
                 </div>
                 <div className="col-8 text-center">
                   <div className="title-text">
-                    <img className="sheffield-logo" alt="University of Sheffield" src={require('../../../../../content/theme/custom/images/sheffield.png')} height="55px" />
+                    <img className="sheffield-logo" alt="Sheffield Hallam University" src={require('../../../../../content/theme/custom/images/sheffield.png')} height="55px" />
                   </div>
                 </div>
               </div>
