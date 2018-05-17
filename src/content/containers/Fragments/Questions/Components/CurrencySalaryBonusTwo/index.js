@@ -164,13 +164,24 @@ const CurrencySalaryBonusQuestionComponent = ({
     </div>
   );
 
+  // This is just a temporary fix, theres a bigger problem that i can't figure out yet.
+const arr = [];
+let answered = answer.answered;
+//  eslint-disable-next-line no-restricted-syntax, guard-for-in
+for (let key in answer.answer) {
+  arr.push(key)
+}
+
+if (arr.length !== 6) answered = false
+
+
   return (
     <QuestionContainer
       title={title}
       question={question}
       error={answer.error}
       errorMessages={errorBits}
-      answered={answer.answered}
+      answered={answered}
     />
   );
 };
