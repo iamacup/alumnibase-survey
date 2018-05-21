@@ -242,18 +242,19 @@ class NewWizzardPane extends React.Component {
           <div className="modal-dialog" role="document">
             <div className="modal-content">
               <div className="modal-header">
-                <h5 className="modal-title">GDPR Compliant</h5>
+                <h5 className="modal-title">Concent</h5>
                 <button type="button" className="close" data-dismiss="modal" aria-label="Close" onClick={() => { this.handleGDPRButton() }}>
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
               <div className="modal-body">
-                <p>If all three choices are not checked, you will not be able to continue with the survey.</p>
+                <p>You have not provided concent</p>
+                <p>if you choose to continue, your data will not be saved.</p>
               </div>
               <div className="modal-footer">
-            {/* Push to logout page? */}
-                <button type="button" className="btn btn-secondary" onClick={() => { this.context.router.history.push('/login'); }}>Continue anyway</button> 
-                <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={() => { this.handleGDPRButton() }} >Close</button>
+            {/* Push to login page? --> () => { this.context.router.history.push('/login');  */}
+                <button type="button" className="btn btn-secondary" onClick={() => { this.handleSubmitButton() }}>Continue anyway</button> 
+                <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={() => { this.handleGDPRButton() }} >Provide Concent</button>
               </div>
             </div>
           </div>
