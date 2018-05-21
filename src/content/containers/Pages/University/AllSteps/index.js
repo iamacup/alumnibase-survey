@@ -300,7 +300,7 @@ class Viewer extends React.Component {
                 </div>
                 <div className="col-10 pl-4">
                   <div className="title-text">
-                    <img className="oxford-logo" alt="Oxford Brookes University" src={require('../../../../../content/theme/custom/images/oxford-brookes.png')} height="55px" />
+                    <img className="ucl-logo" alt="University College London" src={require('../../../../../content/theme/custom/images/UCL.png')} height="55px" />
                   </div>
                 </div>
               </div>
@@ -326,7 +326,7 @@ class Viewer extends React.Component {
                 </div>
                 <div className="col-8 text-center">
                   <div className="title-text">
-                    <img className="oxford-logo" alt="Oxfors Brookes University" src={require('../../../../../content/theme/custom/images/oxford-brookes.png')} height="55px" />
+                    <img className="ucl-logo" alt="University College London" src={require('../../../../../content/theme/custom/images/UCL.png')} height="55px" />
                   </div>
                 </div>
               </div>
