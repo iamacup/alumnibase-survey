@@ -5,7 +5,7 @@ const NotFoundPage = () => (
   <div className="not-found-page">
     <div className="container">
       <div style={{ paddingTop: '10%', textAlign: 'center' }}>
-        <img className="ucl-logo" alt="University College London" src={require('../../../../content/theme/custom/images/UCL.png')} height="100px" />
+        <img className="uwe-logo" alt="University of the West of England" src={require('../../../../content/theme/custom/images/UWE.png')} height="100px" />
       </div>
       <div className="row text-center justify-content-center">
         <div className="col-lg-10 page-box-404">
