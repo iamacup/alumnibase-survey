@@ -153,6 +153,7 @@ class BioViewer extends React.PureComponent {
             submitCallback={(answerData) => { this.handleSubmit(answerData); }}
             saveAPI="api/universityWizzard/saveStep/"
             fetchAPI="api/universityWizzard/getStep/"
+            button={false}
           />
         </div>
       );
