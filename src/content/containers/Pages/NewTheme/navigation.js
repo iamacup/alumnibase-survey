@@ -40,7 +40,7 @@ class Navigation extends React.PureComponent {
           currentStep = possibleSections[realSection].indexOf(stepName);
         } else {
         // we know its not done
-          stepTo = 'not-done';
+          stepTo = sectionNum + '-' + realSection; // normally stepTo would be 'not-done'
           sectionTo = sectionNum;
           currentStep = 1;
         }
