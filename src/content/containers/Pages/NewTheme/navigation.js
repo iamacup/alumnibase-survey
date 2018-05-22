@@ -11,7 +11,7 @@ import * as storeAction from '../../../../foundation/redux/globals/DataStoreSing
 const dataStoreID = 'testHTML3';
 
 class Navigation extends React.PureComponent {
-  constructor(props) {
+ constructor(props) {
     super(props) 
 
     this.state = ({
@@ -63,9 +63,8 @@ class Navigation extends React.PureComponent {
           stepTo = sectionNum + '-1'; // normally stepTo would be 'not-done'
           sectionTo = sectionNum;
           currentStep = 1;
-
-          this.setState({
-            [realSection] : { realSection, realStep, step: possibleSections[realSection][realStep]}
+   this.setState({
+            [realSection]: { realSection, realStep, step: possibleSections[realSection][realStep]  },  
           })
         }
       } else if (sectionNum === realSection) {
@@ -79,6 +78,9 @@ class Navigation extends React.PureComponent {
           // possibleSections[sectionNum][possibleSections[sectionNum].length - 1];
           sectionTo = sectionNum;
           currentStep = possibleSections[sectionNum].length;
+           this.setState({
+            [realSection]: { realSection, realStep, step: possibleSections[realSection][realStep]  },  
+          })
         } else {
         stepTo = possibleSections[sectionNum][this.state[sectionNum].realStep];
         sectionTo = sectionNum;
