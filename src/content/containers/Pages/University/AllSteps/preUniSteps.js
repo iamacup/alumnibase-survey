@@ -33,7 +33,7 @@ class Viewer extends React.PureComponent {
       <div className="center-question" style={{ paddingBottom: '0px' }}>
         <h5 className="dark-text" style={{ marginBottom: '22px' }}>Ready to proceed?</h5>
         <h6 className="grey-text">You can return here at any time using the navigation on the left.</h6>
-        <button className="btn btn-block btn-next-step answered btn-margin" onClick={() => { this.handleSubmit(null); }}>
+        <button className="btn btn-block btn-next-step answered btn-margin" /*onClick={() => { this.handleSubmit(null); }}*/>
                   Next Step!
         </button>
       </div>
@@ -41,7 +41,7 @@ class Viewer extends React.PureComponent {
     if (this.props.reduxState_steps.realSection > this.props.reduxState_steps.section) {
       pageButton = (
         <div className="center-question" style={{ paddingBottom: '0px' }}>
-          <button className="btn btn-block btn-next-step answered btn-margin" onClick={() => { this.handleSummaryButtonClick(); }}>
+          <button className="btn btn-block btn-next-step answered btn-margin" /*onClick={() => { this.handleSummaryButtonClick(); }}*/>
                     Continue survey?
           </button>
         </div>
