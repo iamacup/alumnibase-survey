@@ -34,11 +34,6 @@ class preUniQualificationComponent extends React.Component {
     const { answer, nextStepCallback, title } = this.props;
     const questionIdentifier = getQuestionIdentifiers(options);
 
-    const { errorBits } = getUsefulQuestionBits(
-      options,
-      answer.answer,
-    );
-
     const obj = {
       questionID,
       forceValidate: answer.forceValidate,
@@ -47,6 +42,7 @@ class preUniQualificationComponent extends React.Component {
     };
 
     let question = null;
+    const errorBits = [];
 
     question = (extension) => {
       let qualificationAnswer = {};
@@ -55,14 +51,17 @@ class preUniQualificationComponent extends React.Component {
 
       if (dNc(answer.answer[questionIdentifier[0] + extension])) {
         qualificationAnswer = answer.answer[questionIdentifier[0] + extension];
+        errorBits.push(answer.answer[questionIdentifier[0] + extension].errorMessage)
       }
 
       if (dNc(answer.answer[questionIdentifier[1] + extension])) {
         gradeAnswer = answer.answer[questionIdentifier[1] + extension];
+        errorBits.push(answer.answer[questionIdentifier[1] + extension].errorMessage)
       }
 
       if (dNc(answer.answer[questionIdentifier[2] + extension])) {
         subjectAnswer = answer.answer[questionIdentifier[2] + extension];
+        errorBits.push(answer.answer[questionIdentifier[2] + extension].errorMessage)
       }
 
       return (
@@ -103,7 +102,7 @@ class preUniQualificationComponent extends React.Component {
 
     for (let a = 0; a < this.state.count; a++) {
       const thing = (
-        <div key={this.state.count}>
+        <div key={a}>
           {question('_' + a)}
         </div>
       );
