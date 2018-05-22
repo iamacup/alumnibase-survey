@@ -168,6 +168,7 @@ class graduateDestinationButtons extends React.Component {
       }
 
       let bool = true;
+      let checkedBool = false;
 
       Object.keys(this.props.answer).forEach((element) => {
         if (this.props.answer[element].optionID === value.optionID) {
@@ -175,6 +176,12 @@ class graduateDestinationButtons extends React.Component {
         }
       });
 
+    if (dNc(this.props.answer['graduateDestinationMostImportant']) && dNc(this.props.answer['graduateDestinationMostImportant'].optionID)) {
+      if (this.props.answer['graduateDestinationMostImportant'].optionID === value.optionID) {
+          checkedBool = true
+      } else checkedBool = false
+    }
+    
       const obj = (
         <div key={value.optionID}>
           <div className="row">
@@ -191,7 +198,7 @@ class graduateDestinationButtons extends React.Component {
               {dataButton}
             </div>
             <div className="col-2">
-              <input disabled={bool} type="radio" name="radio_1" value={value.optionID} onClick={e => this.handleRadio(e)} />
+              <input disabled={bool} type="radio" name="radio_1" value={value.optionID} onClick={e => this.handleRadio(e)} checked={checkedBool} />
             </div>
           </div>
         </div>
