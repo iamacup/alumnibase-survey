@@ -55,9 +55,8 @@ class Navigation extends React.PureComponent {
           stepTo = possibleSections[sectionNum][this.state[sectionNum].realStep]
           sectionTo = sectionNum;
           currentStep = this.state[sectionNum].realStep + 1;
-
           this.setState({
-            [realSection]: { realSection, realStep, stepTo: possibleSections[realSection][realStep]  },  
+            [realSection]: { realSection, realStep, step: possibleSections[realSection][realStep]  },  
           })
 
          } else { 
@@ -65,8 +64,8 @@ class Navigation extends React.PureComponent {
           sectionTo = sectionNum;
           currentStep = 1;
 
-                this.setState({
-            [realSection]: { realSection, realStep, stepTo: possibleSections[realSection][realStep]  },  
+          this.setState({
+            [realSection] : { realSection, realStep, step: possibleSections[realSection][realStep]}
           })
         }
       } else if (sectionNum === realSection) {
@@ -76,17 +75,17 @@ class Navigation extends React.PureComponent {
         currentStep = realStep + 1;
       } else if (this.state[sectionNum] !== null) {
         if (realSection > sectionNum) {
-          stepTo = possibleSections[sectionNum][possibleSections[sectionNum].length - 1];
+          stepTo = this.state[sectionNum].step;
+          // possibleSections[sectionNum][possibleSections[sectionNum].length - 1];
           sectionTo = sectionNum;
           currentStep = possibleSections[sectionNum].length;
         } else {
-  
         stepTo = possibleSections[sectionNum][this.state[sectionNum].realStep];
         sectionTo = sectionNum;
         currentStep = this.state[sectionNum].realStep;
 
             this.setState({
-            [realSection]: { realSection, realStep, stepTo: possibleSections[realSection][realStep] },  
+            [realSection]: { realSection, realStep, step: possibleSections[realSection][realStep] },  
           })
         }
 
