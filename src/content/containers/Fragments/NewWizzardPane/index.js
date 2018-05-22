@@ -147,41 +147,40 @@ class NewWizzardPane extends React.Component {
   handleGDPRButton() {
     this.setState({
       gdprModal: !this.state.gdprModal,
-    })
+    });
 
-    if (this.state.gdprModal === true ) {
-        $('.modal').css('display', 'block')
-        $('.overlay2').fadeIn();
+    if (this.state.gdprModal === true) {
+      $('.modal').css('display', 'block');
+      $('.overlay2').fadeIn();
     } else {
-      $('.modal').css('display', 'none')
+      $('.modal').css('display', 'none');
       $('.overlay2').fadeOut();
     }
   }
 
   drawQuestions(data) {
-    let buttonSubmit = () => { this.handleSubmitButton(); }
+    let buttonSubmit = () => { this.handleSubmitButton(); };
     let buttonText = 'Next Step ';
-    let buttonId = "button";
+    let buttonId = 'button';
 
     if (dNc(this.props.reduxState_questions) && dNc(this.props.reduxState_questions['questions/42953580581']) && dNc(this.props.reduxState_questions['questions/42953580581'].answer)) {
-     const { answer } = this.props.reduxState_questions['questions/42953580581'];
-     const keys = Object.keys(answer);
+      const { answer } = this.props.reduxState_questions['questions/42953580581'];
+      const keys = Object.keys(answer);
 
-     keys.forEach(key => {
-      if (this.props.button === false && answer[key].optionValue === 'No') {
-        buttonSubmit = () => { this.handleGDPRButton(); }
-        buttonText = 'Continue ';
-        buttonId = 'gdprButton';
-      } else if (answer['holdPersonal'] === 'Yes' && answer['ourMarketing'] === 'Yes' && answer['uniMarketing'] === 'Yes') {
-        buttonSubmit = () => { this.handleSubmitButton(); }
-        buttonText = 'Next Step ';
-        buttonId = "button";
-
-      }
-     }) 
+      keys.forEach((key) => {
+        if (this.props.button === false && answer[key].optionValue === 'No') {
+          buttonSubmit = () => { this.handleGDPRButton(); };
+          buttonText = 'Continue ';
+          buttonId = 'gdprButton';
+        } else if (answer.holdPersonal === 'Yes' && answer.ourMarketing === 'Yes' && answer.uniMarketing === 'Yes') {
+          buttonSubmit = () => { this.handleSubmitButton(); };
+          buttonText = 'Next Step ';
+          buttonId = 'button';
+        }
+      });
     }
 
-         let nextButton = (
+    const nextButton = (
       <QuestionButton
         key="nextButton"
         id={buttonId}
@@ -238,12 +237,12 @@ class NewWizzardPane extends React.Component {
             useMutatedTitles={this.props.useMutatedTitles}
           />
         </div>
-       <div className="modal" tabIndex="-1" role="dialog" style={{ zIndex: '2000000', marginLeft: '20%'}}>
+        <div className="modal" tabIndex="-1" role="dialog" style={{ zIndex: '2000000', marginLeft: '20%' }}>
           <div className="modal-dialog" role="document">
             <div className="modal-content">
               <div className="modal-header">
                 <h5 className="modal-title">Concent</h5>
-                <button type="button" className="close" data-dismiss="modal" aria-label="Close" onClick={() => { this.handleGDPRButton() }}>
+                <button type="button" className="close" data-dismiss="modal" aria-label="Close" onClick={() => { this.handleGDPRButton(); }}>
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
@@ -252,9 +251,9 @@ class NewWizzardPane extends React.Component {
                 <p>if you choose to continue, your data will not be saved.</p>
               </div>
               <div className="modal-footer">
-            {/* Push to login page? --> () => { this.context.router.history.push('/login');  */}
-                <button type="button" className="btn btn-secondary" onClick={() => { this.handleSubmitButton() }}>Continue anyway</button> 
-                <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={() => { this.handleGDPRButton() }} >Provide Concent</button>
+                {/* Push to login page? --> () => { this.context.router.history.push('/login');  */}
+                <button type="button" className="btn btn-secondary" onClick={() => { this.handleSubmitButton(); }}>Continue anyway</button>
+                <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={() => { this.handleGDPRButton(); }} >Provide Concent</button>
               </div>
             </div>
           </div>
@@ -262,7 +261,7 @@ class NewWizzardPane extends React.Component {
         <div className="overlay2" />
       </div>
     );
-  } 
+  }
 
   render() {
     const fetchState = this.props.reduxState_fetchDataTransaction;
