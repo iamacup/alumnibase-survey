@@ -122,13 +122,16 @@ class preUniQualificationComponent extends React.Component {
       );
     }
 
+let answered = false
+if (Object.keys(answer.answer).length === (this.state.count * 3)) answered = true;
+
     return (
       <QuestionContainer
         title={title}
         question={arr}
         error={answer.error}
         errorMessages={errorBits}
-        answered={answer.answered}
+        answered={answered}
         postContent={postContent}
       />
     );
