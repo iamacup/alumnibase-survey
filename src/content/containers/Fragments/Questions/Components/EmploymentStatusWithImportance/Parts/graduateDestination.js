@@ -176,12 +176,12 @@ class graduateDestinationButtons extends React.Component {
         }
       });
 
-    if (dNc(this.props.answer['graduateDestinationMostImportant']) && dNc(this.props.answer['graduateDestinationMostImportant'].optionID)) {
-      if (this.props.answer['graduateDestinationMostImportant'].optionID === value.optionID) {
-          checkedBool = true
-      } else checkedBool = false
-    }
-    
+      if (dNc(this.props.answer.graduateDestinationMostImportant) && dNc(this.props.answer.graduateDestinationMostImportant.optionID)) {
+        if (this.props.answer.graduateDestinationMostImportant.optionID === value.optionID) {
+          checkedBool = true;
+        } else checkedBool = false;
+      }
+
       const obj = (
         <div key={value.optionID}>
           <div className="row">

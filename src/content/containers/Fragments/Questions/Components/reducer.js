@@ -110,7 +110,6 @@ export default (state = initialState, action) => {
         valid: action.valid,
       });
       const answer = _.assign({}, obj.answer, newAnswerPart);
-
       // we have to adjust the overall answer validity if the update is invalid
       let answerValidity = obj.answered;
 
