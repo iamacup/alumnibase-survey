@@ -162,7 +162,7 @@ class Unpaid extends React.Component {
       names.forEach((name) => {
         console.log('Getting here')
        optionID = null;
-       optionValue = -1;
+       optionValue = 0;
        validity = this.validate({});
 
       this.props.reduxAction_doUpdateQuestionAnswer(
