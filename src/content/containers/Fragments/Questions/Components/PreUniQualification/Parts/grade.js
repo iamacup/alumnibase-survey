@@ -11,6 +11,7 @@ import * as questionAction from '../../../../../../../content/containers/Fragmen
 
 class Grade extends React.Component {
   componentDidMount() {
+
     $(() => {
       const dropdownParent = select2GetCorrectParent(this.input);
       const placeholder = 'Select a grade';
@@ -27,6 +28,7 @@ class Grade extends React.Component {
             this.putItemIntoState();
           }
         });
+      this.setStateWithFalseValidation()
     });
   }
 
@@ -45,6 +47,21 @@ class Grade extends React.Component {
         questionIdentifier,
       );
     }
+  }
+
+  setStateWithFalseValidation() {
+    const { questionIdentifier, questionID } = this.props;
+    const optionID = null;
+    let optionValue = null;
+    const validity = this.validate({ optionID, optionValue });
+
+    this.props.reduxAction_doUpdateQuestionAnswer(
+      questionID,
+      questionIdentifier,
+      optionID,
+      optionValue,
+      validity.valid,
+    );
   }
 
   putItemIntoState() {

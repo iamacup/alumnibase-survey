@@ -145,9 +145,9 @@ class Unpaid extends React.Component {
     }
 
     if (!dataArr.includes(options[0].optionID)) {
-      const { optionID } = options[1];
-      const { optionValue } = options[1];
-      const validity = this.validate(['empty']);
+      let { optionID } = options[1];
+      let { optionValue } = options[1];
+      let validity = this.validate(['empty']);
       // setting unpaid to 'No'
       this.props.reduxAction_doUpdateQuestionAnswer(
         questionID,
@@ -157,11 +157,22 @@ class Unpaid extends React.Component {
         validity.valid,
       );
 
-      // clearing the salary and bonus options in the state
+      // setting salary and bonus fields to valid = false
+
       names.forEach((name) => {
-        console.log('removing', name);
-        this.props.reduxAction_doRemoveQuestionIdentifier(questionID, name);
-      });
+        console.log('Getting here')
+       optionID = null;
+       optionValue = -1;
+       validity = this.validate({});
+
+      this.props.reduxAction_doUpdateQuestionAnswer(
+        questionID,
+        name,
+        optionID,
+        optionValue,
+        validity.valid,
+      );
+    });
     }
   }
 

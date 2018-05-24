@@ -330,25 +330,42 @@ export function currencySymbolLookup(currencyCode) {
   return currencySymbol;
 }
 
-export function getUsefulQuestionBits(options, answer) {
+export function getUsefulQuestionBits(options, answer, extension) {
+  // console.log(options, answer)
   const answerBits = [];
   const errorBits = [];
 
-  Object.keys(options).forEach((value) => {
+  if (dNc(extension)) {
+    Object.keys(options).forEach((value) => {
     // make sure the object is empty
-    answerBits[value] = {};
-
-    if (dNc(answer) && dNc(answer[value])) {
+      answerBits[value + extension] = {};
+      if (dNc(answer) && dNc(answer[value + extension])) {
       // populate teh answer object if it exists
-      answerBits[value] = answer[value];
-      // console.log(answerBits)
+        answerBits[value + extension] = answer[value + extension];
+        // console.log(answerBits)
 
-      // and also check to see if this answer has any error messages against it
-      if (dNc(answer[value].errorMessage)) {
-        errorBits.push(answer[value].errorMessage);
+        // and also check to see if this answer has any error messages against it
+        if (dNc(answer[value + extension].errorMessage)) {
+          errorBits.push(answer[value + extension].errorMessage);
+        }
       }
-    }
-  });
+    });
+  } else {
+    Object.keys(options).forEach((value) => {
+    // make sure the object is empty
+      answerBits[value] = {};
+      if (dNc(answer) && dNc(answer[value])) {
+      // populate teh answer object if it exists
+        answerBits[value] = answer[value];
+        // console.log(answerBits)
+
+        // and also check to see if this answer has any error messages against it
+        if (dNc(answer[value].errorMessage)) {
+          errorBits.push(answer[value].errorMessage);
+        }
+      }
+    });
+  }
 
   return { answerBits, errorBits };
 }
@@ -405,6 +422,7 @@ export function getUsefulAnswerBits(answerData) {
 
 export function getQuestionIdentifiers(options) {
   const keys = Object.keys(options);
+  // console.log(keys)
 
   if (keys.length === 1) {
     return keys[0];
