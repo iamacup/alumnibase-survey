@@ -158,10 +158,10 @@ class Unpaid extends React.Component {
       );
 
       // setting salary and bonus fields to valid = false
-
       names.forEach((name) => {
         console.log('Getting here')
        optionID = null;
+      // using 0 so as not to show total salary as a negative number.
        optionValue = 0;
        validity = this.validate({});
 
