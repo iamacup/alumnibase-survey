@@ -178,18 +178,18 @@ class Viewer extends React.Component {
     }
 
     // this is some code we can use to force test a series of steps after 0-1 is complete (i.e. a sessionID is assigned and a uni picked)
-    // if (this.props.reduxState_this.step === '0-1') {
-    //   const stepTo = '4-1';
+    if (this.props.reduxState_this.step === '0-1') {
+      const stepTo = '4-1';
 
-    //   this.props.reduxAction_doUpdate({
-    //     step: stepTo,
-    //     answerData: updateAnswerData,
-    //   });
+      this.props.reduxAction_doUpdate({
+        step: stepTo,
+        answerData: updateAnswerData,
+      });
 
-    //   this.props.reduxAction_doUpdateStep({ currentStep: 1, stepCount: retrospectiveSteps.length, section: 5 });
+      this.props.reduxAction_doUpdateStep({ currentStep: 1, stepCount: retrospectiveSteps.length, section: 5 });
 
-    //   return;
-    // }
+      return;
+    }
 
     // we always update the step assuming there was a next step passed
     // eslint-disable-next-line no-unreachable
@@ -288,6 +288,9 @@ class Viewer extends React.Component {
   }
 
   render() {
+    const uni = this.context.router.route.location.pathname.split('/')[1]
+    const uniName = uni[0].toUpperCase() + uni.slice(1);
+
     return (
       <div>
         <Helmet title="Survey" />
@@ -308,13 +311,13 @@ class Viewer extends React.Component {
             <Navigation />
             <div className="row mx-2 ml-4" style={{ position: 'absolute', bottom: '20px', left: '0' }}>
               <div className="col-4">
-                <a href="/"><h6 className="medium-grey-text">Privacy</h6></a>
+                <a href={`/${uniName}/`}><h6 className="medium-grey-text">Privacy</h6></a>
               </div>
               <div className="col-4">
-                <a href="/"><h6 className="medium-grey-text">Terms</h6></a>
+                <a href={`/${uniName}/`}><h6 className="medium-grey-text">Terms</h6></a>
               </div>
               <div className="col-4">
-                <a href="/"><h6 className="medium-grey-text">Cookies</h6></a>
+                <a href={`/${uniName}/`}><h6 className="medium-grey-text">Cookies</h6></a>
               </div>
             </div>
           </div>
@@ -364,6 +367,10 @@ class Viewer extends React.Component {
     );
   }
 }
+
+Viewer.contextTypes = {
+  router: PropTypes.object,
+};
 
 Viewer.propTypes = {
   reduxState_this: PropTypes.object,

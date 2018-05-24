@@ -89,8 +89,6 @@ class graduateDestinationButtons extends React.Component {
         }
       });
 
-      // we pass an empty array in here because the state does not yet exist - and we just want it to validate
-      // see the validate method to understand why this works
       const validity = this.validate(['empty']);
 
       this.props.reduxAction_doUpdateQuestionAnswer(
@@ -169,7 +167,7 @@ class graduateDestinationButtons extends React.Component {
 
       let bool = true;
       let checkedBool = false;
-
+      // disabling the radio buttons
       Object.keys(this.props.answer).forEach((element) => {
         if (this.props.answer[element].optionID === value.optionID) {
           bool = false;

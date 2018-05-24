@@ -34,8 +34,8 @@ class preUniQualificationComponent extends React.Component {
     const { answer, nextStepCallback, title } = this.props;
     const questionIdentifier = getQuestionIdentifiers(options);
 
-      let answerBits = null;
-      let errorBits = null;
+    let answerBits = null;
+    let errorBits = null;
 
     const obj = {
       questionID,
@@ -52,11 +52,11 @@ class preUniQualificationComponent extends React.Component {
       let gradeAnswer = {};
       let subjectAnswer = {};
 
-    ({ answerBits, errorBits } = getUsefulQuestionBits(
-      options,
-      answer.answer,
-      extension,
-    ));
+      ({ answerBits, errorBits } = getUsefulQuestionBits(
+        options,
+        answer.answer,
+        extension,
+      ));
 
       if (dNc(answerBits[questionIdentifier[0] + extension])) {
         qualificationAnswer = answerBits[questionIdentifier[0] + extension];
@@ -122,13 +122,13 @@ class preUniQualificationComponent extends React.Component {
     // let postContent = ('');
 
     // if (3 * this.state.count === Object.keys(answer.answer).length) {
-     let postContent = (
-        <div className="row justify-content-center pb-3">
-          <div className="col-8">
-            <button type="button" className="btn btn-secondary" onClick={e => this.handleClick(e)}>Add more qualifications</button>
-          </div>
+    const postContent = (
+      <div className="row justify-content-center pb-3">
+        <div className="col-8">
+          <button type="button" className="btn btn-secondary" onClick={e => this.handleClick(e)}>Add more qualifications</button>
         </div>
-      );
+      </div>
+    );
     // }
 
     // console.log(answerBits, 'answerBits');

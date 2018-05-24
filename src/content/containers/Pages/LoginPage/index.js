@@ -81,6 +81,9 @@ class Login extends React.Component {
       $(this.errorText2).toggleClass('d-block mb-3 ml-2');
     };
 
+    const uni = this.context.router.route.location.pathname.split('/')[1]
+    const uniName = uni[0].toUpperCase() + uni.slice(1);
+    
     return (
       <div style={{ backgroundColor: '#f2f4f7', padding: '50px' }}>
         <div className="text-center pb-sm-3">
@@ -146,13 +149,13 @@ class Login extends React.Component {
           <div className="pt-5 mt-sm-5" />
           <div className="row justify-content-center text-center mt-5">
             <div className="col-10 col-sm-4 mb-5 mb-sm-1 mt-sm-5">
-              <a href="/">Privacy</a>
+              <a href={`/${uniName}/`}>Privacy</a>
             </div>
             <div className="col-10 col-sm-4 mb-5 mb-sm-1 mt-sm-5">
-              <a href="/">Terms and Conditions</a>
+              <a href={`/${uniName}/`}>Terms and Conditions</a>
             </div>
             <div className="col-10 col-sm-4 mb-5 mb-sm-1 mt-sm-5">
-              <a href="/">Cookies</a>
+              <a href={`/${uniName}/`}>Cookies</a>
             </div>
             <hr style={{ width: '400px' }} />
           </div>

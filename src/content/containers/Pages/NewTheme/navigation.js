@@ -63,6 +63,8 @@ class Navigation extends React.PureComponent {
       this.props.reduxAction_doUpdateStep({ currentStep, stepCount: possibleSections[sectionNum].length, section: sectionTo });
     };
 
+    const uni = this.context.router.route.location.pathname.split('/')[1]
+    const uniName = uni[0].toUpperCase() + uni.slice(1);
 
     return (
       <div className="new-nav">
@@ -85,12 +87,16 @@ class Navigation extends React.PureComponent {
         <div style={{ marginTop: '22px' }} />
 
         <div style={{ marginLeft: '38px' }} className="medium-grey-text">
-          <a href="/login"><h6 className="medium-grey-text"><i className="fal fa-cog" />  Settings</h6></a>
+          <a href={`/${uniName}`}><h6 className="medium-grey-text"><i className="fal fa-cog" />  Settings</h6></a>
         </div>
       </div>
     );
   }
 }
+
+Navigation.contextTypes = {
+  router: PropTypes.object,
+};
 
 Navigation.propTypes = {
   reduxState_steps: PropTypes.object,

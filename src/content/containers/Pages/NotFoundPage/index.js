@@ -1,5 +1,8 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 // import Navigation from '../../../../content/containers/Pages/NewTheme/navigation';
+
+const uniName = 'Aristotle';
 
 const NotFoundPage = () => (
   <div className="not-found-page">
@@ -18,7 +21,7 @@ const NotFoundPage = () => (
               <p>To get back to the home page click here.</p>
             </div>
             <div className="col-sm-4">
-              <a href="/"> <button type="button" className="list-group-item list-group-item-action button">Home Page</button></a>
+              <a href={`/${uniName}`}> <button type="button" className="list-group-item list-group-item-action button">Home Page</button></a>
             </div>
           </div>
         </div>

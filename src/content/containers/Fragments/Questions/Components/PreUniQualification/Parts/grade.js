@@ -11,7 +11,6 @@ import * as questionAction from '../../../../../../../content/containers/Fragmen
 
 class Grade extends React.Component {
   componentDidMount() {
-
     $(() => {
       const dropdownParent = select2GetCorrectParent(this.input);
       const placeholder = 'Select a grade';
@@ -28,7 +27,7 @@ class Grade extends React.Component {
             this.putItemIntoState();
           }
         });
-      this.setStateWithFalseValidation()
+      this.setStateWithFalseValidation();
     });
   }
 
@@ -52,7 +51,7 @@ class Grade extends React.Component {
   setStateWithFalseValidation() {
     const { questionIdentifier, questionID } = this.props;
     const optionID = null;
-    let optionValue = null;
+    const optionValue = null;
     const validity = this.validate({ optionID, optionValue });
 
     this.props.reduxAction_doUpdateQuestionAnswer(

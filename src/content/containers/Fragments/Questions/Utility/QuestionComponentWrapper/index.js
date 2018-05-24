@@ -95,15 +95,12 @@ class QuestionComponentWrapper extends React.Component {
 
     Object.keys(data.parts).forEach((value) => {
       if (Object.keys(answer.answer).length === 0) {
-        valid = false;  
-      } else {
-      if (data.parts[value].array === true) {
-
+        valid = false;
+      } else if (data.parts[value].array === true) {
         Object.keys(answer.answer).forEach((answerValue) => {
           if (answerValue.startsWith(value)) {
-
             if (answer.answer[answerValue].valid === false) {
-                valid=false;
+              valid = false;
             }
           }
         });
@@ -111,7 +108,6 @@ class QuestionComponentWrapper extends React.Component {
         console.log('looking at non array question');
         valid = false;
       }
-    }
     });
     if (valid === true && answer.answered === false) {
       this.props.reduxAction_doSetQuestionSuccess(data.questionID);
