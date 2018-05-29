@@ -288,7 +288,7 @@ class Viewer extends React.Component {
   }
 
   render() {
-    const uni = this.context.router.route.location.pathname.split('/')[1]
+    const uni = this.context.router.route.location.pathname.split('/')[1];
     const uniName = uni[0].toUpperCase() + uni.slice(1);
 
     return (

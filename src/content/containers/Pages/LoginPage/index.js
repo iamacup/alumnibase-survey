@@ -81,9 +81,9 @@ class Login extends React.Component {
       $(this.errorText2).toggleClass('d-block mb-3 ml-2');
     };
 
-    const uni = this.context.router.route.location.pathname.split('/')[1]
+    const uni = this.context.router.route.location.pathname.split('/')[1];
     const uniName = uni[0].toUpperCase() + uni.slice(1);
-    
+
     return (
       <div style={{ backgroundColor: '#f2f4f7', padding: '50px' }}>
         <div className="text-center pb-sm-3">

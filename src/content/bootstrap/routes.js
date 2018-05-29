@@ -14,7 +14,7 @@ import LoginPage from '../../content/containers/Pages/LoginPage';
 // NOTE - THE PATH ATTRIBUTE IS USED AS A KEY IN THE APP FILE FOR THE ROUTES - THIS MEANS IT IS ASSUMED TO BE UNIQUE.
 // IT IT IS NOT UNIQUE WE NEED TO DO SOMETHING ELSE AS THE KEY IN THE APP!!!!!
 
-const university = 'Aristotle'
+const university = 'Aristotle';
 
 export default [
   {
