@@ -63,7 +63,7 @@ class Navigation extends React.PureComponent {
       this.props.reduxAction_doUpdateStep({ currentStep, stepCount: possibleSections[sectionNum].length, section: sectionTo });
     };
 
-    const uni = this.context.router.route.location.pathname.split('/')[1]
+    const uni = this.context.router.route.location.pathname.split('/')[1];
     const uniName = uni[0].toUpperCase() + uni.slice(1);
 
     return (
