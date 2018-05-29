@@ -292,7 +292,7 @@ class Viewer extends React.Component {
     
     let uniBranding = (<div><span className="dark-text">University</span><span className="light-grey-text">Branding</span></div>); 
     let uniBranding2 = (<div><span className="dark-text">University</span><span className="light-grey-text">Branding</span></div>);
-console.log(uniName)
+
     if (uniName === 'UWE' || uniName === 'uwe' || uniName === 'Uwe') {
       uniBranding = <img className="uwe-logo" alt="University of the West of England" src={require('../../../../../content/theme/custom/images/UWE.png')} height="65px" />;
       uniBranding2 = <img className="uwe-logo" alt="University of the West of England" src={require('../../../../../content/theme/custom/images/UWE.png')} height="60px" />;
