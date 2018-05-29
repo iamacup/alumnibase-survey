@@ -85,7 +85,7 @@ class Viewer extends React.PureComponent {
               <h5 className="dark-text" style={{ marginBottom: '22px' }}>Congratulations!</h5>
               <h6 className="grey-text">You have now finished the survey!</h6>
               <h6 className="grey-text">Now all thats left is to submit your data.</h6>
-              <button className="btn btn-block btn-next-step answered btn-margin" onClick={() => { this.handleSubmit(null); }}>
+              <button className="btn btn-block btn-next-step answered btn-margin" /*onClick={() => { this.handleSubmit(null); }}*/>
                   Submit
               </button>
             </div>
