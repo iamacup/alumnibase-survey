@@ -107,14 +107,20 @@ class Navigation extends React.PureComponent {
       this.props.reduxAction_doUpdateStep({ currentStep, stepCount: possibleSections[sectionNum].length, section: sectionTo });
     };
 
-    const uni = this.context.router.route.location.pathname.split('/')[1]
+    const uni = this.context.router.route.location.pathname.split('/')[1];
     const uniName = uni[0].toUpperCase() + uni.slice(1);
+
+    // const uniName = this.context.router.route.location.pathname.slice(1);
+    console.log(this.context.router.route.location.pathname)
+    let uniBranding = (<div><span className="dark-text">University</span><span className="light-grey-text">Branding</span></div>); 
+    if (uniName === 'UWE') uniBranding = <img className="uwe-logo" alt="University of the West of England" src={require('../../../../content/theme/custom/images/UWE.png')} height="100px" />;
+
 
     return (
       <div className="new-nav">
         <div className="d-flex justify-content-center" id="title-mobile">
           <div className="title-text">
-            <img className="uwe-logo" alt="University of the West of England" src={require('../../../../content/theme/custom/images/UWE.png')} height="100px" />
+            {uniBranding}
           </div>
         </div>
         <div className="list-group list-group-flush" data-toggle="collapse" aria-expanded="false" id="margin-sidebar">

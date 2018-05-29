@@ -14,21 +14,19 @@ import LoginPage from '../../content/containers/Pages/LoginPage';
 // NOTE - THE PATH ATTRIBUTE IS USED AS A KEY IN THE APP FILE FOR THE ROUTES - THIS MEANS IT IS ASSUMED TO BE UNIQUE.
 // IT IT IS NOT UNIQUE WE NEED TO DO SOMETHING ELSE AS THE KEY IN THE APP!!!!!
 
-const university = 'UWE';
-
 export default [
   {
-    path: `/${university}/login`,
+    path: '/:university/login',
     exact: true,
     component: LoginPage,
   },
   {
-    path: `/${university}/GDPRExample`,
+    path: '/:university/GDPRExample',
     exact: true,
     component: GDPRExamplePage,
   },
   {
-    path: `/${university}/`,
+    path: '/:university/',
     exact: true,
     component: universityAllStepsPage,
   },

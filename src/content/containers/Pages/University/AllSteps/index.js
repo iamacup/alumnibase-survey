@@ -288,8 +288,13 @@ class Viewer extends React.Component {
   }
 
   render() {
-    const uni = this.context.router.route.location.pathname.split('/')[1];
-    const uniName = uni[0].toUpperCase() + uni.slice(1);
+    const uniName = this.context.router.route.location.pathname.slice(1);
+    
+    let uniBranding = (<div><span className="dark-text">University</span><span className="light-grey-text">Branding</span></div>); 
+    let uniBranding2 = (<div><span className="dark-text">University</span><span className="light-grey-text">Branding</span></div>);
+
+    if (uniName === 'UWE') uniBranding = <img className="uwe-logo" alt="University of the West of England" src={require('../../../../../content/theme/custom/images/UWE.png')} height="65px" />;
+    if (uniName === 'UWE') uniBranding2 = <img className="uwe-logo" alt="University of the West of England" src={require('../../../../../content/theme/custom/images/UWE.png')} height="60px" />;
 
     return (
       <div>
@@ -303,7 +308,7 @@ class Viewer extends React.Component {
                 </div>
                 <div className="col-10 pl-4">
                   <div className="title-text">
-                   <img className="uwe-logo" alt="University of the West of England" src={require('../../../../../content/theme/custom/images/UWE.png')} height="65px" />
+                    {uniBranding}
                   </div>
                 </div>
               </div>
@@ -329,7 +334,7 @@ class Viewer extends React.Component {
                 </div>
                 <div className="col-8 text-center">
                   <div className="title-text">
-                    <img className="uwe-logo" alt="University of the West of England" src={require('../../../../../content/theme/custom/images/UWE.png')} height="60px" />
+                  {uniBranding2}
                   </div>
                 </div>
               </div>
