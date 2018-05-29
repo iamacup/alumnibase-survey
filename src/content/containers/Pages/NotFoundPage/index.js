@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 // import Navigation from '../../../../content/containers/Pages/NewTheme/navigation';
 
-const uniName = 'Aristotle';
+const uniName = 'UWE';
 
 const NotFoundPage = () => (
   <div className="not-found-page">
