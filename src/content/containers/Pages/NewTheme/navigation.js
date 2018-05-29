@@ -110,11 +110,9 @@ class Navigation extends React.PureComponent {
     const uni = this.context.router.route.location.pathname.split('/')[1];
     const uniName = uni[0].toUpperCase() + uni.slice(1);
 
-    // const uniName = this.context.router.route.location.pathname.slice(1);
-    console.log(this.context.router.route.location.pathname)
     let uniBranding = (<div><span className="dark-text">University</span><span className="light-grey-text">Branding</span></div>); 
     if (uniName === 'UWE') uniBranding = <img className="uwe-logo" alt="University of the West of England" src={require('../../../../content/theme/custom/images/UWE.png')} height="100px" />;
-
+    if (uniName === 'Durham') uniBranding = <img className="durham-logo" alt="University of Durham" src={require('../../../../content/theme/custom/images/durham.png')} height="100px" />;
 
     return (
       <div className="new-nav">

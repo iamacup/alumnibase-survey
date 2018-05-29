@@ -292,9 +292,14 @@ class Viewer extends React.Component {
     
     let uniBranding = (<div><span className="dark-text">University</span><span className="light-grey-text">Branding</span></div>); 
     let uniBranding2 = (<div><span className="dark-text">University</span><span className="light-grey-text">Branding</span></div>);
-
-    if (uniName === 'UWE') uniBranding = <img className="uwe-logo" alt="University of the West of England" src={require('../../../../../content/theme/custom/images/UWE.png')} height="65px" />;
-    if (uniName === 'UWE') uniBranding2 = <img className="uwe-logo" alt="University of the West of England" src={require('../../../../../content/theme/custom/images/UWE.png')} height="60px" />;
+console.log(uniName)
+    if (uniName === 'UWE' || uniName === 'uwe' || uniName === 'Uwe') {
+      uniBranding = <img className="uwe-logo" alt="University of the West of England" src={require('../../../../../content/theme/custom/images/UWE.png')} height="65px" />;
+      uniBranding2 = <img className="uwe-logo" alt="University of the West of England" src={require('../../../../../content/theme/custom/images/UWE.png')} height="60px" />;
+    } else if (uniName === 'Durham' || uniName === 'durham') {
+      uniBranding = <img className="durham-logo" alt="University of Durham" src={require('../../../../../content/theme/custom/images/durham.png')} height="65px" />;
+      uniBranding2 = <img className="durham-logo" alt="University of Durham" src={require('../../../../../content/theme/custom/images/durham.png')} height="60px" />;
+    }
 
     return (
       <div>
