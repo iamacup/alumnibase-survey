@@ -105,7 +105,6 @@ class QuestionComponentWrapper extends React.Component {
           }
         });
       } else if (!dNc(answer.answer[value]) || !dNc(answer.answer[value].valid) || answer.answer[value].valid !== true) {
-        console.log('looking at non array question');
         valid = false;
       }
     });
