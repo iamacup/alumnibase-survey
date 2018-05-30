@@ -90,13 +90,17 @@ class QuestionButton extends React.PureComponent {
       disabled = true;
     }
 
+// getting rid of validation line for gdpr question.
+    let line = <div className="question-answer-line-button" />
+    if (Object.keys(this.props.reduxState_questions)[0] === 'questions/42953580581') line = '';
+
     return (
       <div className={overallClass}>
         <div className="d-flex justify-content-center">
 
           <div className="question-spacer">
             <div className="d-flex align-items-stretch" style={{ height: '100%' }} id="question-answer-line-button-mobile">
-              <div className="question-answer-line-button" />
+              {line}
             </div>
           </div>
 
