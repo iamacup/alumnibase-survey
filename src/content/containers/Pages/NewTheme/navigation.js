@@ -110,10 +110,10 @@ class Navigation extends React.PureComponent {
     const uniName = this.context.router.route.location.pathname.split('/')[1].toLowerCase();
 
     let uniBranding = (<div><span className="dark-text">University</span><span className="light-grey-text">Branding</span></div>);
-    if (uniName === 'uwe' || uniName === 'durham' || uniName === 'cranfield' || uniName === 'kings' || uniName === 'loughborough' || uniName === 'oxford-brookes' || uniName === 'sheffield' || uniName === 'sheffield-hallam' || uniName === 'ucl') {
+    if (uniName === 'aristotle' || uniName === 'uwe' || uniName === 'durham' || uniName === 'cranfield' || uniName === 'kings' || uniName === 'loughborough' || uniName === 'oxford-brookes' || uniName === 'sheffield' || uniName === 'sheffield-hallam' || uniName === 'ucl') {
      // eslint-disable-next-line import/no-dynamic-require
-      uniBranding = <img className={`${uniName}-logo`} alt={uniName} src={require(`../../../../content/theme/custom/images/${uniName}.png`)} height="100px" />
-    }
+     if (uniName !== 'aristotle') uniBranding = <img className={`${uniName}-logo`} alt={uniName} src={require(`../../../../content/theme/custom/images/${uniName}.png`)} height="100px" />
+    } else this.context.router.history.push('/broken/page');
 
     return (
       <div className="new-nav">
