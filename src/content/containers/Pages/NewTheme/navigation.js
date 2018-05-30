@@ -107,12 +107,13 @@ class Navigation extends React.PureComponent {
       this.props.reduxAction_doUpdateStep({ currentStep, stepCount: possibleSections[sectionNum].length, section: sectionTo });
     };
 
-    const uni = this.context.router.route.location.pathname.split('/')[1];
-    const uniName = uni[0].toUpperCase() + uni.slice(1);
+    const uniName = this.context.router.route.location.pathname.split('/')[1].toLowerCase();
 
-    let uniBranding = (<div><span className="dark-text">University</span><span className="light-grey-text">Branding</span></div>); 
-    if (uniName === 'UWE') uniBranding = <img className="uwe-logo" alt="University of the West of England" src={require('../../../../content/theme/custom/images/UWE.png')} height="100px" />;
-    if (uniName === 'Durham') uniBranding = <img className="durham-logo" alt="University of Durham" src={require('../../../../content/theme/custom/images/durham.png')} height="100px" />;
+    let uniBranding = (<div><span className="dark-text">University</span><span className="light-grey-text">Branding</span></div>);
+    if (uniName === 'uwe' || uniName === 'durham' || uniName === 'cranfield' || uniName === 'kings' || uniName === 'loughborough' || uniName === 'oxford-brookes' || uniName === 'sheffield' || uniName === 'sheffield-hallam' || uniName === 'ucl') {
+     // eslint-disable-next-line import/no-dynamic-require
+      uniBranding = <img className={`${uniName}-logo`} alt={uniName} src={require(`../../../../content/theme/custom/images/${uniName}.png`)} height="100px" />
+    }
 
     return (
       <div className="new-nav">
