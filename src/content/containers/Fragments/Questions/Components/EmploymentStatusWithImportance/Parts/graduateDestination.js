@@ -89,6 +89,7 @@ class graduateDestinationButtons extends React.Component {
         }
       });
 
+console.log(dataArr)
       const validity = this.validate(['empty']);
 
       this.props.reduxAction_doUpdateQuestionAnswer(

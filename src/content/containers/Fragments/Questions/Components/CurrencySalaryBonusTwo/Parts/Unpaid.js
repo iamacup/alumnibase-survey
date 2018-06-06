@@ -99,14 +99,6 @@ class Unpaid extends React.Component {
   buttonPress(dataArr) {
     const { questionID, questionIdentifier, options } = this.props;
 
-    // clearing the state
-    // if (dataArr.length > 0 && options[0].optionID === dataArr[0]) {
-    //   Object.keys(this.props.answer).forEach((value) => {
-    //     console.log('removing', value);
-    //     this.props.reduxAction_doRemoveQuestionIdentifier(questionID, value);
-    //   });
-    // }
-
     const { names } = this.props;
     // setting salary and bonus to -1
     names.forEach((name) => {
@@ -159,7 +151,6 @@ class Unpaid extends React.Component {
 
       // setting salary and bonus fields to valid = false
       names.forEach((name) => {
-        console.log('Getting here');
         optionID = null;
         // using 0 so as not to show total salary as a negative number.
         optionValue = 0;
@@ -210,7 +201,6 @@ class Unpaid extends React.Component {
 Unpaid.propTypes = {
   reduxAction_doUpdateQuestionAnswer: PropTypes.func,
   reduxAction_doSetQuestionError: PropTypes.func,
-  reduxAction_doRemoveQuestionIdentifier: PropTypes.func,
   questionID: PropTypes.string.isRequired,
   forceValidate: PropTypes.bool.isRequired,
   answer: PropTypes.object.isRequired,
@@ -222,7 +212,6 @@ Unpaid.propTypes = {
 Unpaid.defaultProps = {
   reduxAction_doUpdateQuestionAnswer: () => {},
   reduxAction_doSetQuestionError: () => {},
-  reduxAction_doRemoveQuestionIdentifier: () => {},
 };
 
 const mapStateToProps = null;
@@ -246,8 +235,6 @@ const mapDispatchToProps = dispatch => ({
     ),
   reduxAction_doSetQuestionError: (questionID, message, name) =>
     dispatch(questionAction.doSetQuestionError(questionID, message, name)),
-  reduxAction_doRemoveQuestionIdentifier: (questionID, questionIdentifier) =>
-    dispatch(questionAction.doRemoveQuestionIdentifier(questionID, questionIdentifier)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(

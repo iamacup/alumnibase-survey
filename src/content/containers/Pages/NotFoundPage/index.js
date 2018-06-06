@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 // import Navigation from '../../../../content/containers/Pages/NewTheme/navigation';
 
 
-class NotFoundPage extends React.Component {
+class NotFoundPage extends React.PureComponent {
   render() {
     const uniName = this.context.router.route.location.pathname.split('/')[1].toLowerCase();
     let uniBranding = (<div><span className="dark-text">University</span><span className="light-grey-text">Branding</span></div>);
