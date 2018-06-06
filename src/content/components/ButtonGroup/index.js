@@ -86,8 +86,9 @@ class ButtonGroup extends React.PureComponent {
                     if (button.attr('value') === id) {
                       idArray.forEach(options => {
                         if (options !== id && options === button2.attr('value') && button2.hasClass(this.props.clickedClass)) {
+                          console.log(id, options, button2.attr('value'))
                           button2.removeClass(this.props.clickedClass);
-                          clickedButtons.splice(clickedButtons.indexOf(id), 1); 
+                          clickedButtons.splice(clickedButtons.indexOf(options), 1);
                         }
                       })
                     } 
