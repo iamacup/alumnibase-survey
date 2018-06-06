@@ -14,7 +14,7 @@ class NotFoundPage extends React.Component {
       if (uniName === 'aristotle') uniBranding = (<div><span className="dark-text">University</span><span className="light-grey-text">Branding</span></div>);
       else {
       // eslint-disable-next-line import/no-dynamic-require
-      uniBranding = <img className={`${uniName}-logo`} alt={uniName} src={require(`../../../../content/theme/custom/images/${uniName}.png`)} height="100px" />
+        uniBranding = <img className={`${uniName}-logo`} alt={uniName} src={require(`../../../../content/theme/custom/images/${uniName}.png`)} height="100px" />;
       }
     }
 

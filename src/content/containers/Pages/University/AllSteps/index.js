@@ -294,11 +294,11 @@ class Viewer extends React.Component {
     let uniBranding2 = (<div><span className="dark-text">University</span><span className="light-grey-text">Branding</span></div>);
 
     if (uniName === 'uwe' || uniName === 'durham' || uniName === 'cranfield' || uniName === 'kings' || uniName === 'loughborough' || uniName === 'oxford-brookes' || uniName === 'sheffield' || uniName === 'sheffield-hallam' || uniName === 'ucl') {
-          // eslint-disable-next-line import/no-dynamic-require
+      // eslint-disable-next-line import/no-dynamic-require
       uniBranding = <img className={`${uniName}-logo`} alt={uniName} src={require(`../../../../../content/theme/custom/images/${uniName}.png`)} height="65px" />;
-          // eslint-disable-next-line import/no-dynamic-require
+      // eslint-disable-next-line import/no-dynamic-require
       uniBranding2 = <img className={`${uniName}-logo`} alt={uniName} src={require(`../../../../../content/theme/custom/images/${uniName}.png`)} height="60px" />;
-    } 
+    }
 
     return (
       <div>

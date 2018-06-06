@@ -33,7 +33,7 @@ const QuestionContainer = ({
     statusClassName += ' question-success';
   }
 
-// getting rid of validation line for gdpr question.
+  // getting rid of validation line for gdpr question.
   let line = <div className="question-answer-line" />;
   if (title === 'We have a couple of opt-ints for you!') line = '';
 
@@ -42,9 +42,9 @@ const QuestionContainer = ({
       <div className="d-flex justify-content-center">
         <div className="question-spacer">
           <div className="d-flex align-items-stretch" style={{ height: '100%' }}>
-            
+
             {line}
-           </div>
+          </div>
 
         </div>
 

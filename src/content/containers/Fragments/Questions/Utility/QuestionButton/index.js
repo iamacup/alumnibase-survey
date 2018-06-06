@@ -90,8 +90,8 @@ class QuestionButton extends React.PureComponent {
       disabled = true;
     }
 
-// getting rid of validation line for gdpr question.
-    let line = <div className="question-answer-line-button" />
+    // getting rid of validation line for gdpr question.
+    let line = <div className="question-answer-line-button" />;
     if (Object.keys(this.props.reduxState_questions)[0] === 'questions/42953580581') line = '';
 
     return (
