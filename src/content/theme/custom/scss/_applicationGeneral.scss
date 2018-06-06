@@ -782,6 +782,13 @@ input:focus,
     zoom: 2.8;
     height: 20px;
   }
+
+  @-moz-document url-prefix() {
+    .checkbox {
+      height: 50px;
+      width: 50px;
+    }
+  }
 }
 
 .overlay2 {
