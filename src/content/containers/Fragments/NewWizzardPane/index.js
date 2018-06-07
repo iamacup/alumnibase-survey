@@ -166,7 +166,7 @@ class NewWizzardPane extends React.Component {
     if (dNc(this.props.reduxState_questions) && dNc(this.props.reduxState_questions['questions/42953580581']) && dNc(this.props.reduxState_questions['questions/42953580581'].answer)) {
       const { answer } = this.props.reduxState_questions['questions/42953580581'];
 
-        if (dNc(answer.holdPersonal)) {
+      if (dNc(answer.holdPersonal)) {
         if (this.props.button === false && answer.holdPersonal.optionValue === 'No') {
           buttonSubmit = () => { this.handleGDPRButton(); };
           buttonText = 'Continue ';

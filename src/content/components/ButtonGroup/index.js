@@ -81,19 +81,19 @@ class ButtonGroup extends React.PureComponent {
                 const doubleButtons = [['options/42960338843', 'options/42960338844'], ['options/42960338847', 'options/42960338840', 'options/42960338841']];
 
                 // looping through the double buttons, if they are both selected the first one added will be removed.
-                doubleButtons.forEach(idArray => {
+                doubleButtons.forEach((idArray) => {
                   idArray.forEach((id, i) => {
                     if (button.attr('value') === id) {
-                      idArray.forEach(options => {
+                      idArray.forEach((options) => {
                         if (options !== id && options === button2.attr('value') && button2.hasClass(this.props.clickedClass)) {
-                          console.log(id, options, button2.attr('value'))
+                          console.log(id, options, button2.attr('value'));
                           button2.removeClass(this.props.clickedClass);
                           clickedButtons.splice(clickedButtons.indexOf(options), 1);
                         }
-                      })
-                    } 
-                  })
-                })
+                      });
+                    }
+                  });
+                });
               });
 
             // return the array
