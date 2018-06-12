@@ -9,7 +9,7 @@ class NotFoundPage extends React.PureComponent {
     let uniBranding = (<div><span className="dark-text">University</span><span className="light-grey-text">Branding</span></div>);
     let directTo = 'http://www.alumnibaseapp.com/';
 
-    if (uniName === 'aristotle' || uniName === 'cranfield' || uniName === 'kings' || uniName === 'loughborough' || uniName === 'oxford-brookes' || uniName === 'sheffield' || uniName === 'sheffield-hallam' || uniName === 'ucl' || uniName === 'uwe' || uniName === 'durham' || uniName === 'mmu' || uniName === 'liverpool-hope') {
+    if (uniName === 'aristotle' || uniName === 'cranfield' || uniName === 'kings' || uniName === 'loughborough' || uniName === 'oxford-brookes' || uniName === 'sheffield' || uniName === 'sheffield-hallam' || uniName === 'ucl' || uniName === 'uwe' || uniName === 'durham' || uniName === 'mmu' || uniName === 'liverpool-hope' || uniName === 'chester') {
       directTo = '/' + uniName;
       if (uniName === 'aristotle') uniBranding = (<div><span className="dark-text">University</span><span className="light-grey-text">Branding</span></div>);
       else {
