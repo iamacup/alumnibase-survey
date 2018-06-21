@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { initialState as questionsInitialState } from '../../../../../../content/containers/Fragments/Questions/Components/reducer';
-import { initialState as authenticationInitialState } from '../../../../../../content/containers/Fragments/Authentication/reducer';
+// import { initialState as authenticationInitialState } from '../../../../../../content/containers/Fragments/Authentication/reducer';
 
 import { dNc } from '../../../../../../content/scripts/custom/utilities';
 
@@ -59,12 +59,12 @@ class QuestionButton extends React.PureComponent {
     }
 
     // we might have to hide the button if the user is logged in
-    if (
+    /* if (
       this.props.showButtonIfLoggedIn === false &&
       this.props.reduxState_authentication.loggedIn === true
     ) {
       buttonClass += ' d-none';
-    }
+    } */
 
     let overallClass = '';
 
@@ -125,7 +125,7 @@ class QuestionButton extends React.PureComponent {
 
 QuestionButton.propTypes = {
   reduxState_questions: PropTypes.object,
-  reduxState_authentication: PropTypes.object,
+  // reduxState_authentication: PropTypes.object,
   buttonAction: PropTypes.func,
   showButtonIfLoggedIn: PropTypes.bool,
   buttonClassName: PropTypes.string.isRequired,
@@ -136,7 +136,7 @@ QuestionButton.propTypes = {
 
 QuestionButton.defaultProps = {
   reduxState_questions: questionsInitialState,
-  reduxState_authentication: authenticationInitialState,
+  // reduxState_authentication: authenticationInitialState,
   buttonAction: () => {},
   showButtonIfLoggedIn: false,
   disabled: false,
@@ -144,7 +144,7 @@ QuestionButton.defaultProps = {
 
 const mapStateToProps = state => ({
   reduxState_questions: state.questions,
-  reduxState_authentication: state.authentication,
+  // reduxState_authentication: state.authentication,
 });
 
 const mapDispatchToProps = null;
