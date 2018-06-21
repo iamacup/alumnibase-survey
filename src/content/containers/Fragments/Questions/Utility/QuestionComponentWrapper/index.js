@@ -94,27 +94,20 @@ class QuestionComponentWrapper extends React.Component {
     let valid = true;
 
     Object.keys(data.parts).forEach((value) => {
-      if (data.parts[value].array === true) {
-        // check there is at least 1 answer that starts with 'value'
-        let found = false;
-
+      if (Object.keys(answer.answer).length === 0) {
+        valid = false;
+      } else if (data.parts[value].array === true) {
         Object.keys(answer.answer).forEach((answerValue) => {
           if (answerValue.startsWith(value)) {
-            // we found an answer, now lets check it is value
-            if (answer.answer[answerValue].valid === true) {
-              found = true;
+            if (answer.answer[answerValue].valid === false) {
+              valid = false;
             }
           }
         });
-
-        if (found === false) {
-          valid = false;
-        }
       } else if (!dNc(answer.answer[value]) || !dNc(answer.answer[value].valid) || answer.answer[value].valid !== true) {
         valid = false;
       }
     });
-
     if (valid === true && answer.answered === false) {
       this.props.reduxAction_doSetQuestionSuccess(data.questionID);
 

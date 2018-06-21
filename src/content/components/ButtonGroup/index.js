@@ -77,18 +77,22 @@ class ButtonGroup extends React.PureComponent {
               .find('button')
               .each((index2, vertex2) => {
                 const button2 = $(vertex2);
-                const doubleButtons = [['options/42960338841', 'options/42960338842'], ['options/42960338844', 'options/42960338845']];
+                // each sub array is the optionIDs of buttons that can't both be selected together, eg working full time, working part time, unemployed.
+                const doubleButtons = [['options/42960338843', 'options/42960338844'], ['options/42960338847', 'options/42960338840', 'options/42960338841']];
 
+                // looping through the double buttons, if they are both selected the first one added will be removed.
                 doubleButtons.forEach((idArray) => {
-                  if (button.attr('value') === idArray[0] && button2.attr('value') === idArray[1] && button2.hasClass(this.props.clickedClass)) {
-                    button2.removeClass(this.props.clickedClass);
-                    clickedButtons.splice(clickedButtons.indexOf(idArray[1]), 1);
-                  }
-
-                  if (button.attr('value') === idArray[1] && button2.attr('value') === idArray[0] && button2.hasClass(this.props.clickedClass)) {
-                    button2.removeClass(this.props.clickedClass);
-                    clickedButtons.splice(clickedButtons.indexOf(idArray[0]), 1);
-                  }
+                  idArray.forEach((id, i) => {
+                    if (button.attr('value') === id) {
+                      idArray.forEach((options) => {
+                        if (options !== id && options === button2.attr('value') && button2.hasClass(this.props.clickedClass)) {
+                          console.log(id, options, button2.attr('value'));
+                          button2.removeClass(this.props.clickedClass);
+                          clickedButtons.splice(clickedButtons.indexOf(options), 1);
+                        }
+                      });
+                    }
+                  });
                 });
               });
 

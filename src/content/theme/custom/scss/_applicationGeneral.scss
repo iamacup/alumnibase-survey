@@ -782,4 +782,22 @@ input:focus,
     zoom: 2.8;
     height: 20px;
   }
+
+  @-moz-document url-prefix() {
+    .checkbox {
+      height: 50px;
+      width: 50px;
+    }
+  }
+}
+
+.overlay2 {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.5);
+  top: 0;
+  left: 0;
+  display: none;
+  z-index: 1500000;
 }

@@ -99,14 +99,6 @@ class Unpaid extends React.Component {
   buttonPress(dataArr) {
     const { questionID, questionIdentifier, options } = this.props;
 
-    // clearing the state
-    // if (dataArr.length > 0 && options[0].optionID === dataArr[0]) {
-    //   Object.keys(this.props.answer).forEach((value) => {
-    //     console.log('removing', value);
-    //     this.props.reduxAction_doRemoveQuestionIdentifier(questionID, value);
-    //   });
-    // }
-
     const { names } = this.props;
     // setting salary and bonus to -1
     names.forEach((name) => {
@@ -145,9 +137,9 @@ class Unpaid extends React.Component {
     }
 
     if (!dataArr.includes(options[0].optionID)) {
-      const { optionID } = options[1];
-      const { optionValue } = options[1];
-      const validity = this.validate(['empty']);
+      let { optionID } = options[1];
+      let { optionValue } = options[1];
+      let validity = this.validate(['empty']);
       // setting unpaid to 'No'
       this.props.reduxAction_doUpdateQuestionAnswer(
         questionID,
@@ -157,10 +149,20 @@ class Unpaid extends React.Component {
         validity.valid,
       );
 
-      // clearing the salary and bonus options in the state
+      // setting salary and bonus fields to valid = false
       names.forEach((name) => {
-        console.log('removing', name);
-        this.props.reduxAction_doRemoveQuestionIdentifier(questionID, name);
+        optionID = null;
+        // using 0 so as not to show total salary as a negative number.
+        optionValue = 0;
+        validity = this.validate({});
+
+        this.props.reduxAction_doUpdateQuestionAnswer(
+          questionID,
+          name,
+          optionID,
+          optionValue,
+          validity.valid,
+        );
       });
     }
   }
@@ -199,7 +201,6 @@ class Unpaid extends React.Component {
 Unpaid.propTypes = {
   reduxAction_doUpdateQuestionAnswer: PropTypes.func,
   reduxAction_doSetQuestionError: PropTypes.func,
-  reduxAction_doRemoveQuestionIdentifier: PropTypes.func,
   questionID: PropTypes.string.isRequired,
   forceValidate: PropTypes.bool.isRequired,
   answer: PropTypes.object.isRequired,
@@ -211,7 +212,6 @@ Unpaid.propTypes = {
 Unpaid.defaultProps = {
   reduxAction_doUpdateQuestionAnswer: () => {},
   reduxAction_doSetQuestionError: () => {},
-  reduxAction_doRemoveQuestionIdentifier: () => {},
 };
 
 const mapStateToProps = null;
@@ -235,8 +235,6 @@ const mapDispatchToProps = dispatch => ({
     ),
   reduxAction_doSetQuestionError: (questionID, message, name) =>
     dispatch(questionAction.doSetQuestionError(questionID, message, name)),
-  reduxAction_doRemoveQuestionIdentifier: (questionID, questionIdentifier) =>
-    dispatch(questionAction.doRemoveQuestionIdentifier(questionID, questionIdentifier)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(

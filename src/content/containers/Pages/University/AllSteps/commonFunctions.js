@@ -1,6 +1,5 @@
 
 import { dNc } from '../../../../../content/scripts/custom/utilities';
-import { possibleSections } from '../../../../../content/containers/Pages/University/AllSteps';
 
 export function getAllItemsWithFriendlyNameFromState(friendlyName, answerData) {
   const results = [];

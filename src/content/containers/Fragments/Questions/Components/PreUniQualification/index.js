@@ -34,10 +34,8 @@ class preUniQualificationComponent extends React.Component {
     const { answer, nextStepCallback, title } = this.props;
     const questionIdentifier = getQuestionIdentifiers(options);
 
-    const { errorBits } = getUsefulQuestionBits(
-      options,
-      answer.answer,
-    );
+    let answerBits = null;
+    let errorBits = null;
 
     const obj = {
       questionID,
@@ -47,22 +45,32 @@ class preUniQualificationComponent extends React.Component {
     };
 
     let question = null;
+    // const errorBits = [];
 
     question = (extension) => {
       let qualificationAnswer = {};
       let gradeAnswer = {};
       let subjectAnswer = {};
 
-      if (dNc(answer.answer[questionIdentifier[0] + extension])) {
-        qualificationAnswer = answer.answer[questionIdentifier[0] + extension];
+      ({ answerBits, errorBits } = getUsefulQuestionBits(
+        options,
+        answer.answer,
+        extension,
+      ));
+
+      if (dNc(answerBits[questionIdentifier[0] + extension])) {
+        qualificationAnswer = answerBits[questionIdentifier[0] + extension];
+        // errorBits.push(answerBits[questionIdentifier[0] + extension].errorMessage);
       }
 
-      if (dNc(answer.answer[questionIdentifier[1] + extension])) {
-        gradeAnswer = answer.answer[questionIdentifier[1] + extension];
+      if (dNc(answerBits[questionIdentifier[1] + extension])) {
+        gradeAnswer = answerBits[questionIdentifier[1] + extension];
+        // errorBits.push(answerBits[questionIdentifier[1] + extension].errorMessage);
       }
 
-      if (dNc(answer.answer[questionIdentifier[2] + extension])) {
-        subjectAnswer = answer.answer[questionIdentifier[2] + extension];
+      if (dNc(answerBits[questionIdentifier[2] + extension])) {
+        subjectAnswer = answerBits[questionIdentifier[2] + extension];
+        // errorBits.push(answerBits[questionIdentifier[2] + extension].errorMessage);
       }
 
       return (
@@ -103,7 +111,7 @@ class preUniQualificationComponent extends React.Component {
 
     for (let a = 0; a < this.state.count; a++) {
       const thing = (
-        <div key={this.state.count}>
+        <div key={a}>
           {question('_' + a)}
         </div>
       );
@@ -111,17 +119,20 @@ class preUniQualificationComponent extends React.Component {
       arr.push(thing);
     }
 
-    let postContent = ('');
+    // let postContent = ('');
 
-    if (3 * this.state.count === Object.keys(answer.answer).length) {
-      postContent = (
-        <div className="row justify-content-center pb-3">
-          <div className="col-8">
-            <button type="button" className="btn btn-secondary" onClick={e => this.handleClick(e)}>Add more qualifications</button>
-          </div>
+    // if (3 * this.state.count === Object.keys(answer.answer).length) {
+    const postContent = (
+      <div className="row justify-content-center pb-3">
+        <div className="col-8">
+          <button type="button" className="btn btn-secondary" onClick={e => this.handleClick(e)}>Add more qualifications</button>
         </div>
-      );
-    }
+      </div>
+    );
+    // }
+
+    // console.log(answerBits, 'answerBits');
+    // console.log(answer);
 
     return (
       <QuestionContainer

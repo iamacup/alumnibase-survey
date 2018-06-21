@@ -16,17 +16,17 @@ import LoginPage from '../../content/containers/Pages/LoginPage';
 
 export default [
   {
-    path: '/login',
+    path: '/:university/login',
     exact: true,
     component: LoginPage,
   },
   {
-    path: '/GDPRExample',
+    path: '/:university/GDPRExample',
     exact: true,
     component: GDPRExamplePage,
   },
   {
-    path: '/',
+    path: '/:university/',
     exact: true,
     component: universityAllStepsPage,
   },

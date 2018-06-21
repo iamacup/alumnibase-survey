@@ -179,7 +179,7 @@ class Viewer extends React.Component {
 
     // this is some code we can use to force test a series of steps after 0-1 is complete (i.e. a sessionID is assigned and a uni picked)
     // if (this.props.reduxState_this.step === '0-1') {
-    //   const stepTo = '2-3';
+    //   const stepTo = '4-1';
 
     //   this.props.reduxAction_doUpdate({
     //     step: stepTo,
@@ -288,6 +288,18 @@ class Viewer extends React.Component {
   }
 
   render() {
+    const uniName = this.context.router.route.location.pathname.slice(1).toLowerCase();
+
+    let uniBranding = (<div><span className="dark-text">University</span><span className="light-grey-text">Branding</span></div>);
+    let uniBranding2 = (<div><span className="dark-text">University</span><span className="light-grey-text">Branding</span></div>);
+
+    if (uniName === 'uwe' || uniName === 'durham' || uniName === 'cranfield' || uniName === 'kings' || uniName === 'loughborough' || uniName === 'oxford-brookes' || uniName === 'sheffield' || uniName === 'sheffield-hallam' || uniName === 'ucl' || uniName === 'mmu' || uniName === 'liverpool-hope' || uniName === 'chester') {
+      // eslint-disable-next-line import/no-dynamic-require
+      uniBranding = <img className={`${uniName}-logo`} alt={uniName} src={require(`../../../../../content/theme/custom/images/${uniName}.png`)} height="65px" />;
+      // eslint-disable-next-line import/no-dynamic-require
+      uniBranding2 = <img className={`${uniName}-logo`} alt={uniName} src={require(`../../../../../content/theme/custom/images/${uniName}.png`)} height="60px" />;
+    }
+
     return (
       <div>
         <Helmet title="Survey" />
@@ -300,7 +312,7 @@ class Viewer extends React.Component {
                 </div>
                 <div className="col-10 pl-4">
                   <div className="title-text">
-                    <span className="dark-text">University</span> <span className="light-grey-text">Branding</span>
+                    {uniBranding}
                   </div>
                 </div>
               </div>
@@ -308,13 +320,13 @@ class Viewer extends React.Component {
             <Navigation />
             <div className="row mx-2 ml-4" style={{ position: 'absolute', bottom: '20px', left: '0' }}>
               <div className="col-4">
-                <a href="/"><h6 className="medium-grey-text">Privacy</h6></a>
+                <a href={`/${uniName}/`}><h6 className="medium-grey-text">Privacy</h6></a>
               </div>
               <div className="col-4">
-                <a href="/"><h6 className="medium-grey-text">Terms</h6></a>
+                <a href={`/${uniName}/`}><h6 className="medium-grey-text">Terms</h6></a>
               </div>
               <div className="col-4">
-                <a href="/"><h6 className="medium-grey-text">Cookies</h6></a>
+                <a href={`/${uniName}/`}><h6 className="medium-grey-text">Cookies</h6></a>
               </div>
             </div>
           </div>
@@ -326,7 +338,7 @@ class Viewer extends React.Component {
                 </div>
                 <div className="col-8 text-center">
                   <div className="title-text">
-                    <span className="dark-text">University</span> <span className="light-grey-text">Branding</span>
+                    {uniBranding2}
                   </div>
                 </div>
               </div>
@@ -364,6 +376,10 @@ class Viewer extends React.Component {
     );
   }
 }
+
+Viewer.contextTypes = {
+  router: PropTypes.object,
+};
 
 Viewer.propTypes = {
   reduxState_this: PropTypes.object,

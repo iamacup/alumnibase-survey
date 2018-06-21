@@ -60,7 +60,6 @@ class GDPRButton extends React.Component {
     if (dNc(answer) && dNc(answer.optionID)) {
       valid = true;
     }
-
     return { valid, error, show };
   }
 

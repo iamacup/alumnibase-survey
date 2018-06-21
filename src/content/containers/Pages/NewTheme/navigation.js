@@ -11,6 +11,18 @@ import * as storeAction from '../../../../foundation/redux/globals/DataStoreSing
 const dataStoreID = 'testHTML3';
 
 class Navigation extends React.PureComponent {
+  constructor(props) {
+    super(props);
+
+    this.state = ({
+      1: null,
+      2: null,
+      3: null,
+      4: null,
+      5: null,
+    });
+  }
+
   render() {
     const { section } = this.props.reduxState_steps;
 
@@ -38,22 +50,54 @@ class Navigation extends React.PureComponent {
           stepTo = realSection + 1 + '-1';
           sectionTo = sectionNum;
           currentStep = possibleSections[realSection].indexOf(stepName);
-        } else {
+        } else if (this.state[sectionNum] !== null) {
         // we know its not done
-          stepTo = 'not-done';
+          stepTo = possibleSections[sectionNum][this.state[sectionNum].realStep];
+          sectionTo = sectionNum;
+          currentStep = this.state[sectionNum].realStep + 1;
+          this.setState({
+            [realSection]: { realSection, realStep, step: possibleSections[realSection][realStep] },
+          });
+        } else {
+          stepTo = sectionNum + '-1'; // normally stepTo would be 'not-done'
           sectionTo = sectionNum;
           currentStep = 1;
+          this.setState({
+            [realSection]: { realSection, realStep, step: possibleSections[realSection][realStep] },
+          });
         }
       } else if (sectionNum === realSection) {
         // we need to do nothing
         stepTo = possibleSections[sectionNum][realStep];
         sectionTo = realSection;
         currentStep = realStep + 1;
+      } else if (this.state[sectionNum] !== null) {
+        if (realSection > sectionNum) {
+          stepTo = this.state[sectionNum].step;
+          // possibleSections[sectionNum][possibleSections[sectionNum].length - 1];
+          sectionTo = sectionNum;
+          currentStep = possibleSections[sectionNum].length;
+          this.setState({
+            [realSection]: { realSection, realStep, step: possibleSections[realSection][realStep] },
+          });
+        } else {
+          stepTo = possibleSections[sectionNum][this.state[sectionNum].realStep];
+          sectionTo = sectionNum;
+          currentStep = this.state[sectionNum].realStep;
+
+          this.setState({
+            [realSection]: { realSection, realStep, step: possibleSections[realSection][realStep] },
+          });
+        }
       } else {
         // we go to the section and show the 'summary' thing
-        stepTo = possibleSections[sectionNum][possibleSections[sectionNum].length - 1];
+        stepTo = sectionNum + '-1';
         sectionTo = sectionNum;
-        currentStep = possibleSections[sectionNum].length;
+        currentStep = 1;
+
+        this.setState({
+          [realSection]: { realSection, realStep, stepTo: possibleSections[realSection][realStep] },
+        });
       }
 
       this.props.reduxAction_doUpdate({
@@ -63,12 +107,19 @@ class Navigation extends React.PureComponent {
       this.props.reduxAction_doUpdateStep({ currentStep, stepCount: possibleSections[sectionNum].length, section: sectionTo });
     };
 
+    const uniName = this.context.router.route.location.pathname.split('/')[1].toLowerCase();
+
+    let uniBranding = (<div><span className="dark-text">University</span><span className="light-grey-text">Branding</span></div>);
+    if (uniName === 'aristotle' || uniName === 'uwe' || uniName === 'durham' || uniName === 'cranfield' || uniName === 'kings' || uniName === 'loughborough' || uniName === 'oxford-brookes' || uniName === 'sheffield' || uniName === 'sheffield-hallam' || uniName === 'ucl' || uniName === 'mmu' || uniName === 'liverpool-hope' || uniName === 'chester') {
+      // eslint-disable-next-line import/no-dynamic-require
+      if (uniName !== 'aristotle') uniBranding = <img className={`${uniName}-logo`} alt={uniName} src={require(`../../../../content/theme/custom/images/${uniName}.png`)} height="100px" />;
+    } else this.context.router.history.push('/broken/page');
 
     return (
       <div className="new-nav">
         <div className="d-flex justify-content-center" id="title-mobile">
           <div className="title-text">
-            <span className="dark-text">University</span> <span className="light-grey-text">Branding</span>
+            {uniBranding}
           </div>
         </div>
         <div className="list-group list-group-flush" data-toggle="collapse" aria-expanded="false" id="margin-sidebar">
@@ -85,12 +136,16 @@ class Navigation extends React.PureComponent {
         <div style={{ marginTop: '22px' }} />
 
         <div style={{ marginLeft: '38px' }} className="medium-grey-text">
-          <a href="/login"><h6 className="medium-grey-text"><i className="fal fa-cog" />  Settings</h6></a>
+          <a href={`/${uniName}`}><h6 className="medium-grey-text"><i className="fal fa-cog" />  Settings</h6></a>
         </div>
       </div>
     );
   }
 }
+
+Navigation.contextTypes = {
+  router: PropTypes.object,
+};
 
 Navigation.propTypes = {
   reduxState_steps: PropTypes.object,
