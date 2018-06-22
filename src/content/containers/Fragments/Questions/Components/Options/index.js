@@ -125,7 +125,7 @@ class OptionsQuestionComponent extends React.Component {
           active
           fetchURL="api/universityWizzard/getAnswerStats"
           sendData={this.state.sendData}
-          noRender={false}
+          noRender
           stateSubID={questionID}
           successCallback={(responseData) => { this.answerStatsDataSuccessCallback(responseData); }}
         />
