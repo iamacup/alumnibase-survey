@@ -1,5 +1,7 @@
+
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
 import QuestionContainer from '../../../../../../content/components/Questions/questionContainer';
 import StandardOptions from '../../../../../../content/containers/Fragments/Questions/Components/Options/Parts/StandardOptions';
@@ -7,11 +9,17 @@ import ListOptions from '../../../../../../content/containers/Fragments/Question
 import OptionsWithTooltips from '../../../../../../content/containers/Fragments/Questions/Components/Options/Parts/OptionsWithTooltips';
 import MultiSelectOptions from '../../../../../../content/containers/Fragments/Questions/Components/Options/Parts/MultiSelectOptions';
 
+import fetchDataBuilder from '../../../../../../foundation/redux/Factories/FetchData';
+
 import {
   getUsefulQuestionBits,
   getQuestionIdentifiers,
   dNc,
+  formatQuestionObjectForSending,
 } from '../../../../../../content/scripts/custom/utilities';
+
+const fetchDataID = 'fetchAnswerStats';
+const FetchData = fetchDataBuilder(fetchDataID);
 
 function calculateStatsExplainerText(text, answerPercentage, selectedAnswer) {
   let result = text.replace('{answerPercentage}', answerPercentage);
@@ -20,145 +28,181 @@ function calculateStatsExplainerText(text, answerPercentage, selectedAnswer) {
   return result;
 }
 
-const OptionsQuestionComponent = ({
-  data,
-  answer,
-  nextStepCallback,
-  title,
-  explainerText,
-}) => {
-  const useExplainerText = explainerText;
-  const { questionID, options, drawData } = data;
-  const { answerBits, errorBits } = getUsefulQuestionBits(
-    options,
-    answer.answer,
-  );
+class OptionsQuestionComponent extends React.Component {
+  constructor(props) {
+    super(props);
 
-  const obj = {
-    questionID,
-    forceValidate: answer.forceValidate,
-    nextStepCallback,
-  };
-
-  // get the questionIdentifier
-  const questionIdentifier = getQuestionIdentifiers(options);
-  let question = null;
-
-  /* const answerDisplay = {
-    type: 'percentages',
-    data: [
-      { optionID: 'options/42960331479', value: '68' },
-      { optionID: 'options/42960331480', value: '32' },
-    ],
-  }; */
-
-  let answerDisplay = null;
-
-  /* HERE WE DO SOME CALCULATIONS FOR THE QUESTIONS */
-  const finalData = [];
-  let remaining = 100;
-  let count = 0;
-
-  if (dNc(answerBits[questionIdentifier]) && answerBits[questionIdentifier].valid === true) {
-    let answeredPercentage = 0;
-
-    options[questionIdentifier].forEach((item) => {
-      const skew = questionID.slice(-2) / 100;
-
-      let newValue = Math.floor(remaining * skew);
-
-      if (count === options[questionIdentifier].length - 1) {
-        newValue = remaining;
-      }
-
-      remaining -= newValue;
-
-      finalData.push({ optionID: item.optionID, value: newValue });
-
-      count++;
-
-      // pull out the value for the thing we just answered
-      if (item.optionID === answerBits[questionIdentifier].optionID) {
-        answeredPercentage = newValue;
-      }
-    });
-
-    if (useExplainerText.type === 'statsExplainer') {
-      useExplainerText.useValue = calculateStatsExplainerText(useExplainerText.rawValue, answeredPercentage, answerBits[questionIdentifier].optionValue);
-    }
-  }
-  /* STOP CALCULATIONS */
-
-  if (finalData.length > 0) {
-    answerDisplay = {
-      type: 'percentages',
-      data: finalData,
+    this.state = {
+      answerStatsData: null,
+      sendData: null,
     };
   }
 
-  // nullify the results if we have to (todo - when we get from an API this would bne where we do or do not do the call? or something)
-  if (dNc(data.drawData) && dNc(data.drawData.showAnswerStats) && data.drawData.showAnswerStats === false) {
-    answerDisplay = null;
+  componentDidUpdate() {
+    // we have to calculate what the send data should be here and put it into the state - this is because
+    // the question state will update for every question that is updated on the page - what we actually want is to
+    // grab the question state ONCE when this question is answered and then not update again
+    if (this.needToGetAnswerStats() && !dNc(this.state.sendData)) {
+      const { data, answer } = this.props;
+
+      const { options, questionID } = data;
+      const { answerBits } = getUsefulQuestionBits(
+        options,
+        answer.answer,
+      );
+
+      const questionIdentifier = getQuestionIdentifiers(options);
+
+      const sendData = {
+        questionID,
+        optionID: answerBits[questionIdentifier].optionID,
+        questionState: formatQuestionObjectForSending(this.props.reduxState_questions),
+      };
+
+      // eslint-disable-next-line react/no-did-update-set-state
+      this.setState({ sendData });
+    }
   }
 
+  needToGetAnswerStats() {
+    const { data, answer } = this.props;
 
-  let multiSelectAnswer = {};
-  if (dNc(answer.answer)) {
-    multiSelectAnswer = answer.answer;
-  }
-  // console.log(answerBits, questionIdentifier, multiSelectAnswer)
-  if (dNc(drawData.type) && drawData.type === 'list') {
-    question = (
-      <ListOptions
-        {...obj}
-        answer={answerBits[questionIdentifier]}
-        options={options[questionIdentifier]}
-        questionIdentifier={questionIdentifier}
-      />
+    const { options } = data;
+    const { answerBits } = getUsefulQuestionBits(
+      options,
+      answer.answer,
     );
-  } else if (dNc(drawData.type) && drawData.type === 'optionsWithTooltips') {
-    question = (
-      <OptionsWithTooltips
-        {...obj}
-        answer={answerBits[questionIdentifier]}
-        options={options[questionIdentifier]}
-        questionIdentifier={questionIdentifier}
-        answerDisplay={answerDisplay}
-      />
-    );
-  } else if (dNc(drawData.type) && drawData.type === 'multiSelectOptions') {
-    question = (
-      <MultiSelectOptions
-        {...obj}
-        answer={multiSelectAnswer}
-        options={options[questionIdentifier]}
-        questionIdentifier={questionIdentifier}
-        answerDisplay={answerDisplay}
-      />
-    );
-  } else {
-    question = (
-      <StandardOptions
-        {...obj}
-        answer={answerBits[questionIdentifier]}
-        options={options[questionIdentifier]}
-        questionIdentifier={questionIdentifier}
-        answerDisplay={answerDisplay}
-      />
-    );
+
+    const questionIdentifier = getQuestionIdentifiers(options);
+
+    if (dNc(answerBits[questionIdentifier]) && answerBits[questionIdentifier].valid === true) {
+      // we then check to se if we should show answer stats - this is default 'yes' and only does not happen if data.drawData.showAnswerStats is false
+      let answerStatsIsEnabled = true;
+
+      if (dNc(data.drawData) && dNc(data.drawData.showAnswerStats) && data.drawData.showAnswerStats === false) {
+        answerStatsIsEnabled = false;
+      }
+
+      return answerStatsIsEnabled;
+    }
+
+    return false;
   }
 
-  return (
-    <QuestionContainer
-      title={title}
-      question={question}
-      error={answer.error}
-      errorMessages={errorBits}
-      answered={answer.answered}
-      explainerText={useExplainerText}
-    />
-  );
-};
+  answerStatsDataSuccessCallback(data) {
+    this.setState({ answerStatsData: data });
+  }
+
+  render() {
+    const {
+      data, answer, nextStepCallback, title, explainerText,
+    } = this.props;
+
+    const useExplainerText = explainerText;
+    const { questionID, options, drawData } = data;
+    const { answerBits, errorBits } = getUsefulQuestionBits(
+      options,
+      answer.answer,
+    );
+
+    const obj = {
+      questionID,
+      forceValidate: answer.forceValidate,
+      nextStepCallback,
+    };
+
+    // get the questionIdentifier
+    const questionIdentifier = getQuestionIdentifiers(options);
+    let question = null;
+
+    let answerDisplay = null;
+    let transactionElement = null;
+
+    if (this.needToGetAnswerStats() && dNc(this.state.sendData)) {
+      transactionElement = (
+        <FetchData
+          key="fetch"
+          active
+          fetchURL="api/universityWizzard/getAnswerStats"
+          sendData={this.state.sendData}
+          noRender={false}
+          stateSubID={questionID}
+          successCallback={(responseData) => { this.answerStatsDataSuccessCallback(responseData); }}
+        />
+      );
+
+      if (dNc(this.state.answerStatsData)) {
+        answerDisplay = this.state.answerStatsData;
+
+        if (useExplainerText.type === 'statsExplainer' && dNc(this.state.answerStatsData.percentage)) {
+          useExplainerText.useValue = calculateStatsExplainerText(useExplainerText.rawValue, this.state.answerStatsData.percentage, answerBits[questionIdentifier].optionValue);
+        }
+      }
+    }
+
+    let multiSelectAnswer = {};
+
+    if (dNc(answer.answer)) {
+      multiSelectAnswer = answer.answer;
+    }
+
+    if (dNc(drawData.type) && drawData.type === 'list') {
+      question = (
+        <ListOptions
+          {...obj}
+          answer={answerBits[questionIdentifier]}
+          options={options[questionIdentifier]}
+          questionIdentifier={questionIdentifier}
+        />
+      );
+    } else if (dNc(drawData.type) && drawData.type === 'optionsWithTooltips') {
+      question = (
+        <OptionsWithTooltips
+          {...obj}
+          answer={answerBits[questionIdentifier]}
+          options={options[questionIdentifier]}
+          questionIdentifier={questionIdentifier}
+          answerDisplay={answerDisplay}
+        />
+      );
+    } else if (dNc(drawData.type) && drawData.type === 'multiSelectOptions') {
+      question = (
+        <MultiSelectOptions
+          {...obj}
+          answer={multiSelectAnswer}
+          options={options[questionIdentifier]}
+          questionIdentifier={questionIdentifier}
+          answerDisplay={answerDisplay}
+        />
+      );
+    } else {
+      question = (
+        <StandardOptions
+          {...obj}
+          answer={answerBits[questionIdentifier]}
+          options={options[questionIdentifier]}
+          questionIdentifier={questionIdentifier}
+          answerDisplay={answerDisplay}
+        />
+      );
+    }
+
+    return (
+      [
+        transactionElement,
+        <QuestionContainer
+          key="container"
+          title={title}
+          question={question}
+          error={answer.error}
+          errorMessages={errorBits}
+          answered={answer.answered}
+          explainerText={useExplainerText}
+        />,
+      ]
+    );
+  }
+}
 
 OptionsQuestionComponent.propTypes = {
   answer: PropTypes.object.isRequired,
@@ -166,10 +210,18 @@ OptionsQuestionComponent.propTypes = {
   nextStepCallback: PropTypes.func,
   title: PropTypes.string.isRequired,
   explainerText: PropTypes.object.isRequired,
+  reduxState_questions: PropTypes.object,
 };
 
 OptionsQuestionComponent.defaultProps = {
   nextStepCallback: () => {},
+  reduxState_questions: {},
 };
 
-export default OptionsQuestionComponent;
+const mapStateToProps = state => ({
+  reduxState_questions: state.questions,
+});
+
+const mapDispatchToProps = null;
+
+export default connect(mapStateToProps, mapDispatchToProps)(OptionsQuestionComponent);

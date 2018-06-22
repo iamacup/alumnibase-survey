@@ -14,6 +14,7 @@ import {
   getUsefulQuestionBits,
   getQuestionIdentifiers,
   dNc,
+  formatQuestionObjectForSending,
 } from '../../../../../../content/scripts/custom/utilities';
 
 const fetchDataID = 'fetchAnswerStats';
@@ -32,13 +33,62 @@ class SelectQuestionComponent extends React.Component {
 
     this.state = {
       answerStatsData: null,
+      sendData: null,
     };
   }
 
-  answerStatsDataSuccessCallback(data) {
-    console.log('Got some data');
-    console.log(data);
+  componentDidUpdate() {
+    // we have to calculate what the send data should be here and put it into the state - this is because
+    // the question state will update for every question that is updated on the page - what we actually want is to
+    // grab the question state ONCE when this question is answered and then not update again
+    if (this.needToGetAnswerStats() && !dNc(this.state.sendData)) {
+      const { data, answer } = this.props;
 
+      const { options, questionID } = data;
+      const { answerBits } = getUsefulQuestionBits(
+        options,
+        answer.answer,
+      );
+
+      const questionIdentifier = getQuestionIdentifiers(options);
+
+      const sendData = {
+        questionID,
+        optionID: answerBits[questionIdentifier].optionID,
+        questionState: formatQuestionObjectForSending(this.props.reduxState_questions),
+      };
+
+      // eslint-disable-next-line react/no-did-update-set-state
+      this.setState({ sendData });
+    }
+  }
+
+  needToGetAnswerStats() {
+    const { data, answer } = this.props;
+
+    const { options } = data;
+    const { answerBits } = getUsefulQuestionBits(
+      options,
+      answer.answer,
+    );
+
+    const questionIdentifier = getQuestionIdentifiers(options);
+
+    if (dNc(answerBits[questionIdentifier]) && answerBits[questionIdentifier].valid === true) {
+      // we then check to se if we should show answer stats - this is default 'yes' and only does not happen if data.drawData.showAnswerStats is false
+      let answerStatsIsEnabled = true;
+
+      if (dNc(data.drawData) && dNc(data.drawData.showAnswerStats) && data.drawData.showAnswerStats === false) {
+        answerStatsIsEnabled = false;
+      }
+
+      return answerStatsIsEnabled;
+    }
+
+    return false;
+  }
+
+  answerStatsDataSuccessCallback(data) {
     this.setState({ answerStatsData: data });
   }
 
@@ -67,14 +117,13 @@ class SelectQuestionComponent extends React.Component {
     let answerDisplay = null;
     let transactionElement = null;
 
-    /* HERE WE DO SOME CALCULATIONS FOR THE QUESTIONS */
-    if (dNc(answerBits[questionIdentifier]) && answerBits[questionIdentifier].valid === true) {
+    if (this.needToGetAnswerStats() && dNc(this.state.sendData)) {
       transactionElement = (
         <FetchData
           key="fetch"
           active
           fetchURL="api/universityWizzard/getAnswerStats"
-          sendData={{}}
+          sendData={this.state.sendData}
           noRender={false}
           stateSubID={questionID}
           successCallback={(responseData) => { this.answerStatsDataSuccessCallback(responseData); }}
@@ -88,12 +137,6 @@ class SelectQuestionComponent extends React.Component {
           useExplainerText.useValue = calculateStatsExplainerText(useExplainerText.rawValue, this.state.answerStatsData.percentage, answerBits[questionIdentifier].optionValue);
         }
       }
-    }
-    /* STOP CALCULATIONS */
-
-    // nullify the results if we have to (todo - when we get from an API this would bne where we do or do not do the call? or something)
-    if (dNc(data.drawData) && dNc(data.drawData.showAnswerStats) && data.drawData.showAnswerStats === false) {
-      answerDisplay = null;
     }
 
     if (drawData.type === 'companySelectWithRemoteLookup') {
@@ -167,17 +210,17 @@ SelectQuestionComponent.propTypes = {
   nextStepCallback: PropTypes.func,
   title: PropTypes.string.isRequired,
   explainerText: PropTypes.object.isRequired,
+  reduxState_questions: PropTypes.object,
 };
 
 SelectQuestionComponent.defaultProps = {
   nextStepCallback: () => {},
+  reduxState_questions: {},
 };
 
-/* const mapStateToProps = state => ({
-  reduxState_fetchDataTransaction: state.dataTransactions[dataStoreID],
-}); */
-
-const mapStateToProps = null;
+const mapStateToProps = state => ({
+  reduxState_questions: state.questions,
+});
 
 const mapDispatchToProps = null;
 
