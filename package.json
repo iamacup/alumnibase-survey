@@ -4,7 +4,7 @@
   "description": "The Alumnibase Survey Frontend.",
   "main": "index.js",
   "engines": {
-    "node": "9.x",
+    "node": ">=9.x",
     "npm": "5.x",
     "yarn": ">=1.0.0 <2.0.0"
   },
@@ -295,7 +295,7 @@
     "jquery.easing": "^1.4.1",
     "js-cookie": "^2.2.0",
     "lodash": "^4.17.4",
-    "react-base": "https://github.com/iamacup/react-base.git#9546662",
+    "react-base": "https://github.com/iamacup/react-base.git#ddeb9a2",
     "sync-directory": "^1.0.6",
     "typed.js": "^2.0.6",
     "wowjs": "^1.1.3"

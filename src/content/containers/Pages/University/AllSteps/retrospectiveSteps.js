@@ -21,7 +21,7 @@ class Viewer extends React.PureComponent {
       />
     );
 
-    const uniName = this.props.answerData.data['questions/42953580507_0'].universityName.optionValue;
+    const uniName = this.props.answerData.data['questions/42953580507_0'].universityName.optionValue.toUpperCase();
 
     if (currentStep === '5-1') {
       content = (

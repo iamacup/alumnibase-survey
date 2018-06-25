@@ -60,7 +60,7 @@ class Viewer extends React.PureComponent {
   getQualificationsHistory(seed) {
     const { qualificationLoop, uniLoop } = this.props.reduxState_this;
     const { answerData } = this.props;
-    const uniName = getLatestItemWithFriendlyNameFromState('universityName', 'Your University', answerData);
+    const uniName = getLatestItemWithFriendlyNameFromState('universityName', 'Your University', answerData).toUpperCase();
     // we pass the updateSeed value into the sendData to make the fetch refresh for every array iteration but the backend does not care
     const content = (
       <FetchEducation
@@ -152,7 +152,7 @@ class Viewer extends React.PureComponent {
       );
     }
 
-    const uniName = getLatestItemWithFriendlyNameFromState('universityName', 'your university', answerData);
+    const uniName = getLatestItemWithFriendlyNameFromState('universityName', 'your university', answerData).toUpperCase();
     if (currentStep === '2-1') {
       content = (
         <div>
@@ -245,7 +245,7 @@ class Viewer extends React.PureComponent {
         </div>
       );
     } else if (currentStep === '2-5') {
-      const firstUniName = getFirstItemWithFriendlyNameFromState('universityName', 'your university', answerData);
+      const firstUniName = getFirstItemWithFriendlyNameFromState('universityName', 'your university', answerData).toUpperCase();
       content = (
         <div className="large-question-area">
           <h3>University Impact</h3>

@@ -29,7 +29,7 @@ class BioViewer extends React.PureComponent {
       />
     );
 
-    const uniName = getLatestItemWithFriendlyNameFromState('universityName', 'your university', answerData);
+    const uniName = getLatestItemWithFriendlyNameFromState('universityName', 'your university', answerData).toUpperCase();
 
 
     let pageButton = (
