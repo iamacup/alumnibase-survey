@@ -11,16 +11,16 @@ import * as storeAction from '../../../../foundation/redux/globals/DataStoreSing
 const dataStoreID = 'testHTML3';
 
 class Navigation extends React.PureComponent {
- constructor(props) {
-    super(props) 
+  constructor(props) {
+    super(props);
 
     this.state = ({
       1: null,
       2: null,
       3: null,
-      4: null, 
+      4: null,
       5: null,
-    })
+    });
   }
 
   render() {
@@ -52,20 +52,19 @@ class Navigation extends React.PureComponent {
           currentStep = possibleSections[realSection].indexOf(stepName);
         } else if (this.state[sectionNum] !== null) {
         // we know its not done
-          stepTo = possibleSections[sectionNum][this.state[sectionNum].realStep]
+          stepTo = possibleSections[sectionNum][this.state[sectionNum].realStep];
           sectionTo = sectionNum;
           currentStep = this.state[sectionNum].realStep + 1;
           this.setState({
-            [realSection]: { realSection, realStep, step: possibleSections[realSection][realStep]  },  
-          })
-
-         } else { 
+            [realSection]: { realSection, realStep, step: possibleSections[realSection][realStep] },
+          });
+        } else {
           stepTo = sectionNum + '-1'; // normally stepTo would be 'not-done'
           sectionTo = sectionNum;
           currentStep = 1;
-   this.setState({
-            [realSection]: { realSection, realStep, step: possibleSections[realSection][realStep]  },  
-          })
+          this.setState({
+            [realSection]: { realSection, realStep, step: possibleSections[realSection][realStep] },
+          });
         }
       } else if (sectionNum === realSection) {
         // we need to do nothing
@@ -78,28 +77,27 @@ class Navigation extends React.PureComponent {
           // possibleSections[sectionNum][possibleSections[sectionNum].length - 1];
           sectionTo = sectionNum;
           currentStep = possibleSections[sectionNum].length;
-           this.setState({
-            [realSection]: { realSection, realStep, step: possibleSections[realSection][realStep]  },  
-          })
+          this.setState({
+            [realSection]: { realSection, realStep, step: possibleSections[realSection][realStep] },
+          });
         } else {
-        stepTo = possibleSections[sectionNum][this.state[sectionNum].realStep];
-        sectionTo = sectionNum;
-        currentStep = this.state[sectionNum].realStep;
+          stepTo = possibleSections[sectionNum][this.state[sectionNum].realStep];
+          sectionTo = sectionNum;
+          currentStep = this.state[sectionNum].realStep;
 
-            this.setState({
-            [realSection]: { realSection, realStep, step: possibleSections[realSection][realStep] },  
-          })
+          this.setState({
+            [realSection]: { realSection, realStep, step: possibleSections[realSection][realStep] },
+          });
         }
-
       } else {
-        // we go to the section and show the 'summary' thing       
+        // we go to the section and show the 'summary' thing
         stepTo = sectionNum + '-1';
         sectionTo = sectionNum;
         currentStep = 1;
 
-            this.setState({
-            [realSection]: { realSection, realStep, stepTo: possibleSections[realSection][realStep]  },  
-          })
+        this.setState({
+          [realSection]: { realSection, realStep, stepTo: possibleSections[realSection][realStep] },
+        });
       }
 
       this.props.reduxAction_doUpdate({
@@ -114,7 +112,7 @@ class Navigation extends React.PureComponent {
       <div className="new-nav">
         <div className="d-flex justify-content-center" id="title-mobile">
           <div className="title-text">
-            <img className="ucl-logo" alt="University College London" src={require('../../../../content/theme/custom/images/UCL.png')} height="75px" />
+            <img className="soas-logo" alt="SOAS, University of London" src={require('../../../../content/theme/custom/images/soas.jpg')} height="75px" />
           </div>
         </div>
         <div className="list-group list-group-flush" data-toggle="collapse" aria-expanded="false" id="margin-sidebar">
