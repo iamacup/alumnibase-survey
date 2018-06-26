@@ -70,7 +70,7 @@ class BioViewer extends React.PureComponent {
               after university!
             </p>
             <p>
-              First thing's first, <strong>{uniName}</strong> have sent
+              First things first, <strong>{uniName}</strong> have sent
               you this link in order to learn a bit more about their alumni.
             </p>
             <p>
