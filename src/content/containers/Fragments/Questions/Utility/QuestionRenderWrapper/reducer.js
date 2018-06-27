@@ -8,10 +8,10 @@ import {
   QUESTIONS_RENDER_WRAPPER_RESET,
 } from './action';
 
-import {
+/* import {
   LOGIN_FINISHED,
   LOGOUT_FINISHED,
-} from '../../../../../../content/containers/Fragments/Authentication/action';
+} from '../../../../../../content/containers/Fragments/Authentication/action'; */
 
 export const initialState = {
   // the response payload
@@ -61,9 +61,9 @@ export default (state = initialState, action) => {
       });
     case QUESTIONS_RENDER_WRAPPER_RESET:
       return _.assign({}, initialState);
-    case LOGIN_FINISHED:
+    /* case LOGIN_FINISHED:
     case LOGOUT_FINISHED:
-      return _.assign({}, initialState);
+      return _.assign({}, initialState); */
     default:
       return state;
   }

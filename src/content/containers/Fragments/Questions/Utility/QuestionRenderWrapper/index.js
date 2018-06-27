@@ -7,7 +7,7 @@ import * as pageAction from './action';
 
 import SmallSectionError from '../../../../../../content/components/Errors/smallSection';
 import LoadingArea from '../../../../../../content/components/Loading';
-import Authentication from '../../../../../../content/containers/Fragments/Authentication';
+//import Authentication from '../../../../../../content/containers/Fragments/Authentication';
 import QuestionRenderer from '../../../../../../content/containers/Fragments/Questions/Utility/QuestionRenderer';
 import QuestionButton from '../../../../../../content/containers/Fragments/Questions/Utility/QuestionButton';
 
@@ -15,7 +15,7 @@ import {
   getAuthenticationCookie,
   formatQuestionObjectForSending,
 } from '../../../../../../content/scripts/custom/utilities';
-import { initialState as authenticationInitialState } from '../../../../../../content/containers/Fragments/Authentication/reducer';
+//import { initialState as authenticationInitialState } from '../../../../../../content/containers/Fragments/Authentication/reducer';
 import { initialState as questionsInitialState } from '../../../../../../content/containers/Fragments/Questions/Components/reducer';
 
 import * as questionAction from '../../../../../../content/containers/Fragments/Questions/Components/action';
@@ -30,7 +30,8 @@ class Page extends React.Component {
     this.doSomethingAboutSaveIfNeeded();
   }
 
-  doSomethingAboutSaveIfNeeded() {
+  //TODO need to implement this for when the thing finishes
+  /*doSomethingAboutSaveIfNeeded() {
     if (
       this.props.reduxState_page.finished === true &&
       this.props.reduxState_page.generalStatus === 'success' &&
@@ -38,7 +39,7 @@ class Page extends React.Component {
     ) {
       this.props.saveSuccessCallback();
     }
-  }
+  }*/
 
   questionsWithErrors() {
     const arr = Object.entries(this.props.reduxState_questions);
@@ -131,7 +132,7 @@ class Page extends React.Component {
     } = this.props.reduxState_page;
     let component = null;
 
-    if (this.props.reduxState_authentication.loggedIn !== true) {
+    //if (this.props.reduxState_authentication.loggedIn !== true) {
       component = (
         <div className="row">
           <div className="col-sm-6 col-sm-push-3 text-center">
@@ -141,7 +142,8 @@ class Page extends React.Component {
           </div>
         </div>
       );
-    } else if (started === true && finished === false) {
+    //} else if (started === true && finished === false) {
+    if (started === true && finished === false) {
       component = <LoadingArea />;
     } else if (generalStatus === 'fatal') {
       component = (
@@ -186,7 +188,7 @@ Page.propTypes = {
   reduxAction_doReset: PropTypes.func,
   reduxAction_doForceValidate: PropTypes.func,
   reduxState_page: PropTypes.object,
-  reduxState_authentication: PropTypes.object,
+  //reduxState_authentication: PropTypes.object,
   reduxState_questions: PropTypes.object,
   data: PropTypes.array.isRequired,
   apiURL: PropTypes.string.isRequired,
@@ -201,7 +203,7 @@ Page.defaultProps = {
   reduxAction_doReset: () => {},
   reduxAction_doForceValidate: () => {},
   reduxState_page: pageInitialState,
-  reduxState_authentication: authenticationInitialState,
+  //reduxState_authentication: authenticationInitialState,
   reduxState_questions: questionsInitialState,
   saveSuccessCallback: () => {},
   metaData: {},
@@ -209,7 +211,7 @@ Page.defaultProps = {
 
 const mapStateToProps = state => ({
   reduxState_page: state.questionRenderWrapper,
-  reduxState_authentication: state.authentication,
+  //reduxState_authentication: state.authentication,
   reduxState_questions: state.questions,
 });
 

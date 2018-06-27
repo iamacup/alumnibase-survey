@@ -156,33 +156,9 @@ export function getAuthenticationHeaders(override) {
   return {};
 }
 
-export function authenticationCookieExists() {
-  const Cookies = require('js-cookie');
-  const bearer = Cookies.get('authentication');
-
-  if (dNc(bearer)) {
-    return true;
-  }
-
-  return false;
-}
-
 export function getAuthenticationCookie() {
   const Cookies = require('js-cookie');
   return Cookies.get('authentication');
-}
-
-export function deleteAuthenticationCookie() {
-  const Cookies = require('js-cookie');
-  Cookies.remove('authentication');
-}
-
-// the api returns something called 'authStatus' as part of all responses - we should examine it and check that the api has not revoked access or anything every time we hit the API
-export function handleAuthStatus(authStatus, dispatch) {
-  if (authenticationCookieExists() && authStatus === 'error') {
-    deleteAuthenticationCookie();
-    dispatch({ type: 'LOGOUT_FINISHED' });
-  }
 }
 
 export function showCookieMessage() {
