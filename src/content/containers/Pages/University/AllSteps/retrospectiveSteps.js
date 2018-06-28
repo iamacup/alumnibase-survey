@@ -116,7 +116,7 @@ class Viewer extends React.PureComponent {
   }
 
   render() {
-    console.log('render pre uni step: ' + this.props.currentStep);
+    console.log('render retrospective step: ' + this.props.currentStep);
     return this.getStepContent();
   }
 }

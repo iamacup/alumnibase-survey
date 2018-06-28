@@ -205,7 +205,7 @@ class Viewer extends React.Component {
 
         if (stepIndex !== -1) {
           this.props.reduxAction_doUpdateStep({
-            currentStep: stepIndex + 1, stepCount: bioSteps.length, realSection: 1, realStep: stepIndex, stepName: '1-' + stepIndex,
+            currentStep: stepIndex + 1, stepCount: bioSteps.length, realSection: 1, realStep: stepIndex, stepName: '1-' + stepIndex, bioLastCompleteStep: stepIndex,
           });
         }
       } else if (type === 'uni') {
@@ -213,7 +213,7 @@ class Viewer extends React.Component {
 
         if (stepIndex !== -1) {
           this.props.reduxAction_doUpdateStep({
-            currentStep: stepIndex + 1, stepCount: uniSteps.length, realSection: 2, realStep: stepIndex, stepName: '2-' + stepIndex,
+            currentStep: stepIndex + 1, stepCount: uniSteps.length, realSection: 2, realStep: stepIndex, stepName: '2-' + stepIndex, uniLastCompleteStep: stepIndex,
           });
         }
       } else if (type === 'preuni') {
@@ -221,7 +221,7 @@ class Viewer extends React.Component {
 
         if (stepIndex !== -1) {
           this.props.reduxAction_doUpdateStep({
-            currentStep: stepIndex + 1, stepCount: preUniSteps.length, realSection: 3, realStep: stepIndex, stepName: '3-' + stepIndex,
+            currentStep: stepIndex + 1, stepCount: preUniSteps.length, realSection: 3, realStep: stepIndex, stepName: '3-' + stepIndex, preUniLastCompleteStep: stepIndex,
           });
         }
       } else if (type === 'postuni') {
@@ -229,7 +229,7 @@ class Viewer extends React.Component {
 
         if (stepIndex !== -1) {
           this.props.reduxAction_doUpdateStep({
-            currentStep: stepIndex + 1, stepCount: postUniSteps.length, realSection: 4, realStep: stepIndex, stepName: '4-' + stepIndex,
+            currentStep: stepIndex + 1, stepCount: postUniSteps.length, realSection: 4, realStep: stepIndex, stepName: '4-' + stepIndex, postUniLastCompleteStep: stepIndex,
           });
         }
       } else if (type === 'retro') {
@@ -237,48 +237,84 @@ class Viewer extends React.Component {
 
         if (stepIndex !== -1) {
           this.props.reduxAction_doUpdateStep({
-            currentStep: stepIndex + 1, stepCount: retrospectiveSteps.length, realSection: 5, realStep: stepIndex, stepName: '5-' + stepIndex,
+            currentStep: stepIndex + 1, stepCount: retrospectiveSteps.length, realSection: 5, realStep: stepIndex, stepName: '5-' + stepIndex, retroLastCompleteStep: stepIndex,
           });
         }
       }
     // otherwise we look to see what type has been finished and then use that to define what to do next
     } else if (type === 'bio') {
+      let useNextStep = 1;
+      let useStepName = uniSteps[0];
+
+      if (dNc(this.props.reduxState_steps.uniLastCompleteStep)) {
+        const { uniLastCompleteStep } = this.props.reduxState_steps;
+        useNextStep = uniLastCompleteStep + 1;
+        useStepName = uniSteps[uniLastCompleteStep];
+      }
+
       // bio finish
       this.props.reduxAction_doUpdate({
-        step: uniSteps[0],
+        step: useStepName,
         answerData: updateAnswerData,
       });
 
       // update the steps
       this.props.reduxAction_doUpdateStep({
-        currentStep: 1, stepCount: uniSteps.length, section: 2, realSection: 2, realStep: 1, stepName: uniSteps[0],
+        currentStep: useNextStep, stepCount: uniSteps.length, section: 2, realSection: 2, realStep: useNextStep, stepName: useStepName, finishedBio: true,
       });
     } else if (type === 'uni') {
+      let useNextStep = 1;
+      let useStepName = preUniSteps[0];
+
+      if (dNc(this.props.reduxState_steps.preUniLastCompleteStep)) {
+        const { preUniLastCompleteStep } = this.props.reduxState_steps;
+        useNextStep = preUniLastCompleteStep + 1;
+        useStepName = preUniSteps[preUniLastCompleteStep];
+      }
+
       this.props.reduxAction_doUpdate({
-        step: preUniSteps[0],
+        step: useStepName,
         answerData: updateAnswerData,
       });
 
       this.props.reduxAction_doUpdateStep({
-        currentStep: 1, stepCount: preUniSteps.length, section: 3, realSection: 3, realStep: 1, stepName: preUniSteps[0],
+        currentStep: useNextStep, stepCount: preUniSteps.length, section: 3, realSection: 3, realStep: useNextStep, stepName: useStepName, finishedUni: true,
       });
     } else if (type === 'preuni') {
+      let useNextStep = 1;
+      let useStepName = postUniSteps[0];
+
+      if (dNc(this.props.reduxState_steps.postUniLastCompleteStep)) {
+        const { postUniLastCompleteStep } = this.props.reduxState_steps;
+        useNextStep = postUniLastCompleteStep + 1;
+        useStepName = postUniSteps[postUniLastCompleteStep];
+      }
+
       this.props.reduxAction_doUpdate({
-        step: postUniSteps[0],
+        step: useStepName,
         answerData: updateAnswerData,
       });
 
       this.props.reduxAction_doUpdateStep({
-        currentStep: 1, stepCount: postUniSteps.length, section: 4, realSection: 4, realStep: 1, stepName: postUniSteps[0],
+        currentStep: useNextStep, stepCount: postUniSteps.length, section: 4, realSection: 4, realStep: useNextStep, stepName: useStepName, finishedPreUni: true,
       });
     } else if (type === 'postuni') {
+      let useNextStep = 1;
+      let useStepName = retrospectiveSteps[0];
+
+      if (dNc(this.props.reduxState_steps.retroLastCompleteStep)) {
+        const { retroLastCompleteStep } = this.props.reduxState_steps;
+        useNextStep = retroLastCompleteStep + 1;
+        useStepName = retrospectiveSteps[retroLastCompleteStep];
+      }
+
       this.props.reduxAction_doUpdate({
-        step: retrospectiveSteps[0],
+        step: useStepName,
         answerData: updateAnswerData,
       });
 
       this.props.reduxAction_doUpdateStep({
-        currentStep: 1, stepCount: retrospectiveSteps.length, section: 5, realSection: 5, realStep: 1, stepName: retrospectiveSteps[0],
+        currentStep: useNextStep, stepCount: retrospectiveSteps.length, section: 5, realSection: 5, realStep: useNextStep, stepName: useStepName, finishedPostUni: true,
       });
     } else {
       console.log(type);
@@ -293,7 +329,10 @@ class Viewer extends React.Component {
     let uniBranding = (<div><span className="dark-text">University</span><span className="light-grey-text">Branding</span></div>);
     let uniBranding2 = (<div><span className="dark-text">University</span><span className="light-grey-text">Branding</span></div>);
 
-    if (uniName === 'uwe' || uniName === 'durham' || uniName === 'cranfield' || uniName === 'kings' || uniName === 'loughborough' || uniName === 'oxford-brookes' || uniName === 'sheffield' || uniName === 'sheffield-hallam' || uniName === 'ucl' || uniName === 'mmu' || uniName === 'liverpool-hope' || uniName === 'chester') {
+    if (uniName === 'manchester-met' || uniName === 'uwe' || uniName === 'durham' || uniName === 'cranfield' || uniName === 'kings' ||
+      uniName === 'loughborough' || uniName === 'oxford-brookes' || uniName === 'sheffield' ||
+      uniName === 'sheffield-hallam' || uniName === 'ucl' || uniName === 'mmu' || uniName === 'liverpool-hope' ||
+      uniName === 'chester') {
       // eslint-disable-next-line import/no-dynamic-require
       uniBranding = <img className={`${uniName}-logo`} alt={uniName} src={require(`../../../../../content/theme/custom/images/${uniName}.png`)} height="65px" />;
       // eslint-disable-next-line import/no-dynamic-require
@@ -383,6 +422,7 @@ Viewer.contextTypes = {
 
 Viewer.propTypes = {
   reduxState_this: PropTypes.object,
+  reduxState_steps: PropTypes.object,
   reduxAction_doUpdate: PropTypes.func,
   reduxAction_doUpdateStep: PropTypes.func,
 };
@@ -391,12 +431,15 @@ Viewer.defaultProps = {
   reduxState_this: {
     step: firstStep,
   },
+  reduxState_steps: {},
   reduxAction_doUpdate: () => {},
   reduxAction_doUpdateStep: () => {},
 };
 
 const mapStateToProps = state => ({
   reduxState_this: state.dataStoreSingle[dataStoreID],
+  // todo we don't really want to be hooked into this unless we really need to - we don't need to once we take 'demo mode' off and don't need to step skip
+  reduxState_steps: state.dataStoreSingle[dataStoreIDSteps],
 });
 
 const mapDispatchToProps = dispatch => ({

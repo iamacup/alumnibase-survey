@@ -52,12 +52,12 @@ const CurrencySalaryBonusQuestionComponent = ({
   };
 
   let symbol = '£';
-  const currencyObj = {
-    GBP: '£', USD: '$', EURO: '€', Other: '',
-  };
+
 
   if (dNc(answerBits.currency.optionValue)) {
-    symbol = currencyObj[answerBits.currency.optionValue];
+    const first = answerBits.currency.optionValue.indexOf('(') + 1;
+    const last = answerBits.currency.optionValue.indexOf(')');
+    symbol = answerBits.currency.optionValue.slice(first, last);
   }
 
   let totalValue = null;

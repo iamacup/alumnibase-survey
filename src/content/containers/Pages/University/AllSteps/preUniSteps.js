@@ -29,25 +29,25 @@ class Viewer extends React.PureComponent {
 
     const uniName = this.props.answerData.data['questions/42953580507_0'].universityName.optionValue;
 
-    let pageButton = (
+    const pageButton = (
       <div className="center-question" style={{ paddingBottom: '0px' }}>
         <h5 className="dark-text" style={{ marginBottom: '22px' }}>Ready to proceed?</h5>
         <h6 className="grey-text">You can return here at any time using the navigation on the left.</h6>
-        <button className="btn btn-block btn-next-step answered btn-margin" /* onClick={() => { this.handleSubmit(null); }} */>
-                  Next Step!
+        <button className="btn btn-block btn-next-step answered btn-margin" onClick={() => { this.handleSubmit(null); }} >
+          Next Step!
         </button>
       </div>
     );
-    if (this.props.reduxState_steps.realSection > this.props.reduxState_steps.section) {
+
+    /* if (this.props.reduxState_steps.realSection > this.props.reduxState_steps.section) {
       pageButton = (
         <div className="center-question" style={{ paddingBottom: '0px' }}>
-          <button className="btn btn-block btn-next-step answered btn-margin" /* onClick={() => { this.handleSummaryButtonClick(); }} */>
+          <button className="btn btn-block btn-next-step answered btn-margin" onClick={() => { this.handleSummaryButtonClick(); }}>
                     Continue survey?
           </button>
         </div>
       );
-    }
-
+    } */
 
     if (currentStep === '3-1') {
       content = (
@@ -116,7 +116,7 @@ class Viewer extends React.PureComponent {
     this.props.submitDataCallback(answerData, next, type);
   }
 
-  handleSummaryButtonClick() {
+  /* handleSummaryButtonClick() {
     const { realSection } = this.props.reduxState_steps;
     const { realStep } = this.props.reduxState_steps;
 
@@ -127,7 +127,7 @@ class Viewer extends React.PureComponent {
     });
 
     this.props.reduxAction_doUpdateStep({ currentStep: realStep + 1, stepCount: possibleSections[realSection].length, section: realSection });
-  }
+  } */
 
   render() {
     console.log('render pre uni step: ' + this.props.currentStep);

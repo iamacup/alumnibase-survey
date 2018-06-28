@@ -10,19 +10,23 @@ import { getLatestItemWithFriendlyNameFromState, getFirstItemWithFriendlyNameFro
 import { dataStoreIDSteps, possibleSections } from '../../../../../content/containers/Pages/University/AllSteps';
 import * as storeAction from '../../../../../foundation/redux/globals/DataStoreSingle/actions';
 
-let dataStoreID = 'testHTML3UniSub';
+const dataStoreID = 'testHTML3UniSub';
+
 const fetchEducationDataTransactionStateMainID = 'wizzardUniEducationCompletion';
 const FetchEducation = fetchDataBuilder(fetchEducationDataTransactionStateMainID);
 const fetchUniDataTransactionStateMainID = 'wizzardUniCompletion';
 const FetchUni = fetchDataBuilder(fetchUniDataTransactionStateMainID);
+
 const initialThisState = {
   uniLoop: 0,
   qualificationLoop: 0,
 };
+
 class Viewer extends React.PureComponent {
   componentDidMount() {
     this.props.reduxAction_doUpdate(initialThisState);
   }
+
   componentWillReceiveProps(nextProps) {
     if ((nextProps.currentStep === 'ask-next-qualification' &&
       this.props.currentStep !== 'ask-next-qualification') || (
@@ -57,6 +61,7 @@ class Viewer extends React.PureComponent {
       }
     }
   }
+
   getQualificationsHistory(seed) {
     const { qualificationLoop, uniLoop } = this.props.reduxState_this;
     const { answerData } = this.props;
@@ -67,14 +72,15 @@ class Viewer extends React.PureComponent {
         active
         fetchURL="api/universityWizzard/uniEducationData"
         sendData={{
- sessionID: answerData.sessionID, uniLoop, qualificationLoop, seed,
-}}
+         sessionID: answerData.sessionID, uniLoop, qualificationLoop, seed,
+        }}
         noRender={false}
         stateSubID="default"
         viewer={UniEducationViewer}
         viewerProps={{ uniName }}
       />
     );
+
     return (
       <div>
         <h4>{uniName}</h4>
@@ -83,6 +89,7 @@ class Viewer extends React.PureComponent {
       </div>
     );
   }
+
   getUniHistory(seed) {
     const { qualificationLoop, uniLoop } = this.props.reduxState_this;
     const { answerData } = this.props;
@@ -92,8 +99,8 @@ class Viewer extends React.PureComponent {
         active
         fetchURL="api/universityWizzard/educationData"
         sendData={{
- sessionID: answerData.sessionID, uniLoop, qualificationLoop, seed,
-}}
+         sessionID: answerData.sessionID, uniLoop, qualificationLoop, seed,
+        }}
         noRender={false}
         stateSubID="default"
         viewer={UniViewer}
@@ -105,6 +112,7 @@ class Viewer extends React.PureComponent {
       </div>
     );
   }
+
   getStepContent() {
     const { currentStep, answerData } = this.props;
     const { qualificationLoop, uniLoop } = this.props.reduxState_this;
@@ -133,24 +141,24 @@ class Viewer extends React.PureComponent {
       />
     );
 
-    let pageButton = (
+    const pageButton = (
       <div className="center-question" style={{ paddingBottom: '0px' }}>
         <h5 className="dark-text" style={{ marginBottom: '22px' }}>Ready to proceed?</h5>
-        <button className="btn btn-block btn-next-step answered btn-margin" /* onClick={() => { this.nextStep(); }} */>
+        <button className="btn btn-block btn-next-step answered btn-margin" onClick={() => { this.nextStep(); }} >
                   Let's go!
         </button>
       </div>
     );
 
-    if (this.props.reduxState_steps.realSection > this.props.reduxState_steps.section) {
+    /* if (this.props.reduxState_steps.realSection > this.props.reduxState_steps.section) {
       pageButton = (
         <div className="center-question" style={{ paddingBottom: '0px' }}>
-          <button className="btn btn-block btn-next-step answered btn-margin" /* onClick={() => { this.handleSummaryButtonClick(); }} */>
+          <button className="btn btn-block btn-next-step answered btn-margin" onClick={() => { this.handleSummaryButtonClick(); }} >
                     Continue survey?
           </button>
         </div>
       );
-    }
+    } */
 
     const uniName = getLatestItemWithFriendlyNameFromState('universityName', 'your university', answerData);
     if (currentStep === '2-1') {
@@ -276,6 +284,7 @@ class Viewer extends React.PureComponent {
     }
     return content;
   }
+
   // move us back to the 0th step
   moreQualifications() {
     const { steps, type } = this.props;
@@ -302,7 +311,7 @@ class Viewer extends React.PureComponent {
     }
   }
 
-  handleSummaryButtonClick() {
+  /* handleSummaryButtonClick() {
     dataStoreID = 'testHTML3';
 
     const { realSection } = this.props.reduxState_steps;
@@ -317,14 +326,14 @@ class Viewer extends React.PureComponent {
     });
 
     this.props.reduxAction_doUpdateStep({ currentStep: realStep + 1, stepCount: possibleSections[realSection].length, section: realSection });
-  }
-
+  } */
 
   render() {
-    console.log('render pre uni step: ' + this.props.currentStep);
+    console.log('render uni step: ' + this.props.currentStep);
     return this.getStepContent();
   }
 }
+
 Viewer.propTypes = {
   reduxState_steps: PropTypes.object,
   reduxAction_doUpdateStep: PropTypes.func,
@@ -336,6 +345,7 @@ Viewer.propTypes = {
   answerData: PropTypes.object.isRequired,
   type: PropTypes.string.isRequired,
 };
+
 Viewer.defaultProps = {
   reduxState_steps: {
     currentStep: 11,
@@ -346,12 +356,15 @@ Viewer.defaultProps = {
   reduxAction_doUpdate: () => {},
   reduxAction_doUpdateStep: () => {},
 };
+
 const mapStateToProps = state => ({
   reduxState_this: state.dataStoreSingle[dataStoreID],
   reduxState_steps: state.dataStoreSingle[dataStoreIDSteps],
 });
+
 const mapDispatchToProps = dispatch => ({
   reduxAction_doUpdate: data => dispatch(storeAction.doUpdate(dataStoreID, data, initialThisState)),
   reduxAction_doUpdateStep: data => dispatch(storeAction.doUpdate(dataStoreIDSteps, data)),
 });
+
 export default connect(mapStateToProps, mapDispatchToProps)(Viewer);
