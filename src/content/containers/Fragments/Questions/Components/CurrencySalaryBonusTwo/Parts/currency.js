@@ -129,15 +129,15 @@ class Currency extends React.Component {
 
   putItemIntoState() {
     let optionID = null;
-    let optionValue = null
+    let optionValue = null;
     const { questionID, questionIdentifier, options } = this.props;
 
-    options.forEach(elem => {
+    options.forEach((elem) => {
       if (elem.optionValue.includes('GDP')) {
         optionID = elem.optionID;
         optionValue = elem.optionValue;
       }
-    })
+    });
     const validity = this.validate({ optionValue, optionID });
 
     this.props.reduxAction_doUpdateQuestionAnswer(

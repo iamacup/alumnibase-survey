@@ -55,9 +55,9 @@ const CurrencySalaryBonusQuestionComponent = ({
 
 
   if (dNc(answerBits.currency.optionValue)) {
-    let first = answerBits.currency.optionValue.indexOf('(') + 1;
-    let last = answerBits.currency.optionValue.indexOf(')')
-    symbol = answerBits.currency.optionValue.slice(first, last)
+    const first = answerBits.currency.optionValue.indexOf('(') + 1;
+    const last = answerBits.currency.optionValue.indexOf(')');
+    symbol = answerBits.currency.optionValue.slice(first, last);
   }
 
   let totalValue = null;
