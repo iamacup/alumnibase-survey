@@ -12,6 +12,13 @@ import '../../../../src/includes/fontawesome-pro-5.0.4/web-fonts-with-css/css/fo
 class App extends React.Component {
   componentDidMount() {
     whenLoaded(() => {
+      // we force SSL
+      if (!window.location.href.includes('localhost:3000')) {
+        if (window.location.protocol !== 'https:') {
+          window.location.href = 'https:' + window.location.href.substring(window.location.protocol.length);
+        }
+      }
+
       require('animate.css');
     });
   }
