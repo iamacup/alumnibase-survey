@@ -17,24 +17,25 @@ class Viewer extends React.PureComponent {
     let count = 0;
 
     data.forEach((value) => {
-      let degreeLevel = null;
+      // let degreeLevel = null;
       let courseType = null;
-      let courseFTPT = null;
+      // let courseFTPT = null;
       let graduationYear = null;
-      let startYear = null;
+      // let startYear = null;
       let subject = null;
 
       value.forEach((value2) => {
-        if (value2.friendlyName === 'degreeLevel') {
-          degreeLevel = value2.optionValue;
-        } else if (value2.friendlyName === 'courseType') {
+        // if (value2.friendlyName === 'degreeLevel') {
+        // degreeLevel = value2.optionValue;
+        // } else
+        if (value2.friendlyName === 'courseType') {
           courseType = value2.optionValue;
-        } else if (value2.friendlyName === 'courseFTPT') {
-          courseFTPT = value2.optionValue;
+        // } else if (value2.friendlyName === 'courseFTPT') {
+          // courseFTPT = value2.optionValue;
         } else if (value2.friendlyName === 'graduationYear') {
           graduationYear = value2.optionValue;
-        } else if (value2.friendlyName === 'startYear') {
-          startYear = value2.optionValue;
+        // } else if (value2.friendlyName === 'startYear') {
+          // startYear = value2.optionValue;
         } else if (value2.friendlyName === 'subject') {
           subject = value2.optionValue;
         }
@@ -46,7 +47,7 @@ class Viewer extends React.PureComponent {
           <div className="row justify-content-between" key={count + 'key'}>
             <div className="col-auto mr-auto">
               <div>
-                <h6 style={{ marginBottom: '0px' }}>{courseType} {dNc(subject) ? ' - ' + subject : null} <span className="grey-text">(Graduated {graduationYear})</span></h6>
+                <h6 style={{ marginBottom: '0px' }}>{courseType} {dNc(subject) ? ' - ' + subject : null} <span className="grey-text"><br />(Graduated {graduationYear})</span></h6>
               </div>
             </div>
             <div className="col-auto">

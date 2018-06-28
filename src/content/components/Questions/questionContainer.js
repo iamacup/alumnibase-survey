@@ -8,10 +8,12 @@ const QuestionContainer = ({
   errorMessages,
   answered,
   explainerText,
+  postContent,
 }) => {
   let errorClassName = 'question-error-message';
   let statusClassName = 'general-question-container';
   const errors = [];
+  // let buttons = '';
 
   if (error !== true) {
     errorClassName = 'd-none';
@@ -31,13 +33,19 @@ const QuestionContainer = ({
     statusClassName += ' question-success';
   }
 
+  // getting rid of validation line for gdpr question.
+  let line = <div className="question-answer-line" />;
+  if (title === 'We have a couple of opt-ints for you!') line = '';
+
   return (
     <div className={statusClassName}>
       <div className="d-flex justify-content-center">
         <div className="question-spacer">
           <div className="d-flex align-items-stretch" style={{ height: '100%' }}>
-            <div className="question-answer-line" />
+
+            {line}
           </div>
+
         </div>
 
         <div className="center-question">
@@ -46,7 +54,9 @@ const QuestionContainer = ({
           <div className={errorClassName}>{errors}</div>
           <div className="explainer-text">
             <h6 className="grey-text">{explainerText.useValue}</h6>
+
           </div>
+          {postContent}
         </div>
 
         <div className="question-spacer" style={{ height: '1px' }} />
@@ -62,6 +72,7 @@ QuestionContainer.propTypes = {
   answered: PropTypes.bool.isRequired,
   errorMessages: PropTypes.array.isRequired,
   explainerText: PropTypes.object,
+  postContent: PropTypes.any,
 };
 
 QuestionContainer.defaultProps = {
@@ -72,6 +83,7 @@ QuestionContainer.defaultProps = {
     type: null,
     useValue: '',
   },
+  postContent: null,
 };
 
 export default QuestionContainer;

@@ -3,11 +3,8 @@ import React from 'react';
 import Helmet from 'react-helmet';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import _ from 'lodash';
 
-import NewWizzardPane from '../../../../../content/containers/Fragments/NewWizzardPane';
-import fetchDataBuilder from '../../../../../foundation/redux/Factories/FetchData';
-import UniEducationViewer from '../../../../../content/containers/Pages/University/AllSteps/uniEducationViewer';
+// import fetchDataBuilder from '../../../../../foundation/redux/Factories/FetchData';
 
 import Navigation from '../../../../../content/containers/Pages/NewTheme/navigation';
 import TopProgress from '../../../../../content/containers/Pages/NewTheme/topProgress';
@@ -16,8 +13,10 @@ import BottomProgress from '../../../../../content/containers/Pages/NewTheme/bot
 import UniSteps from '../../../../../content/containers/Pages/University/AllSteps/uniSteps';
 import BioSteps from '../../../../../content/containers/Pages/University/AllSteps/bioSteps';
 import PreUniSteps from '../../../../../content/containers/Pages/University/AllSteps/preUniSteps';
+import PostUniSteps from '../../../../../content/containers/Pages/University/AllSteps/postUniSteps';
+import RetrospectiveSteps from '../../../../../content/containers/Pages/University/AllSteps/retrospectiveSteps';
 
-import { fireDebouncedResizeEvents, dNc } from '../../../../../content/scripts/custom/utilities';
+import { dNc } from '../../../../../content/scripts/custom/utilities';
 
 import * as storeAction from '../../../../../foundation/redux/globals/DataStoreSingle/actions';
 
@@ -26,8 +25,8 @@ const dataStoreID = 'testHTML3';
 export const dataStoreIDSteps = 'wizzardSteps';
 
 // fetch actions constants
-const fetchDataTransactionStateMainID = 'wizzardUniEducationCompletion';
-const FetchEducation = fetchDataBuilder(fetchDataTransactionStateMainID);
+// const fetchDataTransactionStateMainID = 'wizzardUniEducationCompletion';
+// const FetchEducation = fetchDataBuilder(fetchDataTransactionStateMainID);
 
 // STEP ARRAYS CAN NOT HAVE DUPLICATE ENTRIES!!!!!
 // IF THE SAME STEP NEEDS TO LOOP OR BE RENDERED AT DIFFERENT POINTS - ALIAS IT AND THEN HANDLE IN THE VIEWER
@@ -52,15 +51,48 @@ const bioSteps = ['0-1', 'intro', 'terms', '1-1', '1-2', '1-3', '1-4', 'summary-
 // 2-5: all the quesitons about experience at uni 1 (target of this survey)
 const uniSteps = ['2-1', 'ask-another-qualification', '2-2', 'ask-next-qualification', 'uni-question', '2-3', '2-2-again', 'ask-next-qualification-again', '2-4', '2-5', 'summary-uni'];
 
-const preUniSteps = ['3-1'];
+const preUniSteps = ['3-1', '3-2', '3-3', 'summary-pre'];
+
+const postUniSteps = ['4-1', '4-2', '4-3', '4-4', '4-5', '4-6', 'summary-post'];
+
+const retrospectiveSteps = ['5-1', '5-2', '5-3', '5-4', 'summary-retrospective', 'final-page'];
+
+const notDoneStep = ['not-done'];
+
+export const possibleSections = {
+  1: ['0-1', 'intro', 'terms', '1-1', '1-2', '1-3', '1-4', 'summary-bio'],
+  2: ['2-1', 'ask-another-qualification', '2-2', 'ask-next-qualification', 'uni-question', '2-3', '2-2-again', 'ask-next-qualification-again', '2-4', '2-5', 'summary-uni'],
+  3: ['3-1', '3-2', '3-3', 'summary-pre'],
+  4: ['4-1', '4-2', '4-3', '4-4', '4-5', '4-6', 'summary-post'],
+  5: ['5-1', '5-2', '5-3', '5-4', 'summary-retrospective', 'final-page'],
+};
 
 class Viewer extends React.Component {
+  componentDidMount() {
+    // button to open responsive navbar on a small screen.
+    $(this.buttonDOM).click(() => {
+      $('.left').slideToggle();
+      $('.overlay').fadeIn();
+    });
+
+    // button inside the responsive navbar to hide it.
+    $(this.buttonDOM2).click(() => {
+      $('.left').toggle();
+      $('.overlay').fadeOut();
+    });
+
+    $('.overlay').click(() => {
+      $('.left').toggle();
+      $('.overlay').toggle();
+    });
+  }
+
   getStepContent() {
     let content = null;
+    let answerData = {};
+    const { step } = this.props.reduxState_this;
 
-    const { step, answerData } = this.props.reduxState_this;
-
-    console.log(step);
+    if (this.props.reduxState_this.answerData) ({ answerData } = this.props.reduxState_this);
 
     if (bioSteps.includes(step)) {
       content = (
@@ -89,11 +121,46 @@ class Viewer extends React.Component {
         <PreUniSteps
           // eslint-disable-next-line no-shadow
           submitDataCallback={(answerData, nextStep, type) => { this.submitDataCallback(answerData, nextStep, type); }}
-          steps={uniSteps}
+          steps={preUniSteps}
           currentStep={step}
           answerData={answerData}
-          type="uni"
+          type="preuni"
         />
+      );
+    } else if (postUniSteps.includes(step)) {
+      content = (
+        <PostUniSteps
+          // eslint-disable-next-line no-shadow
+          submitDataCallback={(answerData, nextStep, type) => { this.submitDataCallback(answerData, nextStep, type); }}
+          steps={postUniSteps}
+          currentStep={step}
+          answerData={answerData}
+          type="postuni"
+        />
+      );
+    } else if (retrospectiveSteps.includes(step)) {
+      content = (
+        <RetrospectiveSteps
+          // eslint-disable-next-line no-shadow
+          submitDataCallback={(answerData, nextStep, type) => { this.submitDataCallback(answerData, nextStep, type); }}
+          steps={retrospectiveSteps}
+          currentStep={step}
+          answerData={answerData}
+          type="retro"
+        />
+      );
+    } else if (notDoneStep.includes(step)) {
+      content = (
+        <div>
+          <div className="container">
+            <div className="row justify-content-center">
+              <div className="col-10 m-3">
+                <h3>Ooops!</h3>
+                <h4>You will need to finish the previous sections to view this page.</h4>
+              </div>
+            </div>
+          </div>
+        </div>
       );
     } else {
       content = <h1>Undone</h1>;
@@ -103,14 +170,29 @@ class Viewer extends React.Component {
   }
 
   submitDataCallback(answerData, nextStep, type) {
-    // we let null answer data get passed through here if we need to just change steps without any actual answer data
+    // we let null answer data get passed through here if we need to just change steps without any actual answer dat
     let updateAnswerData = answerData;
 
     if (!dNc(updateAnswerData)) {
       updateAnswerData = this.props.reduxState_this.answerData;
     }
 
+    // this is some code we can use to force test a series of steps after 0-1 is complete (i.e. a sessionID is assigned and a uni picked)
+    // if (this.props.reduxState_this.step === '0-1') {
+    //   const stepTo = '4-1';
+
+    //   this.props.reduxAction_doUpdate({
+    //     step: stepTo,
+    //     answerData: updateAnswerData,
+    //   });
+
+    //   this.props.reduxAction_doUpdateStep({ currentStep: 1, stepCount: retrospectiveSteps.length, section: 5 });
+
+    //   return;
+    // }
+
     // we always update the step assuming there was a next step passed
+    // eslint-disable-next-line no-unreachable
     if (nextStep !== null) {
       this.props.reduxAction_doUpdate({
         step: nextStep,
@@ -122,13 +204,41 @@ class Viewer extends React.Component {
         const stepIndex = bioSteps.indexOf(nextStep);
 
         if (stepIndex !== -1) {
-          this.props.reduxAction_doUpdateStep({ currentStep: stepIndex + 1, stepCount: bioSteps.length });
+          this.props.reduxAction_doUpdateStep({
+            currentStep: stepIndex + 1, stepCount: bioSteps.length, realSection: 1, realStep: stepIndex, stepName: '1-' + stepIndex,
+          });
         }
       } else if (type === 'uni') {
         const stepIndex = uniSteps.indexOf(nextStep);
 
         if (stepIndex !== -1) {
-          this.props.reduxAction_doUpdateStep({ currentStep: stepIndex + 1, stepCount: uniSteps.length });
+          this.props.reduxAction_doUpdateStep({
+            currentStep: stepIndex + 1, stepCount: uniSteps.length, realSection: 2, realStep: stepIndex, stepName: '2-' + stepIndex,
+          });
+        }
+      } else if (type === 'preuni') {
+        const stepIndex = preUniSteps.indexOf(nextStep);
+
+        if (stepIndex !== -1) {
+          this.props.reduxAction_doUpdateStep({
+            currentStep: stepIndex + 1, stepCount: preUniSteps.length, realSection: 3, realStep: stepIndex, stepName: '3-' + stepIndex,
+          });
+        }
+      } else if (type === 'postuni') {
+        const stepIndex = postUniSteps.indexOf(nextStep);
+
+        if (stepIndex !== -1) {
+          this.props.reduxAction_doUpdateStep({
+            currentStep: stepIndex + 1, stepCount: postUniSteps.length, realSection: 4, realStep: stepIndex, stepName: '4-' + stepIndex,
+          });
+        }
+      } else if (type === 'retro') {
+        const stepIndex = retrospectiveSteps.indexOf(nextStep);
+
+        if (stepIndex !== -1) {
+          this.props.reduxAction_doUpdateStep({
+            currentStep: stepIndex + 1, stepCount: retrospectiveSteps.length, realSection: 5, realStep: stepIndex, stepName: '5-' + stepIndex,
+          });
         }
       }
     // otherwise we look to see what type has been finished and then use that to define what to do next
@@ -140,31 +250,103 @@ class Viewer extends React.Component {
       });
 
       // update the steps
-      this.props.reduxAction_doUpdateStep({ currentStep: 1, stepCount: uniSteps.length, section: 2 });
+      this.props.reduxAction_doUpdateStep({
+        currentStep: 1, stepCount: uniSteps.length, section: 2, realSection: 2, realStep: 1, stepName: uniSteps[0],
+      });
     } else if (type === 'uni') {
       this.props.reduxAction_doUpdate({
         step: preUniSteps[0],
         answerData: updateAnswerData,
       });
 
-      this.props.reduxAction_doUpdateStep({ currentStep: 1, stepCount: preUniSteps.length, section: 3 });
+      this.props.reduxAction_doUpdateStep({
+        currentStep: 1, stepCount: preUniSteps.length, section: 3, realSection: 3, realStep: 1, stepName: preUniSteps[0],
+      });
+    } else if (type === 'preuni') {
+      this.props.reduxAction_doUpdate({
+        step: postUniSteps[0],
+        answerData: updateAnswerData,
+      });
+
+      this.props.reduxAction_doUpdateStep({
+        currentStep: 1, stepCount: postUniSteps.length, section: 4, realSection: 4, realStep: 1, stepName: postUniSteps[0],
+      });
+    } else if (type === 'postuni') {
+      this.props.reduxAction_doUpdate({
+        step: retrospectiveSteps[0],
+        answerData: updateAnswerData,
+      });
+
+      this.props.reduxAction_doUpdateStep({
+        currentStep: 1, stepCount: retrospectiveSteps.length, section: 5, realSection: 5, realStep: 1, stepName: retrospectiveSteps[0],
+      });
     } else {
+      console.log(type);
       console.log('TODO HANDLE NON KNOWN');
+      console.log('the wizzard is finished OR in a bad state?');
     }
   }
 
   render() {
+    const uniName = this.context.router.route.location.pathname.slice(1).toLowerCase();
+
+    let uniBranding = (<div><span className="dark-text">University</span><span className="light-grey-text">Branding</span></div>);
+    let uniBranding2 = (<div><span className="dark-text">University</span><span className="light-grey-text">Branding</span></div>);
+
+    if (uniName === 'uwe' || uniName === 'durham' || uniName === 'cranfield' || uniName === 'kings' || uniName === 'loughborough' || uniName === 'oxford-brookes' || uniName === 'sheffield' || uniName === 'sheffield-hallam' || uniName === 'ucl' || uniName === 'mmu' || uniName === 'liverpool-hope' || uniName === 'chester') {
+      // eslint-disable-next-line import/no-dynamic-require
+      uniBranding = <img className={`${uniName}-logo`} alt={uniName} src={require(`../../../../../content/theme/custom/images/${uniName}.png`)} height="65px" />;
+      // eslint-disable-next-line import/no-dynamic-require
+      uniBranding2 = <img className={`${uniName}-logo`} alt={uniName} src={require(`../../../../../content/theme/custom/images/${uniName}.png`)} height="60px" />;
+    }
+
     return (
       <div>
         <Helmet title="Survey" />
         <div className="d-flex">
           <div className="left">
+            <div className="navigation-toggle" id="content">
+              <div className="row align-items-center" id="mobile-navbar">
+                <div className="col-2">
+                  <button type="button" id="navigation-toggle" className="btn btn-light" ref={(buttonDOM) => { this.buttonDOM2 = buttonDOM; }} style={{ borderColor: '#fff' }}><i className="fal fa-bars" style={{ fontSize: '25px' }} /></button>
+                </div>
+                <div className="col-10 pl-4">
+                  <div className="title-text">
+                    {uniBranding}
+                  </div>
+                </div>
+              </div>
+            </div>
             <Navigation />
+            <div className="row mx-2 ml-4" style={{ position: 'absolute', bottom: '20px', left: '0' }}>
+              <div className="col-4">
+                <a href={`/${uniName}/`}><h6 className="medium-grey-text">Privacy</h6></a>
+              </div>
+              <div className="col-4">
+                <a href={`/${uniName}/`}><h6 className="medium-grey-text">Terms</h6></a>
+              </div>
+              <div className="col-4">
+                <a href={`/${uniName}/`}><h6 className="medium-grey-text">Cookies</h6></a>
+              </div>
+            </div>
           </div>
           <div className="right">
+            <div className="navigation-toggle" id="content">
+              <div className="row align-items-center" id="mobile-navbar">
+                <div className="col-2 pl-4">
+                  <button type="button" className="btn btn-light" ref={(buttonDOM) => { this.buttonDOM = buttonDOM; }} style={{ borderColor: '#fff' }}><i className="fal fa-bars" style={{ fontSize: '25px' }} /></button>
+                </div>
+                <div className="col-8 text-center">
+                  <div className="title-text">
+                    {uniBranding2}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="overlay" />
             <div className="new-content container-fluid">
               <div className="section-padding">
-                <h3 className="mb-0 dark-text">Welcome!</h3>
+                <h3 className="dark-text">Welcome!</h3>
                 <div style={{ marginTop: '4px' }} />
                 <h6 className="grey-text mb-0">Hey there, welcome to AlumniBase.com - a tool to see what happened after university!</h6>
                 <div style={{ marginTop: '20px' }} />
@@ -189,10 +371,15 @@ class Viewer extends React.Component {
             </div>
           </div>
         </div>
+        <div className="overlay" />
       </div>
     );
   }
 }
+
+Viewer.contextTypes = {
+  router: PropTypes.object,
+};
 
 Viewer.propTypes = {
   reduxState_this: PropTypes.object,

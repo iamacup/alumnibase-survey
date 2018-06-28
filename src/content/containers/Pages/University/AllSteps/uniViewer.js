@@ -10,20 +10,21 @@ class Viewer extends React.PureComponent {
     let count = 0;
 
     data.forEach((value) => {
-      let degreeLevel = null;
+      // let degreeLevel = null;
       let courseType = null;
-      let courseFTPT = null;
+      // let courseFTPT = null;
       let graduationYear = null;
       let startYear = null;
       let subject = null;
 
       value.data.forEach((value2) => {
-        if (value2.friendlyName === 'degreeLevel') {
-          degreeLevel = value2.optionValue;
-        } else if (value2.friendlyName === 'courseType') {
+        // if (value2.friendlyName === 'degreeLevel') {
+        // degreeLevel = value2.optionValue;
+        // } else
+        if (value2.friendlyName === 'courseType') {
           courseType = value2.optionValue;
-        } else if (value2.friendlyName === 'courseFTPT') {
-          courseFTPT = value2.optionValue;
+        // } else if (value2.friendlyName === 'courseFTPT') {
+          // courseFTPT = value2.optionValue;
         } else if (value2.friendlyName === 'graduationYear') {
           graduationYear = value2.optionValue;
         } else if (value2.friendlyName === 'startYear') {

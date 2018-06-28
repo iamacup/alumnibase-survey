@@ -12,9 +12,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import _ from 'lodash';
 
-import LoadingArea from '../../../../content/components/Loading';
 import QuestionButton from '../../../../content/containers/Fragments/Questions/Utility/QuestionButton';
 import QuestionRenderer from '../../../../content/containers/Fragments/Questions/Utility/QuestionRenderer';
 import fetchDataBuilder from '../../../../foundation/redux/Factories/FetchData';
@@ -42,6 +40,7 @@ const apiQuestionError = '1';
 const initialLocalState = {
   save: false,
   answers: null,
+  gdprModal: true,
 };
 
 class NewWizzardPane extends React.Component {
@@ -97,6 +96,19 @@ class NewWizzardPane extends React.Component {
     }
   }
 
+  // componentDidUpdate() {
+  //   $(() => {
+  //     // $('#modal').on('shown.bs.modal', function () {
+  //     //   $('#gdprButton').trigger('focus')
+  //     //   $('#myModal').modal('show')
+  //     // })
+  //          $('#gdprButton').on('click', function () {
+  //       $('#modal').toggle()
+  //       // $('#modal').modal('show')
+  //     })
+  //   })
+  // }
+
   questionsWithErrors() {
     const arr = Object.entries(this.props.reduxState_questions);
     let count = 0;
@@ -132,16 +144,49 @@ class NewWizzardPane extends React.Component {
     }
   }
 
+  handleGDPRButton() {
+    this.setState({
+      gdprModal: !this.state.gdprModal,
+    });
+
+    if (this.state.gdprModal === true) {
+      $('.modal').css('display', 'block');
+      $('.overlay2').fadeIn();
+    } else {
+      $('.modal').css('display', 'none');
+      $('.overlay2').fadeOut();
+    }
+  }
+
   drawQuestions(data) {
+    let buttonSubmit = () => { this.handleSubmitButton(); };
+    let buttonText = 'Next Step ';
+    let buttonId = 'button';
+
+    if (dNc(this.props.reduxState_questions) && dNc(this.props.reduxState_questions['questions/42953580581']) && dNc(this.props.reduxState_questions['questions/42953580581'].answer)) {
+      const { answer } = this.props.reduxState_questions['questions/42953580581'];
+
+      if (dNc(answer.holdPersonal)) {
+        if (this.props.button === false && answer.holdPersonal.optionValue === 'No') {
+          buttonSubmit = () => { this.handleGDPRButton(); };
+          buttonText = 'Continue ';
+          buttonId = 'gdprButton';
+        } else if (answer.holdPersonal === 'Yes') {
+          buttonSubmit = () => { this.handleSubmitButton(); };
+          buttonText = 'Next Step ';
+          buttonId = 'button';
+        }
+      }
+    }
+
     const nextButton = (
       <QuestionButton
         key="nextButton"
-        buttonAction={() => {
-          this.handleSubmitButton();
-        }}
+        id={buttonId}
+        buttonAction={buttonSubmit}
         buttonClassName="btn btn-block btn-next-step"
         buttonContent={
-          <span>Next Step <i className="far fa-arrow-right" /></span>
+          <span>{buttonText}<i className="far fa-arrow-right" /></span>
         }
         buttonErrorContent={
           <span>Please check the answers <i className="fas fa-exclamation-circle" /></span>
@@ -149,6 +194,7 @@ class NewWizzardPane extends React.Component {
         showButtonIfLoggedIn
       />
     );
+
 
     const { data: currentAnswers } = this.props.reduxState_this;
 
@@ -173,20 +219,45 @@ class NewWizzardPane extends React.Component {
       }
     });
 
+
     return (
       <div>
-        <QuestionRenderer
-          unvalidatedAnswers={unvalidatedAnswers}
-          currentAnswers={currentAnswers}
-          nextStepCallback={() => {
-            this.handleSubmitButton();
-          }}
-          data={data}
-          nextButton={nextButton}
-          showTitles
-          questionMetaData={'uni-step-' + this.props.step}
-          useMutatedTitles={this.props.useMutatedTitles}
-        />
+        <div id="question">
+          <QuestionRenderer
+            unvalidatedAnswers={unvalidatedAnswers}
+            currentAnswers={currentAnswers}
+            nextStepCallback={() => {
+              this.handleSubmitButton();
+            }}
+            data={data}
+            nextButton={nextButton}
+            showTitles
+            questionMetaData={'uni-step-' + this.props.step}
+            useMutatedTitles={this.props.useMutatedTitles}
+          />
+        </div>
+        <div className="modal" tabIndex="-1" role="dialog" style={{ zIndex: '2000000', marginLeft: '20%' }}>
+          <div className="modal-dialog" role="document">
+            <div className="modal-content">
+              <div className="modal-header">
+                <h5 className="modal-title">Concent</h5>
+                <button type="button" className="close" data-dismiss="modal" aria-label="Close" onClick={() => { this.handleGDPRButton(); }}>
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div className="modal-body">
+                <p>You have not provided concent</p>
+                <p>if you choose to continue, your data will not be saved.</p>
+              </div>
+              <div className="modal-footer">
+                {/* Push to login page? --> () => { this.context.router.history.push('/login');  */}
+                <button type="button" className="btn btn-secondary" onClick={() => { this.handleSubmitButton(); }}>Continue anyway</button>
+                <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={() => { this.handleGDPRButton(); }} >Provide Concent</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="overlay2" />
       </div>
     );
   }
@@ -263,6 +334,10 @@ class NewWizzardPane extends React.Component {
   }
 }
 
+NewWizzardPane.contextTypes = {
+  router: PropTypes.object,
+};
+
 NewWizzardPane.propTypes = {
   reduxAction_doForceValidate: PropTypes.func,
   reduxAction_doSetQuestionError: PropTypes.func,
@@ -279,6 +354,7 @@ NewWizzardPane.propTypes = {
   fetchAPI: PropTypes.string.isRequired,
   additionalSaveSendData: PropTypes.object,
   useMutatedTitles: PropTypes.bool,
+  button: PropTypes.bool,
 };
 
 NewWizzardPane.defaultProps = {
@@ -297,6 +373,7 @@ NewWizzardPane.defaultProps = {
   submitCallback: () => {},
   stepDoneContent: null,
   useMutatedTitles: true,
+  button: true,
 };
 
 const mapStateToProps = state => ({

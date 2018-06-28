@@ -1,9 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 import Helmet from 'react-helmet';
 
-import { dNc, whenLoaded } from '../../../content/scripts/custom/utilities';
+import { whenLoaded } from '../../../content/scripts/custom/utilities';
 
 import '../../../content/theme/custom/scss/application.scss';
 

@@ -5,18 +5,14 @@ import PropTypes from 'prop-types';
 import QuestionContainer from '../../../../../../content/components/Questions/questionContainer';
 import Standard from '../../../../../../content/containers/Fragments/Questions/Components/MultiRange/Parts/Standard';
 
-import {
-  getUsefulQuestionBits,
-  getQuestionIdentifiers,
-  dNc,
-} from '../../../../../../content/scripts/custom/utilities';
+import { getUsefulQuestionBits } from '../../../../../../content/scripts/custom/utilities';
 
-const OptionsQuestionComponent = ({
+const MultiRangeQuestionComponent = ({
   data,
   answer,
   nextStepCallback,
   title,
-  explainerText,
+  // explainerText,
 }) => {
   const { questionID, options, drawData } = data;
   const { answerBits, errorBits } = getUsefulQuestionBits(
@@ -34,9 +30,10 @@ const OptionsQuestionComponent = ({
   const questionIdentifiers = Object.keys(options);
   const questionParts = [];
 
-  questionIdentifiers.forEach((value) => {
+  questionIdentifiers.forEach((value, i) => {
     const part = (
-      <div style={{ marginTop: '28px' }}>
+      // eslint-disable-next-line react/no-array-index-key
+      <div key={i} style={{ marginTop: '28px' }}>
         <h6 className="grey-text">{drawData[value + 'Title']}</h6>
         <Standard
           {...obj}
@@ -51,7 +48,7 @@ const OptionsQuestionComponent = ({
   });
 
   const question = (
-    <div>
+    <div className="question-sub-title">
       {questionParts}
     </div>
   );
@@ -67,16 +64,16 @@ const OptionsQuestionComponent = ({
   );
 };
 
-OptionsQuestionComponent.propTypes = {
+MultiRangeQuestionComponent.propTypes = {
   answer: PropTypes.object.isRequired,
   data: PropTypes.object.isRequired,
   nextStepCallback: PropTypes.func,
   title: PropTypes.string.isRequired,
-  explainerText: PropTypes.object.isRequired,
+  // explainerText: PropTypes.object.isRequired,
 };
 
-OptionsQuestionComponent.defaultProps = {
+MultiRangeQuestionComponent.defaultProps = {
   nextStepCallback: () => {},
 };
 
-export default OptionsQuestionComponent;
+export default MultiRangeQuestionComponent;

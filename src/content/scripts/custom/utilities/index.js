@@ -156,33 +156,9 @@ export function getAuthenticationHeaders(override) {
   return {};
 }
 
-export function authenticationCookieExists() {
-  const Cookies = require('js-cookie');
-  const bearer = Cookies.get('authentication');
-
-  if (dNc(bearer)) {
-    return true;
-  }
-
-  return false;
-}
-
 export function getAuthenticationCookie() {
   const Cookies = require('js-cookie');
   return Cookies.get('authentication');
-}
-
-export function deleteAuthenticationCookie() {
-  const Cookies = require('js-cookie');
-  Cookies.remove('authentication');
-}
-
-// the api returns something called 'authStatus' as part of all responses - we should examine it and check that the api has not revoked access or anything every time we hit the API
-export function handleAuthStatus(authStatus, dispatch) {
-  if (authenticationCookieExists() && authStatus === 'error') {
-    deleteAuthenticationCookie();
-    dispatch({ type: 'LOGOUT_FINISHED' });
-  }
 }
 
 export function showCookieMessage() {
@@ -330,24 +306,42 @@ export function currencySymbolLookup(currencyCode) {
   return currencySymbol;
 }
 
-export function getUsefulQuestionBits(options, answer) {
+export function getUsefulQuestionBits(options, answer, extension) {
+  // console.log(options, answer)
   const answerBits = [];
   const errorBits = [];
 
-  Object.keys(options).forEach((value) => {
+  if (dNc(extension)) {
+    Object.keys(options).forEach((value) => {
     // make sure the object is empty
-    answerBits[value] = {};
-
-    if (dNc(answer) && dNc(answer[value])) {
+      answerBits[value + extension] = {};
+      if (dNc(answer) && dNc(answer[value + extension])) {
       // populate teh answer object if it exists
-      answerBits[value] = answer[value];
+        answerBits[value + extension] = answer[value + extension];
+        // console.log(answerBits)
 
-      // and also check to see if this answer has any error messages against it
-      if (dNc(answer[value].errorMessage)) {
-        errorBits.push(answer[value].errorMessage);
+        // and also check to see if this answer has any error messages against it
+        if (dNc(answer[value + extension].errorMessage)) {
+          errorBits.push(answer[value + extension].errorMessage);
+        }
       }
-    }
-  });
+    });
+  } else {
+    Object.keys(options).forEach((value) => {
+    // make sure the object is empty
+      answerBits[value] = {};
+      if (dNc(answer) && dNc(answer[value])) {
+      // populate teh answer object if it exists
+        answerBits[value] = answer[value];
+        // console.log(answerBits)
+
+        // and also check to see if this answer has any error messages against it
+        if (dNc(answer[value].errorMessage)) {
+          errorBits.push(answer[value].errorMessage);
+        }
+      }
+    });
+  }
 
   return { answerBits, errorBits };
 }
@@ -404,6 +398,7 @@ export function getUsefulAnswerBits(answerData) {
 
 export function getQuestionIdentifiers(options) {
   const keys = Object.keys(options);
+  // console.log(keys)
 
   if (keys.length === 1) {
     return keys[0];

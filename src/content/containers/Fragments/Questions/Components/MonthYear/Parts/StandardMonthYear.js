@@ -37,7 +37,7 @@ class SelectQuestionCompanySelectWithRemoteLookupComponent extends React.Compone
       // try to open when tabbed to
       select2EnableOpenOnFocus(this.select);
 
-      this.setValueFromState();
+      // this.setValueFromState();
 
       // year value
       // const Inputmask = require('inputmask'); TODO need to make this work with minification
@@ -62,7 +62,6 @@ class SelectQuestionCompanySelectWithRemoteLookupComponent extends React.Compone
       im.mask(this.input);
 
       const executeFunction = debounce(() => {
-        console.log('onInput');
         this.getCombinedValue();
       }, 254);
 
@@ -71,7 +70,7 @@ class SelectQuestionCompanySelectWithRemoteLookupComponent extends React.Compone
   }
 
   componentDidUpdate() {
-    this.setValueFromState();
+    // this.setValueFromState();
 
     const { questionIdentifier, questionID, answer } = this.props;
     const validity = this.validate(this.props.answer);
@@ -145,7 +144,6 @@ class SelectQuestionCompanySelectWithRemoteLookupComponent extends React.Compone
 
   getCombinedValue() {
     if (dNc(this.input.inputmask)) {
-      console.log('looking');
       let yearValue = this.input.inputmask.unmaskedvalue();
       let monthValue = $(this.select).val();
 

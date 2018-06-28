@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import QuestionContainer from '../../../../../../content/components/Questions/questionContainer';
 import Postcode from '../../../../../../content/containers/Fragments/Questions/Components/Postcode/Parts/postcode';
 
-import { getUsefulQuestionBits } from '../../../../../../content/scripts/custom/utilities';
+import { getUsefulQuestionBits, getQuestionIdentifiers } from '../../../../../../content/scripts/custom/utilities';
 
 const CurrencySalaryBonusQuestionComponent = ({
   data,
@@ -24,12 +24,14 @@ const CurrencySalaryBonusQuestionComponent = ({
     nextStepCallback,
   };
 
+  const questionIdentifier = getQuestionIdentifiers(options);
+
   const question = (
     <Postcode
       {...obj}
       answer={answerBits.postcode}
       options={options.postcode}
-      questionIdentifier="postcode"
+      questionIdentifier={questionIdentifier}
     />
   );
 

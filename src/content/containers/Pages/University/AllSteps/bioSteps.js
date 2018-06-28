@@ -1,13 +1,20 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+
+import { dataStoreIDSteps, possibleSections } from '../../../../../content/containers/Pages/University/AllSteps';
 
 import NewWizzardPane from '../../../../../content/containers/Fragments/NewWizzardPane';
 
-import { dNc, nextElementInArray } from '../../../../../content/scripts/custom/utilities';
+import { nextElementInArray } from '../../../../../content/scripts/custom/utilities';
 import { getLatestItemWithFriendlyNameFromState } from '../../../../../content/containers/Pages/University/AllSteps/commonFunctions';
 
-class Viewer extends React.PureComponent {
+import * as storeAction from '../../../../../foundation/redux/globals/DataStoreSingle/actions';
+
+const dataStoreID = 'testHTML3';
+
+class BioViewer extends React.PureComponent {
   getStepContent() {
     const { currentStep, answerData } = this.props;
     let content = null;
@@ -24,10 +31,31 @@ class Viewer extends React.PureComponent {
 
     const uniName = getLatestItemWithFriendlyNameFromState('universityName', 'your university', answerData);
 
+
+    let pageButton = (
+      <div className="center-question" style={{ paddingBottom: '0px' }}>
+        <h5 className="dark-text" style={{ marginBottom: '22px' }}>Ready to proceed?</h5>
+        <h6 className="grey-text">You can return here at any time using the navigation on the left.</h6>
+        <button className="btn btn-block btn-next-step answered btn-margin" /* onClick={() => { this.handleSubmit(null); }} */>
+                    Next Step!
+        </button>
+      </div>
+    );
+
+    if (this.props.reduxState_steps.realSection > this.props.reduxState_steps.section) {
+      pageButton = (
+        <div className="center-question" style={{ paddingBottom: '0px' }}>
+          <button className="btn btn-block btn-next-step answered btn-margin" /* onClick={() => { this.handleSummaryButtonClick(); }} */>
+                    Continue survey?
+          </button>
+        </div>
+      );
+    }
+
     if (currentStep === '0-1') {
       content = (
         <div>
-          {/* <h4>This page is used to simulate the 'click this link in email'. i.e. a user would not see this step when entering the system.</h4> */}
+          <h4 className="mb-5 mx-5" style={{ color: 'purple', fontWeight: 'bold' }} >This page is used to simulate the 'click this link in email'. <br />i.e. a user would not see this step when entering the system.</h4>
           <div className="seperator" />
           {wizzard}
         </div>
@@ -42,7 +70,7 @@ class Viewer extends React.PureComponent {
               after university!
             </p>
             <p>
-              First thing's first, <strong>{uniName}</strong> have sent
+              First things first, <strong>{uniName}</strong> have sent
               you this link in order to learn a bit more about their alumni.
             </p>
             <p>
@@ -108,86 +136,25 @@ class Viewer extends React.PureComponent {
       );
     } else if (currentStep === 'terms') {
       content = (
-        <div>
+        <div className="large-question-area">
           <h3 style={{ marginBottom: '24px' }}>{uniName}</h3>
-          <div className="px-5 lots-of-text text-left">
+          <div className="px-5 lots-of-text text-left mx-5">
             <p>
-              Before we begin there are a couple of things you need to know about the data we are about to collect.
+                        Before we begin there are a couple of things you need to know about the data we are about to collect.
             </p>
             <p>
-              We will never share personally identifiable information with anyone, including your university. In order for you to help your university, we need you to agree to the following:
+                        We will never share personally identifiable information with anyone, including your university. In order for you to help your university, we need you to agree to the following:
             </p>
-
-            <div style={{ marginTop: '34px' }} />
-
-            <dl className="row" style={{ marginBottom: '24px' }}>
-              <dt className="col-sm-4"><div className="privacy-line" /><h4>Data Processing</h4></dt>
-              <dd className="col-sm-8">
-                <input className="form-check-input my-checkbox" type="checkbox" value="" id="defaultCheck1" />
-                <div className="form-check">
-                  <label className="form-check-label dark-grey-text" htmlFor="defaultCheck1">
-                  I agree to allow AliumniBase to process data on behalf of {uniName} in order to provide agregate statistics on the alumni network in order to improve the university.
-                  </label>
-                </div>
-              </dd>
-            </dl>
-
-            <dl className="row" style={{ marginBottom: '24px' }}>
-              <dt className="col-sm-4"><div className="privacy-line" /><h4>Personal Information</h4></dt>
-              <dd className="col-sm-8">
-                <input className="form-check-input my-checkbox" type="checkbox" value="" id="defaultCheck2" />
-                <div className="form-check">
-                  <label className="form-check-label dark-grey-text" htmlFor="defaultCheck2">
-                  I agree to allow AlumniBase to collect and store personal information on me, such as gender and age, which will be agregated and provided to other universities in an anonymised, non-identifiable format.
-                  </label>
-                </div>
-              </dd>
-            </dl>
-
-            <dl className="row" style={{ marginBottom: '24px' }}>
-              <dt className="col-sm-4"><div className="privacy-line" /><h4>Sensitive Personal Information</h4></dt>
-              <dd className="col-sm-8">
-                <input className="form-check-input my-checkbox" type="checkbox" value="" id="defaultCheck3" />
-                <div className="form-check">
-                  <label className="form-check-label dark-grey-text" htmlFor="defaultCheck3">
-                I agree to allow AlumniBase to collect and store sensitive personal information on me, such as ethnicity and religion, which will be agregated and provided to other universities in an anonymised, non-identifiable format.
-                  </label>
-                </div>
-              </dd>
-            </dl>
-
-            <dl className="row" style={{ marginBottom: '24px' }}>
-              <dt className="col-sm-4 text-truncate"><div className="privacy-line" /><h4>Data Share</h4></dt>
-              <dd className="col-sm-8">
-                <input className="form-check-input my-checkbox" type="checkbox" value="" id="defaultCheck4" />
-                <div className="form-check">
-                  <label className="form-check-label dark-grey-text" htmlFor="defaultCheck4">
-                I agree to allow AlumniBase to use the information that I provide to enable career planning for existing students and the public by sharing data with www.sliips.com (A wholy owned subsidiary of AlumniBase.com)
-                  </label>
-                </div>
-              </dd>
-            </dl>
-
-
           </div>
-
-
-          <div>
-            <div className="d-flex justify-content-center">
-              <div className="question-spacer" />
-              <div className="center-question" style={{ paddingBottom: '0px' }}>
-                <button
-                  onClick={() => { this.handleSubmit(null); }}
-                  type="submit"
-                  className="btn btn-block btn-next-step answered"
-                >
-                  <span>Next Step <i className="far fa-arrow-right" /></span>
-                </button>
-              </div>
-              <div className="question-spacer" style={{ height: '1px' }} />
-            </div>
-          </div>
-
+          <div style={{ marginTop: '34px' }} />
+          <NewWizzardPane
+            step="0-2"
+        // eslint-disable-next-line no-shadow
+            submitCallback={(answerData) => { this.handleSubmit(answerData); }}
+            saveAPI="api/universityWizzard/saveStep/"
+            fetchAPI="api/universityWizzard/getStep/"
+            button={false}
+          />
         </div>
       );
     } else if (currentStep === '1-1') {
@@ -262,13 +229,7 @@ class Viewer extends React.PureComponent {
 
           <div className="d-flex justify-content-center">
             <div className="question-spacer" />
-            <div className="center-question" style={{ paddingBottom: '0px' }}>
-              <h5 className="dark-text" style={{ marginBottom: '22px' }}>Ready to proceed?</h5>
-              <h6 className="grey-text">You can return here at any time using the navigation on the left.</h6>
-              <button className="btn btn-block btn-next-step answered btn-margin" onClick={() => { this.handleSubmit(null); }}>
-                  Next Step!
-              </button>
-            </div>
+            {pageButton}
             <div className="question-spacer" style={{ height: '1px' }} />
           </div>
         </div>
@@ -286,12 +247,29 @@ class Viewer extends React.PureComponent {
     this.props.submitDataCallback(answerData, next, type);
   }
 
+  handleSummaryButtonClick() {
+    const { realSection } = this.props.reduxState_steps;
+    const { realStep } = this.props.reduxState_steps;
+
+    const stepTo = possibleSections[realSection][realStep];
+
+    this.props.reduxAction_doUpdate({
+      step: stepTo,
+    });
+
+    this.props.reduxAction_doUpdateStep({ currentStep: realStep + 1, stepCount: possibleSections[realSection].length, section: realSection });
+  }
+
   render() {
+    console.log('render pre uni step: ' + this.props.currentStep);
     return this.getStepContent();
   }
 }
 
-Viewer.propTypes = {
+BioViewer.propTypes = {
+  reduxState_steps: PropTypes.object,
+  reduxAction_doUpdate: PropTypes.func,
+  reduxAction_doUpdateStep: PropTypes.func,
   steps: PropTypes.array.isRequired,
   currentStep: PropTypes.string.isRequired,
   submitDataCallback: PropTypes.func.isRequired,
@@ -299,4 +277,23 @@ Viewer.propTypes = {
   answerData: PropTypes.object.isRequired,
 };
 
-export default Viewer;
+BioViewer.defaultProps = {
+  reduxState_steps: {
+    currentStep: 11,
+    stepCout: 11,
+    section: 1,
+  },
+  reduxAction_doUpdate: () => {},
+  reduxAction_doUpdateStep: () => {},
+};
+
+const mapStateToProps = state => ({
+  reduxState_steps: state.dataStoreSingle[dataStoreIDSteps],
+});
+
+const mapDispatchToProps = dispatch => ({
+  reduxAction_doUpdate: data => dispatch(storeAction.doUpdate(dataStoreID, data)),
+  reduxAction_doUpdateStep: data => dispatch(storeAction.doUpdate(dataStoreIDSteps, data)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(BioViewer);

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { initialState as questionsInitialState } from '../../../../../../content/containers/Fragments/Questions/Components/reducer';
-import { initialState as authenticationInitialState } from '../../../../../../content/containers/Fragments/Authentication/reducer';
+// import { initialState as authenticationInitialState } from '../../../../../../content/containers/Fragments/Authentication/reducer';
 
 import { dNc } from '../../../../../../content/scripts/custom/utilities';
 
@@ -59,12 +59,12 @@ class QuestionButton extends React.PureComponent {
     }
 
     // we might have to hide the button if the user is logged in
-    if (
+    /* if (
       this.props.showButtonIfLoggedIn === false &&
       this.props.reduxState_authentication.loggedIn === true
     ) {
       buttonClass += ' d-none';
-    }
+    } */
 
     let overallClass = '';
 
@@ -74,12 +74,12 @@ class QuestionButton extends React.PureComponent {
       overallClass = 'success-button-container';
     }
 
-    let errorMessageClass = 'd-none';
+    // let errorMessageClass = 'd-none';
     let { buttonContent } = this.props;
 
     if (this.isError() === true) {
       buttonClass += ' error';
-      errorMessageClass = '';
+      // errorMessageClass = '';
       buttonContent = this.props.buttonErrorContent;
     }
 
@@ -90,14 +90,20 @@ class QuestionButton extends React.PureComponent {
       disabled = true;
     }
 
+    // getting rid of validation line for gdpr question.
+    let line = <div className="question-answer-line-button" />;
+    if (Object.keys(this.props.reduxState_questions)[0] === 'questions/42953580581') line = '';
+
     return (
       <div className={overallClass}>
         <div className="d-flex justify-content-center">
+
           <div className="question-spacer">
-            <div className="d-flex align-items-stretch" style={{ height: '100%' }}>
-              <div className="question-answer-line-button" />
+            <div className="d-flex align-items-stretch" style={{ height: '100%' }} id="question-answer-line-button-mobile">
+              {line}
             </div>
           </div>
+
           <div className="center-question" style={{ paddingBottom: '0px' }}>
             <button
               onClick={this.props.buttonAction}
@@ -108,7 +114,9 @@ class QuestionButton extends React.PureComponent {
               {buttonContent}
             </button>
           </div>
+
           <div className="question-spacer" style={{ height: '1px' }} />
+
         </div>
       </div>
     );
@@ -117,7 +125,7 @@ class QuestionButton extends React.PureComponent {
 
 QuestionButton.propTypes = {
   reduxState_questions: PropTypes.object,
-  reduxState_authentication: PropTypes.object,
+  // reduxState_authentication: PropTypes.object,
   buttonAction: PropTypes.func,
   showButtonIfLoggedIn: PropTypes.bool,
   buttonClassName: PropTypes.string.isRequired,
@@ -128,7 +136,7 @@ QuestionButton.propTypes = {
 
 QuestionButton.defaultProps = {
   reduxState_questions: questionsInitialState,
-  reduxState_authentication: authenticationInitialState,
+  // reduxState_authentication: authenticationInitialState,
   buttonAction: () => {},
   showButtonIfLoggedIn: false,
   disabled: false,
@@ -136,7 +144,7 @@ QuestionButton.defaultProps = {
 
 const mapStateToProps = state => ({
   reduxState_questions: state.questions,
-  reduxState_authentication: state.authentication,
+  // reduxState_authentication: state.authentication,
 });
 
 const mapDispatchToProps = null;

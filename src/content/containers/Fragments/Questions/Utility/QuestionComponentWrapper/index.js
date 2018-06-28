@@ -21,7 +21,19 @@ import {
   Postcode,
   FreeText,
   MultiRange,
+  Name,
+  FullName,
+  PreUni,
+  Location,
+  Destination,
+  CurrencySalaryBonusTwo,
+  FinancialNumber,
+  HoursContractedActual,
+  Range,
+  Scale,
+  GDPR,
 } from '../../../../../../content/containers/Fragments/Questions/Components';
+
 import { redrawCharts } from '../../../../../../content/scripts/custom/echarts/utilities';
 
 import * as questionAction from '../../../../../../content/containers/Fragments/Questions/Components/action';
@@ -81,16 +93,21 @@ class QuestionComponentWrapper extends React.Component {
     // set the answer to 'answered' if all of the components are valid
     let valid = true;
 
-    Object.keys(data.options).forEach((value) => {
-      if (
-        !dNc(answer.answer[value]) ||
-        !dNc(answer.answer[value].valid) ||
-        answer.answer[value].valid !== true
-      ) {
+    Object.keys(data.parts).forEach((value) => {
+      if (Object.keys(answer.answer).length === 0) {
+        valid = false;
+      } else if (data.parts[value].array === true) {
+        Object.keys(answer.answer).forEach((answerValue) => {
+          if (answerValue.startsWith(value)) {
+            if (answer.answer[answerValue].valid === false) {
+              valid = false;
+            }
+          }
+        });
+      } else if (!dNc(answer.answer[value]) || !dNc(answer.answer[value].valid) || answer.answer[value].valid !== true) {
         valid = false;
       }
     });
-
     if (valid === true && answer.answered === false) {
       this.props.reduxAction_doSetQuestionSuccess(data.questionID);
 
@@ -178,7 +195,85 @@ class QuestionComponentWrapper extends React.Component {
           <div className={answerContainerClassName} />
         </div>
       );
+    } else if (type === 'name') {
+      return (
+        <div>
+          <Name {...obj} />
+          <div className={answerContainerClassName} />
+        </div>
+      );
+    } else if (type === 'multiName') {
+      return (
+        <div>
+          <FullName {...obj} />
+          <div className={answerContainerClassName} />
+        </div>
+      );
+    } else if (type === 'educationHistory') {
+      return (
+        <div>
+          <PreUni {...obj} />
+          <div className={answerContainerClassName} />
+        </div>
+      );
+    } else if (type === 'locationVariableDetail') {
+      return (
+        <div>
+          <Location {...obj} />
+          <div className={answerContainerClassName} />
+        </div>
+      );
+    } else if (type === 'EmploymentStatusWithImportance') {
+      return (
+        <div>
+          <Destination {...obj} />
+          <div className={answerContainerClassName} />
+        </div>
+      );
+    } else if (type === 'currencySalaryBonusTwo') {
+      return (
+        <div>
+          <CurrencySalaryBonusTwo {...obj} />
+          <div className={answerContainerClassName} />
+        </div>
+      );
+    } else if (type === 'financialNumber') {
+      return (
+        <div>
+          <FinancialNumber {...obj} />
+          <div className={answerContainerClassName} />
+        </div>
+      );
+    } else if (type === 'hoursContractedActual') {
+      return (
+        <div>
+          <HoursContractedActual {...obj} />
+          <div className={answerContainerClassName} />
+        </div>
+      );
+    } else if (type === 'range') {
+      return (
+        <div>
+          <Range {...obj} />
+          <div className={answerContainerClassName} />
+        </div>
+      );
+    } else if (type === 'scale') {
+      return (
+        <div>
+          <Scale {...obj} />
+          <div className={answerContainerClassName} />
+        </div>
+      );
+    } else if (type === 'GDPR') {
+      return (
+        <div>
+          <GDPR {...obj} />
+          <div className={answerContainerClassName} />
+        </div>
+      );
     }
+
 
     return (
       <SmallSectionError

@@ -12,11 +12,22 @@ $orange-color: #ff9800;
 $alt-button-color: #a7b0be;
 $red-color: #d02a02;
 
+.testc {
+  background-color: red !important;
+  color: red;
+  font-size: 40px;
+}
+
 .new-content {
   .top-bottom-rectangle {
-    height: 56px;
     width: 100%;
     background-color: #fff;
+
+    @media (max-width: 625px) {
+      #bar {
+        width: 190px !important;
+      }
+    }
   }
 
   .center-rectangle {
@@ -27,6 +38,10 @@ $red-color: #d02a02;
 
   .section-padding {
     padding: 30px 39px;
+
+    @media (max-width: 992px) {
+      padding: 25px 5px;
+    }
   }
 
   .overall-progress-corner-modifier {
@@ -40,10 +55,22 @@ $red-color: #d02a02;
 }
 
 .new-nav {
+  @media (min-width: 1200px) {
+    margin-top: 30px;
+
+    #margin-sidebar {
+      margin-top: 42px;
+    }
+  }
+
   .title-text {
     font-size: 20px;
     font-weight: bold;
     line-height: 27px;
+
+    @media (max-width: 1200px) {
+      display: none;
+    }
   }
 
   .list-group-item {
@@ -81,16 +108,60 @@ $red-color: #d02a02;
 }
 
 .left {
+  display: none;
+  position: fixed;
+  overflow: auto;
   flex: 0 0 300px;
+  background: #fff;
   box-shadow: 1px 0 5px 0 $border-and-shadow-color;
   order: 0;
-  z-index: 2;
-  min-height: 900px;
+  z-index: 3;
+  min-height: 100vh;
+
+  @media (min-width: 1200px) {
+    display: block !important;
+    position: relative;
+  }
+}
+
+.overlay {
+  @media (max-width: 1200px) {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    background-color: rgba(0, 0, 0, 0.3);
+    top: 0;
+    left: 0;
+    display: none;
+    z-index: 2;
+  }
+}
+
+#mobile-navbar {
+  background-color: #fff;
+  height: 65px;
+  color: #6392e9;
+
+  @media (min-width: 1200px) {
+    display: none;
+  }
+
+  button {
+    color: #6392e9;
+    background-color: #fff;
+
+    @media (min-width: 1200px) {
+      display: none;
+    }
+  }
 }
 
 .right {
   flex: 1;
+  z-index: 1;
+  position: relative;
   background-color: $grey-background-color;
+  min-height: 100vh;
 }
 
 .question-spacer {
@@ -136,6 +207,12 @@ $red-color: #d02a02;
   background: $accent-color;
 }
 
+@media (max-width: 365px) {
+  .progress {
+    width: 150px;
+  }
+}
+
 .input-rectangle {
   height: 44px;
   width: 330px;
@@ -144,6 +221,10 @@ $red-color: #d02a02;
 
 .general-question-container {
   padding: 0 70px;
+
+  @media (max-width: 992px) {
+    padding: 0 2px;
+  }
 }
 
 /* this is the thing displayed when an answer is selected */
@@ -214,12 +295,16 @@ $red-color: #d02a02;
   content: '';
   background-color: $border-and-shadow-color;
   width: 3px;
-  height: 98%;
+  height: 100%;
   z-index: 1000000;
   position: relative;
   display: block;
   border-bottom-right-radius: 5px;
   border-bottom-left-radius: 5px;
+
+  @media (max-width: 992px) {
+    margin-left: 19px;
+  }
 }
 
 .question-answer-line::after {
@@ -244,6 +329,10 @@ $red-color: #d02a02;
   display: block;
   border-top-right-radius: 5px;
   border-top-left-radius: 5px;
+
+  @media (max-width: 1049px) {
+    margin-left: 21px;
+  }
 }
 
 .question-answer-line-button::after {
@@ -436,10 +525,26 @@ input:focus,
   border: 1px solid $border-and-shadow-color;
 }
 
+.question-sub-title {
+  @media (max-width: 575px) {
+    text-align: center;
+  }
+}
+
 .question-success input {
   background-color: $green-color;
   color: #fff;
   text-align: center;
+}
+
+.show-green {
+  background-color: $green-color;
+  color: #fff;
+}
+
+.hide-green {
+  background-color: #f4f6f8 !important;
+  color: #383e49 !important;
 }
 
 .question-success textarea {
@@ -586,7 +691,7 @@ input:focus,
 .lots-of-text,
 .lots-of-text p {
   color: #555867;
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 600;
   line-height: 20px;
 }
@@ -625,4 +730,74 @@ input:focus,
 
 .btn-emphasis {
   color: rgba($base-color, 0.6);
+}
+
+#ex1Slider .slider-selection {
+  background: $border-and-shadow-color;
+}
+
+#ex1Slider .slider-handle {
+  background: $accent-color;
+}
+
+.hidden-container {
+  display: none;
+}
+
+.errorContainer.errored {
+  input {
+    border-color: red;
+  }
+}
+
+.not-found-page {
+  background-color: #f4f6f8;
+  height: 100vh;
+
+  @media (min-width: 992px) {
+    .navbar-404 {
+      height: 100vh;
+    }
+  }
+
+  .page-box-404 {
+    background-color: #fff;
+    margin-top: 80px;
+    border-radius: 2%;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  }
+
+  .colour {
+    color: $accent-color;
+  }
+
+  .heading {
+    font-weight: bold;
+    font-size: 40px;
+  }
+}
+
+.gdprPage {
+  .checkbox {
+    zoom: 2.8;
+    height: 20px;
+  }
+
+  @-moz-document url-prefix() {
+    .checkbox {
+      height: 50px;
+      width: 50px;
+    }
+  }
+}
+
+.overlay2 {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.5);
+  top: 0;
+  left: 0;
+  display: none;
+  z-index: 1500000;
 }
