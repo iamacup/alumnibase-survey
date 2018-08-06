@@ -1,6 +1,14 @@
 
 <div align="center">
 
+# THE ALUMNIBASE PROJECT IS CURRENTLY DORMANT, THIS REPOSITORY IS NOT CURRENTLY BEING MAINTAINED.
+
+</div>
+
+---
+
+<div align="center">
+
   [![dependencies Status](https://david-dm.org/iamacup/alumnibase-survey/status.svg)](https://david-dm.org/iamacup/alumnibase-survey)
   [![devDependencies Status](https://david-dm.org/iamacup/alumnibase-survey/dev-status.svg)](https://david-dm.org/iamacup/alumnibase-survey?type=dev)
   [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
